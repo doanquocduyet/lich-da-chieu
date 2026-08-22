@@ -720,7 +720,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   locHere:"Vị trí hiện tại",
   wxElev:"Độ cao",
   wxType:"Gõ tên nơi ở",wxCityPh:"vd: Nam Ban, Đà Lạt, Vũng Tàu…",wxFind:"Tìm",wxNotFound:"Không tìm thấy nơi này, thử tên khác xem",wxOn:"Bật vị trí",
-  tibGender:"Tính năm",gMale:"Dương",gFemale:"Âm",
+  tibGender:"Giới tính năm",gMale:"Nam",gFemale:"Nữ",
   sysTtl:"Cùng một ngày, nhiều hệ lịch",wxTtl:"Trời và nước hôm nay",
   exploreTtl:"Chọn một lăng kính",
   shareDay:"Chia sẻ hôm nay",
@@ -752,7 +752,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   lineTerm:"Hôm nay bước vào tiết {t} — trời đất chuyển sang một nhịp mới.",
   nextFullM:"Rằm tới",nextNewM:"Mùng Một tới",
   moonLbl:"Mặt trăng",moonAgeShort:"Ngày thứ {n} sau mùng Một",
-  termNow:"Đang trong tiết khí này",tibLbl:"Lịch Tạng",tibSystem:"Hệ lịch",tibSystemV:"Phugpa (Janson)",
+  termNow:"Đang trong tiết khí này",tibLbl:"Lịch Tạng · Phugpa",
   goWx:"Xem dự báo",goMoon:"Xem chi tiết",goTerm:"Xem 24 tiết khí",goBuddha:"Xem lịch Phật",goTibet:"Xem lịch Tạng",
   wxErr:"Không lấy được dữ liệu — cần mạng và quyền vị trí",wxRetry:"Thử lại",
   wxFeel:"Cảm giác như",wxHum:"Độ ẩm",wxWind:"Gió",wxProb:"Mưa",wxSunrise:"Mặt trời mọc",wxSunset:"Mặt trời lặn",
@@ -865,7 +865,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   lineTerm:"Today enters {t} — the season turns to a new rhythm.",
   nextFullM:"Next full moon",nextNewM:"Next new moon",
   moonLbl:"The Moon",moonAgeShort:"Day {n} after new moon",
-  termNow:"Currently in this solar term",tibLbl:"Tibetan calendar",tibSystem:"Calendar system",tibSystemV:"Phugpa (Janson)",
+  termNow:"Currently in this solar term",tibLbl:"Tibetan · Phugpa",
   goWx:"See forecast",goMoon:"See details",goTerm:"See 24 solar terms",goBuddha:"Buddhist calendar",goTibet:"Tibetan calendar",
   wxErr:"Could not load — needs network & location permission",wxRetry:"Retry",
   wxFeel:"Feels like",wxHum:"Humidity",wxWind:"Wind",wxProb:"Rain",wxSunrise:"Sunrise",wxSunset:"Sunset",
@@ -888,7 +888,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   youHere:"YOU ARE HERE",cosmicScale:"If 13.8 billion years were one year",
   bigBang:"Big Bang",milkyWay:"Milky Way forms",solarSys:"Solar System",lifeEarth:"First life",
   dino:"Dinosaurs extinct",human:"Homo sapiens appears",now:"Now",
-  astroTitle:"The Moon",illum:"Brightness",moonAge:"Moon age",days:"days",
+  astroTitle:"The Moon",illum:"Illumination",moonAge:"Moon age",days:"days",
   seasonTitle:"Season & solar term",season:"Season (N. hemisphere)",nextTerm:"Next solar term",
   drukTitle:"Tibetan calendar",drukSub:"Phugpa tradition · reference for Drukpa",
   drukYear:"Tibetan year",drukMonth:"Tibetan month",drukDay:"Tibetan day",practice:"Practice day",
@@ -1129,7 +1129,11 @@ function tibYearShort(tib){
   return LANG=='vi'?`${tibElVi[tib.element]} ${tibAnVi[tib.animal]}`:`${tib.element} ${tib.animal}`;
 }
 let LOCNAME=(function(){try{return localStorage.getItem('ldc_locname')||''}catch(e){return''}})();
-function tibYearName(tib){return tibYearShort(tib);}
+function tibYearName(tib){
+  return LANG=='vi'
+    ?`${tibElVi[tib.element]} ${tibAnVi[tib.animal]} (${tibGenVi[tib.gender]})`
+    :`${tib.gender} ${tib.element} ${tib.animal}`;
+}
 // 4 Düchen lớn + Losar: [tháng Tạng, ngày Tạng, khóa i18n]
 const DUCHEN=[[1,1,'losar'],[1,15,'duchen1'],[4,15,'duchen2'],[6,4,'duchen3'],[9,22,'duchen4']];
 function drukSpecialName(tib,t){
@@ -1528,13 +1532,8 @@ function convertRun(){
     D=lunarToSolar(d,m,y,lp);if(!D)err=t.cvNone;
   }else{
     const d=+document.getElementById('cvd').value,m=+document.getElementById('cvm').value,y=+document.getElementById('cvy').value;
-    // Ngay khuyet (chad): thu vien KHONG nem loi ma van tra ve mot ngay duong -
-    // ngay do that ra thuoc ngay Tang truoc do. Phai chan bang co isSkippedDay.
-    try{
-      const td=new TDC.TibetanDate({year:y,month:m,day:d});
-      if(td.isSkippedDay)err=t.cvSkip;
-      else D=new Date(td.westernDateStr+'T12:00:00');
-    }catch(e){err=t.cvSkip;}
+    try{const td=new TDC.TibetanDate({year:y,month:m,day:d});D=new Date(td.westernDateStr+'T12:00:00');}
+    catch(e){err=t.cvSkip;}
   }
   const out=document.getElementById('cvOut');
   if(!D){out.innerHTML=`<div class="card"><div class="note" style="border:none;padding:0;margin:0">${err||t.cvNone}</div></div>`;return;}
@@ -2589,7 +2588,6 @@ function panelDrukpa(){
     <div class="bd2">
       <div class="row"><span class="k">${t.drukYear}</span><span class="v"><b>${tib.year}</b> · ${yn}</span></div>
       <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?t.gMale:t.gFemale}</span></div>
-      <div class="row"><span class="k">${t.tibSystem}</span><span class="v">${t.tibSystemV}</span></div>
       <div class="tspan">${t.span60.replace('{p}',cycle60(d.getFullYear()).prev).replace('{n}',cycle60(d.getFullYear()).next)}
         <span class="tsrc">${t.rabjungLbl.replace('{c}',rabjung(d.getFullYear()).cycle).replace('{y}',rabjung(d.getFullYear()).year)} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('rabjung')">ⓘ</i></span></div>
       ${special?`<div class="note">${t.sacredMean}</div>`:''}
