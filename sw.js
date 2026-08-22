@@ -1,6 +1,6 @@
 // Lich Da Chieu - service worker: app shell offline, engine chay hoan toan tren may
-// BUMP ten cache MOI LAN DEPLOY (ldc-v34 -> ldc-v35 -> ...), khong bump thi may cu giu ban cu.
-const C='ldc-v35';
+// BUMP ten cache MOI LAN DEPLOY (ldc-v35 -> ldc-v36 -> ...), khong bump thi may cu giu ban cu.
+const C='ldc-v36';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(C).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));
