@@ -14,7 +14,19 @@ index.html · manifest.webmanifest · sw.js · icon-192.png · icon-512.png · a
 
 Đẩy cả 6 file lên bất kỳ host tĩnh nào (GitHub Pages, Netlify, Cloudflare Pages…). Phải chạy trên **http(s)** — mở file local thì service worker không đăng ký được.
 
-> ⚠️ **Mỗi lần deploy phải bump tên cache trong `sw.js`** (`ldc-v26` → `ldc-v27` → …). Không bump thì máy đã cài vẫn giữ bản cũ.
+`patch.py` và file spec không nằm trong 6 file trên — chúng chỉ phục vụ lúc phát triển, host tĩnh bỏ qua cũng được.
+
+> ⚠️ **Mỗi lần deploy phải bump tên cache trong `sw.js`** (`ldc-v26` → `ldc-v27` → …). Không bump thì máy đã cài vẫn giữ bản cũ. `patch.py` tự làm việc này.
+
+## Có bản build mới
+
+Đừng chép thẳng vào `index.html` — bản build từ nguồn ngoài luôn rơi mất 7 chỗ đã vá:
+
+```bash
+python3 patch.py "index (18).html"   # vá 7 chỗ + tự bump cache
+```
+
+Rồi chạy 3 mục kiểm tra bắt buộc. Chi tiết ở §11 của file spec.
 
 Toàn bộ phép tính lịch chạy trên máy người dùng. Chỉ thời tiết / thủy triều / tên địa điểm mới cần mạng (Open-Meteo, không cần API key).
 

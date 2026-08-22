@@ -383,6 +383,8 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 | Thiếu `color-scheme` | Chrome/Safari tự bôi đen toàn app | Khai báo + lớp nền vật lý |
 | Chèn code làm mất dòng `function hubWeather(t){` | Trắng app, "Illegal return statement" | Sau mỗi lần sửa lớn phải chạy test bắt `pageerror` |
 | Thiếu chuỗi i18n | Hiện "undefined" trên giao diện | Test cả 2 ngôn ngữ, grep "undefined" |
+| Bản build mới đè lên index.html, mất 7 chỗ đã vá | Lỗi ngày khuyết + sai spec chữ nghĩa quay lại, đã lặp ở V2.4 và V2.5 | **Không bao giờ chép thẳng bản build vào index.html.** Luôn qua `patch.py` — xem §11 |
+| `sw.js` cache mọi request kể cả khác origin | Kết quả thời tiết lần đầu bị đóng băng vĩnh viễn (cộng `ignoreSearch:true`) | Chỉ cache request cùng origin; API ngoài để đi thẳng ra mạng |
 
 ---
 
@@ -405,9 +407,57 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 
 ## 10. TRẠNG THÁI FILE HIỆN TẠI
 
-- 1 file HTML độc lập ~131 KB, đã nhúng sẵn thư viện Tạng (~7,7 KB minified).
+- 1 file HTML độc lập ~188 KB, đã nhúng sẵn thư viện Tạng (~7,7 KB minified).
 - Song ngữ Việt/Anh đầy đủ, chuyển bằng nút VI/EN góc trên.
 - Đã test: không lỗi JS, không "undefined", chạy đúng cả 2 ngôn ngữ, 5 tab + 6 mục Khám phá + 4 chế độ lịch + 4 chiều đổi ngày.
-- **Chưa deploy. Người dùng thật = 0.**
+- **Đã deploy** GitHub Pages: https://doanquocduyet.github.io/lich-da-chieu/ — bản V2.5, cache `ldc-v36`.
+- Thư mục gốc đúng 8 file: `index.html` · `sw.js` · `manifest.webmanifest` · 3 icon · `README.md` · `patch.py` (+ file spec này).
 
-**Việc tiếp theo duy nhất: deploy → phát cho 10–20 người → đọc `getStats()` → quyết V3.**
+**Việc tiếp theo duy nhất: phát cho 10–20 người → đọc `getStats()` → quyết V3.**
+
+---
+
+## 11. QUY TRÌNH CẬP NHẬT BẢN BUILD MỚI — BẮT BUỘC
+
+Bản build sinh ra từ nguồn ngoài repo **luôn rơi mất 7 chỗ đã vá** (đã lặp ở V2.4 và V2.5).
+Chép thẳng vào `index.html` là đưa lỗi ngày khuyết quay lại. Luôn đi đường này:
+
+```bash
+python3 patch.py "index (18).html"      # vá 7 chỗ + tự bump cache sw.js
+```
+
+Script có assert từng chỗ. Chuỗi nào không khớp **đúng 1 lần** thì nó dừng, không ghi
+file, không bump cache. Assert fail nghĩa là bản build đã đổi cấu trúc —
+**đọc lại đoạn đó rồi cập nhật `PATCHES` trong `patch.py`, tuyệt đối không sửa tay đoán mò.**
+
+### 7 chỗ vá là gì
+
+| # | Vá gì | Vì sao |
+|---|---|---|
+| 1 | Chặn ngày khuyết bằng `isSkippedDay` | Thư viện Tạng **không ném lỗi** với ngày chad mà vẫn trả về một ngày dương — ngày đó thật ra thuộc ngày Tạng trước. Không chặn là đổi ngày ra kết quả sai lặng lẽ |
+| 2 | `tibYearName` trả về `tibYearShort` | Bỏ đuôi cấm "Hỏa Ngựa (dương)" |
+| 3–4 | Bỏ chữ Phugpa khỏi nhãn, đẩy xuống dòng riêng | Màn chính không phô tên hệ lịch; chi tiết nằm ở panel |
+| 5 | "Tính năm: Dương/Âm" | Không phải "Giới tính năm: Nam/Nữ" |
+| 6 | EN "Brightness" | Không phải "Illumination" |
+| 7 | Thêm dòng "Hệ lịch: Phugpa (Janson)" | Chỗ đặt tên hệ lịch sau khi gỡ khỏi nhãn |
+
+### Kiểm tra trước khi deploy — hỏng mục nào thì KHÔNG push
+
+```bash
+npx http-server -p 8099 -c-1 .
+```
+
+Mở bằng Playwright, timezone `Asia/Ho_Chi_Minh`:
+
+1. **Không `pageerror`** ở cả 2 ngôn ngữ — quét `setMain(0..4)`, `goCal(0..2)`, `goExp(0..5)`.
+2. **`document.body.innerText` không chứa "undefined"** ở bất kỳ màn nào.
+3. Sau `setLang('vi')`: `tibYearName(tibetan(new Date(2026,7,17,12)))` phải ra đúng **`"Hỏa Ngựa"`** — không có `(dương)`.
+
+Deploy xong nhớ: máy đã cài giữ service worker cũ, **lần load đầu vẫn ra bản cũ**,
+tới lần thứ hai mới thấy bản mới. Muốn thấy ngay thì mở tab ẩn danh hoặc Ctrl+Shift+R.
+
+### Việc nên làm ở gốc
+
+Vá tay mỗi lần là chữa ngọn. 7 chỗ này cần được đưa vào **chính nguồn sinh ra bản build**,
+lúc đó `patch.py` sẽ dừng ở chỗ vá 1 với thông báo "có vẻ đã được vá sẵn" — đó là dấu hiệu
+tốt, nghĩa là xử được gốc rồi và có thể bỏ script này đi.
