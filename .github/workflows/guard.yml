@@ -64,8 +64,10 @@ jobs:
           echo "patched=true" >> "$GITHUB_OUTPUT"
 
       - name: Bảo GitHub Pages build lại
-        # Push bằng GITHUB_TOKEN không tự kích hoạt workflow nào, kể cả Pages.
-        # Không gọi tay thì bản vá nằm trong repo mà không lên web.
+        # Đã đo thật (run 32557101481): Pages VẪN tự build khi bot đẩy bằng
+        # GITHUB_TOKEN, tuy quy tắc chung là push bằng token đó không kích hoạt
+        # workflow. Gọi thêm cho chắc — nếu Pages đã tự build thì GitHub tự huỷ
+        # bản trùng, không hại gì; nếu có ngày nó thôi tự build thì bước này cứu.
         if: steps.fix.outputs.patched == 'true'
         run: |
           curl -sS -X POST -o /dev/null -w "yeu cau build Pages -> HTTP %{http_code}\n" \

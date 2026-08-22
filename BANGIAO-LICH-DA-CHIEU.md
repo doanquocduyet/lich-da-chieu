@@ -439,6 +439,29 @@ và trong tab Actions hiện dòng notice *"Bản build thiếu 7 chỗ vá — 
 
 Hỏng ở đâu là workflow đỏ và ghi rõ hỏng mục nào.
 
+### Đã diễn tập thật, không phải suy đoán
+
+Commit `da4d62b` cố tình đẩy bản build **thiếu cả 7 chỗ** lên `main`. Kết quả đo được:
+
+| | |
+|---|---|
+| Bot tự vá và tự đẩy | `e16c0fd` — tác giả `github-actions[bot]` |
+| File bot vá ra | **trùng md5 tuyệt đối** với bản vá tay (`e2279692…`) |
+| Cache | tự bump `ldc-v36` → `ldc-v37` |
+| Pages | build lại và lên web |
+| Tổng thời gian | **56 giây**, mọi bước xanh |
+
+Hai điều học được từ lần chạy thật, khác với dự đoán ban đầu:
+
+- **Pages VẪN tự build khi bot đẩy bằng `GITHUB_TOKEN`**, dù quy tắc chung của GitHub là
+  push bằng token đó không kích hoạt workflow. Bước gọi API vẫn giữ làm lưới an toàn —
+  bản trùng bị GitHub tự huỷ, không hại gì.
+- `verify.js` lúc đầu **đậu oan 4/8 điều kiện**: nó dò chuỗi bằng `innerText.includes()`,
+  mà "Hệ lịch" là tên tab 3 nên luôn hiện ở thanh tab, còn "Phugpa (Janson)" nằm sẵn
+  trong dòng footer. Nay điều kiện "có" đọc đúng cặp nhãn/giá trị từ DOM, điều kiện "hết"
+  soi text gộp của cả 24 màn. **Bài học: kiểm thử phải được thử bằng ca âm tính** —
+  chạy nó trên bản hỏng đã biết, xem nó có thật sự báo hỏng không.
+
 > ⚠️ Workflow cần **Settings › Actions › General › Workflow permissions = "Read and write permissions"**.
 > Không bật thì bước commit đỏ với lỗi 403.
 

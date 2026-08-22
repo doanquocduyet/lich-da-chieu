@@ -135,8 +135,10 @@ def bump_sw(path="sw.js"):
     if not m:
         raise SystemExit("DỪNG — không thấy dòng const C='ldc-vNN'; trong %s" % path)
     old = int(m.group(1))
+    # Chỉ thay trên đúng dòng const. Thay cả file thì chữ ldc-vNN trong dòng
+    # chú thích cũng bị sửa theo, dần dần thành "ldc-v35 -> ldc-v37" vô nghĩa.
     io.open(path, "w", encoding="utf-8").write(
-        s.replace("ldc-v%d" % old, "ldc-v%d" % (old + 1))
+        s[: m.start()] + "const C='ldc-v%d';" % (old + 1) + s[m.end() :]
     )
     return old, old + 1
 
