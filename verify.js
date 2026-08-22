@@ -60,23 +60,33 @@ function serve(root) {
     return txt;
   };
 
+  // Đọc các dòng "nhãn : giá trị" đang hiện, để kiểm đúng cấu trúc thay vì
+  // dò chuỗi trong innerText. Dò chuỗi suông thì đậu oan: "Hệ lịch" là tên
+  // tab 3 nên luôn hiện ở thanh tab, "Phugpa (Janson)" nằm sẵn ở dòng footer.
+  const rows = () => page.evaluate(() =>
+    [...document.querySelectorAll('.row')]
+      .map(r => [r.querySelector('.k')?.innerText.trim(), r.querySelector('.v')?.innerText.trim()])
+      .filter(([k, v]) => k && v)
+  );
+
   // ── 1+2. Quét mọi màn, cả 2 ngôn ngữ ───────────────────────────────────
   let screens = 0;
-  const text = {};
+  const all = { vi: [], en: [] };     // text của MỌI màn, không phải một màn
+  const tibRows = {};                 // các dòng trên panel Tạng
   for (const lang of ['vi', 'en']) {
     await page.evaluate(l => setLang(l), lang); await page.waitForTimeout(350);
     for (let i = 0; i < 3; i++) {                      // Lịch: vạn niên / can chi / Phật lịch
       await page.evaluate(n => goCal(n), i); await page.waitForTimeout(500);
-      await scan(`${lang}/calendar/sub${i}`); screens++;
+      all[lang].push(await scan(`${lang}/calendar/sub${i}`)); screens++;
     }
     for (let i = 0; i < 6; i++) {                      // Khám phá: moon/cosmic/buddha/tibet/weather/tide
       await page.evaluate(n => goExp(n), i); await page.waitForTimeout(700);
-      const t = await scan(`${lang}/systems/sub${i}`); screens++;
-      if (i === 3) text[lang] = t;                     // giữ lại màn Tạng để kiểm spec
+      all[lang].push(await scan(`${lang}/systems/sub${i}`)); screens++;
+      if (i === 3) tibRows[lang] = await rows();       // panel Tạng
     }
     for (const m of [0, 3, 4]) {                       // Hôm nay / Thời tiết / Sự kiện
       await page.evaluate(n => setMain(n), m); await page.waitForTimeout(700);
-      await scan(`${lang}/main${m}`); screens++;
+      all[lang].push(await scan(`${lang}/main${m}`)); screens++;
     }
   }
 
@@ -87,17 +97,21 @@ function serve(root) {
     catch (e) { return 'THROW: ' + e.message; }
   });
 
-  // ── 4. Chữ nghĩa đúng spec, nhìn thấy trên màn hình thật ───────────────
-  const vi = text.vi || '', en = text.en || '';
+  // ── 4. Chữ nghĩa đúng spec, đọc từ màn hình thật ───────────────────────
+  // "có" => tìm đúng cặp nhãn/giá trị trên panel Tạng, không phải dò chuỗi.
+  // "hết" => soi text của MỌI màn, không phải một màn.
+  const vi = all.vi.join('\n'), en = all.en.join('\n');
+  const row = (lang, k, v) => (tibRows[lang] || []).some(([a, b]) => a === k && (v instanceof RegExp ? v.test(b) : b === v));
+
   const specs = [
-    ['VI có dòng "Hệ lịch"',              vi.includes('Hệ lịch')],
-    ['VI có "Phugpa (Janson)"',           vi.includes('Phugpa (Janson)')],
-    ['VI hết "Lịch Tạng · Phugpa"',      !vi.includes('Lịch Tạng · Phugpa')],
-    ['VI có "Tính năm"',                  vi.includes('Tính năm')],
-    ['VI hết "Giới tính năm"',           !vi.includes('Giới tính năm')],
-    ['VI tên năm không có "(dương/âm)"', !/\((dương|âm)\)/i.test(vi)],
-    ['EN có "Calendar system"',           en.includes('Calendar system')],
-    ['EN hết "Tibetan · Phugpa"',        !en.includes('Tibetan · Phugpa')],
+    ['VI có dòng "Hệ lịch: Phugpa (Janson)"', row('vi', 'Hệ lịch', 'Phugpa (Janson)')],
+    ['EN có dòng "Calendar system: Phugpa (Janson)"', row('en', 'Calendar system', 'Phugpa (Janson)')],
+    ['VI có dòng "Tính năm: Dương/Âm"',    row('vi', 'Tính năm', /^(Dương|Âm)$/)],
+    ['VI hết "Lịch Tạng · Phugpa"',       !vi.includes('Lịch Tạng · Phugpa')],
+    ['EN hết "Tibetan · Phugpa"',         !en.includes('Tibetan · Phugpa')],
+    ['VI hết "Giới tính năm"',            !vi.includes('Giới tính năm')],
+    ['VI hết tên năm kèm "(dương/âm)"',   !/\((dương|âm)\)/i.test(vi)],
+    ['EN có "Brightness", hết "Illumination"', en.includes('Brightness') && !en.includes('Illumination')],
   ];
 
   const okYear = yearName === 'Hỏa Ngựa';
