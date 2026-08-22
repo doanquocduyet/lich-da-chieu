@@ -20,13 +20,22 @@ index.html · manifest.webmanifest · sw.js · icon-192.png · icon-512.png · a
 
 ## Có bản build mới
 
-Đừng chép thẳng vào `index.html` — bản build từ nguồn ngoài luôn rơi mất 7 chỗ đã vá:
+**Cứ đưa thẳng vào `index.html`** — kéo thả trên web GitHub cũng được.
+
+Bản build từ nguồn ngoài luôn rơi mất 7 chỗ đã vá, nên GitHub Actions
+(`.github/workflows/guard.yml`) tự vá lại, tự bump cache, gọi Pages build lại,
+rồi mở Chromium quét 24 màn hình kiểm tra. Thiếu chỗ nào nó vá chỗ đó; hỏng chỗ nào
+nó đỏ và nói rõ hỏng gì. Không phải nhớ gì cả.
+
+Muốn tự chạy ở máy:
 
 ```bash
-python3 patch.py "index (18).html"   # vá 7 chỗ + tự bump cache
+python3 patch.py "index (18).html"   # vá 7 chỗ + bump cache
+python3 patch.py index.html --check  # chỉ soát, không ghi gì
+node verify.js                       # kiểm tra thật trên trình duyệt
 ```
 
-Rồi chạy 3 mục kiểm tra bắt buộc. Chi tiết ở §11 của file spec.
+Chi tiết ở §11 của file spec.
 
 Toàn bộ phép tính lịch chạy trên máy người dùng. Chỉ thời tiết / thủy triều / tên địa điểm mới cần mạng (Open-Meteo, không cần API key).
 

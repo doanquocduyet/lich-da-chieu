@@ -417,18 +417,44 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 
 ---
 
-## 11. QUY TRÌNH CẬP NHẬT BẢN BUILD MỚI — BẮT BUỘC
+## 11. CẬP NHẬT BẢN BUILD MỚI — GITHUB TỰ LO
 
 Bản build sinh ra từ nguồn ngoài repo **luôn rơi mất 7 chỗ đã vá** (đã lặp ở V2.4 và V2.5).
-Chép thẳng vào `index.html` là đưa lỗi ngày khuyết quay lại. Luôn đi đường này:
 
-```bash
-python3 patch.py "index (18).html"      # vá 7 chỗ + tự bump cache sw.js
+**Không phải nhớ gì cả.** Cứ đưa bản build mới vào `index.html` bằng bất kỳ cách nào —
+kéo thả trên web GitHub, `git push`, gì cũng được. Workflow `.github/workflows/guard.yml`
+sẽ tự chạy và làm hết:
+
+```
+index.html đổi
+   └─ patch.py vá lại chỗ nào thiếu, bump ldc-vNN trong sw.js
+   └─ commit + push bản vá ngược lại main
+   └─ gọi Pages build lại (push bằng GITHUB_TOKEN không tự kích hoạt Pages)
+   └─ verify.js mở Chromium quét 24 màn hình, kiểm 4 nhóm điều kiện
+   └─ patch.py --check soát lại mã nguồn
 ```
 
-Script có assert từng chỗ. Chuỗi nào không khớp **đúng 1 lần** thì nó dừng, không ghi
-file, không bump cache. Assert fail nghĩa là bản build đã đổi cấu trúc —
-**đọc lại đoạn đó rồi cập nhật `PATCHES` trong `patch.py`, tuyệt đối không sửa tay đoán mò.**
+Bản build đủ 7 chỗ thì nó không commit gì, chỉ chạy kiểm tra. Bản build thiếu thì nó vá,
+và trong tab Actions hiện dòng notice *"Bản build thiếu 7 chỗ vá — đã vá lại"*.
+
+Hỏng ở đâu là workflow đỏ và ghi rõ hỏng mục nào.
+
+> ⚠️ Workflow cần **Settings › Actions › General › Workflow permissions = "Read and write permissions"**.
+> Không bật thì bước commit đỏ với lỗi 403.
+
+### Chạy tay ở máy (không bắt buộc)
+
+```bash
+python3 patch.py "index (18).html"   # vá bản build mới -> index.html
+python3 patch.py index.html --check  # chỉ soát, không ghi gì
+node verify.js                       # tự dựng server, không cần http-server
+```
+
+`patch.py` **chạy lại bao nhiêu lần cũng được**: chỗ nào đã vá thì bỏ qua, không ghi file,
+không bump cache oan. Chỗ nào không nhận ra được ở cả hai dạng (chưa vá / đã vá) thì nó
+**dừng hẳn, không vá gì**, và in ra vùng code quanh đó — nghĩa là bản build đã đổi cấu trúc,
+**cập nhật `PATCHES` trong `patch.py`, tuyệt đối không sửa tay `index.html`** (sửa tay thì
+lần build sau lại mất).
 
 ### 7 chỗ vá là gì
 
@@ -441,23 +467,26 @@ file, không bump cache. Assert fail nghĩa là bản build đã đổi cấu tr
 | 6 | EN "Brightness" | Không phải "Illumination" |
 | 7 | Thêm dòng "Hệ lịch: Phugpa (Janson)" | Chỗ đặt tên hệ lịch sau khi gỡ khỏi nhãn |
 
-### Kiểm tra trước khi deploy — hỏng mục nào thì KHÔNG push
+### `verify.js` kiểm những gì
 
-```bash
-npx http-server -p 8099 -c-1 .
-```
+Timezone `Asia/Ho_Chi_Minh`, quét 24 màn hình (2 ngôn ngữ × 12 màn:
+`goCal(0..2)` + `goExp(0..5)` + `setMain(0,3,4)`):
 
-Mở bằng Playwright, timezone `Asia/Ho_Chi_Minh`:
+1. **Không `pageerror`, không console error** ở màn nào.
+2. **`document.body.innerText` không chứa "undefined"** ở màn nào.
+3. Sau `setLang('vi')`: `tibYearName(tibetan(new Date(2026,7,17,12)))` phải ra đúng **`"Hỏa Ngựa"`**.
+4. **8 điều kiện chữ nghĩa nhìn thấy trên màn hình thật** — có "Hệ lịch", có "Phugpa (Janson)",
+   hết "Lịch Tạng · Phugpa", có "Tính năm", hết "Giới tính năm", tên năm không có "(dương)",
+   EN có "Calendar system", EN hết "Tibetan · Phugpa".
 
-1. **Không `pageerror`** ở cả 2 ngôn ngữ — quét `setMain(0..4)`, `goCal(0..2)`, `goExp(0..5)`.
-2. **`document.body.innerText` không chứa "undefined"** ở bất kỳ màn nào.
-3. Sau `setLang('vi')`: `tibYearName(tibetan(new Date(2026,7,17,12)))` phải ra đúng **`"Hỏa Ngựa"`** — không có `(dương)`.
+Mục 4 quan trọng hơn `--check` của `patch.py`: nó soi **kết quả render**, nên bắt được cả
+trường hợp chuỗi có trong mã nguồn mà không hiện ra màn hình.
 
 Deploy xong nhớ: máy đã cài giữ service worker cũ, **lần load đầu vẫn ra bản cũ**,
 tới lần thứ hai mới thấy bản mới. Muốn thấy ngay thì mở tab ẩn danh hoặc Ctrl+Shift+R.
 
-### Việc nên làm ở gốc
+### Việc vẫn nên làm ở gốc
 
-Vá tay mỗi lần là chữa ngọn. 7 chỗ này cần được đưa vào **chính nguồn sinh ra bản build**,
-lúc đó `patch.py` sẽ dừng ở chỗ vá 1 với thông báo "có vẻ đã được vá sẵn" — đó là dấu hiệu
-tốt, nghĩa là xử được gốc rồi và có thể bỏ script này đi.
+Workflow chữa được triệu chứng một cách đáng tin, nhưng 7 chỗ này lẽ ra phải nằm trong
+**chính nguồn sinh ra bản build**. Khi nào xử được gốc, workflow sẽ chạy mà không commit
+gì nữa — lúc đó bỏ `patch.py` đi được, còn `verify.js` thì giữ.

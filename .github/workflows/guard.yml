@@ -1,0 +1,90 @@
+# Chốt chặn tự động cho mỗi lần index.html đổi — kể cả khi up file qua web GitHub.
+#
+# Bản build sinh từ nguồn ngoài repo luôn rơi mất 7 chỗ đã vá (đã lặp ở V2.4, V2.5).
+# Workflow này tự vá lại, tự bump cache, rồi chạy kiểm tra thật trên trình duyệt.
+# Không phải nhớ gì, không phải chạy gì ở máy.
+#
+# Cần bật: Settings > Actions > General > Workflow permissions
+#          => "Read and write permissions"
+# Không bật thì bước commit sẽ đỏ và báo 403.
+
+name: guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'sw.js'
+      - 'patch.py'
+      - 'verify.js'
+      - '.github/workflows/guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    # Không chạy lại trên chính commit mà workflow này vừa đẩy lên.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Vá lại 7 chỗ nếu bản build làm mất
+        run: python3 patch.py index.html
+
+      - name: Đẩy bản vá lên nếu có gì đổi
+        id: fix
+        run: |
+          if git diff --quiet; then
+            echo "Không có gì để vá — bản build đã đủ 7 chỗ."
+            echo "patched=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "::notice::Bản build thiếu 7 chỗ vá — đã vá lại và bump cache tự động."
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          git commit -m "Tự động vá lại 7 chỗ spec + bump cache
+
+          Bản build mới đẩy lên thiếu các chỗ vá bắt buộc. patch.py đã vá lại.
+          Xem §11 trong BANGIAO-LICH-DA-CHIEU.md."
+          git push
+          echo "patched=true" >> "$GITHUB_OUTPUT"
+
+      - name: Bảo GitHub Pages build lại
+        # Push bằng GITHUB_TOKEN không tự kích hoạt workflow nào, kể cả Pages.
+        # Không gọi tay thì bản vá nằm trong repo mà không lên web.
+        if: steps.fix.outputs.patched == 'true'
+        run: |
+          curl -sS -X POST -o /dev/null -w "yeu cau build Pages -> HTTP %{http_code}\n" \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/pages/builds" || true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cài Chromium
+        run: |
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund playwright
+          npx playwright install --with-deps chromium
+
+      - name: Kiểm tra thật trên trình duyệt
+        run: node verify.js
+
+      - name: Kiểm tra lại mã nguồn còn đủ 7 chỗ vá
+        run: python3 patch.py index.html --check

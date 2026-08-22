@@ -1,0 +1,4 @@
+# Rác của lần chạy verify.js — không phải file của app
+node_modules/
+package.json
+package-lock.json
