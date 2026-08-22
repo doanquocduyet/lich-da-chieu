@@ -336,6 +336,9 @@
   .hub.wx .tmp{font-size:64px;font-weight:800;line-height:1;letter-spacing:-.035em;color:#26414C;margin:6px 0 2px}
   .hub.wx .cond{font-size:17px;color:#3C5560}
   .hub.wx .place{font-size:13.5px;color:#5E7480;margin-top:10px}
+  .tsent{font-size:15px;line-height:1.6;color:#26414C;margin-top:10px;padding:11px 13px;
+    background:#ffffff8c;border-radius:12px;border:1px solid #D8E4E9}
+  .tsent b{font-weight:750}
   .hub.wx .horizon{height:1px;background:#C9D8DE;margin:14px 0 12px}
   .hub.wx .sun{display:flex;justify-content:space-between;font-size:13.5px;color:#3C5560}
   .hub.wx .sun b{display:block;font-size:16px;color:#26414C;font-weight:700}
@@ -382,6 +385,98 @@
   .yoga.g .ym{color:#4E7565}
   .yoga.b .ym{color:var(--red)}
   .yoga .yt2{font-size:12.5px;color:#8A8577;font-style:italic}
+  /* ═══ Skin toàn màn theo hub ═══ */
+  body[class^="sk-"] #bgfix{background:transparent}
+  body.sk-tib,body.sk-tib .wrap{background:linear-gradient(178deg,#7E251C 0%,#5A1814 45%,#49120F 100%) !important}
+  body.sk-tib .hubttl,body.sk-tib footer,body.sk-tib .backbar .bt{color:#E8C98B !important}
+  body.sk-tib .bnav{background:#3A0E0B;border-top-color:#ffffff14}
+  body.sk-tib .bnav button{color:#C6A277}body.sk-tib .bnav button.on{color:#F5C24E}
+  body.sk-tib .backbar button{background:#ffffff12;border-color:#ffffff26;color:#FBEBCB}
+  body.sk-tib .backbar .bt{color:#FBEBCB}
+  body.sk-cos,body.sk-cos .wrap{background:radial-gradient(ellipse 130% 60% at 50% 0%,#241F4C 0%,#0F1024 45%,#08091200 100%),#080912 !important}
+  body.sk-cos .hubttl,body.sk-cos footer,body.sk-cos .backbar .bt{color:#9A92C8 !important}
+  body.sk-cos .bnav{background:#0D0E1C;border-top-color:#ffffff14}
+  body.sk-cos .bnav button{color:#8B84B8}body.sk-cos .bnav button.on{color:#D4AF37}
+  body.sk-cos .backbar button{background:#ffffff10;border-color:#ffffff24;color:#EDEAE0}
+  body.sk-cos .backbar .bt{color:#EDEAE0}
+  body.sk-moon,body.sk-moon .wrap{background:radial-gradient(ellipse 105% 50% at 50% 14%,#252C40 0%,#161A26 55%,#0D1017 100%) !important}
+  body.sk-moon .hubttl,body.sk-moon footer,body.sk-moon .backbar .bt{color:#98A0BA !important}
+  body.sk-moon .bnav{background:#0B0E15;border-top-color:#ffffff14}
+  body.sk-moon .bnav button{color:#98A0BA}body.sk-moon .bnav button.on{color:#E8E2D0}
+  body.sk-moon .backbar button{background:#ffffff10;border-color:#ffffff24;color:#F2EEE2}
+  body.sk-moon .backbar .bt{color:#F2EEE2}
+  body.sk-bud,body.sk-bud .wrap{background:linear-gradient(178deg,#FEFBF3 0%,#F3E7D1 100%) !important}
+  body.sk-bud .bnav{background:#FBF5E8;border-top-color:#E8DCC0}
+  body.sk-bud .bnav button.on{color:#B8862B}
+  body.sk-wx,body.sk-wx .wrap{background:linear-gradient(178deg,#DCEAF0 0%,#F6F2E9 60%) !important}
+  body.sk-wx .bnav{background:#EAF2F5;border-top-color:#D2E0E6}
+  body.sk-wx .bnav button.on{color:#2E6579}
+  body.sk-td,body.sk-td .wrap{background:linear-gradient(178deg,#DEEBE6 0%,#F5F3EA 60%) !important}
+  body.sk-td .bnav{background:#E8F1EC;border-top-color:#D2E2DA}
+  body.sk-td .bnav button.on{color:#2F6350}
+  /* thẻ trong skin tối */
+  body.sk-tib .card,body.sk-cos .card,body.sk-moon .card{background:#ffffff0f;border-color:#ffffff20;color:#F3EDE0}
+  body.sk-tib .card h2{color:#F5C24E}
+  body.sk-cos .card h2{color:#D4AF37}
+  body.sk-moon .card h2{color:#E8E2D0}
+  body.sk-tib .big,body.sk-cos .big,body.sk-moon .big{color:#FBF6EA}
+  body.sk-tib .big small,body.sk-cos .big small,body.sk-moon .big small{color:#ffffff85}
+  body.sk-tib .cell,body.sk-cos .cell,body.sk-moon .cell{background:#ffffff0a;border-color:#ffffff1a}
+  body.sk-tib .cell .cv,body.sk-cos .cell .cv,body.sk-moon .cell .cv{color:#FBF6EA}
+  body.sk-tib .cell .cl,body.sk-cos .cell .cl,body.sk-moon .cell .cl{color:#ffffff7a}
+  body.sk-tib .tl .tn,body.sk-cos .tl .tn,body.sk-moon .tl .tn{color:#EFEADD}
+  body.sk-tib .qbox,body.sk-cos .qbox,body.sk-moon .qbox{background:#ffffff0d;border-color:#ffffff20}
+  body.sk-tib .qtx,body.sk-cos .qtx,body.sk-moon .qtx{color:#F3EDE0}
+  body.sk-tib .qsrc,body.sk-cos .qsrc,body.sk-moon .qsrc{color:#ffffff7a}
+  body.sk-tib .row,body.sk-cos .row,body.sk-moon .row{border-bottom-color:#ffffff14}
+  body.sk-tib .row .k,body.sk-cos .row .k,body.sk-moon .row .k{color:#ffffff96}
+  body.sk-tib .idc,body.sk-cos .idc,body.sk-moon .idc{border-color:#ffffff26}
+  body.sk-tib .idc .bd2,body.sk-cos .idc .bd2,body.sk-moon .idc .bd2{background:#ffffff0d;color:#F3EDE0;border-top-color:#ffffff20}
+  body.sk-tib .idc.elc .hd2{background:linear-gradient(168deg,#ffffff14,#ffffff08)}
+  body.sk-tib .idc.elc .k2{color:#E8C98B}
+  body.sk-tib .elone span{color:#FFF0CF}
+  body.sk-tib .elone em,body.sk-tib .eltib{color:#C9AE84}
+  body.sk-tib .explain{color:#F0E7D6}
+  body.sk-tib .explain2{background:#ffffff0d;color:#E4D8BF;border-left-color:#D4A017}
+  body.sk-tib .idc.elc .bd2{border-top-color:#D4A01745}
+  body.sk-tib .elname.g{color:#8FC4AC}body.sk-tib .elname.b{color:#F08B7F}
+  body.sk-tib .row .v,body.sk-cos .row .v,body.sk-moon .row .v{color:inherit}
+  body.sk-tib .note,body.sk-cos .note,body.sk-moon .note{color:#ffffff85;border-top-color:#ffffff24}
+  body.sk-tib .card .en,body.sk-cos .card .en,body.sk-moon .card .en{color:#ffffff70}
+  body.sk-tib .up .u,body.sk-cos .up .u,body.sk-moon .up .u{border-bottom-color:#ffffff14}
+  body.sk-tib .up .un,body.sk-cos .up .un,body.sk-moon .up .un{color:inherit}
+  body.sk-tib .picker input,body.sk-cos .picker input,body.sk-moon .picker input{background:#ffffff12;border-color:#ffffff26;color:inherit;color-scheme:dark}
+  body.sk-tib .picker button,body.sk-cos .picker button,body.sk-moon .picker button{background:#ffffff12;border-color:#ffffff26;color:inherit}
+  .hscroll{display:flex;gap:8px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:none}
+  .hscroll::-webkit-scrollbar{display:none}
+  .hcell{flex:0 0 auto;min-width:60px;text-align:center;padding:12px 6px;background:#ffffff8c;
+    border:1px solid var(--bd);border-radius:14px}
+  .hcell .hh{font-size:11.5px;color:#6E6A5E}
+  .hcell .hi{font-size:20px;margin:6px 0 4px}
+  .hcell .ht2{font-size:16.5px;font-weight:750}
+  .hcell .hp{font-size:11.5px;color:#4A7A8C;margin-top:2px}
+  .d{position:relative}
+  .hdd{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:#C3BDB0}
+  .hdd.g{background:#E8A33D}
+  /* ═══ Khám phá: danh sách ô màu có hoa văn chìm ═══ */
+  .explist{display:flex;flex-direction:column;gap:10px}
+  .exp{display:flex;align-items:center;gap:13px;padding:18px 17px;border-radius:18px;cursor:pointer;
+    position:relative;overflow:hidden;
+    background:color-mix(in srgb, var(--c) 22%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 50%, #fff);
+    color:color-mix(in srgb, var(--c) 78%, #2A2620);transition:transform .12s}
+  .exp:active{transform:scale(.985)}
+  .eorn{position:absolute;inset:0;pointer-events:none}
+  .eorn svg{width:100%;height:100%;display:block}
+  .edot{width:11px;height:11px;border-radius:50%;background:var(--c);flex-shrink:0;position:relative}
+  .etx{flex:1;min-width:0;position:relative}
+  .enm{display:block;font-size:17px;font-weight:650;line-height:1.3}
+  .esb{display:block;font-size:13.5px;opacity:.82;margin-top:3px}
+  .evl{font-size:18px;font-weight:750;position:relative;flex-shrink:0}
+  .ear{font-size:19px;opacity:.4;position:relative;margin-left:2px}
+  /* tab giữa nổi */
+  .bnav button.mid .bi{font-size:33px}
+  .bnav button.mid{font-weight:700}
   /* Dòng của ngày */
   /* ═══ BẢN SẮC 6 HUB — panel chi tiết ═══ */
   .idc{border-radius:20px;padding:0;overflow:hidden;margin-bottom:14px;border:1px solid var(--bd)}
@@ -470,6 +565,81 @@
   .dl-ttl{font-size:11px;letter-spacing:.24em;color:#9A9384;text-transform:uppercase}
   .dl-tx{font-size:18.5px;line-height:1.55;color:var(--ink);margin:14px 6px 12px;font-weight:500}
   .dl-src{font-size:12.5px;color:#9A9384}
+  .cntdn{display:flex;justify-content:space-between;align-items:center;gap:10px;
+    background:#B03A300d;border:1px solid #B03A3028;border-radius:16px;padding:14px 16px;
+    margin-bottom:10px;cursor:pointer}
+  .cntdn .cd-n{font-size:14.5px;font-weight:700;color:#8C2A20}
+  .cntdn .cd-d{font-size:13.5px;color:#6E6A5E}
+  .cntdn .cd-d b{color:#B03A30;font-size:16px}
+  .sharebtn{display:block;width:100%;margin-top:12px;padding:15px;border-radius:16px;
+    border:1px solid var(--bd);background:#fff;color:#1C1B18;font-size:15px;font-weight:600;
+    font-family:inherit;cursor:pointer}
+  .sharebtn:active{background:#F3EEE3}
+  .wxbtn{padding:11px 16px;border-radius:12px;border:1px solid #C9D8DE;background:#fff;
+    font-size:14.5px;font-family:inherit;color:#26414C;cursor:pointer;font-weight:600}
+  .wxbtn.alt{background:none;font-weight:500;color:#5E7480}
+  #cityForm input{width:100%;padding:12px;border:1px solid #C9D8DE;border-radius:12px;font-size:16px;font-family:inherit;background:#fff}
+  /* Trực thần trên Hôm nay */
+  .hdbar{display:flex;align-items:center;gap:9px;padding:12px 15px;border-radius:14px;margin-top:14px;
+    background:#F2EFE6;border:1px solid var(--bd);cursor:pointer;font-size:15px}
+  .hdbar .hdd2{width:9px;height:9px;border-radius:50%;background:#C3BDB0;flex-shrink:0}
+  .hdbar.g{background:#FBF2E2;border-color:#EAD6AE}
+  .hdbar.g .hdd2{background:#E8A33D}
+  .hdbar .hdt{font-weight:700;color:var(--ink)}
+  .hdbar .hdv{margin-left:auto;font-size:13.5px;color:#6E6A5E}
+  .hdbar.g .hdv{color:#B07E27}
+  .wk .c{position:relative}
+  .wk .c.hdg::after{content:'';position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:#E8A33D}
+  .wk .c.today.hdg::after{background:#FFD79A}
+  .tspan{font-size:13.5px;line-height:1.65;color:#6E6A5E;padding:12px 0 2px;margin-top:6px;border-top:1px dashed #E4DCCB}
+  .tsrc{display:block;font-size:12px;color:#9A9384;margin-top:3px}
+  .tspan.cos{color:#9A92C8;border-top-color:#ffffff1f}
+  body.sk-tib .tspan{color:#D8C4A0;border-top-color:#ffffff26}
+  body.sk-tib .tsrc{color:#B79A72}
+  body.sk-bud .tspan{color:#8A7A5C;border-top-color:#E4D9BF}
+  .spbox{margin-top:14px;background:#fff;border:1px solid var(--bd);border-radius:16px;padding:14px 16px 6px}
+  .sptt{font-size:11px;letter-spacing:.2em;color:#9A9384;text-transform:uppercase;margin-bottom:10px}
+  .spit{padding:10px 0;border-bottom:1px solid #F2ECE0;cursor:pointer}
+  .spit:last-child{border:0}
+  .spn{display:block;font-size:17px;font-weight:700;color:var(--ink);line-height:1.35}
+  .sps{display:block;font-size:13.5px;color:#6E6A5E;margin-top:3px}
+  .hub.wx.slim{padding:15px 17px}
+  .hub.wx.slim .lbl{font-size:11px}
+  .gl{font-style:normal;font-size:13px;color:#B5AE9E;cursor:pointer;padding:0 2px}
+  #glo{position:fixed;inset:0;background:#1C1B1866;display:none;align-items:flex-end;z-index:90}
+  #glo.on{display:flex}
+  .glbox{width:100%;background:#FDFCF8;border-radius:22px 22px 0 0;padding:22px 20px 26px;
+    box-shadow:0 -8px 30px -10px #00000040}
+  .glt{font-size:19px;font-weight:750;color:var(--ink);margin-bottom:8px}
+  .glx{font-size:15.5px;line-height:1.7;color:#4A4438}
+  .glbox button{margin-top:16px;width:100%;padding:13px;background:none;border:1px solid var(--bd);
+    border-radius:12px;font-size:15px;font-family:inherit;color:#6E6A5E;cursor:pointer}
+  .more{margin-top:12px;background:#fff;border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+  .more summary{padding:15px 16px;font-size:15px;color:#6E6A5E;cursor:pointer;list-style:none;
+    display:flex;align-items:center;justify-content:space-between}
+  .more summary::-webkit-details-marker{display:none}
+  .more summary::after{content:'⌄';font-size:17px;color:#B5AE9E}
+  .more[open] summary::after{content:'⌃'}
+  .more .mbody{padding:0 4px 4px}
+  .more .rmbox{border:0;background:none;padding:0 12px 12px}
+  .rmtop{background:#FDF6F5;border:1px solid #F0DCD9;border-radius:14px;padding:10px 15px;margin-top:12px;cursor:pointer}
+  /* Ghi chú giỗ/sinh nhật */
+  .rmbox{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+  .rmrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid #F2ECE0}
+  .rmn{font-size:15px;color:#8C2F2F}
+  .rmn b{color:var(--ink)}
+  .rmd{font-size:13px;color:#6E6A5E;text-align:right;flex-shrink:0}
+  .rmadd{width:100%;margin-top:6px;padding:12px;background:none;border:1.5px dashed #D8CFBC;border-radius:12px;
+    font-size:14.5px;color:#8A8577;font-family:inherit;cursor:pointer}
+  #noteForm{margin-top:12px;padding-top:12px;border-top:1px solid #F0EADD}
+  #noteForm input[type=text]{width:100%;padding:12px;border:1px solid var(--bd);border-radius:12px;font-size:16px;font-family:inherit;background:#FDFCF8;margin-bottom:8px}
+  .nfrow{display:flex;gap:8px;margin-bottom:8px}
+  .nfrow select{flex:1;padding:11px 8px;border:1px solid var(--bd);border-radius:12px;font-size:14.5px;font-family:inherit;background:#FDFCF8}
+  .nfsave{flex:1;padding:12px;background:var(--ink);color:#fff;border:0;border-radius:12px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer}
+  .nfcancel{flex:1;padding:12px;background:none;border:1px solid var(--bd);border-radius:12px;font-size:15px;font-family:inherit;cursor:pointer;color:#6E6A5E}
+  .nflist{margin-top:10px;padding-top:8px;border-top:1px dashed #E4DCCB}
+  .nfitem{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:14px;color:#4A4438}
+  .nfitem button{background:none;border:0;color:#B03A30;font-size:15px;cursor:pointer;padding:4px 8px}
   /* Ngày mai */
   .tmr{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;
     border:1px solid var(--bd);border-radius:16px;padding:15px 16px;cursor:pointer}
@@ -497,6 +667,11 @@
   <footer><span id="footNote"></span></footer>
 </div>
 
+<script>/*! SunCalc 2.0.1 | BSD-2-Clause | Volodymyr Agafonkin | mặt trời & trăng mọc/lặn */
+var SunCalc=(()=>{var W=Object.defineProperty;var a0=Object.getOwnPropertyDescriptor;var d0=Object.getOwnPropertyNames;var f0=Object.prototype.hasOwnProperty;var l0=(o,n)=>{for(var t in n)W(o,t,{get:n[t],enumerable:!0})},m0=(o,n,t,e)=>{if(n&&typeof n=="object"||typeof n=="function")for(let s of d0(n))!f0.call(o,s)&&s!==t&&W(o,s,{get:()=>n[s],enumerable:!(e=a0(n,s))||e.enumerable});return o};var p0=o=>m0(W({},"__esModule",{value:!0}),o);var A0={};l0(A0,{addTime:()=>D0,getMoonIllumination:()=>N0,getMoonPosition:()=>u0,getMoonTimes:()=>b0,getPosition:()=>h0,getTimes:()=>y0,times:()=>F});var{PI:A,sin:c,cos:u,tan:R,asin:k,atan2:v,acos:n0,sqrt:t0,abs:q,round:X}=Math,r=A/180,Y=1e3*60*60*24,o0=2440588,J=2451545,s0=6378.14;function U(o){return new Date((o+.5-o0)*Y)}function G(o){return o.valueOf()/Y-.5+o0-J}function w0(o){let n=2e3+o/365.2425,t;return n<1920?(t=n-1900,-2.79+t*(1.494119+t*(-.0598939+t*(.0061966-t*197e-6)))):n<1941?(t=n-1920,21.2+t*(.84493+t*(-.0761+t*.0020936))):n<1961?(t=n-1950,29.07+t*(.407+t*(-1/233+t/2547))):n<1986?(t=n-1975,45.45+t*(1.067+t*(-1/260-t/718))):n<2005?(t=n-2e3,63.86+t*(.3345+t*(-.060374+t*(.0017275+t*(651814e-9+t*2373599e-11))))):n<2050?(t=n-2e3,62.92+t*(.32217+t*.005589)):(t=(n-1820)/100,-20+32*t*t-.5628*(2150-n))}function C(o){return o+w0(o)/86400}function e0(o,n,t){return(v(c(o),u(o)*c(n)-R(t)*u(n))/r+540)%360}function B(o,n,t){return k(c(n)*c(t)+u(n)*u(t)*u(o))}function K(o,n){return r*(280.46061837+360.98564736629*o)-n}function c0(o){return o<0&&(o=0),2967e-7/R(o+.00312536/(o+.08901179))}function E(o){let n=o/36525,t=r*(280.46646+n*(36000.76983+n*3032e-7)),e=r*(357.52911+n*(35999.05029-n*1537e-7)),s=c(e),a=u(e),i=r*((1.914602-n*(.004817+n*14e-6))*s+(.019993-101e-6*n)*2*s*a+289e-6*s*(3-4*s*s)),f=r*(125.04-1934.136*n),d=t+i-r*(.00569+.00478*c(f)),l=r*(23.439291-n*(.0130042+n*(16e-8-n*504e-9)))+r*.00256*u(f);return{ra:v(u(l)*c(d),u(d)),dec:k(c(l)*c(d))}}function h0(o,n,t){let e=r*-t,s=r*n,a=G(o),i=E(C(a)),f=K(a,e)-i.ra,d=B(f,s,i.dec);return{azimuth:e0(f,s,i.dec),altitude:(d+c0(d))/r}}var F=[[-.833,"sunrise","sunset"],[-.3,"sunriseEnd","sunsetStart"],[-6,"dawn","dusk"],[-12,"nauticalDawn","nauticalDusk"],[-18,"nightEnd","night"],[6,"goldenHourEnd","goldenHour"]];function D0(o,n,t){F.push([o,n,t])}var Z=9e-4;function g0(o){return-2.076*t0(o)/60}function r0(o){return o-2*A*X(o/(2*A))}function x0(o,n){for(let t=0;t<3;t++){let e=r0(K(o,n)-E(C(o)).ra);o-=e/(2*A)}return o}function _(o,n,t,e,s,a){let i=(c(o)-c(s)*c(a))/(u(s)*u(a));if(i<-1||i>1)return NaN;let f=n+t*n0(i)/(2*A);for(let d=0;d<2;d++){let l=E(C(f)),m=r0(K(f,e)-l.ra),h=B(m,s,l.dec),w=u(s)*u(l.dec)*c(m);if(q(w)<1e-6)break;f+=(h-o)/(2*A*w)}return f}function y0(o,n,t,e=0){let s=r*-t,a=r*n,i=g0(e),f=X(X(G(o))-Z-s/(2*A)),d=x0(f+Z+s/(2*A),s),l=E(C(d)).dec,m={solarNoon:U(d+J),nadir:U(d+J-.5)};for(let[h,w,x]of F){let D=(h+i)*r,N=_(D,d,-1,s,a,l),M=_(D,d,1,s,a,l);m[w]=Number.isNaN(N)?null:U(N+J),m[x]=Number.isNaN(M)?null:U(M+J)}if(m.sunrise===null){let h=B(0,a,l),w=(F[0][0]+i)*r;m.alwaysUp=h>w,m.alwaysDown=h<=w}return m}function M0(o){let n=r*(125.04452-1934.136261*o),t=r*(280.4665+36000.7698*o),e=r*(218.3165+481267.8813*o),s=(-17.2*c(n)-1.32*c(2*t)-.23*c(2*e)+.21*c(2*n))/3600,a=(9.2*u(n)+.57*u(2*t)+.1*u(2*e)-.09*u(2*n))/3600,i=23.439291-o*(.0130042+o*(16e-8-o*504e-9));return{dpsi:s,eps:r*(i+a)}}var T=new Int32Array([0,0,1,0,6288774,-20905355,2,0,-1,0,1274027,-3699111,2,0,0,0,658314,-2955968,0,0,2,0,213618,-569925,0,1,0,0,-185116,48888,0,0,0,2,-114332,-3149,2,0,-2,0,58793,246158,2,-1,-1,0,57066,-152138,2,0,1,0,53322,-170733,2,-1,0,0,45758,-204586,0,1,-1,0,-40923,-129620,1,0,0,0,-34720,108743,0,1,1,0,-30383,104755,2,0,0,-2,15327,10321,0,0,1,2,-12528,0,0,0,1,-2,10980,79661,4,0,-1,0,10675,-34782,0,0,3,0,10034,-23210,4,0,-2,0,8548,-21636,2,1,-1,0,-7888,24208,2,1,0,0,-6766,30824,1,0,-1,0,-5163,-8379,1,1,0,0,4987,-16675,2,-1,1,0,4036,-12831,2,0,2,0,3994,-10445,4,0,0,0,3861,-11650,2,0,-3,0,3665,14403,0,1,-2,0,-2689,-7003,2,0,-1,2,-2602,0,2,-1,-2,0,2390,10056,1,0,1,0,-2348,6322,2,-2,0,0,2236,-9884,0,1,2,0,-2120,5751,0,2,0,0,-2069,0,2,-2,-1,0,2048,-4950,2,0,1,-2,-1773,4130,2,0,0,2,-1595,0,4,-1,-1,0,1215,-3958,0,0,2,2,-1110,0,3,0,-1,0,-892,3258,2,1,1,0,-810,2616,4,-1,-2,0,759,-1897,0,2,-1,0,-713,-2117,2,2,-1,0,-700,2354,2,1,-2,0,691,0,2,-1,0,-2,596,0,4,0,1,0,549,-1423,0,0,4,0,537,-1117,4,-1,0,0,520,-1571,1,0,-2,0,-487,-1739,2,1,0,-2,-399,0,0,0,2,-2,-381,-4421,1,1,1,0,351,0,3,0,-2,0,-340,0,4,0,-3,0,330,0,2,-1,2,0,327,0,0,2,1,0,-323,1165,1,1,-1,0,299,0,2,0,3,0,294,0,2,0,-1,-2,0,8752]),L=new Int32Array([0,0,0,1,5128122,0,0,1,1,280602,0,0,1,-1,277693,2,0,0,-1,173237,2,0,-1,1,55413,2,0,-1,-1,46271,2,0,0,1,32573,0,0,2,1,17198,2,0,1,-1,9266,0,0,2,-1,8822,2,-1,0,-1,8216,2,0,-2,-1,4324,2,0,1,1,4200,2,1,0,-1,-3359,2,-1,-1,1,2463,2,-1,0,1,2211,2,-1,-1,-1,2065,0,1,-1,-1,-1870,4,0,-1,-1,1828,0,1,0,1,-1794,0,0,0,3,-1749,0,1,-1,1,-1565,1,0,0,1,-1491,0,1,1,1,-1475,0,1,1,-1,-1410,0,1,0,-1,-1344,1,0,0,-1,-1335,0,0,3,1,1107,4,0,0,-1,1021,4,0,-1,1,833,0,0,1,-3,777,4,0,-2,1,671,2,0,0,-3,607,2,0,2,-1,596,2,-1,1,-1,491,2,0,-2,1,-451,0,0,3,-1,439,2,0,2,1,422,2,0,-3,-1,421,2,1,-1,1,-366,2,1,0,1,-351,4,0,0,1,331,2,-1,1,1,315,2,-2,0,-1,302,0,0,1,3,-283,2,1,1,-1,-229,1,1,0,-1,223,1,1,0,1,223,0,1,-2,-1,-220,2,1,-1,-1,-220,1,0,1,1,-185,2,-1,-2,-1,181,0,1,2,1,-177,4,0,-2,-1,176,4,-1,-1,-1,166,1,0,1,-1,-164,4,0,1,-1,132,1,0,-1,-1,-119,4,-1,0,-1,115,2,-2,0,1,107]);function i0(o){let n=o/36525,t=218.3164477+n*(481267.88123421+n*(-.0015786+n*(1/538841-n/65194e3))),e=297.8501921+n*(445267.1114034+n*(-.0018819+n*(1/545868-n/113065e3))),s=357.5291092+n*(35999.0502909+n*(-1536e-7+n/2449e4)),a=134.9633964+n*(477198.8675055+n*(.0087414+n*(1/69699-n/14712e3))),i=93.272095+n*(483202.0175233+n*(-.0036539+n*(-1/3526e3+n/86331e4))),f=119.75+131.849*n,d=53.09+479264.29*n,l=313.45+481266.484*n,m=1-n*(.002516+n*74e-7),h=r*e,w=r*s,x=r*a,D=r*i,N=0,M=0,g=0;for(let p=0;p<T.length;p+=6){let y=T[p+1],z=T[p]*h+y*w+T[p+2]*x+T[p+3]*D,S=y===1||y===-1?m:y===2||y===-2?m*m:1;N+=T[p+4]*S*c(z),M+=T[p+5]*S*u(z)}for(let p=0;p<L.length;p+=5){let y=L[p+1],z=L[p]*h+y*w+L[p+2]*x+L[p+3]*D,S=y===1||y===-1?m:y===2||y===-2?m*m:1;g+=L[p+4]*S*c(z)}let b=r*f,H=r*t;N+=3958*c(b)+1962*c(H-D)+318*c(r*d),g+=-2235*c(H)+382*c(r*l)+175*c(b-D)+175*c(b+D)+127*c(H-x)-115*c(H+x);let{dpsi:I,eps:P}=M0(n),Q=r*(t+N/1e6+I),V=r*(g/1e6);return{ra:v(c(Q)*u(P)-R(V)*c(P),u(Q)),dec:k(c(V)*u(P)+u(V)*c(P)*c(Q)),dist:385000.56+M/1e3}}function u0(o,n,t){let e=r*-t,s=r*n,a=G(o),i=i0(C(a)),f=K(a,e)-i.ra,d=B(f,s,i.dec),l=d-k(s0/i.dist*u(d)),m=v(c(f),R(s)*u(i.dec)-c(i.dec)*u(f));return{azimuth:e0(f,s,i.dec),altitude:(l+c0(l))/r,distance:i.dist,parallacticAngle:m/r}}function N0(o=new Date){let n=C(G(o)),t=E(n),e=i0(n),s=149598e3,a=n0(c(t.dec)*c(e.dec)+u(t.dec)*u(e.dec)*u(t.ra-e.ra)),i=v(s*c(a),e.dist-s*u(a)),f=v(u(t.dec)*c(t.ra-e.ra),c(t.dec)*u(e.dec)-u(t.dec)*c(e.dec)*u(t.ra-e.ra)),d=f<0;return{fraction:(1+u(i))/2,phase:.5+.5*i*(d?-1:1)/A,angle:f/r,waxing:d}}function j(o,n){return new Date(o.valueOf()+n*Y/24)}function O(o,n,t){let e=u0(o,n,t);return e.altitude+.2725*k(s0/e.distance)/r+.09}function $(o,n,t){for(let e=0;e<2;e++){let s=O(new Date(o),n,t),a=(O(new Date(o+3e4),n,t)-O(new Date(o-3e4),n,t))/6e4;o-=s/a}return o}function b0(o,n,t){let e=new Date(o);e.setUTCHours(0,0,0,0);let s=O(e,n,t),a,i,f=s;for(let l=1;l<=24;l+=2){let m=O(j(e,l),n,t),h=O(j(e,l+1),n,t);f=Math.max(f,m,h);let w=(s+h)/2-m,x=(h-s)/2,D=-x/(2*w),N=x*x-4*w*m,M=0,g=0,b=0,H=(w*D+x)*D+m;if(N>=0){let I=t0(N)/(q(w)*2);g=D-I,b=D+I,q(g)<=1&&M++,q(b)<=1&&M++,g<-1&&(g=b)}if(M===1?s<0?a=l+g:i=l+g:M===2&&(a=l+(H<0?b:g),i=l+(H<0?g:b)),a!==void 0&&i!==void 0)break;s=h}let d={};return a!==void 0&&(d.rise=new Date($(j(e,a).valueOf(),n,t))),i!==void 0&&(d.set=new Date($(j(e,i).valueOf(),n,t))),a===void 0&&i===void 0&&(d.alwaysUp=f>0,d.alwaysDown=f<=0),d}return p0(A0);})();
+
+window.SunCalc=SunCalc;
+</script>
 <script>/*! tibetan-date-calculator v1.2.3 | MIT | Eszter Hoffmann | dua tren Janson: Tibetan calendar mathematics | dung boi Lotsawa House */
 (function(v,p){typeof exports=="object"&&typeof module<"u"?p(exports):typeof define=="function"&&define.amd?define(["exports"],p):(v=typeof globalThis<"u"?globalThis:v||self,p(v.tibetanCalendarCalculator={}))})(this,(function(v){"use strict";var p=1027,M=60,f=127,R=24405875e-1,k=864e5,B=1440,E=806,Z=3,tt=61,g=123,et=2015501+4783/5656,P=167025/5656,rt=P/30,at=743/804,x=65/804,nt=x/30,ot=475/3528,it=253/3528,st=1/28,L=[0,5,10,15,19,22,24,25],j=[0,6,10,11],ut=["Wood","Fire","Earth","Iron","Water"],ht=["Mouse","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Sheep","Monkey","Bird","Dog","Pig"],vt=["Male","Female"],G=function(e){return e%1},U=function(e,t){return e%t||t},d=function(e){var t=e.getFullYear(),r=e.getMonth()+1,a=e.getDate();return"".concat(t,"-").concat("0".concat(r).slice(-2),"-").concat("0".concat(a).slice(-2))},J=function(e,t){return e===1?{day:30,monthCount:t-1}:{day:e-1,monthCount:t}},w=function(e,t){var r=12*(e-f-E)+t;return 2*r%65===g%65||2*r%65===(g+1)%65},ft=function(e,t){return t*P+e*rt+et},yt=function(e,t){return t*it+e*st+ot},z=function(e){var t=e%28;return t<=7?L[t]:t<=14?L[14-t]:t<=21?-L[t-14]:-L[28-t]},pt=function(e){var t=z(Math.floor(e)),r=G(e);if(r){var a=z(Math.floor(e)+1);t+=(a-t)*r}return t},ct=function(e,t){return pt(28*yt(e,t))},lt=function(e,t){return t*x+e*nt+at},mt=function(e,t){return lt(e,t)-1/4},H=function(e){var t=e%12;return t<=3?j[t]:t<=6?j[6-t]:t<=9?-j[t-6]:-j[12-t]},Dt=function(e){var t=H(Math.floor(e)),r=G(e);if(r){var a=H(Math.floor(e)+1);t+=(a-t)*r}return t},bt=function(e,t){return Dt(12*mt(e,t))},N=function(){return N=Object.assign||function(t){for(var r,a=1,o=arguments.length;a<o;a++){r=arguments[a];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(t[n]=r[n])}return t},N.apply(this,arguments)};typeof SuppressedError=="function"&&SuppressedError;var W=function(e){var t=N({},e),r=t.tibYear;return t.animal=ht[(r+1)%12],t.element=ut[Math.floor((r-1)/2%5)],t.gender=vt[(r+1)%2],t},Mt=function(e){var t=d(e),r=new Date("".concat(t,"T18:00:00"));return Math.floor(+r/k-e.getTimezoneOffset()/B+R)},Y=function(e){var t=e.year,r=e.month,a=e.isLeapMonth,o=t-f,n=12*(o-E)+r-Z,i=w(t,r),u=i&&a?1:0;return Math.floor((67*n+tt+17)/65)-u},m=function(e,t){return ft(e,t)+ct(e,t)/60-bt(e,t)/60},q=function(e,t,r,a){var o=Y({year:e,month:t,isLeapMonth:r});return Math.floor(m(a,o))},X=function(e){var t=Math.floor((e-1)/30),r=e%30||30;return Math.floor(m(r,t))},S=function(e){var t=new Date().getTimezoneOffset(),r=(e-R+t/B)*k,a=new Date(r);return a},dt=function(e,t){t===void 0&&(t=!0);var r=t?e:e+f,a=1+q(r-1,12,!1,30);return d(S(a))},gt=function(e){var t=Math.ceil((65*e+g)/67),r=U(t,12),a=Math.ceil(t/12)-1+E+f,o=Math.ceil((65*(e+1)+g)/67)===t;return{year:a,month:r,isLeapMonth:o}},$=function(e){var t=e.year,r=e.month,a=e.isLeapMonth,o=a===void 0?!1:a,n=e.day,i=e.isLeapDay,u=i===void 0?!1:i,h=q(t,r,o,n),c=Y({year:t,month:r,isLeapMonth:o}),s=J(n,c),l=Math.floor(m(s.day,s.monthCount)),O=J(s.day,s.monthCount),C=Math.floor(m(O.day,O.monthCount)),b=w(t,r),A=h===l+2,_=h===l,I=l===C,y=u&&A;y&&h--;var Yt=S(h);return{year:t,month:{month:r,isLeapMonth:o&&b,isDoubledMonth:b},day:n,skippedDay:_,isPreviousSkipped:I,isLeapDay:y,isDoubledDay:A,westernDate:Yt}},K=function(e){for(var t=e.getFullYear(),r=Mt(e),a=[t+f-1,t+f+1],o=a.map(function(y){return Y({year:y,month:1,isLeapMonth:!0})}),n=o.map(function(y){return 1+30*y}),i=n.map(function(y){return X(y)});n[0]<n[1]-1&&i[0]<i[1];){var u=Math.floor((n[0]+n[1])/2),h=X(u);h<r?(n[0]=u,i[0]=h):(n[1]=u,i[1]=h)}var c,s;i[0]===r?(c=i[0],s=n[0]):(c=i[1],s=n[1]);var l=c>r,O=Math.floor((s-1)/30),C=s%30||30,b=gt(O),A=b.year,_=b.month,I=b.isLeapMonth;return $({year:A,month:_,isLeapMonth:I,day:C,isLeapDay:l})},Q=function(e){return W({rabjungCycle:Math.ceil((e-p+1)/M),rabjungYear:U(e-p+1,M),tibYear:e+f,westernYear:e})},V=function(e){return Q(e-f)},Lt=function(e){var t=e.rabjungCycle,r=e.rabjungYear;if(t<1||r>M)throw new Error("Year number must be between 1 and ".concat(M));var a=p+(t-1)*M+(r-1),o=W({rabjungCycle:t,rabjungYear:r,tibYear:a+f,westernYear:a});return o},F=(function(){function e(t,r){r===void 0&&(r=!1);var a;if(t)typeof t=="number"?r?a=Q(t):a=V(t):a=Lt(t);else{var o=new Date,n=new D(o.toISOString());a=V(n.year)}this.rabjungCycle=a.rabjungCycle,this.rabjungYear=a.rabjungYear,this.tibYearNum=a.tibYear,this.westernYear=a.westernYear,this.animal=a.animal,this.element=a.element,this.gender=a.gender,this.months=[]}return e.prototype.getMonths=function(){if(this.months.length)return this.months;for(var t=1;t<=12;t++){var r=new T({year:this.tibYearNum,month:t});if(this.months.push(r),w(this.tibYearNum,t)){var a=new T({year:this.tibYearNum,month:t,isLeapMonth:!0});this.months.push(a)}}return this.months},e.prototype.toString=function(){return"".concat(this.tibYearNum)},e.prototype.toRabjungString=function(){return"The ".concat(this.rabjungYear,". year of the ").concat(this.rabjungCycle,". rabjung cycle")},e})(),jt=function(e){var t=e.year,r=e.month,a=e.isLeapMonth,o=a===void 0?!1:a,n=w(t,r),i=o&&n,u=Y({year:t,month:r,isLeapMonth:i}),h=1+Math.floor(m(30,u-1)),c=Math.floor(m(30,u)),s=d(S(h)),l=d(S(c));return{year:t,month:r,isLeapMonth:i,isDoubledMonth:n,startDate:s,endDate:l}},T=(function(){function e(t){var r,a;t?typeof t=="string"?(r=new Date(t),a=new D(r.toISOString())):(this.year=t.year,this.month=t.month,this.isLeapMonth=t.isLeapMonth||!1):(r=new Date,a=new D(r.toISOString())),a&&(this.year=a.year,this.month=a.month,this.isLeapMonth=a.monthObj.isLeapMonth);var o=jt({year:this.year,month:this.month,isLeapMonth:this.isLeapMonth});this.isDoubledMonth=o.isDoubledMonth,this.startDateStr=o.startDate,this.endDateStr=o.endDate,this.days=[]}return Object.defineProperty(e.prototype,"yearObj",{get:function(){return new F(this.year)},enumerable:!1,configurable:!0}),e.prototype.getDays=function(){if(this.days.length)return this.days;for(var t=1;t<=30;t++){var r=new D({year:this.year,month:this.month,isLeapMonth:this.isLeapMonth,day:t,isLeapDay:!1});if(r.isDoubledDay){var a=new D({year:this.year,month:this.month,isLeapMonth:this.isLeapMonth,day:t,isLeapDay:!0});this.days.push(a)}r.isSkippedDay||this.days.push(r)}return this.days},e.prototype.toString=function(){var t="";return this.isDoubledMonth&&(t=this.isLeapMonth?"-leap":"-main"),"".concat(this.yearObj.toString(),"-").concat(this.month).concat(t)},e})(),wt=(function(){function e(t){var r;t?typeof t=="string"?(this.westernDate=new Date(t),r=K(this.westernDate)):(r=$(t),this.westernDate=r.westernDate):(this.westernDate=new Date,r=K(this.westernDate)),this.isSkippedDay=r.skippedDay,this.isPreviousSkipped=r.isPreviousSkipped,this.isLeapDay=r.isLeapDay,this.isDoubledDay=r.isDoubledDay,this.date=r.day,this.year=r.year,this.month=r.month.month,this.monthObj=new T({year:r.year,month:r.month.month,isLeapMonth:r.month.isLeapMonth})}return Object.defineProperty(e.prototype,"day",{get:function(){return this.westernDate.getDay()},enumerable:!1,configurable:!0}),Object.defineProperty(e.prototype,"yearObj",{get:function(){return new F(this.year)},enumerable:!1,configurable:!0}),Object.defineProperty(e.prototype,"westernDateStr",{get:function(){return d(this.westernDate)},enumerable:!1,configurable:!0}),e.prototype.getWesternDate=function(){return this.westernDate},e.prototype.getDate=function(){return this.date},e.prototype.getDay=function(){return this.westernDate.getDay()},e.prototype.getMonth=function(){return this.month},e.prototype.getMonthObj=function(){return this.monthObj},e.prototype.getYear=function(){return this.year},e.prototype.getYearObj=function(){return this.yearObj},e.prototype.toString=function(){var t="";return this.isDoubledDay&&(t=this.isLeapDay?"-leap":"-main"),"".concat(this.monthObj.toString(),"-").concat(this.date).concat(t)},e})(),D=wt;v.TibetanDate=D,v.TibetanMonth=T,v.TibetanYear=F,v.getLosarForYear=dt,Object.defineProperty(v,"__esModule",{value:!0})}));
 
@@ -505,7 +680,7 @@
 // ═══════════════ I18N ═══════════════
 const T={
 vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức · Tiết khí: theo kinh độ Mặt Trời · Lịch Tạng: Phugpa (Janson) — tham khảo",
-  mains:["Hôm nay","Lịch","Đổi ngày","Sự kiện","Khám phá"],
+  mains:["Hôm nay","Lịch","Hệ lịch","Thời tiết","Sự kiện"],
   sGio:"GIỜ",sNgay:"NGÀY",sThang:"THÁNG",sNam:"NĂM",
   monthEvTitle:"Sự kiện trong tháng",evTitle:"Sự kiện 12 tháng tới",back:"Quay lại",detailTitle:"Chi tiết ngày",
   cvModes:["Dương → Âm","Âm → Dương","Dương → Tạng","Tạng → Dương"],
@@ -514,13 +689,44 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   cvSkip:"Ngày này bị khuyết (chad) trong lịch Tạng — không có ngày dương tương ứng",
   leapLbl:"Tháng nhuận",dayLbl:"Ngày",monthLbl:"Tháng",yearLbl:"Năm",
   srcPhat:"Phật giáo · VN",srcTib:"Tạng · Phugpa",srcLun:"Âm lịch · tính",srcCult:"Văn hóa · VN",
-  cult:[[1,1,"Tết Nguyên Đán"],[3,10,"Giỗ Tổ Hùng Vương"],[5,5,"Tết Đoan Ngọ"],[8,15,"Tết Trung Thu"],[12,23,"Ông Công Ông Táo"]],
+  cult:[[1,1,"Tết Nguyên Đán"],[1,15,"Tết Nguyên Tiêu"],[3,3,"Tết Hàn Thực"],[3,10,"Giỗ Tổ Hùng Vương"],[5,5,"Tết Đoan Ngọ"],[7,7,"Lễ Thất Tịch"],[7,15,"Rằm tháng Bảy · Vu Lan"],[8,15,"Tết Trung Thu"],[9,9,"Tết Trùng Cửu"],[10,15,"Tết Hạ Nguyên"],[12,23,"Ông Công Ông Táo"]],
   hlMoon:"Pha mặt trăng",hlDay:"Ngày âm lịch",hlTerm:"Tiết khí",hlCanchi:"Can Chi ngày",hlBuddha:"Phật giáo",hlDruk:"Lịch Tạng",
   hlToday:"Hôm nay có gì",
   subCal:["Vạn Niên","Can Chi","Phật Giáo"],subExp:["Mặt trăng","Vũ trụ","Phật giáo","Lịch Tạng","Thời tiết","Thủy triều"],
   wx:"Thời tiết",wxLoc:"Bấm để bật thời tiết theo vị trí",wxLoad:"Đang lấy dữ liệu…",
-  wxAsk:"Bật vị trí để xem trời hôm nay nơi bạn ở",wxOn:"Bật vị trí",
+  wxAsk:"Xem trời hôm nay nơi bạn ở",
+  wxPrivacy:"Vị trí chỉ lưu trên máy bạn — không gửi đi đâu, không ai thấy.",
+  sRainy:"Hôm nay mưa nhiều.",sShower:"Hôm nay có mưa rải rác.",sHot:"Hôm nay nắng nóng.",sCool:"Hôm nay trời mát.",sClear:"Hôm nay trời quang.",
+  aRain:"Ra ngoài nhớ mang áo mưa.",aRainPart:"Mưa nhiều nhất vào {p} — ra ngoài nên mang áo mưa.",
+  aShower:"Mang theo ô cho chắc.",aHot:"Tránh nắng giữa trưa, uống đủ nước.",aCool:"Ra sớm nhớ mặc ấm.",aClear:"Nhiệt độ dễ chịu.",
+  pMorning:"buổi sáng",pNoon:"buổi trưa",pAfternoon:"buổi chiều",pEvening:"buổi tối",
+  spTitle:"Hôm nay có gì đặc biệt",
+  spNoteToday:"Ngày ghi chú của bạn",spNoteSoon:"Còn {n} ngày nữa",
+  spRain:"{p} có mưa",spRainSub:"Mưa nhiều nhất khoảng {h} · {v}%",
+  spHot:"Nắng nóng {t}°",spHotSub:"Tránh nắng giữa trưa, uống đủ nước",
+  spCold:"Trời lạnh {t}°",spColdSub:"Ra ngoài nhớ mặc ấm",
+  spCult:"Ngày lễ trong lịch Việt",spBuddha:"Ngày lễ trong lịch Phật giáo",
+  spDuchen:"Ngày lễ lớn trong lịch Tạng",
+  spFull:"Ngày trăng tròn trong lịch âm",spNew:"Ngày đầu tháng âm lịch",
+  spTerm:"Hôm nay bước vào tiết khí mới",
+  spTibPractice:"Ngày {d} lịch Tạng",spTibSub:"Ngày dành cho việc thực hành",
+  moreToday:"Ngày giỗ · sinh nhật của tôi",
+  wxElev:"Độ cao",
+  wxType:"Gõ tên nơi ở",wxCityPh:"vd: Nam Ban, Đà Lạt, Vũng Tàu…",wxFind:"Tìm",wxNotFound:"Không tìm thấy nơi này, thử tên khác xem",wxOn:"Bật vị trí",
   tibGender:"Tính năm",gMale:"Dương",gFemale:"Âm",
+  sysTtl:"Cùng một ngày, nhiều hệ lịch",wxTtl:"Trời và nước hôm nay",
+  exploreTtl:"Chọn một lăng kính",
+  shareDay:"Chia sẻ hôm nay",
+  dEvents:"Sự kiện trong ngày",
+  noteAdd:"Thêm ngày giỗ · sinh nhật",noteName:"Tên (vd: Ông nội, Mẹ...)",noteSave:"Lưu",noteCancel:"Đóng",noteNeedName:"Nhập tên trước đã",
+  span60:"60 năm mới trở lại — lần trước {p}, lần sau {n}",
+  rabjungLbl:"Rabjung {c} · năm {y}/60",
+  span60cc:"Cùng tên năm quay lại sau mỗi 60 năm — lần trước {p}",
+  beSpan:"{n} năm kể từ Phật nhập Niết bàn · quy ước +544 dùng tại Việt Nam (Thái Lan, Myanmar dùng +543)",
+  lifeSpan:"Một đời người 80 năm ≈ 0,18 giây trên thang này",
+  hdLbl:"Trực thần",hdGood:"ngày hoàng đạo",hdBad:"ngày hắc đạo",
+  wxHourly:"Theo giờ",moonRise:"Trăng mọc",moonSet:"trăng lặn",needLoc:"cần bật vị trí",
+  wxAskShort:"Bật vị trí để xem thời tiết",tideAsk:"Bật vị trí để xem thủy triều",
   yogaTitle:"Tổ hợp nguyên tố của ngày",yogaNak:"Chòm sao Mặt Trăng",yoga28:"Yoga của ngày",
   elFromWd:"của thứ trong tuần",elFromNak:"của chòm sao",
   yogaExplain:"Hôm nay là {wd} — trong lịch Tạng, thứ này thuộc hành {ea}. Mặt Trăng đang đi qua chòm sao {nak}, thuộc hành {eb}. Hai hành gặp nhau tạo thành tổ hợp mà truyền thống gọi tên là “{name}”.",
@@ -579,14 +785,14 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   napam:["Hải Trung Kim","Lư Trung Hỏa","Đại Lâm Mộc","Lộ Bàng Thổ","Kiếm Phong Kim","Sơn Đầu Hỏa","Giản Hạ Thủy","Thành Đầu Thổ","Bạch Lạp Kim","Dương Liễu Mộc","Tuyền Trung Thủy","Ốc Thượng Thổ","Tích Lịch Hỏa","Tùng Bách Mộc","Trường Lưu Thủy","Sa Trung Kim","Sơn Hạ Hỏa","Bình Địa Mộc","Bích Thượng Thổ","Kim Bạch Kim","Phú Đăng Hỏa","Thiên Hà Thủy","Đại Trạch Thổ","Thoa Xuyến Kim","Tang Đố Mộc","Đại Khê Thủy","Sa Trung Thổ","Thiên Thượng Hỏa","Thạch Lựu Mộc","Đại Hải Thủy"],
   buddhaEv:[[1,1,"Vía Di Lặc (Tết)"],[1,15,"Rằm tháng Giêng"],[2,15,"Phật Niết Bàn"],[2,19,"Vía Quán Thế Âm"],[2,21,"Vía Phổ Hiền"],[4,4,"Vía Văn Thù"],[4,15,"Đại lễ Phật Đản"],[6,19,"Vía Quán Âm thành đạo"],[7,15,"Đại lễ Vu Lan"],[7,30,"Vía Địa Tạng"],[9,19,"Vía Quán Âm xuất gia"],[9,30,"Vía Dược Sư"],[11,17,"Vía Phật A Di Đà"],[12,8,"Phật Thành Đạo"]],
   dow:["T2","T3","T4","T5","T6","T7","CN"],
-  navToday:"Hôm nay",legend:"● ngày lễ/vía · số đậm: mùng 1 & rằm",gotoLbl:"Đi tới ngày",
-  viewModes:["Ngày","Tuần","Tháng","Năm"],
+  navToday:"Hôm nay",legend:"● ngày lễ/vía · <span style=\"color:#E8A33D\">●</span> ngày hoàng đạo · số đậm: mùng 1 & rằm",gotoLbl:"Đi tới ngày",
+  viewModes:["Ngày","Tuần","Tháng","Năm","Đổi ngày"],
   moonNote:"Pha trăng là ước tính theo ngày, chưa phải thời điểm đổi pha chính xác.",
   weekdays:["Chủ Nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"],
   months:["Một","Hai","Ba","Tư","Năm","Sáu","Bảy","Tám","Chín","Mười","Mười một","Chạp"],
   moShort:["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"]},
 en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar terms: by solar longitude · Tibetan: Phugpa (Janson) — reference",
-  mains:["Today","Calendar","Convert","Events","Explore"],
+  mains:["Today","Calendar","Calendars","Weather","Events"],
   sGio:"HOUR",sNgay:"DAY",sThang:"MONTH",sNam:"YEAR",
   monthEvTitle:"This month's observances",evTitle:"Next 12 months",back:"Back",detailTitle:"Day detail",
   cvModes:["Solar → Lunar","Lunar → Solar","Solar → Tibetan","Tibetan → Solar"],
@@ -595,13 +801,44 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   cvSkip:"This day is skipped (chad) in the Tibetan calendar — no solar equivalent",
   leapLbl:"Leap month",dayLbl:"Day",monthLbl:"Month",yearLbl:"Year",
   srcPhat:"Buddhist · VN",srcTib:"Tibetan · Phugpa",srcLun:"Lunar · computed",srcCult:"Culture · VN",
-  cult:[[1,1,"Lunar New Year (Tết)"],[3,10,"Hùng Kings' Day"],[5,5,"Đoan Ngọ Festival"],[8,15,"Mid-Autumn Festival"],[12,23,"Kitchen Gods' Day"]],
+  cult:[[1,1,"Lunar New Year (Tết)"],[1,15,"Lantern Festival"],[3,3,"Cold Food Festival"],[3,10,"Hùng Kings' Day"],[5,5,"Đoan Ngọ Festival"],[7,7,"Thất Tịch (Double Seven)"],[7,15,"Ghost Festival · Vu Lan"],[8,15,"Mid-Autumn Festival"],[9,9,"Double Ninth"],[10,15,"Hạ Nguyên Festival"],[12,23,"Kitchen Gods' Day"]],
   hlMoon:"Moon phase",hlDay:"Lunar day",hlTerm:"Solar term",hlCanchi:"Day pillar",hlBuddha:"Buddhist",hlDruk:"Tibetan",
   hlToday:"Today at a glance",
   subCal:["Perpetual","Sexagenary","Buddhist"],subExp:["Moon","Cosmic","Buddhist","Tibetan","Weather","Tides"],
   wx:"Weather",wxLoc:"Tap to enable weather for your location",wxLoad:"Loading…",
-  wxAsk:"Turn on location to see today's sky where you are",wxOn:"Enable location",
+  wxAsk:"See today's sky where you are",
+  wxPrivacy:"Your location stays on your device — never sent anywhere.",
+  sRainy:"Rainy today.",sShower:"Some rain today.",sHot:"Hot and sunny today.",sCool:"Cool today.",sClear:"Fine weather today.",
+  aRain:"Take a raincoat if you go out.",aRainPart:"Heaviest around {p} — take a raincoat.",
+  aShower:"Scattered showers possible.",aHot:"Avoid midday sun, drink water.",aCool:"Dress warm if heading out early.",aClear:"Comfortable temperatures.",
+  pMorning:"the morning",pNoon:"midday",pAfternoon:"the afternoon",pEvening:"the evening",
+  spTitle:"What's special today",
+  spNoteToday:"Your own note",spNoteSoon:"In {n} days",
+  spRain:"Rain in {p}",spRainSub:"Heaviest around {h} · {v}%",
+  spHot:"Hot, {t}°",spHotSub:"Avoid midday sun, drink water",
+  spCold:"Cold, {t}°",spColdSub:"Dress warm if heading out",
+  spCult:"A festival in the Vietnamese calendar",spBuddha:"An observance in the Buddhist calendar",
+  spDuchen:"A major Tibetan festival",
+  spFull:"Full-moon day in the lunar calendar",spNew:"First day of the lunar month",
+  spTerm:"A new solar term begins today",
+  spTibPractice:"Tibetan day {d}",spTibSub:"A day set aside for practice",
+  moreToday:"My memorials · birthdays",
+  wxElev:"Elevation",
+  wxType:"Type a place",wxCityPh:"e.g. Da Lat, Hanoi, Vung Tau…",wxFind:"Find",wxNotFound:"Place not found — try another name",wxOn:"Enable location",
   tibGender:"Year gender",gMale:"Male",gFemale:"Female",
+  sysTtl:"One day, many calendar systems",wxTtl:"Sky and water today",
+  exploreTtl:"Choose a lens",
+  shareDay:"Share today",
+  dEvents:"Events this day",
+  noteAdd:"Add memorial · birthday",noteName:"Name (e.g. Grandpa, Mom...)",noteSave:"Save",noteCancel:"Close",noteNeedName:"Enter a name first",
+  span60:"Returns every 60 years — last in {p}, next in {n}",
+  rabjungLbl:"Rabjung {c} · year {y}/60",
+  span60cc:"The same year-name returns every 60 years — last in {p}",
+  beSpan:"{n} years since the Buddha's parinirvana · +544 convention used in Vietnam (Thailand and Myanmar use +543)",
+  lifeSpan:"An 80-year human life ≈ 0.18 seconds on this scale",
+  hdLbl:"Day deity",hdGood:"auspicious day",hdBad:"inauspicious day",
+  wxHourly:"Hourly",moonRise:"Moonrise",moonSet:"moonset",needLoc:"needs location",
+  wxAskShort:"Turn on location for weather",tideAsk:"Turn on location for tides",
   yogaTitle:"Elemental combination of the day",yogaNak:"Lunar mansion",yoga28:"Yoga of the day",
   elFromWd:"of the weekday",elFromNak:"of the lunar mansion",
   yogaExplain:"Today is {wd} — in the Tibetan calendar this weekday belongs to the {ea} element. The Moon is passing through {nak}, a {eb} mansion. Where the two meet, the tradition gives the pairing the name “{name}”.",
@@ -660,8 +897,8 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   napam:["Gold in the Sea","Fire in the Furnace","Wood of the Forest","Earth by the Road","Metal of the Sword","Fire on the Hilltop","Water in the Stream","Earth on the Wall","Metal of the Wax","Wood of the Willow","Water of the Spring","Earth on the Roof","Thunderbolt Fire","Wood of Pine & Cypress","Long-flowing Water","Metal in the Sand","Fire at the Foot of the Hill","Wood of the Plain","Earth of the Wall","Metal of Foil","Lamp Fire","Water of the Milky Way","Earth of the Homestead","Metal of Ornaments","Wood of the Mulberry","Water of the Great Stream","Earth in the Sand","Fire in the Sky","Wood of the Pomegranate","Water of the Great Sea"],
   buddhaEv:[[1,1,"Maitreya Day"],[1,15,"1st-month full moon"],[2,15,"Parinirvana"],[2,19,"Avalokiteśvara"],[2,21,"Samantabhadra"],[4,4,"Mañjuśrī"],[4,15,"Vesak (Buddha's Birth)"],[6,19,"Guanyin Enlightenment"],[7,15,"Ullambana"],[7,30,"Kṣitigarbha"],[9,19,"Guanyin Ordination"],[9,30,"Bhaiṣajyaguru"],[11,17,"Amitabha Day"],[12,8,"Bodhi Day"]],
   dow:["Mo","Tu","We","Th","Fr","Sa","Su"],
-  navToday:"Today",legend:"● observance · bold: new & full moon",gotoLbl:"Go to date",
-  viewModes:["Day","Week","Month","Year"],
+  navToday:"Today",legend:"● holiday · <span style=\"color:#E8A33D\">●</span> auspicious day · bold: new/full moon",gotoLbl:"Go to date",
+  viewModes:["Day","Week","Month","Year","Convert"],
   moonNote:"Moon phase is a daily estimate, not the exact instant of phase change.",
   weekdays:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
   months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
@@ -882,8 +1119,6 @@ function tibYearShort(tib){
   return LANG=='vi'?`${tibElVi[tib.element]} ${tibAnVi[tib.animal]}`:`${tib.element} ${tib.animal}`;
 }
 let LOCNAME=(function(){try{return localStorage.getItem('ldc_locname')||''}catch(e){return''}})();
-// §0 từ vựng khóa: dùng "Hỏa Ngựa" — KHÔNG dùng "Hỏa Ngựa (dương)" / "Male Fire Horse".
-// Âm/dương của năm hiển thị riêng ở dòng "Tính năm" trong panel Lịch Tạng.
 function tibYearName(tib){return tibYearShort(tib);}
 // 4 Düchen lớn + Losar: [tháng Tạng, ngày Tạng, khóa i18n]
 const DUCHEN=[[1,1,'losar'],[1,15,'duchen1'],[4,15,'duchen2'],[6,4,'duchen3'],[9,22,'duchen4']];
@@ -956,12 +1191,27 @@ function evDot(date,lun){
   return !tb.leap&&DUCHEN.some(e=>tb.month===e[0]&&tb.day===e[1]);
 }
 // một ô ngày dùng chung cho lưới Tháng và Tuần
+// ═══ Ngày hoàng đạo — 12 trực thần (Thanh Long khởi theo chi tháng âm) ═══
+// Hoàng đạo: Thanh Long, Minh Đường, Kim Quỹ, Bảo Quang, Ngọc Đường, Tư Mệnh
+const HD_START=[8,10,0,2,4,6,8,10,0,2,4,6]; // chi tháng Tý..Hợi -> chi khởi Thanh Long
+const HD_GODS_VI=["Thanh Long","Minh Đường","Thiên Hình","Chu Tước","Kim Quỹ","Bảo Quang","Bạch Hổ","Ngọc Đường","Thiên Lao","Huyền Vũ","Tư Mệnh","Câu Trận"];
+const HD_GOOD=[1,1,0,0,1,1,0,1,0,0,1,0];
+function dayHoangDao(d){
+  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  const chiThang=(lun.month+1)%12; // tháng Giêng = Dần(2)... quy về chi 0-11
+  const jd=jdFromDate(d.getDate(),d.getMonth()+1,d.getFullYear());
+  const chiNgay=(jd+1)%12;
+  const idx=((chiNgay-HD_START[chiThang])%12+12)%12;
+  return{god:HD_GODS_VI[idx],good:HD_GOOD[idx]===1};
+}
 function cellHtml(c){
   const lun=solarToLunar(c.getDate(),c.getMonth()+1,c.getFullYear(),7);
   const tdy=sameDay(c,new Date()),sel=sameDay(c,VIEW);
   const bold=lun.day===1||lun.day===15;
   const ltxt=lun.day===1?lun.day+'/'+lun.month+(lun.leap?'n':''):lun.day;
+  const hd=dayHoangDao(c);
   return `<div class="d ${tdy?'today':''} ${sel&&!tdy?'sel':''} ${c.getDay()===0?'sun':''}" onclick="selDay(${c.getFullYear()},${c.getMonth()},${c.getDate()})">
+    ${hd.good?'<span class="hdd g"></span>':''}
     <div class="g">${c.getDate()}</div>
     <div class="l ${bold?'b':''}">${ltxt}</div>
     ${evDot(c,lun)?'<div class="ev"></div>':''}</div>`;
@@ -1009,7 +1259,7 @@ function navUnit(n){
   track('date_select','arrow');renderScreen();
 }
 function setMode(m){MODE=m;DETAIL=false;if(m==='month'||m==='year')syncGYM();track('tab_open','calendar:mode-'+m);renderScreen();}
-function setModeIdx(i){setMode(['day','week','month','year'][i]);}
+function setModeIdx(i){setMode(['day','week','month','year','convert'][i]);}
 function gotoMonth(m){GM=m;MODE='month';renderScreen();}
 function goToday(){VIEW=new Date();syncGYM();track('date_select','today');renderScreen();}
 function selDay(y,m,d){VIEW=new Date(y,m,d,12);GY=y;GM=m;DETAIL=true;track('date_select','grid');if(MAIN!==1){MAIN=1;renderMainTabs();}renderScreen();window.scrollTo(0,0);}
@@ -1021,7 +1271,7 @@ function weekStrip(d,t){
     const c=new Date(mon);c.setDate(mon.getDate()+i);
     const lun=solarToLunar(c.getDate(),c.getMonth()+1,c.getFullYear(),7);
     const tdy=sameDay(c,new Date());
-    h+=`<div class="c ${tdy?'today':''} ${c.getDay()===0?'sun':''}" onclick="selDay(${c.getFullYear()},${c.getMonth()},${c.getDate()})">
+    h+=`<div class="c ${tdy?'today':''} ${c.getDay()===0?'sun':''} ${dayHoangDao(c).good?'hdg':''}" onclick="selDay(${c.getFullYear()},${c.getMonth()},${c.getDate()})">
       <div class="dw">${t.dow[i]}</div><div class="g">${c.getDate()}</div>
       <div class="l">${lun.day===1?lun.day+'/'+lun.month:lun.day}</div></div>`;
   }
@@ -1031,9 +1281,44 @@ function weekStrip(d,t){
 // ═══════════════ V2: CHI TIẾT NGÀY · SỰ KIỆN · ĐỔI NGÀY · THANH CAN CHI ═══════════════
 let DETAIL=false,CVMODE=0;
 // gom mọi sự kiện của 1 ngày (kèm badge nguồn)
+// ═══════════════ THANG THỜI GIAN (tính từ engine, không nhập tay) ═══════════════
+// Rabjung: chu kỳ 60 năm, Rabjung 1 khởi 1027 CE (nguồn: THL, Rigpa Wiki, Janson)
+function rabjung(gy){return{cycle:Math.floor((gy-1027)/60)+1,year:((gy-1027)%60)+1};}
+function cycle60(gy){return{prev:gy-60,next:gy+60};}
+// ═══════════════ GHI CHÚ GIỖ / SINH NHẬT ÂM LỊCH ═══════════════
+// Lưu trên máy: [{id,name,type:'gio'|'sn'|'khac',m,d,cal:'lunar'|'solar'}]
+function loadNotes(){try{return JSON.parse(localStorage.getItem('ldc_notes')||'[]')}catch(e){return[]}}
+function saveNotes(n){try{localStorage.setItem('ldc_notes',JSON.stringify(n))}catch(e){}}
+function addNote(name,type,m,d,cal){
+  const n=loadNotes();
+  n.push({id:Date.now(),name:name.trim(),type,m:+m,d:+d,cal});
+  saveNotes(n);track('date_select','note_add');
+}
+function delNote(id){saveNotes(loadNotes().filter(x=>x.id!==id));}
+// ghi chú rơi vào ngày dương cụ thể? (so theo âm hoặc dương)
+function notesOn(date){
+  const notes=loadNotes();if(!notes.length)return[];
+  const lun=solarToLunar(date.getDate(),date.getMonth()+1,date.getFullYear(),7);
+  return notes.filter(x=>x.cal==='lunar'
+    ?(x.m===lun.month&&x.d===lun.day&&!lun.leap)
+    :(x.m===date.getMonth()+1&&x.d===date.getDate()));
+}
+// các ghi chú sắp tới trong `win` ngày (kèm số ngày còn lại)
+function notesUpcoming(from,win){
+  const out=[];
+  for(let i=0;i<=win;i++){
+    const c=new Date(from.getTime()+i*864e5);
+    for(const n of notesOn(c))out.push({n,days:i,date:c});
+  }
+  return out;
+}
+const NOTE_TYPE_VI={gio:"Giỗ",sn:"Sinh nhật",khac:"Kỷ niệm"};
+const NOTE_TYPE_EN={gio:"Memorial",sn:"Birthday",khac:"Anniversary"};
+function noteTypeName(ty){return (LANG=='vi'?NOTE_TYPE_VI:NOTE_TYPE_EN)[ty]||ty;}
 function dayEvents(c,t){
   const lun=solarToLunar(c.getDate(),c.getMonth()+1,c.getFullYear(),7);
   const out=[];
+  for(const x of notesOn(c))out.push({n:'♥ '+noteTypeName(x.type)+' '+x.name,b:LANG=='vi'?'CỦA TÔI':'MINE',cls:'',note:1});
   const be=t.buddhaEv.find(e=>e[0]===lun.month&&e[1]===lun.day);
   if(be)out.push({n:be[2],b:t.srcPhat,cls:''});
   const cu=t.cult.find(e=>e[0]===lun.month&&e[1]===lun.day);
@@ -1071,13 +1356,62 @@ function screenEvents(){
 }
 // trang chi tiết 1 ngày: đủ 4 lăng kính
 function detailBody(t){
-  return panelVanNien()+panelCanChi()+panelBuddha()+panelDrukpa();
+  const evs=dayEvents(VIEW,t);
+  const evH=evs.length?`<div class="card"><h2>${t.dEvents}</h2>
+    ${evs.map(e=>`<div class="row"><span class="k">${e.b||''}</span><span class="v">${e.n}</span></div>`).join('')}
+  </div>`:'';
+  return evH+panelVanNien()+panelCanChi()+panelBuddha()+panelDrukpa();
 }
 function dayDetail(t){
   const d=VIEW;
   return `<div class="backbar"><button onclick="closeDetail()">‹ ${t.back}</button>
     <span class="bt">${t.weekdays[d.getDay()]}, ${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>`
     +detailBody(t);
+}
+// vẽ ảnh ngày để chia sẻ
+async function shareDay(){
+  const d=VIEW,t=T[LANG];
+  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  const cyD=ccDay(lun.jd),cyY=ccYear(lun.year),mp=moonPhase(d);
+  const L=dailyLine(d,t);
+  const cv=document.createElement('canvas');cv.width=1080;cv.height=1350;
+  const x=cv.getContext('2d');
+  x.fillStyle='#FAF7F0';x.fillRect(0,0,1080,1350);
+  x.strokeStyle='#EDE6D8';x.lineWidth=6;x.strokeRect(40,40,1000,1270);
+  x.textAlign='center';x.fillStyle='#6E6A5E';
+  x.font='600 40px Inter,sans-serif';
+  x.fillText(t.weekdays[d.getDay()].toUpperCase(),540,190);
+  x.fillStyle='#B03A30';x.font='800 340px Inter,sans-serif';
+  x.fillText(d.getDate(),540,510);
+  x.fillStyle='#6E6A5E';x.font='500 44px Inter,sans-serif';
+  x.fillText('Th'+(d.getMonth()+1)+' · '+d.getFullYear(),540,590);
+  x.fillStyle='#1C1B18';x.font='600 52px Inter,sans-serif';
+  x.fillText((LANG=='vi'?'Mùng ':'Lunar ')+lun.day+(LANG=='vi'?' tháng ':'/')+lun.month+(lun.leap?'*':''),540,700);
+  x.fillStyle='#6E6A5E';x.font='400 40px Inter,sans-serif';
+  x.fillText((LANG=='vi'?'Năm ':'')+t.can[cyY[0]]+' '+t.chi[cyY[1]]+' · '+(LANG=='vi'?'ngày ':'day ')+t.can[cyD[0]]+' '+t.chi[cyD[1]],540,770);
+  x.strokeStyle='#EDE6D8';x.lineWidth=2;
+  x.beginPath();x.moveTo(240,850);x.lineTo(840,850);x.stroke();
+  // dòng của ngày (bọc dòng)
+  x.fillStyle='#1C1B18';x.font='500 42px Inter,sans-serif';
+  const words=L.txt.replace(/[“”]/g,'').split(' ');let line='',ly=950;
+  for(const w of words){
+    if(x.measureText(line+w).width>860){x.fillText(line,540,ly);ly+=62;line=w+' ';}
+    else line+=w+' ';
+  }
+  x.fillText(line.trim(),540,ly);
+  x.fillStyle='#9A9384';x.font='400 32px Inter,sans-serif';
+  x.fillText(L.lens+' · '+(d.getDate())+'/'+(d.getMonth()+1)+'/'+d.getFullYear(),540,ly+80);
+  x.fillStyle='#B03A30';x.font='700 36px Inter,sans-serif';
+  x.fillText('☽ '+(LANG=='vi'?'Lịch Đa Chiều':'Multi Calendar'),540,1240);
+  const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+  const file=new File([blob],'lich-da-chieu.png',{type:'image/png'});
+  try{
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file]});track('date_select','share_img');return;
+    }
+  }catch(e){if(e.name==='AbortError')return;}
+  // fallback: mở ảnh tab mới để lưu tay
+  const url=URL.createObjectURL(blob);window.open(url,'_blank');
 }
 function openDetail(){VIEW=new Date();syncGYM();DETAIL=true;MAIN=1;renderMainTabs();renderScreen();window.scrollTo(0,0);}
 function closeDetail(){DETAIL=false;renderScreen();window.scrollTo(0,0);}
@@ -1093,6 +1427,29 @@ function ccStrip(d,t){
     <div class="cc"><div class="cl">${t.sNam}</div><div class="cv">${lun.year}</div><div class="cn">${t.can[cyY[0]]} ${t.chi[cyY[1]]}</div></div>
   </div>`;
 }
+// tự sang ngày mới lúc nửa đêm + làm mới khi mở lại app
+let LASTDAY=new Date().toDateString();
+function checkNewDay(){
+  const now=new Date();
+  if(now.toDateString()!==LASTDAY){
+    LASTDAY=now.toDateString();
+    if(MAIN===0){VIEW=new Date();syncGYM();}
+    renderScreen();
+    return true;
+  }
+  return false;
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  checkNewDay();
+  const L=loadLoc();
+  if(L){ // dữ liệu quá 30 phút thì lấy lại
+    const now=Date.now();
+    if(!window._wxAt||now-window._wxAt>18e5){WX=null;fetchWeather();}
+    if(!window._tdAt||now-window._tdAt>18e5){TD=null;fetchTide();}
+  }
+});
+setInterval(checkNewDay,60000);
 setInterval(()=>{
   const el=document.getElementById('ccNowT');if(!el)return;
   const n=new Date();el.textContent=pad(n.getHours())+':'+pad(n.getMinutes());
@@ -1151,9 +1508,8 @@ function convertRun(){
     D=lunarToSolar(d,m,y,lp);if(!D)err=t.cvNone;
   }else{
     const d=+document.getElementById('cvd').value,m=+document.getElementById('cvm').value,y=+document.getElementById('cvy').value;
-    // Ngày khuyết (chad): thư viện KHÔNG ném lỗi mà vẫn trả về một ngày dương —
-    // ngày đó thật ra thuộc ngày Tạng trước đó. Phải chặn bằng cờ isSkippedDay,
-    // nếu không sẽ hiện một ngày dương sai (§0.5 — không điền số cho đẹp UI).
+    // Ngay khuyet (chad): thu vien KHONG nem loi ma van tra ve mot ngay duong -
+    // ngay do that ra thuoc ngay Tang truoc do. Phai chan bang co isSkippedDay.
     try{
       const td=new TDC.TibetanDate({year:y,month:m,day:d});
       if(td.isSkippedDay)err=t.cvSkip;
@@ -1185,6 +1541,17 @@ function screenConvert(){
   <div id="cvOut"></div>`;
 }
 
+// ═══════════════ SunCalc: giờ mọc/lặn theo vị trí ═══════════════
+function sunMoonTimes(date){
+  const L=loadLoc();if(!L||!window.SunCalc)return null;
+  try{
+    const d=new Date(date.getFullYear(),date.getMonth(),date.getDate(),12);
+    const st=SunCalc.getTimes(d,L.la,L.lo);
+    const mt=SunCalc.getMoonTimes(d,L.la,L.lo);
+    const f=x=>x&&!isNaN(x)?pad(x.getHours())+':'+pad(x.getMinutes()):null;
+    return{sunrise:f(st.sunrise),sunset:f(st.sunset),moonrise:f(mt.rise),moonset:f(mt.set)};
+  }catch(e){return null}
+}
 // ═══════════════ V2.2: TRĂNG SVG · THỜI TIẾT · THỦY TRIỀU (Open-Meteo, không key) ═══════════════
 // vẽ pha trăng bằng SVG — đơn giản, sạch
 function moonSVG(f,wax,size){
@@ -1202,6 +1569,23 @@ function moonSVG(f,wax,size){
 let WX=null,TD=null,WXL=false,TDL=false;
 function loadLoc(){try{return JSON.parse(localStorage.getItem('ldc_loc')||'null')}catch(e){return null}}
 function saveLoc(la,lo){try{localStorage.setItem('ldc_loc',JSON.stringify({la:+la.toFixed(3),lo:+lo.toFixed(3)}))}catch(e){}}
+function openCityForm(){
+  const f=document.getElementById('cityForm');
+  f.style.display=f.style.display==='none'?'block':'none';
+  if(f.style.display==='block')setTimeout(()=>document.getElementById('cityIn').focus(),80);
+}
+function submitCity(){
+  const q=(document.getElementById('cityIn')||{}).value||'';
+  if(!q.trim())return;
+  fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q.trim())}&count=1&language=vi`)
+    .then(r=>r.json()).then(j=>{
+      const r0=j&&j.results&&j.results[0];
+      if(!r0){alert(T[LANG].wxNotFound);return;}
+      LOCNAME=r0.name+(r0.admin1?', '+r0.admin1:'');
+      try{localStorage.setItem('ldc_locname',LOCNAME)}catch(e){}
+      saveLoc(r0.latitude,r0.longitude);fetchWeather();fetchTide();
+    }).catch(()=>alert(T[LANG].wxNotFound));
+}
 function fetchLocName(la,lo){
   fetch(`https://geocoding-api.open-meteo.com/v1/search?latitude=${la}&longitude=${lo}&count=1&language=vi`)
     .then(r=>r.json()).then(j=>{
@@ -1219,6 +1603,12 @@ function askLoc(){
     fetchWeather();fetchTide();
   },()=>{alert(T[LANG].wxErr);},{timeout:12000,maximumAge:600000});
 }
+function wcodeIcon(c){
+  if(c===0)return '☀';if(c<=2)return '⛅';if(c===3)return '☁';
+  if(c===45||c===48)return '🌫';if(c>=51&&c<=57)return '🌦';
+  if(c>=61&&c<=67)return '🌧';if(c>=71&&c<=77||c===85||c===86)return '❄';
+  if(c>=80&&c<=82)return '🌦';if(c>=95)return '⛈';return '⛅';
+}
 function wcodeName(c,t){
   const m=t.wc;
   if(c===0)return m[0];if(c<=2)return m[1];if(c===3)return m[2];
@@ -1228,8 +1618,8 @@ function wcodeName(c,t){
 }
 function fetchWeather(){
   const L=loadLoc();if(!L||WXL)return;WXL=true;
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${L.la}&longitude=${L.lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=7`)
-    .then(r=>r.json()).then(j=>{WX=j&&j.current?j:{err:1};WXL=false;renderScreen();})
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${L.la}&longitude=${L.lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=7`)
+    .then(r=>r.json()).then(j=>{WX=j&&j.current?j:{err:1};window._wxAt=Date.now();WXL=false;renderScreen();})
     .catch(()=>{WX={err:1};WXL=false;renderScreen();});
 }
 function fetchTide(){
@@ -1237,7 +1627,7 @@ function fetchTide(){
   fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${L.la}&longitude=${L.lo}&hourly=sea_level_height_msl&timezone=auto&forecast_days=3`)
     .then(r=>r.json()).then(j=>{
       const h=j&&j.hourly&&j.hourly.sea_level_height_msl;
-      TD=(h&&h.some(x=>x!==null&&x!==undefined))?j:{nodata:1};
+      TD=(h&&h.some(x=>x!==null&&x!==undefined))?j:{nodata:1};window._tdAt=Date.now();
       TDL=false;renderScreen();
     }).catch(()=>{TD={nodata:1};TDL=false;renderScreen();});
 }
@@ -1297,6 +1687,19 @@ function panelWeather(){
       <span style="color:var(--muted)">${t.wxProb} ${dl.precipitation_probability_max[i]??0}%</span>
       <span class="wxtmp" style="min-width:86px;text-align:right">${Math.round(dl.temperature_2m_min[i])}° – <b>${Math.round(dl.temperature_2m_max[i])}°</b></span></div>`;
   }
+  let hrs='';
+  if(WX.hourly&&WX.hourly.time){
+    const now=new Date(),H=WX.hourly;
+    let i0=H.time.findIndex(x=>new Date(x)>=now);if(i0<0)i0=0;
+    for(let i=i0;i<Math.min(i0+12,H.time.length);i++){
+      const hd=new Date(H.time[i]);
+      hrs+=`<div class="hcell"><div class="hh">${i===i0?(LANG=='vi'?'Giờ này':'Now'):pad(hd.getHours())+'h'}</div>
+        <div class="hi">${wcodeIcon(H.weather_code[i])}</div>
+        <div class="ht2">${Math.round(H.temperature_2m[i])}°</div>
+        <div class="hp">${H.precipitation_probability[i]??0}%</div></div>`;
+    }
+  }
+  const smt=sunMoonTimes(VIEW);
   return `<div class="card">
     <h2>${t.wx}</h2><div class="en">${LANG=='vi'?'Hiện tại':'Now'} · Open-Meteo</div>
     <div class="wxbig">${Math.round(c.temperature_2m)}°</div>
@@ -1304,8 +1707,11 @@ function panelWeather(){
     <div class="row"><span class="k">${t.wxFeel}</span><span class="v"><b>${Math.round(c.apparent_temperature)}°</b></span></div>
     <div class="row"><span class="k">${t.wxHum}</span><span class="v">${c.relative_humidity_2m}%</span></div>
     <div class="row"><span class="k">${t.wxWind}</span><span class="v">${Math.round(c.wind_speed_10m)} km/h</span></div>
+    ${WX.elevation!=null?`<div class="row"><span class="k">${t.wxElev}</span><span class="v"><b>${Math.round(WX.elevation)} m</b> ${LANG=='vi'?'so với mực nước biển':'above sea level'}</span></div>`:''}
     <div class="row"><span class="k">${t.wxSunrise} · ${t.wxSunset}</span><span class="v">${dl.sunrise[0].slice(11,16)} · ${dl.sunset[0].slice(11,16)}</span></div>
   </div>
+  ${hrs?`<div class="card"><h2>${t.wxHourly}</h2><div class="en">${LANG=='vi'?'12 giờ tới':'Next 12 hours'}</div>
+    <div class="hscroll">${hrs}</div></div>`:''}
   <div class="card"><h2>${t.wx7}</h2><div class="en">${LANG=='vi'?'Nhiệt độ thấp – cao':'Low – high'}</div>${rows7}
     <div class="note">${t.wxSrc}</div></div>`;
 }
@@ -1358,6 +1764,7 @@ function screenToday(){
   </div>
   ${ccStrip(d,t)}
   ${weekStrip(d,t)}
+  ${specialHtml(d,t)}
   <div class="hubs">
     <div class="hubttl">${t.hlToday}</div>
     ${hubWeather(t)}
@@ -1366,8 +1773,14 @@ function screenToday(){
     ${hubBuddha(lun,buddhaHl,d,t)}
     ${hubTibet(tibT,tibMon,special,t)}
   </div>
+  ${remindTop(d,t)}
   ${dailyLineHtml(d,t)}
-  ${tomorrowHtml(d,t)}`;
+  ${nextEventLine(d,t)}
+  ${tomorrowHtml(d,t)}
+  <details class="more"><summary>${t.moreToday}</summary>
+    <div class="mbody">${remindHtml(d,t)}</div>
+  </details>
+  <button class="sharebtn" onclick="shareDay()">↗ ${t.shareDay}</button>`;
 }
 // ═══════════════ ELEMENTAL YOGA (Kālacakra · khams kyi sbyor ba) ═══════════════
 // Nguyên tố THỨ TRONG TUẦN + nguyên tố CHÒM SAO MẶT TRĂNG → 10 tổ hợp có tên Tạng/Phạn.
@@ -1523,6 +1936,117 @@ function elementYoga(date){
 }
 // Nguyên tắc: KHÔNG tự bịa. Mỗi câu hoặc (a) trích nguồn kiểm chứng được,
 // hoặc (b) biên tập từ chính dữ liệu ngày hôm đó — và ghi rõ là biên tập.
+// ═══════════════ GIẢI NGHĨA THUẬT NGỮ (chạm ⓘ → 1 dòng) ═══════════════
+const GLOSS={
+  rabjung:{vi:["Rabjung","Chu kỳ 60 năm của lịch Tạng, chu kỳ đầu bắt đầu năm 1027."],en:["Rabjung","A 60-year cycle in the Tibetan calendar; the first began in 1027 CE."]},
+  nak:{vi:["Chòm sao Mặt Trăng","Một trong 27 chòm sao mà Mặt Trăng đi qua, dùng trong lịch Ấn – Tạng."],en:["Lunar mansion","One of 27 star groups the Moon passes through, used in Indo-Tibetan calendars."]},
+  hd:{vi:["Trực thần","Tên gọi luân phiên 12 ngày trong lịch truyền thống Đông Á; sáu tên được xem là hoàng đạo, sáu tên hắc đạo."],en:["Day deity","One of 12 names rotating daily in East Asian traditional calendars; six are counted auspicious, six not."]},
+  duchen:{vi:["Düchen","Ngày lễ lớn trong Phật giáo Tây Tạng, kỷ niệm các sự kiện trong đời Đức Phật."],en:["Düchen","A major Tibetan Buddhist festival marking events in the Buddha's life."]},
+  napam:{vi:["Nạp âm","Tên ngũ hành gán cho từng cặp Can Chi trong bảng 60 hoa giáp."],en:["Nạp âm","The five-element name assigned to each of the 60 sexagenary pairs."]},
+  yoga:{vi:["Tổ hợp nguyên tố","Nguyên tố của thứ trong tuần ghép với nguyên tố của chòm sao, mỗi tổ hợp có một tên riêng trong truyền thống Kālacakra."],en:["Elemental combination","The weekday element paired with the lunar-mansion element; each pairing has its own name in the Kālacakra tradition."]},
+  phugpa:{vi:["Phugpa","Hệ tính lịch Tạng phổ biến nhất, hình thành từ thế kỷ 15."],en:["Phugpa","The most widely used Tibetan calendar system, formalised in the 15th century."]},
+  tietkhi:{vi:["Tiết khí","24 mốc chia năm theo vị trí Mặt Trời, dùng trong lịch truyền thống Đông Á để đánh dấu chuyển mùa."],en:["Solar term","24 markers dividing the year by the Sun's position, marking seasonal change."]}
+};
+function glo(k){
+  const g=GLOSS[k];if(!g)return;
+  const [ti,tx]=g[LANG]||g.vi;
+  let el=document.getElementById('glo');
+  if(!el){el=document.createElement('div');el.id='glo';document.body.appendChild(el);}
+  el.innerHTML=`<div class="glbox"><div class="glt">${ti}</div><div class="glx">${tx}</div>
+    <button onclick="document.getElementById('glo').classList.remove('on')">${LANG=='vi'?'Đóng':'Close'}</button></div>`;
+  el.classList.add('on');
+  el.onclick=e=>{if(e.target.id==='glo')el.classList.remove('on')};
+}
+// ═══════════════ HÔM NAY CÓ GÌ ĐẶC BIỆT — điểm theo ngữ cảnh ═══════════════
+// Nguyên tắc: không gán cứng. Mưa ban đêm = 0 điểm. Ngưỡng hiện ≥45, tối đa 2 mục.
+function specialToday(d,t){
+  const out=[];
+  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  const tb=tibetan(d),jd=jdFromDate(d.getDate(),d.getMonth()+1,d.getFullYear());
+
+  // ① Ghi chú cá nhân
+  for(const n of notesOn(d))
+    out.push({sc:88,hub:0,title:'♥ '+noteTypeName(n.type)+' '+n.name,sub:t.spNoteToday,go:'setMain(0)'});
+  if(!out.length){
+    const up=notesUpcoming(d,3).filter(u=>u.days>0);
+    if(up.length)out.push({sc:70,hub:0,title:'♥ '+noteTypeName(up[0].n.type)+' '+up[0].n.name,
+      sub:t.spNoteSoon.replace('{n}',up[0].days),go:'setMain(0)'});
+  }
+
+  // ② Thời tiết — chỉ tính khung 6h–21h
+  if(WX&&WX.hourly&&WX.hourly.precipitation_probability){
+    const H=WX.hourly;let best=-1,bi=-1;
+    for(let i=0;i<H.time.length;i++){
+      const dt=new Date(H.time[i]);
+      if(!sameDay(dt,d))continue;
+      const h=dt.getHours();if(h<6||h>21)continue;
+      const p=H.precipitation_probability[i]??0;
+      if(p>best){best=p;bi=i;}
+    }
+    if(best>=55&&bi>=0){
+      const h=new Date(H.time[bi]).getHours();
+      const sc=Math.round(30+(best-50)*1.2);
+      const part=h<10?t.pMorning:(h<14?t.pNoon:(h<18?t.pAfternoon:t.pEvening));
+      out.push({sc,hub:4,title:t.spRain.replace('{p}',part),
+        sub:t.spRainSub.replace('{h}',pad(h)+'h').replace('{v}',best),go:'goExp(4)'});
+    }
+    if(WX.daily){
+      const hi=Math.round(WX.daily.temperature_2m_max[0]),lo=Math.round(WX.daily.temperature_2m_min[0]);
+      if(hi>=35)out.push({sc:60+(hi-35)*4,hub:4,title:t.spHot.replace('{t}',hi),sub:t.spHotSub,go:'goExp(4)'});
+      else if(lo<=15)out.push({sc:55+(15-lo)*3,hub:4,title:t.spCold.replace('{t}',lo),sub:t.spColdSub,go:'goExp(4)'});
+    }
+  }
+
+  // ③ Lễ lớn văn hóa + Phật giáo
+  const cu=t.cult.find(e=>e[0]===lun.month&&e[1]===lun.day);
+  const be=t.buddhaEv.find(e=>e[0]===lun.month&&e[1]===lun.day);
+  // hai bảng có thể trùng ngày (vd Vu Lan) — chỉ lấy MỘT mục lễ
+  if(cu)out.push({sc:82,hub:2,title:cu[2],sub:t.spCult,go:'goExp(2)',kind:'fest'});
+  else if(be)out.push({sc:82,hub:2,title:be[2],sub:t.spBuddha,go:'goExp(2)',kind:'fest'});
+
+  // ④ Düchen Tạng
+  if(!tb.leap)for(const e of DUCHEN)if(tb.month===e[0]&&tb.day===e[1])
+    out.push({sc:76,hub:3,title:t[e[2]],sub:t.spDuchen,go:'goExp(3)'});
+
+  // ⑤ Rằm / mùng 1
+  if(!out.some(x=>x.kind==='fest')){
+    if(lun.day===15)out.push({sc:66,hub:1,title:t.fullDay,sub:t.spFull,go:'goExp(0)'});
+    else if(lun.day===1)out.push({sc:66,hub:1,title:t.newDay,sub:t.spNew,go:'goExp(0)'});
+  }
+
+  // ⑥ Chuyển tiết khí
+  const ct=currentTermIdx(jd);
+  if(ct!==currentTermIdx(jd-1))
+    out.push({sc:58,hub:2,title:t.terms[ct],sub:t.spTerm,go:'goExp(0)'});
+
+  // ⑦ Ngày thực hành Tạng
+  if(!tb.leap&&[8,10,15,25,30].includes(tb.day)&&!out.some(x=>x.hub===3))
+    out.push({sc:48,hub:3,title:t.spTibPractice.replace('{d}',tb.day),sub:t.spTibSub,go:'goExp(3)'});
+
+  // sắp theo điểm, nhưng 2 mục hiển thị phải khác nguồn (không dồn 2 mục cùng hub)
+  const sorted=out.filter(x=>x.sc>=45).sort((a,b)=>b.sc-a.sc);
+  const pick=[];
+  for(const x of sorted){
+    if(pick.length>=2)break;
+    if(pick.some(y=>y.hub===x.hub))continue;
+    pick.push(x);
+  }
+  // nếu chỉ có 1 nguồn mà còn chỗ, lấy thêm mục điểm cao kế tiếp
+  if(pick.length<2)for(const x of sorted){
+    if(pick.length>=2)break;
+    if(!pick.includes(x))pick.push(x);
+  }
+  return pick;
+}
+function specialHtml(d,t){
+  const sp=specialToday(d,t);
+  if(!sp.length)return '';   // ngày thường: không bịa đặc biệt
+  return `<div class="spbox">
+    <div class="sptt">${t.spTitle}</div>
+    ${sp.map(x=>`<div class="spit" onclick="${x.go}">
+      <span class="spn">${x.title}</span><span class="sps">${x.sub}</span></div>`).join('')}
+  </div>`;
+}
 // ═══════════════ DÒNG CỦA NGÀY ═══════════════
 const CADAO=[
  {m:[1,2,3],vi:"Tháng Giêng rét đài, tháng Hai rét lộc, tháng Ba rét nàng Bân.",en:"Folk saying on the three lingering colds of early spring."},
@@ -1593,6 +2117,69 @@ function dailyLineHtml(d,t){
   </div>`;
 }
 // ═══════════════ NGÀY MAI ═══════════════
+// lễ gần nhất trong 60 ngày tới
+function nextEventLine(d,t){
+  for(let k=1;k<=60;k++){
+    const c=new Date(d.getTime()+k*864e5);
+    const evs=dayEvents(c,t).filter(e=>!e.note);
+    if(evs.length){
+      const ev=evs.find(e=>e.b!==t.srcLun)||evs[0]; // ưu tiên lễ thật hơn rằm/mùng 1
+      return `<div class="cntdn" onclick="setMain(3)">
+        <span class="cd-n">✦ ${ev.n}</span>
+        <span class="cd-d">${LANG=='vi'?'còn':'in'} <b>${k}</b> ${LANG=='vi'?'ngày':'days'} · ${c.getDate()}/${c.getMonth()+1}</span>
+      </div>`;
+    }
+  }
+  return '';
+}
+function remindTop(d,t){
+  const up=notesUpcoming(d,3);
+  if(!up.length)return '';
+  return `<div class="rmtop" onclick="setMain(0)">${up.slice(0,2).map(u=>`<div class="rmrow" style="border:0;padding:5px 0">
+    <span class="rmn">♥ ${noteTypeName(u.n.type)} <b>${u.n.name}</b></span>
+    <span class="rmd">${u.days===0?t.today:(u.days===1?t.tomorrow:(LANG=='vi'?'còn '+u.days+' ngày':'in '+u.days+'d'))}</span></div>`).join('')}</div>`;
+}
+function remindHtml(d,t){
+  const up=notesUpcoming(d,3);
+  let inner='';
+  if(up.length){
+    inner=up.slice(0,3).map(u=>`<div class="rmrow">
+      <span class="rmn">♥ ${noteTypeName(u.n.type)} <b>${u.n.name}</b></span>
+      <span class="rmd">${u.days===0?t.today:(u.days===1?t.tomorrow:(LANG=='vi'?'còn '+u.days+' ngày':'in '+u.days+'d'))}${u.n.cal==='lunar'?' · '+u.n.d+'/'+u.n.m+(LANG=='vi'?' âm':' lunar'):''}</span>
+    </div>`).join('');
+  }
+  return `<div class="rmbox">${inner}
+    <button class="rmadd" onclick="openNoteForm()">＋ ${t.noteAdd}</button>
+    <div id="noteForm" style="display:none">
+      <input id="nfName" type="text" placeholder="${t.noteName}" maxlength="40">
+      <div class="nfrow">
+        <select id="nfType"><option value="gio">${LANG=='vi'?'Giỗ':'Memorial'}</option><option value="sn">${LANG=='vi'?'Sinh nhật':'Birthday'}</option><option value="khac">${LANG=='vi'?'Kỷ niệm':'Anniversary'}</option></select>
+        <select id="nfCal"><option value="lunar">${LANG=='vi'?'Âm lịch':'Lunar'}</option><option value="solar">${LANG=='vi'?'Dương lịch':'Solar'}</option></select>
+      </div>
+      <div class="nfrow">
+        <select id="nfD">${Array.from({length:30},(_,i)=>`<option value="${i+1}">${LANG=='vi'?'Ngày':'Day'} ${i+1}</option>`).join('')}</select>
+        <select id="nfM">${Array.from({length:12},(_,i)=>`<option value="${i+1}">${LANG=='vi'?'Tháng':'Month'} ${i+1}</option>`).join('')}</select>
+      </div>
+      <div class="nfrow">
+        <button class="nfsave" onclick="submitNote()">${t.noteSave}</button>
+        <button class="nfcancel" onclick="document.getElementById('noteForm').style.display='none'">${t.noteCancel}</button>
+      </div>
+      ${loadNotes().length?`<div class="nflist">${loadNotes().map(x=>`<div class="nfitem"><span>${noteTypeName(x.type)} <b>${x.name}</b> · ${x.d}/${x.m}${x.cal==='lunar'?(LANG=='vi'?' âm':' lunar'):''}</span><button onclick="delNote(${x.id});renderScreen()">✕</button></div>`).join('')}</div>`:''}
+    </div>
+  </div>`;
+}
+function openNoteForm(){
+  const f=document.getElementById('noteForm');
+  f.style.display=f.style.display==='none'?'block':'none';
+}
+function submitNote(){
+  const nm=document.getElementById('nfName').value;
+  if(!nm.trim()){alert(T[LANG].noteNeedName);return;}
+  addNote(nm,document.getElementById('nfType').value,
+    document.getElementById('nfM').value,document.getElementById('nfD').value,
+    document.getElementById('nfCal').value);
+  renderScreen();
+}
 function tomorrowHtml(d,t){
   const n=new Date(d.getTime()+864e5);
   const lun=solarToLunar(n.getDate(),n.getMonth()+1,n.getFullYear(),7);
@@ -1608,17 +2195,54 @@ function tomorrowHtml(d,t){
   </div>`;
 }
 // ① thời tiết
+// Câu tóm tắt hôm nay: ngôn ngữ người, sinh từ forecast — không phán vận
+function todaySentence(t){
+  if(!WX||!WX.current||!WX.daily)return null;
+  const c=WX.current,dl=WX.daily,H=WX.hourly;
+  const hi=Math.round(dl.temperature_2m_max[0]),lo=Math.round(dl.temperature_2m_min[0]);
+  const pop=dl.precipitation_probability_max[0]??0;
+  // mưa vào buổi nào?
+  let part=null;
+  if(H&&H.precipitation_probability){
+    const now=new Date();let i0=H.time.findIndex(x=>new Date(x)>=now);if(i0<0)i0=0;
+    let best=-1,bi=-1;
+    for(let i=i0;i<Math.min(i0+14,H.time.length);i++){
+      const p=H.precipitation_probability[i]??0;
+      if(p>best){best=p;bi=i;}
+    }
+    if(best>=55&&bi>=0){
+      const h=new Date(H.time[bi]).getHours();
+      part=h<10?t.pMorning:(h<14?t.pNoon:(h<18?t.pAfternoon:t.pEvening));
+    }
+  }
+  let head,adv='';
+  if(pop>=70){head=t.sRainy;adv=part?t.aRainPart.replace('{p}',part):t.aRain;}
+  else if(pop>=40){head=t.sShower;adv=part?t.aRainPart.replace('{p}',part):t.aShower;}
+  else if(hi>=33){head=t.sHot;adv=t.aHot;}
+  else if(hi<=22){head=t.sCool;adv=t.aCool;}
+  else{head=t.sClear;adv=t.aClear;}
+  return{head,adv,hi,lo,set:dl.sunset[0].slice(11,16)};
+}
 function hubWeather(t){
-  if(!WX||!WX.current)return `<div class="hub wx" onclick="askLoc()">
+  if(!WX||!WX.current)return `<div class="hub wx slim">
     <div class="lbl">${t.wx}</div>
-    <div class="cond" style="margin-top:10px;font-size:16px">${t.wxAsk}</div>
-    <span class="go2">${t.wxOn} →</span></div>`;
+    <div class="cond" style="margin-top:6px;font-size:15.5px">${t.wxAsk}</div>
+    <div style="font-size:12px;color:#5E7480;margin-top:6px;line-height:1.55">${t.wxPrivacy}</div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="wxbtn" onclick="event.stopPropagation();askLoc()">📍 ${t.wxOn}</button>
+      <button class="wxbtn alt" onclick="event.stopPropagation();openCityForm()">${t.wxType}</button>
+    </div>
+    <div id="cityForm" style="display:none;margin-top:12px">
+      <input id="cityIn" type="text" placeholder="${t.wxCityPh}" onkeydown="if(event.key==='Enter')submitCity()">
+      <button class="wxbtn" style="margin-top:8px;width:100%" onclick="submitCity()">${t.wxFind}</button>
+    </div></div>`;
   const c=WX.current,dl=WX.daily;
   return `<div class="hub wx" onclick="goExp(4)">
     <div class="lbl">${t.wx}</div>
     <div class="tmp">${Math.round(c.temperature_2m)}°</div>
     <div class="cond">${wcodeName(c.weather_code,t)}</div>
-    <div class="place">${LOCNAME?LOCNAME+' · ':''}${t.wxFeel} ${Math.round(c.apparent_temperature)}° · ${c.relative_humidity_2m}% · ${Math.round(c.wind_speed_10m)} km/h</div>
+    <div class="place">${LOCNAME?LOCNAME+' · ':''}${t.wxFeel} ${Math.round(c.apparent_temperature)}°</div>
+    ${(function(){const S=todaySentence(t);return S?`<div class="tsent"><b>${S.head}</b> ${S.adv}</div>`:''})()}
     <div class="horizon"></div>
     <div class="sun"><span>${t.wxSunrise}<b>${dl.sunrise[0].slice(11,16)}</b></span>
       <span style="text-align:right">${t.wxSunset}<b>${dl.sunset[0].slice(11,16)}</b></span></div>
@@ -1679,6 +2303,8 @@ function screenCalendar(){
   let t=T[LANG];
   if(DETAIL)return dayDetail(t);
   let grid='';
+  if(MODE==='convert')
+    return subnav(t.viewModes,4,'setModeIdx')+screenConvert();
   if(MODE==='week')grid=gridWeek(t);
   else if(MODE==='month')grid=gridMonth(t)+monthEvents(t);
   else if(MODE==='year')grid=gridYear(t);
@@ -1686,12 +2312,52 @@ function screenCalendar(){
   return subnav(t.viewModes,['day','week','month','year'].indexOf(MODE),'setModeIdx')
     +navRow(t)+grid;
 }
-function screenExplore(){
-  let t=T[LANG];
-  let fns=[panelAstro,panelCosmic,panelBuddha,panelDrukpa,panelWeather,panelTide];
-  let pk=(SUBEXP===0||SUBEXP===2||SUBEXP===3)?picker():'';
-  return `<div id="expPicker">${pk}</div>`+subnav(t.subExp,SUBEXP,'setSubExp')+`<div id="expBody">${fns[SUBEXP]()}</div>`;
+let EXPOPEN=false;
+// dữ liệu 6 ô Khám phá: màu, hoa văn chìm, số liệu tóm tắt
+function expItems(t){
+  const d=VIEW,lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  const mp=moonPhase(d),tb=tibetan(d),ey=elementYoga(d);
+  const nf=nextFullMoon(d);
+  const wxOk=WX&&WX.current;
+  return [
+    {i:0,c:'#3C4560',nm:t.subExp[0],sb:`${t.phases[mp.idx]} · ${LANG=='vi'?'rằm':'full'} ${nf.getDate()}/${nf.getMonth()+1}`,vl:Math.round(mp.illum*100)+'%',
+     orn:`<svg viewBox="0 0 340 62"><circle cx="298" cy="31" r="17" fill="#3C4560" opacity=".22"/><path d="M298 14 A17 17 0 0 1 298 48 A8 17 0 0 0 298 14Z" fill="#3C4560" opacity=".45"/><circle cx="298" cy="31" r="25" fill="none" stroke="#3C4560" stroke-width="1" opacity=".28"/></svg>`},
+    {i:1,c:'#6D4FA8',nm:t.subExp[1],sb:`${t.youHere} · 31/12 23:59:59`,vl:'',
+     orn:`<svg viewBox="0 0 340 62"><ellipse cx="292" cy="31" rx="44" ry="15" fill="none" stroke="#6D4FA8" stroke-width="1.2" opacity=".4"/><ellipse cx="292" cy="31" rx="24" ry="8" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity=".45"/><circle cx="292" cy="31" r="3.5" fill="#D4AF37" opacity=".55"/><circle cx="252" cy="15" r="1.4" fill="#6D4FA8" opacity=".5"/><circle cx="324" cy="48" r="1.2" fill="#6D4FA8" opacity=".45"/></svg>`},
+    {i:2,c:'#C9922E',nm:t.subExp[2],sb:`${t.buddhaEra} ${d.getFullYear()+544} · ${lun.day}/${lun.month} ${LANG=='vi'?'âm':''}`,vl:'',
+     orn:`<svg viewBox="0 0 340 62"><g fill="none" stroke="#C9922E" stroke-width="1.4" opacity=".42" transform="translate(296,31)"><circle r="17"/><circle r="4.6"/><g stroke-width="1.1"><line y1="-17" y2="-4.6"/><line y1="4.6" y2="17"/><line x1="-17" x2="-4.6"/><line x1="4.6" x2="17"/><line x1="-12" y1="-12" x2="-3.3" y2="-3.3"/><line x1="12" y1="12" x2="3.3" y2="3.3"/><line x1="12" y1="-12" x2="3.3" y2="-3.3"/><line x1="-12" y1="12" x2="-3.3" y2="3.3"/></g></g></svg>`},
+    {i:3,c:'#8C2A20',nm:t.subExp[3],sb:`${LANG=='vi'?'Ngày':'Day'} ${tb.day} · ${LANG=='vi'?'tháng':'m.'} ${tb.month} · ${tibYearShort(tb)}${ey?' · '+ey.mean:''}`,vl:'',
+     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><path d="M196 62 L226 44 L248 51 L278 36 L308 50 L330 42 L340 48 L340 62Z" fill="#8C2A20" opacity=".24"/><path d="M228 62 L254 50 L286 56 L316 47 L340 55 L340 62Z" fill="#8C2A20" opacity=".16"/></svg>`},
+    {i:4,c:'#4A7A8C',nm:t.subExp[4],sb:wxOk?`${wcodeName(WX.current.weather_code,t)}${LOCNAME?' · '+LOCNAME:''}`:t.wxAskShort,vl:wxOk?Math.round(WX.current.temperature_2m)+'°':'',
+     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><g fill="none" stroke="#4A7A8C" stroke-width="1.5" opacity=".38"><g transform="translate(262,26)"><circle r="9"/><g stroke-width="1.2"><line y1="-13" y2="-17"/><line y1="13" y2="17"/><line x1="-13" x2="-17"/><line x1="13" x2="17"/></g></g><g transform="translate(304,32)"><path d="M-20 6 q0 -7 7 -7 q1 -7 9 -7 q6 0 8 5 q7 1 7 7 q0 5 -5 5h-20 q-6 0 -6 -3z"/><path d="M-10 14 l-2 6 M-1 14 l-2 6 M8 14 l-2 6" stroke-width="1.1"/></g></g></svg>`},
+    {i:5,c:'#4E7565',nm:t.subExp[5],sb:TD&&!TD.nodata?(function(){const e=tideExtremes(TD);return e.length?(e[0].hi?t.tideHi:t.tideLo)+' '+pad(e[0].d.getHours())+':'+pad(e[0].d.getMinutes())+' · '+e[0].v.toFixed(2)+' m':t.tideHi})():(loadLoc()?t.tideNoData:t.tideAsk),vl:'',
+     orn:`<svg viewBox="0 0 340 62"><defs><g id="sgx"><circle r="13" fill="none" stroke="#4E7565" stroke-width="1.3"/><circle r="8.5" fill="none" stroke="#4E7565" stroke-width="1.1" opacity=".7"/><circle r="4.4" fill="none" stroke="#4E7565" stroke-width="1" opacity=".5"/></g></defs><g opacity=".4" clip-path="inset(0 0 18 0)"><use href="#sgx" x="232" y="44"/><use href="#sgx" x="258" y="44"/><use href="#sgx" x="284" y="44"/><use href="#sgx" x="310" y="44"/><use href="#sgx" x="336" y="44"/><use href="#sgx" x="245" y="31"/><use href="#sgx" x="271" y="31"/><use href="#sgx" x="297" y="31"/><use href="#sgx" x="323" y="31"/></g></svg>`}
+  ];
 }
+function screenExplore(){ return hubScreen([0,2,3,1],T[LANG]); }   // Trăng, Phật, Tạng, Vũ trụ
+function screenWeatherTab(){ return hubScreen([4,5],T[LANG]); }     // Thời tiết, Triều
+function hubScreen(ids,t){
+  if(EXPOPEN){
+    const fns=[panelAstro,panelCosmic,panelBuddha,panelDrukpa,panelWeather,panelTide];
+    const pk=(SUBEXP===0||SUBEXP===2||SUBEXP===3)?picker():'';
+    const skins=['sk-moon','sk-cos','sk-bud','sk-tib','sk-wx','sk-td'];
+    document.body.className=skins[SUBEXP];
+    return `<div class="backbar"><button onclick="expBack()">‹ ${t.mains[MAIN]}</button>
+      <span class="bt">${t.subExp[SUBEXP]}</span></div>`+pk+`<div id="expBody">${fns[SUBEXP]()}</div>`;
+  }
+  const all=expItems(t),items=ids.map(i=>all[i]);
+  return `<div class="hubttl" style="margin:2px 0 14px">${MAIN===2?t.sysTtl:t.wxTtl}</div>
+  <div class="explist">${items.map(x=>`
+    <div class="exp" style="--c:${x.c}" onclick="openExp(${x.i})">
+      <span class="eorn">${x.orn}</span>
+      <span class="edot"></span>
+      <span class="etx"><span class="enm">${x.nm}</span><span class="esb">${x.sb}</span></span>
+      ${x.vl?`<span class="evl">${x.vl}</span>`:''}
+      <span class="ear">›</span>
+    </div>`).join('')}</div>`;
+}
+function openExp(i){SUBEXP=i;EXPOPEN=true;track('tab_open','explore:'+['moon','cosmic','buddha','tibet','weather','tide'][i]);renderScreen();window.scrollTo(0,0);}
+function expBack(){EXPOPEN=false;document.body.className='';renderScreen();window.scrollTo(0,0);}
 function picker(){
   let d=VIEW;
   return `<div class="picker">
@@ -1747,8 +2413,10 @@ function panelCanChi(){
       <div class="cell"><div class="cl">${t.ccDay}</div><div class="cv"><b>${t.can[cyD[0]]} ${t.chi[cyD[1]]}</b></div></div>
       <div class="cell"><div class="cl">${t.ccHour}${isToday?'':' ('+(LANG=='vi'?'giờ Tý':'Zi')+')'}</div><div class="cv">${t.can[cyH[0]]} ${t.chi[cyH[1]]}</div></div>
     </div>
-    <div class="row" style="margin-top:6px"><span class="k">${t.napAm}</span><span class="v"><b>${t.napam[na]}</b></span></div>
+    <div class="row" style="margin-top:6px"><span class="k">${t.napAm} <i class="gl" onclick="event.stopPropagation();glo('napam')">ⓘ</i></span><span class="v"><b>${t.napam[na]}</b></span></div>
     <div class="row"><span class="k">${t.zodiac}</span><span class="v">${t.animals[cyY[1]]}</span></div>
+    <div class="row"><span class="k">${t.hdLbl} <i class="gl" onclick="event.stopPropagation();glo('hd')">ⓘ</i></span><span class="v"><b style="color:${dayHoangDao(d).good?'#C9702A':'#6E6A5E'}">${dayHoangDao(d).god}</b> · ${dayHoangDao(d).good?t.hdGood:t.hdBad}</span></div>
+    <div class="tspan">${t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)}</div>
   </div>
   <div class="card">
     <h2>${t.hoursTitle}</h2><div class="en">
@@ -1787,6 +2455,7 @@ function panelBuddha(){
         <div class="qtx">“${q[LANG]}”</div>
         <div class="qsrc">${LANG=='vi'?q.src:q.srcEn}</div>
       </div>
+      <div class="tspan">${t.beSpan.replace('{n}',d.getFullYear()+544)}</div>
       <div class="note">${t.buddhaMean}</div>
     </div>
   </div>
@@ -1816,6 +2485,7 @@ function panelCosmic(){
       <div class="row"><span class="k">${t.cosmicSince}</span><span class="v"><b>13,80 ${LANG=='vi'?'tỷ năm':'Gyr'}</b></span></div>
       <div class="row"><span class="k">${LANG=='vi'?'1 ngày vũ trụ':'1 cosmic day'}</span><span class="v">≈ 37,8 ${LANG=='vi'?'triệu năm':'Myr'}</span></div>
       <div class="row"><span class="k">${LANG=='vi'?'1 giây vũ trụ':'1 cosmic second'}</span><span class="v">≈ 438 ${LANG=='vi'?'năm':'yr'}</span></div>
+      <div class="tspan cos">${t.lifeSpan}</div>
       <div class="qbox cosq"><div class="qtx">${LINES.cosmic[LANG]}</div><div class="qsrc">${t.lensCosmic} · ${t.srcEdited}</div></div>
     </div>
   </div>
@@ -1848,6 +2518,9 @@ function panelAstro(){
       <div class="row"><span class="k">${t.moonAge}</span><span class="v">${mp.age.toFixed(1)} ${t.days}</span></div>
       <div class="row"><span class="k">${t.nextFullM}</span><span class="v"><b>${nf.getDate()}/${nf.getMonth()+1}</b> · ${pad(nf.getHours())}:${pad(nf.getMinutes())}</span></div>
       <div class="row"><span class="k">${t.nextNewM}</span><span class="v">${nn.getDate()}/${nn.getMonth()+1} · ${pad(nn.getHours())}:${pad(nn.getMinutes())}</span></div>
+      ${(function(){const S=sunMoonTimes(d);return S&&(S.moonrise||S.moonset)?
+        `<div class="row"><span class="k">${t.moonRise} · ${t.moonSet}</span><span class="v"><b>${S.moonrise||'—'}</b> · ${S.moonset||'—'}</span></div>`:
+        `<div class="row"><span class="k">${t.moonRise}</span><span class="v" style="font-size:14px;opacity:.7">${t.needLoc}</span></div>`})()}
       <div class="note">${mp.waxing?t.moonMean:t.moonMeanW}<br>${t.moonNote}</div>
     </div>
   </div>
@@ -1855,7 +2528,7 @@ function panelAstro(){
     <h2>${t.seasonTitle}</h2><div class="en">${LANG=='vi'?'Mùa & 24 tiết khí':'Season & 24 solar terms'}</div>
     <div class="big" style="font-size:30px">${t.terms[curTerm]}<small>${t.seasons[season]} · ${LANG=='vi'?'tiết khí hiện tại':'current solar term'}</small></div>
     <div class="row"><span class="k">${t.nextTerm}</span><span class="v"><b>${t.terms[nt.idx]}</b> · ${LANG=='vi'?'còn':''} ${nt.days} ${t.days}</span></div>
-    <div class="note">${t.termMean}</div>
+    <div class="note">${t.termMean} <i class="gl" onclick="event.stopPropagation();glo('tietkhi')">ⓘ</i></div>
   </div>`;
 }
 
@@ -1878,13 +2551,15 @@ function panelDrukpa(){
       <div class="row"><span class="k">${t.drukYear}</span><span class="v"><b>${tib.year}</b> · ${yn}</span></div>
       <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?t.gMale:t.gFemale}</span></div>
       <div class="row"><span class="k">${t.tibSystem}</span><span class="v">${t.tibSystemV}</span></div>
+      <div class="tspan">${t.span60.replace('{p}',cycle60(d.getFullYear()).prev).replace('{n}',cycle60(d.getFullYear()).next)}
+        <span class="tsrc">${t.rabjungLbl.replace('{c}',rabjung(d.getFullYear()).cycle).replace('{y}',rabjung(d.getFullYear()).year)} <i class="gl" onclick="event.stopPropagation();glo('rabjung')">ⓘ</i></span></div>
       ${special?`<div class="note">${t.sacredMean}</div>`:''}
     </div>
   </div>
   ${ey?`<div class="idc elc">
     <div class="hd2">
       ${ornKnot(34,'#D4A017')}
-      <div class="k2">${t.yogaTitle}</div>
+      <div class="k2">${t.yogaTitle} <i class="gl" onclick="event.stopPropagation();glo('yoga')">ⓘ</i></div>
       <div class="elpair">
         <div class="elone"><i style="background:${EL_COLOR[ey.a]}"></i><span>${ey.elA}</span><em>${t.elFromWd}</em></div>
         <div class="elplus">+</div>
@@ -1902,7 +2577,7 @@ function panelDrukpa(){
         .replace('{name}',ey.mean.toLowerCase())}</div>
       <div class="explain2">${t.yogaUse}</div>
       <div class="row"><span class="k">${t.yoga28}</span><span class="v"><b>${y28.mean}</b> · <i style="color:#9A8358">${y28.tib}</i></span></div>
-      <div class="row"><span class="k">${t.yogaNak}</span><span class="v">${ey.nak}</span></div>
+      <div class="row"><span class="k">${t.yogaNak} <i class="gl" onclick="event.stopPropagation();glo('nak')">ⓘ</i></span><span class="v">${ey.nak}</span></div>
       <div class="note">${t.yogaNote}</div>
     </div>
   </div>`:''}
@@ -1915,19 +2590,19 @@ function panelDrukpa(){
 
 // ═══════════════ NAV / CONTROLS ═══════════════
 function renderMainTabs(){
-  let t=T[LANG],ic=["◈","▦","⇄","☸","✧"],mt=document.getElementById('maintabs');
+  let t=T[LANG],ic=["◈","▦","☸","☀","✦"],mt=document.getElementById('maintabs');
   mt.innerHTML=t.mains.map((m,i)=>
     `<button class="${i===MAIN?'on':''}" onclick="setMain(${i})"><span class="bi">${ic[i]}</span>${m}</button>`).join('');
 }
 function renderScreen(){
-  let fns=[screenToday,screenCalendar,screenConvert,screenEvents,screenExplore];
+  let fns=[screenToday,screenCalendar,screenExplore,screenWeatherTab,screenEvents];
   document.getElementById('screens').innerHTML=`<div class="screen on">${fns[MAIN]()}</div>`;
 }
-function setMain(i){if(i===0){VIEW=new Date();syncGYM();}if(i!==1)DETAIL=false;MAIN=i;track('tab_open',['today','calendar','convert','events','explore'][i]);renderMainTabs();renderScreen();window.scrollTo(0,0);}
+function setMain(i){if(i===0){VIEW=new Date();syncGYM();}if(i!==1)DETAIL=false;if(i!==2&&i!==3){EXPOPEN=false;}document.body.className='';MAIN=i;track('tab_open',['today','calendar','systems','weather','events'][i]);renderMainTabs();renderScreen();window.scrollTo(0,0);}
 function setSubCal(i){SUBCAL=i;track('tab_open','calendar:'+['vannien','canchi','buddha'][i]);renderScreen();}
 function setSubExp(i){SUBEXP=i;track('tab_open','explore:'+['moon','cosmic','buddha','tibet','weather','tide'][i]);renderScreen();}
 function goCal(i){SUBCAL=i;setMain(1);}
-function goExp(i){SUBEXP=i;setMain(4);}
+function goExp(i){SUBEXP=i;EXPOPEN=true;setMain(2);}
 
 function shiftDay(n){VIEW=new Date(VIEW.getTime()+n*864e5);syncGYM();track('date_select','arrow');renderScreen();}
 function pickDate(){let v=document.getElementById('dp').value;if(v){VIEW=new Date(v+'T12:00:00');syncGYM();track('date_select','picker');renderScreen();}}
