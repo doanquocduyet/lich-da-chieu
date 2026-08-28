@@ -513,3 +513,79 @@ tới lần thứ hai mới thấy bản mới. Muốn thấy ngay thì mở tab
 Workflow chữa được triệu chứng một cách đáng tin, nhưng 7 chỗ này lẽ ra phải nằm trong
 **chính nguồn sinh ra bản build**. Khi nào xử được gốc, workflow sẽ chạy mà không commit
 gì nữa — lúc đó bỏ `patch.py` đi được, còn `verify.js` thì giữ.
+
+---
+
+## 12. KHẢO SÁT UX 8 LĂNG KÍNH (V2.8) — BẢN BUILD SAU PHẢI KẾ THỪA
+
+Khảo sát bằng 8 agent độc lập trên bản đang chạy (mỗi lăng kính tự chụp màn hình,
+tự đo bằng Chromium): người mới 10 giây · ergonomics ngón tay · phân cấp thị giác ·
+chữ nghĩa song ngữ · hiệu năng đo thật · lý-do-quay-lại · tiếp cận WCAG · trạng thái
+biên. Thu 53 phát hiện, đã tự phản biện từng cái trước khi sửa.
+
+### 12.1 Đã sửa trong V2.8 — bản build sau KHÔNG ĐƯỢC làm mất lại
+
+Nhóm lỗi thật (đều đã kiểm chứng bằng trình duyệt trước/sau):
+
+1. **Footer in HTML thô** — `footNote` gán bằng `textContent` trong khi chuỗi chứa
+   `<span class='ablink'>` → mọi màn hiện mã thô, link "Về ứng dụng" chết. Phải gán
+   `innerHTML`. (verify.js đã có bẫy.)
+2. **EN thiếu `subExp[6]`** → panel Hoàng đạo Tây hiện "undefined" ở bản EN.
+3. **`moonRise/moonSet` định nghĩa 2 lần** trong cùng object i18n — khóa sau đè khóa
+   trước, hàng "Đêm nay" ra chữ sai. Khóa chữ thường tách riêng: `mrLow/msLow`.
+4. **Chữ đậm vô hình trên skin tối** — `.row .v b` ghim màu `#222`; 3 skin tối phải
+   override (`#F5F2E8`).
+5. **"Mùng" dùng cho ngày âm >10** ở ô Ngày mai + ảnh chia sẻ. Quy tắc: 1–10 = "Mùng",
+   11+ = "Ngày". (Đầu trang đã đúng từ trước, hai chỗ này sót.)
+6. **Đúng ngày rằm tự mâu thuẫn**: tiêu đề "Trăng tròn · 100%" nhưng ghi chú "Trăng
+   đang khuyết". Chọn ghi chú theo độ sáng trước (`>0.985` = câu trăng tròn, `<0.015`
+   = câu không trăng), rồi mới xét đang lớn/khuyết.
+7. **Dòng của ngày bỏ qua lễ lớn** — đúng hôm Tết Trung Thu lại ra câu trăng. Ưu tiên 0
+   (trước cả ngày thực hành Tạng): lễ trong `cult`/`buddhaEv` → "Hôm nay là {tên lễ} —
+   ngày d/m âm lịch."
+8. **CTA "Xem 24 tiết khí →" dẫn tới màn không có 24 tiết khí** — đã thêm bảng 24 tiết
+   khí + ngày bắt đầu (tính từ engine, tô đậm tiết hiện tại) vào cuối panel thiên văn.
+9. **Hub Lịch Tạng nền xanh đen** — sinh đôi với hub Mặt trăng, trái §3.3. Đã về đỏ tía
+   tăng bào `#8C2A20→#571714`, chữ phụ vàng kim `#E8C98B/#F0D9A8`.
+10. **Chuỗi bật vị trí dùng nguyên văn câu §2.9 cấm** ("Bấm để bật…"), màn Thủy triều
+    mượn nguyên nút Thời tiết → dùng "Bật vị trí để xem trời hôm nay nơi bạn ở" /
+    `tideAsk` riêng. `wxPrivacy` bỏ "máy chủ riêng"/"Open-Meteo" khỏi màn chính (§0.6).
+11. **EN**: tab "Calendars" đứng cạnh "Calendar" → "Explore" · "Sexagenary/Perpetual" →
+    "Stems & Branches"/"Almanac" · "5 into the sign°" → "5° into the sign" · nhãn
+    "Solar longitude" (từ cấm §0) → "Sun's position" · "In 1 days" → "1 day" ·
+    "Month 9/2026" → "Sep 2026" · "My memorials" → "My dates" · "Year gender" →
+    "Polarity" · ca dao EN bỏ ngoặc kép (là lời tả, không phải trích) · CTA thêm động từ.
+12. **Vùng chạm**: ⓘ giải nghĩa 17×15px → ~40px (padding+margin âm) · nút VI/EN 33px →
+    ≥39px · hàng chip chế độ tab Lịch `flex-wrap` để chip thứ 5 "Tra ngày" không trôi
+    khỏi mép phải (trước đó cuộn ngang nhưng giấu thanh cuộn — không ai biết mà cuộn).
+13. **Hai tiêu đề gần trùng** "HÔM NAY CÓ GÌ ĐẶC BIỆT"/"HÔM NAY CÓ GÌ" cạnh nhau →
+    tiêu đề hub thành "NĂM LĂNG KÍNH HÔM NAY" (bám tagline).
+14. **sw.js**: `cache.addAll` đi vòng HTTP cache (`{cache:'reload'}`) — không thì trên
+    GitHub Pages (max-age=600) SW có thể cache đúng bản cũ vừa bị thay.
+
+### 12.2 Cho bản build sau (chưa làm — cần thiết kế, không chỉ vá)
+
+- **Vuốt ngang đổi ngày/tháng** — app lịch phone-first mà mọi điều hướng đều phải bấm nút.
+- **Xem lại cặp tab "Lịch"/"Hệ lịch"** — người mới không đoán được khác nhau gì.
+- **Ô đếm ngược sự kiện**: lễ có tên (Trung Thu) phải thắng mốc thường (Mùng Một) dù xa hơn.
+- **Ô "Ngày mai" kết bằng phủ định** "Không có ngày lễ lớn" 13/14 ngày — đổi thành chi
+  tiết dương tính (trăng, tiết khí kế, giờ hoàng đạo đầu tiên của mai…).
+- **Nới corpus Dòng của ngày**: thiên văn 4 câu → 12+ (theo tuổi trăng), Pháp Cú 3 câu
+  → 10+ (nhóm đi chùa gặp lại đúng 3 câu sau ~6 tuần).
+- **Ghi chú giỗ/sinh nhật đang giấu trong `<details>`** — hook giữ chân số 1 của lịch
+  Việt, đáng có mặt ở màn Hôm nay khi sắp tới ngày.
+- **Toast "có bản mới — chạm để tải lại"** khi SW đổi phiên bản (hiện phải mở app 2 lần).
+- **Skeleton màn Hôm nay** — mạng chậm hiện nền trống ~1,1s trước khi JS vẽ.
+- Lưới tháng: hệ chấm màu (sự kiện/hoàng đạo/…) đang 6 loại gần trùng — cần chú giải
+  hoặc gom loại; "Vũ trụ" và "Hoàng đạo Tây" trong menu Hệ lịch gần như sinh đôi;
+  thang bo góc 12/14/16/20/22px cần chốt một thang.
+- EN chi tiết ngày còn trộn Hán-Việt chưa dịch ("Day deity: Tư Mệnh", "Mansion: Ngưu").
+
+Đo được nhưng KHÔNG cần sửa: `renderScreen()` vẽ lại toàn bộ innerHTML — đo thật không
+giật, đừng chuyển sang virtual DOM (phát hiện của lăng kính hiệu năng, giữ làm bằng chứng
+chống tối ưu thừa).
+
+### 12.3 Để dành V3 (khóa theo §7)
+
+Widget/notification, export calendar, React Native, tích hợp NCHMF, chọn giờ chi tiết —
+tất cả vẫn chờ số liệu người dùng thật như §7 đã chốt.

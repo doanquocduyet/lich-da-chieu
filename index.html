@@ -76,7 +76,7 @@
   .picker button:active{transform:scale(.94);background:#f3f3f3}
   .picker input{background:#fff;border:1px solid #ddd;color:#222;font-family:inherit;font-size:14px;padding:8px 12px;border-radius:10px;text-align:center;color-scheme:light}
   .picker .tdy{font-size:11px;letter-spacing:.08em;padding:0 10px;width:auto;text-transform:uppercase;color:#333}
-  .subnav{display:flex;gap:6px;overflow-x:auto;padding:2px 0 16px;scrollbar-width:none;-ms-overflow-style:none}
+  .subnav{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0 16px}
   .subnav::-webkit-scrollbar{display:none}
   .subnav button{flex:0 0 auto;background:#fff;border:1px solid #ddd;color:#777;padding:8px 15px;border-radius:20px;font-family:inherit;font-size:13px;letter-spacing:0;cursor:pointer;transition:.2s;white-space:nowrap}
   .subnav button.on{background:#222;color:#fff;border-color:#222;font-weight:500}
@@ -235,7 +235,7 @@
   :root{--red:#B03A30;--muted:#6E6A5E}
   body{font-size:16px}
   .lang{padding:4px}
-  .lang button{padding:9px 16px;font-size:13px}
+  .lang button{padding:12px 16px;font-size:13px}
   .bnav{padding:9px 4px calc(10px + env(safe-area-inset-bottom))}
   .bnav button{font-size:11px;gap:4px;color:#6E6A5E}
   .bnav button .bi{font-size:23px}
@@ -371,14 +371,14 @@
   .hub.bd .ln{width:44px;height:1px;background:#DCCFAE;margin:16px auto 12px}
   .hub.bd .go2{color:#9A8358}
   /* ⑤ tạng — núi, chiều sâu */
-  .hub.tb{background:linear-gradient(170deg,#232838 0%,#171B26 100%);padding:22px 20px 0;border:1px solid #2E3446}
-  .hub.tb .lbl{font-size:11.5px;letter-spacing:.2em;color:#8C93AB;text-transform:uppercase}
+  .hub.tb{background:linear-gradient(170deg,#8C2A20 0%,#6E1F1A 55%,#571714 100%);padding:22px 20px 0;border:1px solid #6E1F1A}
+  .hub.tb .lbl{font-size:11.5px;letter-spacing:.2em;color:#E8C98B;text-transform:uppercase}
   .hub.tb .dnum{font-size:52px;font-weight:800;color:#F0ECE0;line-height:1;margin:10px 0 2px;letter-spacing:-.03em}
-  .hub.tb .mo{font-size:15px;color:#A9B0C6}
+  .hub.tb .mo{font-size:15px;color:#F0D9A8}
   .hub.tb .yr{font-size:16px;color:#E8C98B;margin-top:12px;font-weight:600}
   .hub.tb .sac{font-size:14px;color:#E8C98B;margin-top:8px}
-  .hub.tb .go2{color:#8C93AB;margin-bottom:14px}
-  .hub.tb .eyl{font-size:13.5px;color:#A9B0C6;margin-top:8px}
+  .hub.tb .go2{color:#F0D9A8;margin-bottom:14px}
+  .hub.tb .eyl{font-size:13.5px;color:#F0D9A8;margin-top:8px}
   .hub.tb svg.mtn{display:block;width:100%;height:44px;margin:0 -20px;width:calc(100% + 40px)}
   .yoga{text-align:center;padding:18px 12px;border-radius:16px;margin:6px 0 10px}
   .yoga.g{background:#6F958514;border:1px solid #6F958540}
@@ -450,6 +450,7 @@
   body.sk-tib .idc.elc .bd2{border-top-color:#D4A01745}
   body.sk-tib .elname.g{color:#8FC4AC}body.sk-tib .elname.b{color:#F08B7F}
   body.sk-tib .row .v,body.sk-cos .row .v,body.sk-moon .row .v{color:inherit}
+  body.sk-tib .row .v b,body.sk-cos .row .v b,body.sk-moon .row .v b{color:#F5F2E8}
   body.sk-tib .note,body.sk-cos .note,body.sk-moon .note{color:#ffffff85;border-top-color:#ffffff24}
   body.sk-tib .card .en,body.sk-cos .card .en,body.sk-moon .card .en{color:#ffffff70}
   body.sk-tib .up .u,body.sk-cos .up .u,body.sk-moon .up .u{border-bottom-color:#ffffff14}
@@ -625,7 +626,7 @@
   .sps{display:block;font-size:13.5px;color:#6E6A5E;margin-top:3px}
   .hub.wx.slim{padding:15px 17px}
   .hub.wx.slim .lbl{font-size:11px}
-  .gl{font-style:normal;font-size:13px;color:#B5AE9E;cursor:pointer;padding:0 2px}
+  .gl{font-style:normal;font-size:13px;color:#B5AE9E;cursor:pointer;padding:10px 12px;margin:-10px -8px}
   #glo{position:fixed;inset:0;background:#1C1B1866;display:none;align-items:flex-end;z-index:90}
   #glo.on{display:flex}
   .glbox{width:100%;background:#FDFCF8;border-radius:22px 22px 0 0;padding:22px 20px 26px;
@@ -732,11 +733,11 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   srcPhat:"Phật giáo · VN",srcTib:"Tạng · Phugpa",srcLun:"Âm lịch · tính",srcCult:"Văn hóa · VN",
   cult:[[1,1,"Tết Nguyên Đán"],[1,15,"Tết Nguyên Tiêu"],[3,3,"Tết Hàn Thực"],[3,10,"Giỗ Tổ Hùng Vương"],[5,5,"Tết Đoan Ngọ"],[7,7,"Lễ Thất Tịch"],[7,15,"Rằm tháng Bảy · Vu Lan"],[8,15,"Tết Trung Thu"],[9,9,"Tết Trùng Cửu"],[10,15,"Tết Hạ Nguyên"],[12,23,"Ông Công Ông Táo"]],
   hlMoon:"Pha mặt trăng",hlDay:"Ngày âm lịch",hlTerm:"Tiết khí",hlCanchi:"Can Chi ngày",hlBuddha:"Phật giáo",hlDruk:"Lịch Tạng",
-  hlToday:"Hôm nay có gì",
+  hlToday:"Năm lăng kính hôm nay",
   subCal:["Vạn Niên","Can Chi","Phật Giáo"],subExp:["Mặt trăng","Vũ trụ","Phật giáo","Lịch Tạng","Thời tiết","Thủy triều","Hoàng đạo Tây"],
-  wx:"Thời tiết",wxLoc:"Bấm để bật thời tiết theo vị trí",wxLoad:"Đang lấy dữ liệu…",
+  wx:"Thời tiết",wxLoc:"Bật vị trí để xem trời hôm nay nơi bạn ở",wxLoad:"Đang lấy dữ liệu…",
   wxAsk:"Xem thời tiết nơi bạn ở",
-  wxPrivacy:"Vị trí lưu trên máy bạn, app không có máy chủ riêng. Toạ độ được gửi thẳng tới Open-Meteo để lấy dữ liệu thời tiết.",
+  wxPrivacy:"Vị trí chỉ lưu trên máy bạn và chỉ dùng để lấy dữ liệu thời tiết — không gửi đi đâu khác.",
   sRainy:"Hôm nay mưa nhiều.",sShower:"Hôm nay có mưa rải rác.",sHot:"Hôm nay nắng nóng.",sCool:"Hôm nay trời mát.",sClear:"Hôm nay trời quang.",
   aRain:"Ra ngoài nhớ mang áo mưa.",aRainPart:"Mưa nhiều nhất vào {p} — ra ngoài nên mang áo mưa.",aRainSure:"Mưa khá chắc vào {p} — nhớ mang áo mưa.",aRainMaybe:"Có thể có mưa rải rác vào {p}.",
   aShower:"Mang theo ô cho chắc.",aHot:"Tránh nắng giữa trưa, uống đủ nước.",aCool:"Ra sớm nhớ mặc ấm.",aClear:"Nhiệt độ dễ chịu.",
@@ -780,12 +781,12 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   a2Saved:"Đã lưu",a2Ask:"Muốn mở nhanh Lịch Đa Chiều mỗi ngày? Thêm app vào Màn hình chính — ghi chú của bạn cũng được giữ bền hơn.",
   a2How:"Trên iPhone: bấm nút Chia sẻ (ô vuông mũi tên lên) → kéo xuống → \"Thêm vào MH chính\".",
   a2Later:"Đã hiểu",
-  moonTonight:"Đêm nay",moonRise:"mọc",moonSet:"lặn",
+  moonTonight:"Đêm nay",mrLow:"mọc",msLow:"lặn",
   cosTodayTtl:"Hôm nay trong năm vũ trụ",cosDayN:"Ngày {d} / 365",
   cosToday:"Hôm nay",cosPrev:"Mốc gần nhất",cosNext:"Mốc kế tiếp",
   cosFormula:"Nén 13,8 tỷ năm vào một năm: mỗi ngày ≈ 38 triệu năm, mỗi giây ≈ 438 năm. Ngày mốc tính theo công thức 365 × (1 − tuổi ÷ 13,787 tỷ).",
   cBigBang:"Vụ Nổ Lớn",cStars:"Những ngôi sao đầu tiên",cMilkyWay:"Ngân Hà thành hình",cSolar:"Hệ Mặt Trời ra đời",cEarth:"Trái Đất ra đời",cMoon:"Mặt Trăng hình thành",cBioTrace:"Dấu vết sinh học đầu tiên",cLife:"Sự sống đầu tiên",cPhoto:"Quang hợp bắt đầu",cOxy:"Khí quyển có oxy",cEuk:"Tế bào phức tạp",cMulti:"Sinh vật đa bào",cAnimal:"Động vật đầu tiên",cArthro:"Động vật chân khớp",cFish:"Cá đầu tiên",cPlant:"Thực vật lên cạn",cInsect:"Côn trùng và hạt giống",cReptile:"Bò sát đầu tiên",cDino:"Khủng long xuất hiện",cMammal:"Thú đầu tiên",cBird:"Chim đầu tiên",cFlower:"Hoa đầu tiên",cDinoEnd:"Khủng long tuyệt chủng",cHuman:"Homo sapiens xuất hiện",
-  zodTtl:"Mặt Trời đang ở cung",zodSun:"Kinh độ Mặt Trời",zodIn:"đi được {n}",zodEl:"Nguyên tố",
+  zodTtl:"Mặt Trời đang ở cung",zodSun:"Vị trí Mặt Trời",zodIn:"đi được {n}",zodEl:"Nguyên tố",
   zodNote:"Cung hoàng đạo là vị trí thật của Mặt Trời trên đường hoàng đạo, chia 12 cung mỗi cung 30° — một dữ kiện thiên văn. App không suy ra vận mệnh từ đây.",
   trucLbl:"Trực (12 trực)",tu28Lbl:"Sao (28 tú)",xungLbl:"Xung",
   catTu:"sách lịch xếp: cát tú",hungTu:"sách lịch xếp: hung tú",
@@ -808,7 +809,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   yogaNote:"Theo truyền thống Kālacakra, mỗi ngày có một tổ hợp giữa nguyên tố của thứ trong tuần và nguyên tố của chòm sao Mặt Trăng, mang một tên gọi riêng. Đây là cách gọi tên của truyền thống, không phải dự đoán về việc riêng của mỗi người. Nguồn: kalacakra.org (E. Henning, theo Vimalaprabhā).",
   sacredMean:"Theo truyền thống Tạng, đây là ngày dành cho việc thực hành và tích lũy công đức.",
   moonMean:"Trăng đang lớn — phần sáng tăng dần mỗi đêm cho tới kỳ trăng tròn.",
-  moonMeanW:"Trăng đang khuyết — phần sáng mỏng dần cho tới ngày không trăng.",
+  moonMeanW:"Trăng đang khuyết — phần sáng mỏng dần cho tới ngày không trăng.",moonMeanF:"Trăng tròn — mặt trăng sáng trọn vẹn đêm nay.",moonMeanN:"Không trăng — bầu trời tối nhất, dễ ngắm sao nhất.",
   termMean:"Một trong 24 tiết khí — các mốc chia năm theo vị trí Mặt Trời, dùng trong lịch truyền thống Đông Á để đánh dấu chuyển mùa.",
   buddhaMean:"Phật lịch tính theo quy ước phổ biến tại Việt Nam: năm dương lịch + 544.",
   noBuddhaEv:"Hôm nay không có ngày lễ lớn được ghi nhận.",
@@ -866,7 +867,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   months:["Một","Hai","Ba","Tư","Năm","Sáu","Bảy","Tám","Chín","Mười","Mười một","Chạp"],
   moShort:["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"]},
 en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar terms: by solar longitude · Tibetan: Phugpa (Janson) — reference · <span class='ablink' onclick='openAbout()'>About</span>",
-  mains:["Today","Calendar","Calendars","Weather","Events"],
+  mains:["Today","Calendar","Explore","Weather","Events"],
   sGio:"HOUR",sNgay:"DAY",sThang:"MONTH",sNam:"YEAR",
   monthEvTitle:"This month's observances",evTitle:"Next 12 months",back:"Back",detailTitle:"Day detail",
   cvModes:["Solar → Lunar","Lunar → Solar","Solar → Tibetan","Tibetan → Solar"],
@@ -878,10 +879,10 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   cult:[[1,1,"Lunar New Year (Tết)"],[1,15,"Lantern Festival"],[3,3,"Cold Food Festival"],[3,10,"Hùng Kings' Day"],[5,5,"Đoan Ngọ Festival"],[7,7,"Thất Tịch (Double Seven)"],[7,15,"Ghost Festival · Vu Lan"],[8,15,"Mid-Autumn Festival"],[9,9,"Double Ninth"],[10,15,"Hạ Nguyên Festival"],[12,23,"Kitchen Gods' Day"]],
   hlMoon:"Moon phase",hlDay:"Lunar day",hlTerm:"Solar term",hlCanchi:"Day pillar",hlBuddha:"Buddhist",hlDruk:"Tibetan",
   hlToday:"Today at a glance",
-  subCal:["Perpetual","Sexagenary","Buddhist"],subExp:["Moon","Cosmic","Buddhist","Tibetan","Weather","Tides"],
-  wx:"Weather",wxLoc:"Tap to enable weather for your location",wxLoad:"Loading…",
+  subCal:["Almanac","Stems & Branches","Buddhist"],subExp:["Moon","Cosmic","Buddhist","Tibetan","Weather","Tides","Zodiac"],
+  wx:"Weather",wxLoc:"Turn on location to see today's sky where you are",wxLoad:"Loading…",
   wxAsk:"See today's sky where you are",
-  wxPrivacy:"Your location is stored on your device; this app has no server of its own. Coordinates go directly to Open-Meteo to fetch the forecast.",
+  wxPrivacy:"Your location stays on your device and is only used to fetch the forecast — nothing else.",
   sRainy:"Rainy today.",sShower:"Some rain today.",sHot:"Hot and sunny today.",sCool:"Cool today.",sClear:"Fine weather today.",
   aRain:"Take a raincoat if you go out.",aRainPart:"Heaviest around {p} — take a raincoat.",aRainSure:"Rain very likely in {p} — take a raincoat.",aRainMaybe:"Scattered rain possible in {p}.",
   aShower:"Scattered showers possible.",aHot:"Avoid midday sun, drink water.",aCool:"Dress warm if heading out early.",aClear:"Comfortable temperatures.",
@@ -896,11 +897,11 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   spFull:"Full-moon day in the lunar calendar",spNew:"First day of the lunar month",
   spTerm:"A new solar term begins today",
   spTibPractice:"Tibetan day {d}",spTibSub:"A day set aside for practice",
-  moreToday:"My memorials · birthdays",
+  moreToday:"My dates · birthdays & anniversaries",
   locHere:"Current location",
   wxElev:"Elevation",
   wxType:"Type a place",wxCityPh:"e.g. Da Lat, Hanoi, Vung Tau…",wxFind:"Find",wxNotFound:"Place not found — try another name",wxOn:"Enable location",
-  tibGender:"Year gender",gMale:"Male",gFemale:"Female",
+  tibGender:"Polarity",gMale:"Male",gFemale:"Female",
   sysTtl:"One day, many calendar systems",wxTtl:"Sky and water today",
   exploreTtl:"Choose a lens",
   shareDay:"Share today",
@@ -925,12 +926,12 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   a2Saved:"Saved",a2Ask:"Open Lịch Đa Chiều quickly every day? Add it to your Home Screen — your notes are also kept more safely.",
   a2How:"On iPhone: tap Share (square with arrow) → scroll down → \"Add to Home Screen\".",
   a2Later:"Got it",
-  moonTonight:"Tonight",moonRise:"rise",moonSet:"set",
+  moonTonight:"Tonight",mrLow:"rise",msLow:"set",
   cosTodayTtl:"Today in the cosmic year",cosDayN:"Day {d} / 365",
   cosToday:"Today",cosPrev:"Last milestone",cosNext:"Next milestone",
   cosFormula:"13.8 billion years compressed into one year: each day ≈ 38 million years, each second ≈ 438 years. Milestone days follow 365 × (1 − age ÷ 13.787 bn).",
   cBigBang:"The Big Bang",cStars:"First stars",cMilkyWay:"Milky Way takes shape",cSolar:"Solar System born",cEarth:"Earth forms",cMoon:"Moon forms",cBioTrace:"First biotic traces",cLife:"First life",cPhoto:"Photosynthesis begins",cOxy:"Oxygen atmosphere",cEuk:"Complex cells",cMulti:"Multicellular life",cAnimal:"First animals",cArthro:"Arthropods",cFish:"First fish",cPlant:"Plants on land",cInsect:"Insects and seeds",cReptile:"First reptiles",cDino:"Dinosaurs appear",cMammal:"First mammals",cBird:"First birds",cFlower:"First flowers",cDinoEnd:"Dinosaurs go extinct",cHuman:"Homo sapiens appears",
-  zodTtl:"The Sun is now in",zodSun:"Solar longitude",zodIn:"{n} into the sign",zodEl:"Element",
+  zodTtl:"The Sun is now in",zodSun:"Sun's position",zodIn:"{n} into the sign",zodEl:"Element",
   zodNote:"The zodiac sign is the Sun's actual position on the ecliptic, divided into twelve 30° signs — an astronomical fact. No fortunes are drawn from it.",
   trucLbl:"Duty officer (12)",tu28Lbl:"Mansion (28)",xungLbl:"Clash",
   catTu:"almanac: favorable",hungTu:"almanac: unfavorable",
@@ -953,7 +954,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   yogaNote:"In the Kālacakra tradition each day carries a combination of the weekday element and the lunar-mansion element, with its own name. This is the tradition's own naming, not a prediction about anyone's personal affairs. Source: kalacakra.org (E. Henning, after the Vimalaprabhā).",
   sacredMean:"In the Tibetan tradition this is a day set aside for practice and accumulating merit.",
   moonMean:"The moon is waxing — its lit portion grows each night toward full moon.",
-  moonMeanW:"The moon is waning — its lit portion thins toward the new moon.",
+  moonMeanW:"The moon is waning — its lit portion thins toward the new moon.",moonMeanF:"Full moon — fully lit through the night.",moonMeanN:"New moon — the darkest sky, best for stars.",
   termMean:"One of the 24 solar terms — markers dividing the year by the Sun's position, used in East Asian traditional calendars to mark seasonal change.",
   buddhaMean:"Buddhist Era as commonly reckoned in Vietnam: Gregorian year + 544.",
   noBuddhaEv:"No major observance recorded today.",
@@ -965,7 +966,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   nextFullM:"Next full moon",nextNewM:"Next new moon",
   moonLbl:"The Moon",moonAgeShort:"Day {n} after new moon",
   termNow:"Currently in this solar term",tibLbl:"Tibetan calendar",tibSystem:"Calendar system",tibSystemV:"Phugpa (Janson)",
-  goWx:"See forecast",goMoon:"See details",goTerm:"See 24 solar terms",goBuddha:"Buddhist calendar",goTibet:"Tibetan calendar",
+  goWx:"See forecast",goMoon:"See details",goTerm:"See 24 solar terms",goBuddha:"See Buddhist calendar",goTibet:"See Tibetan calendar",
   wxErr:"Could not load — needs network & location permission",wxRetry:"Retry",
   wxFeel:"Feels like",wxHum:"Humidity",wxWind:"Wind",wxProb:"Rain",wxSunrise:"Sunrise",wxSunset:"Sunset",
   wx7:"Next 7 days",wxSrc:"Source: Open-Meteo · location stored on your device only",
@@ -1580,7 +1581,7 @@ function screenEvents(){
     for(let d=1;d<=dim;d++){const c=new Date(y,m,d);
       if(k===0&&d<now.getDate())continue;
       for(const ev of dayEvents(c,t))mh+=evRow(c,ev,t);}
-    if(mh)h+=`<div class="evmonth">${LANG=='vi'?'Tháng':'Month'} ${m+1}/${y}</div>`+mh;
+    if(mh)h+=`<div class="evmonth">${LANG=='vi'?'Tháng '+(m+1)+'/'+y:t.moShort[m]+' '+y}</div>`+mh;
   }
   return `<div class="card" style="padding:16px 18px"><h2 style="font-size:16px">${t.evTitle}</h2></div>`+h;
 }
@@ -1616,7 +1617,7 @@ async function shareDay(){
   x.fillStyle='#6E6A5E';x.font='500 44px Inter,sans-serif';
   x.fillText('Th'+(d.getMonth()+1)+' · '+d.getFullYear(),540,590);
   x.fillStyle='#1C1B18';x.font='600 52px Inter,sans-serif';
-  x.fillText((LANG=='vi'?'Mùng ':'Lunar ')+lun.day+(LANG=='vi'?' tháng ':'/')+lun.month+(lun.leap?'*':''),540,700);
+  x.fillText((LANG=='vi'?(lun.day>10?'Ngày ':'Mùng '):'Lunar ')+lun.day+(LANG=='vi'?' tháng ':'/')+lun.month+(lun.leap?'*':''),540,700);
   x.fillStyle='#6E6A5E';x.font='400 40px Inter,sans-serif';
   x.fillText((LANG=='vi'?'Năm ':'')+t.can[cyY[0]]+' '+t.chi[cyY[1]]+' · '+(LANG=='vi'?'ngày ':'day ')+t.can[cyD[0]]+' '+t.chi[cyD[1]],540,770);
   x.strokeStyle='#EDE6D8';x.lineWidth=2;
@@ -1968,7 +1969,7 @@ function panelZodiac(){
     <div class="zsym">${ZOD_SYM[z]}</div>
     <div class="zname">${names[z]}</div>
     <div class="zdate">${ZOD_DATE[z]}</div>
-    <div class="row" style="margin-top:16px"><span class="k">${t.zodSun}</span><span class="v"><b>${deg.toFixed(1)}°</b> · ${t.zodIn.replace('{n}',Math.floor(inSign))+'°'}</span></div>
+    <div class="row" style="margin-top:16px"><span class="k">${t.zodSun}</span><span class="v"><b>${deg.toFixed(1)}°</b> · ${t.zodIn.replace('{n}',Math.floor(inSign)+'°')}</span></div>
     <div class="row"><span class="k">${t.zodEl}</span><span class="v">${elN}</span></div>
     <div class="zwheel">${ZOD_SYM.map((sy,i)=>`<span class="${i===z?'on':''}">${sy}</span>`).join('')}</div>
     <div class="note">${t.zodNote}</div>
@@ -1979,7 +1980,7 @@ function panelTide(){
   const regime=`<div class="row"><span class="k">${LANG=='vi'?'Theo pha trăng':'By moon phase'}</span><span class="v jade"><b>${tideRegime(t)}</b></span></div>
     <div class="note">${t.tideAstro}</div>`;
   if(!L)return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div>
-    <button class="locbtn" onclick="askLoc()">📍 ${t.wxLoc}</button>${regime}</div>`;
+    <button class="locbtn" onclick="askLoc()">📍 ${t.tideAsk}</button>${regime}</div>`;
   if(!TD){fetchTide();return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
   if(TD.nodata)return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div>
     <div class="note" style="border:none;margin:0 0 6px;padding:0">${t.tideNoData}</div>${regime}</div>`;
@@ -2255,7 +2256,7 @@ function specialToday(d,t){
   if(!out.length){
     const up=notesUpcoming(d,3).filter(u=>u.days>0);
     if(up.length)out.push({sc:70,hub:0,title:'♥ '+noteTypeName(up[0].n.type)+' '+up[0].n.name,
-      sub:t.spNoteSoon.replace('{n}',up[0].days),go:'setMain(0)'});
+      sub:t.spNoteSoon.replace('{n}',up[0].days).replace(/\b1 days\b/,'1 day'),go:'setMain(0)'});
   }
 
   // ② Thời tiết — chỉ tính khung 6h–21h
@@ -2377,6 +2378,12 @@ function dailyLine(d,t){
   const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   const tb=tibetan(d),mp=moonPhase(d);
   const jd=jdFromDate(d.getDate(),d.getMonth()+1,d.getFullYear());
+  // 0) lễ lớn văn hóa / Phật giáo — hôm đó câu của ngày phải là chính ngày lễ
+  const cuF=t.cult.find(e=>e[0]===lun.month&&e[1]===lun.day);
+  const beF=t.buddhaEv.find(e=>e[0]===lun.month&&e[1]===lun.day);
+  if(cuF||beF){const nm=(cuF||beF)[2];
+    return{txt:(LANG=='vi'?'Hôm nay là ':'Today is ')+nm+(LANG=='vi'?' — ngày '+lun.day+'/'+lun.month+' âm lịch.':' — lunar '+lun.day+'/'+lun.month+'.'),
+      lens:cuF?t.lensViet:t.lensBuddha,src:t.srcEdited,go:()=>'goExp(2)'};}
   // 1) ngày thực hành Tạng
   const tl=!tb.leap&&LINES.tibet[String(tb.day)];
   if(tl)return{txt:tl[LANG],lens:t.lensTibet,src:t.srcEdited,go:()=>'goExp(3)'};
@@ -2495,7 +2502,7 @@ function tomorrowHtml(d,t){
   const n=new Date(d.getTime()+864e5);
   const lun=solarToLunar(n.getDate(),n.getMonth()+1,n.getFullYear(),7);
   const mp=moonPhase(n),ev=dayEvents(n,t);
-  let bits=[`${LANG=='vi'?'Mùng':'Lunar'} ${lun.day}/${lun.month} ${LANG=='vi'?'âm':''}`.trim(),
+  let bits=[`${LANG=='vi'?(lun.day>10?'Ngày':'Mùng'):'Lunar'} ${lun.day}/${lun.month} ${LANG=='vi'?'âm':''}`.trim(),
     t.phases[mp.idx]];
   if(WX&&WX.daily&&WX.daily.precipitation_probability_max[1]!=null)
     bits.push(`${t.wxProb} ${WX.daily.precipitation_probability_max[1]}%`);
@@ -2712,15 +2719,15 @@ function panelVanNien(){
   let cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
   let nf=daysToLunarDay(d,15),nn=daysToLunarDay(d,1);
   return `<div class="card">
-    <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Perpetual calendar'}</div>
+    <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Lunisolar calendar'}</div>
     <div class="big">${lun.day}/${lun.month}${lun.leap?'*':''}<small>${t.lunar} · ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</small></div>
     <div class="row"><span class="k">${t.solar}</span><span class="v">${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>
     <div class="row"><span class="k">${t.ccDay}</span><span class="v"><b>${t.can[cyD[0]]} ${t.chi[cyD[1]]}</b></span></div>
     <div class="row"><span class="k">${t.ccMonth}</span><span class="v">${t.can[cyM[0]]} ${t.chi[cyM[1]]}</span></div>
     <div class="row"><span class="k">${t.ccYear}</span><span class="v">${t.can[cyY[0]]} ${t.chi[cyY[1]]}</span></div>
-    <div class="row"><span class="k">${t.nextFull}</span><span class="v jade"><b>${nf===0?t.today:t.dLeft.replace('{n}',nf)}</b></span></div>
-    <div class="row"><span class="k">${t.nextNew}</span><span class="v">${nn===0?t.today:t.dLeft.replace('{n}',nn)}</span></div>
-    <div class="qbox vnq"><div class="qtx">“${cadao(d)[LANG]}”</div><div class="qsrc">${t.folkSrc}</div></div>
+    <div class="row"><span class="k">${t.nextFull}</span><span class="v jade"><b>${nf===0?t.today:t.dLeft.replace('{n}',nf).replace(/\b1 days\b/,'1 day')}</b></span></div>
+    <div class="row"><span class="k">${t.nextNew}</span><span class="v">${nn===0?t.today:t.dLeft.replace('{n}',nn).replace(/\b1 days\b/,'1 day')}</span></div>
+    <div class="qbox vnq"><div class="qtx">${LANG=='vi'?'“'+cadao(d).vi+'”':cadao(d).en}</div><div class="qsrc">${t.folkSrc}</div></div>
   </div>`;
 }
 
@@ -2854,8 +2861,15 @@ function moonTonightHtml(t){
     const mt=SunCalc.getMoonTimes(VIEW,L.la,L.lo);
     const f=x=>x?pad(x.getHours())+':'+pad(x.getMinutes()):'—';
     if(!mt.rise&&!mt.alwaysUp&&!mt.set)return '';
-    return `<div class="row"><span class="k">${t.moonTonight}</span><span class="v">${t.moonRise} <b>${f(mt.rise)}</b> · ${t.moonSet} <b>${f(mt.set)}</b></span></div>`;
+    return `<div class="row"><span class="k">${t.moonTonight}</span><span class="v">${t.mrLow} <b>${f(mt.rise)}</b> · ${t.msLow} <b>${f(mt.set)}</b></span></div>`;
   }catch(e){return ''}
+}
+function termDates(y){
+  const out=[];let prev=currentTermIdx(jdFromDate(31,12,y-1));
+  for(let i=0;i<370;i++){const x=new Date(y,0,1+i);if(x.getFullYear()!==y)break;
+    const idx=currentTermIdx(jdFromDate(x.getDate(),x.getMonth()+1,x.getFullYear()));
+    if(idx!==prev){out.push([idx,x.getDate(),x.getMonth()+1]);prev=idx;}}
+  return out;
 }
 function panelAstro(){
   let d=VIEW,t=T[LANG];
@@ -2880,7 +2894,7 @@ function panelAstro(){
       ${(function(){const S=sunMoonTimes(d);return S&&(S.moonrise||S.moonset)?
         `<div class="row"><span class="k">${t.moonRise} · ${t.moonSet}</span><span class="v"><b>${S.moonrise||'—'}</b> · ${S.moonset||'—'}</span></div>`:
         `<div class="row"><span class="k">${t.moonRise}</span><span class="v" style="font-size:14px;opacity:.7">${t.needLoc}</span></div>`})()}
-      <div class="note">${mp.waxing?t.moonMean:t.moonMeanW}<br>${t.moonNote}</div>
+      <div class="note">${mp.illum>0.985?t.moonMeanF:(mp.illum<0.015?t.moonMeanN:(mp.waxing?t.moonMean:t.moonMeanW))}<br>${t.moonNote}</div>
     </div>
   </div>
   <div class="card">
@@ -2888,6 +2902,13 @@ function panelAstro(){
     <div class="big" style="font-size:30px">${t.terms[curTerm]}<small>${t.seasons[season]} · ${LANG=='vi'?'tiết khí hiện tại':'current solar term'}</small></div>
     <div class="row"><span class="k">${t.nextTerm}</span><span class="v"><b>${t.terms[nt.idx]}</b>${nt.days==null?'':' · '+(LANG=='vi'?'còn ':'')+nt.days+' '+t.days}</span></div>
     <div class="note">${t.termMean} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('tietkhi')">ⓘ</i></div>
+  </div>
+  <div class="card">
+    <h2>${LANG=='vi'?'24 tiết khí':'24 solar terms'} · ${d.getFullYear()}</h2>
+    <div class="en">${LANG=='vi'?'Ngày bắt đầu từng tiết':'Start date of each term'}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;margin-top:10px">
+      ${termDates(d.getFullYear()).map(x=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line2);${x[0]===curTerm?'font-weight:700;color:var(--red)':''}"><span>${t.terms[x[0]]}</span><span style="font-variant-numeric:tabular-nums">${pad(x[1])}.${pad(x[2])}</span></div>`).join('')}
+    </div>
   </div>`;
 }
 
@@ -2973,7 +2994,7 @@ function setLang(l){
   document.getElementById('lvi').classList.toggle('on',l=='vi');
   document.getElementById('len').classList.toggle('on',l=='en');
   document.getElementById('brandName').textContent=T[l].brand;
-  document.getElementById('footNote').textContent=T[l].foot;
+  document.getElementById('footNote').innerHTML=T[l].foot;
   document.documentElement.lang=l;
   renderMainTabs();renderScreen();
 }
@@ -2983,7 +3004,7 @@ function setLang(l){
   for(let i=0;i<70;i++)h+=`<i style="left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*5}s"></i>`;
   s.innerHTML=h;})();
 
-document.getElementById('footNote').textContent=T.vi.foot;
+document.getElementById('footNote').innerHTML=T.vi.foot;
 if(location.protocol.indexOf('http')===0&&'serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js').catch(function(){});
 }

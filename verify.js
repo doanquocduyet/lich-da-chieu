@@ -113,6 +113,8 @@ function serve(root) {
     ['VI hết "Giới tính năm"',            !vi.includes('Giới tính năm')],
     ['VI hết tên năm kèm "(dương/âm)"',   !/\((dương|âm)\)/i.test(vi)],
     ['EN có "Brightness", hết "Illumination"', en.includes('Brightness') && !en.includes('Illumination')],
+    ['Footer không in HTML thô ra màn', !vi.includes('<span') && !en.includes('<span')],
+    ['EN không có "1 days" sai số ít', !/\b1 days\b/.test(en)],
   ];
 
   const okYear = yearName === 'Hỏa Ngựa';
