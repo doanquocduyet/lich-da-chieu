@@ -420,6 +420,24 @@
   body.sk-wx,body.sk-wx .wrap{background:linear-gradient(178deg,#DCEAF0 0%,#F6F2E9 60%) !important}
   body.sk-wx .bnav{background:#EAF2F5;border-top-color:#D2E0E6}
   body.sk-wx .bnav button.on{color:#2E6579}
+  /* Bảng "nơi quan tâm" — bố cục kiểu app thời tiết, màu theo hub Thời tiết của app */
+  .pbd{display:flex;flex-direction:column;gap:10px;margin:0 0 16px}
+  .pcard{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    background:linear-gradient(165deg,#2E5060 0%,#223D49 100%);color:#EAF1F4;border:1px solid #3B6072;
+    border-radius:18px;padding:15px 17px;cursor:pointer;overflow:hidden}
+  .pcard.on{box-shadow:inset 0 0 0 2px #C9A227}
+  .pcard .pl{display:flex;flex-direction:column;min-width:0;flex:1}
+  .pcard .pn{font-size:19px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard .ps{font-size:12.5px;color:#B9CBD4;margin-top:4px}
+  .pcard .pr{display:flex;flex-direction:column;align-items:flex-end;text-align:right;flex-shrink:0}
+  .pcard .pt{font-size:40px;font-weight:300;line-height:1;letter-spacing:-.02em}
+  .pcard .phl{font-size:12px;color:#B9CBD4;margin-top:5px;font-variant-numeric:tabular-nums}
+  .pcard .pdel{position:absolute;top:0;right:0;width:44px;height:44px;border:none;background:none;
+    color:#B9CBD4;font-size:20px;line-height:1;cursor:pointer}
+  .pbar{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 10px}
+  .pbar .ptt{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5E7480}
+  .pbar button{background:none;border:none;color:#2E6579;font-family:inherit;font-size:14px;
+    cursor:pointer;padding:10px 4px;min-height:44px}
   body.sk-td,body.sk-td .wrap{background:linear-gradient(178deg,#DEEBE6 0%,#F5F3EA 60%) !important}
   body.sk-td .bnav{background:#E8F1EC;border-top-color:#D2E2DA}
   body.sk-td .bnav button.on{color:#2F6350}
@@ -754,6 +772,12 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   spTibPractice:"Ngày {d} lịch Tạng",spTibSub:"Ngày dành cho việc thực hành",
   moreToday:"Ngày giỗ · sinh nhật của tôi",
   locHere:"Vị trí hiện tại",
+  placesTtl:"Nơi bạn quan tâm",placeAdd:"Thêm nơi",placeDone:"Xong",placeEdit:"Sửa",placeMe:"Vị trí của tôi",
+  placeNow:"đang xem",placeDup:"Nơi này đã có trong danh sách rồi",placeMax:"Danh sách tối đa 10 nơi",
+  placeEmpty:"Chưa có nơi nào — thêm nơi đầu tiên để so sánh thời tiết nhiều chỗ cùng lúc.",
+  geoDeny:"Trình duyệt đang chặn quyền vị trí. Mở Cài đặt để bật lại, hoặc gõ tên nơi ở bên dưới.",
+  geoUnavail:"Máy chưa xác định được vị trí. Bật Dịch vụ định vị trong Cài đặt, hoặc gõ tên nơi ở.",
+  geoTimeout:"Chờ vị trí quá lâu. Thử lại, hoặc gõ tên nơi ở cho nhanh.",
   wxElev:"Độ cao",
   wxType:"Gõ tên nơi ở",wxCityPh:"vd: Nam Ban, Đà Lạt, Vũng Tàu…",wxFind:"Tìm",wxNotFound:"Không tìm thấy nơi này, thử tên khác xem",wxOn:"Bật vị trí",
   tibGender:"Tính chất năm",gMale:"Dương",gFemale:"Âm",
@@ -899,6 +923,12 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   spTibPractice:"Tibetan day {d}",spTibSub:"A day set aside for practice",
   moreToday:"My dates · birthdays & anniversaries",
   locHere:"Current location",
+  placesTtl:"Your places",placeAdd:"Add place",placeDone:"Done",placeEdit:"Edit",placeMe:"My location",
+  placeNow:"viewing",placeDup:"That place is already on your list",placeMax:"Up to 10 places",
+  placeEmpty:"No places yet — add one to compare weather across places at a glance.",
+  geoDeny:"Your browser is blocking location. Enable it in Settings, or type a place name below.",
+  geoUnavail:"Your device could not get a fix. Turn on Location Services, or type a place name.",
+  geoTimeout:"Location took too long. Try again, or type a place name instead.",
   wxElev:"Elevation",
   wxType:"Type a place",wxCityPh:"e.g. Da Lat, Hanoi, Vung Tau…",wxFind:"Find",wxNotFound:"Place not found — try another name",wxOn:"Enable location",
   tibGender:"Polarity",gMale:"Male",gFemale:"Female",
@@ -1800,12 +1830,73 @@ function moonSVG(f,wax,size){
 }
 // vị trí lưu trên máy
 let WX=null,TD=null,WXL=false,TDL=false;
+// ═══ NƠI QUAN TÂM — danh sách nhiều địa điểm, xem thời tiết cùng lúc ═══
+let PLACES=(function(){try{return JSON.parse(localStorage.getItem('ldc_places')||'[]')}catch(e){return[]}})();
+let PW=null,PWL=false,PEDIT=false;
+function savePlaces(){try{localStorage.setItem('ldc_places',JSON.stringify(PLACES))}catch(e){}}
+function placeKey(la,lo){return (+la).toFixed(2)+','+(+lo).toFixed(2);}
+function placeAdd(nm,la,lo,me){
+  const k=placeKey(la,lo),i=PLACES.findIndex(p=>placeKey(p.la,p.lo)===k||(me&&p.me));
+  if(i>=0){PLACES[i]={n:nm,la:+la,lo:+lo,me:!!me};}
+  else{ if(PLACES.length>=10){alert(T[LANG].placeMax);return false;} PLACES.push({n:nm,la:+la,lo:+lo,me:!!me}); }
+  savePlaces();PW=null;fetchPlaces();return true;
+}
+function placeDel(i){PLACES.splice(i,1);savePlaces();PW=null;if(PLACES.length)fetchPlaces();else renderScreen();}
+function placeUse(i){
+  if(PEDIT)return;
+  const p=PLACES[i];if(!p)return;
+  LOCNAME=p.me?'':p.n;
+  try{p.me?localStorage.removeItem('ldc_locname'):localStorage.setItem('ldc_locname',p.n)}catch(e){}
+  saveLoc(p.la,p.lo);WX=null;TD=null;fetchWeather();fetchTide();renderScreen();
+}
+function placeEditToggle(){PEDIT=!PEDIT;renderScreen();}
+// Open-Meteo nhan nhieu toa do cach nhau dau phay -> mot lan goi cho ca danh sach
+function fetchPlaces(){
+  if(!PLACES.length||PWL)return;PWL=true;
+  const la=PLACES.map(p=>p.la).join(','),lo=PLACES.map(p=>p.lo).join(',');
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`)
+    .then(r=>r.json()).then(j=>{PW=Array.isArray(j)?j:[j];PWL=false;renderScreen();})
+    .catch(()=>{PWL=false;});
+}
+function placesBoard(t){
+  if(!PLACES.length)return `<div class="pbar"><span class="ptt">${t.placesTtl}</span>
+      <button onclick="openCityForm()">+ ${t.placeAdd}</button></div>
+    <div class="note" style="border:none;margin:0 0 14px;padding:0">${t.placeEmpty}</div>`;
+  if(!PW&&!PWL)fetchPlaces();
+  const act=loadLoc();
+  const cards=PLACES.map((p,i)=>{
+    const w=PW&&PW[i],c=w&&w.current,dl=w&&w.daily;
+    const lt=w&&w.utc_offset_seconds!=null
+      ? (function(){const d=new Date(Date.now()+w.utc_offset_seconds*1000);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())})() : '';
+    const on=act&&placeKey(act.la,act.lo)===placeKey(p.la,p.lo);
+    const sub=[p.me?t.placeMe:lt,c?wcodeName(c.weather_code,t):(PWL?t.wxLoad:'—'),on?t.placeNow:''].filter(Boolean).join(' · ');
+    return `<div class="pcard ${on?'on':''}" onclick="placeUse(${i})">
+      <span class="pl"><span class="pn">${p.n}</span><span class="ps">${sub}</span></span>
+      <span class="pr"><span class="pt">${c?Math.round(c.temperature_2m)+'°':'–'}</span>
+        ${dl?`<span class="phl">C:${Math.round(dl.temperature_2m_max[0])}° T:${Math.round(dl.temperature_2m_min[0])}°</span>`:''}</span>
+      ${PEDIT?`<button class="pdel" onclick="event.stopPropagation();placeDel(${i})">×</button>`:''}
+    </div>`;
+  }).join('');
+  return `<div class="pbar"><span class="ptt">${t.placesTtl}</span>
+      <span><button onclick="placeEditToggle()">${PEDIT?t.placeDone:t.placeEdit}</button>
+      <button onclick="openCityForm()" style="margin-left:14px">+ ${t.placeAdd}</button></span></div>
+    <div class="pbd">${cards}</div>`;
+}
 function loadLoc(){try{return JSON.parse(localStorage.getItem('ldc_loc')||'null')}catch(e){return null}}
 function saveLoc(la,lo){WX=null;TD=null;window._wxAt=0;window._tdAt=0;try{localStorage.setItem('ldc_loc',JSON.stringify({la:+la.toFixed(3),lo:+lo.toFixed(3)}))}catch(e){}}
+// Dung chung cho hub Thoi tiet (man Hom nay) va panel Thoi tiet.
+function cityFormHtml(t){
+  return `<div id="cityForm" style="display:none;margin-top:12px">
+      <input id="cityIn" type="text" placeholder="${t.wxCityPh}" onkeydown="if(event.key==='Enter')submitCity()">
+      <button class="wxbtn" style="margin-top:8px;width:100%" onclick="submitCity()">${t.wxFind}</button>
+    </div>`;
+}
 function openCityForm(){
   const f=document.getElementById('cityForm');
+  // Man dang xem khong co o tim (vd bam tu bang noi quan tam) -> mo panel Thoi tiet roi thu lai.
+  if(!f){SUBEXP=4;EXPOPEN=true;MAIN=3;renderMainTabs();renderScreen();setTimeout(openCityForm,60);return;}
   f.style.display=f.style.display==='none'?'block':'none';
-  if(f.style.display==='block')setTimeout(()=>document.getElementById('cityIn').focus(),80);
+  if(f.style.display==='block')setTimeout(()=>{const i=document.getElementById('cityIn');if(i)i.focus()},80);
 }
 function submitCity(){
   const q=(document.getElementById('cityIn')||{}).value||'';
@@ -1816,7 +1907,8 @@ function submitCity(){
       if(!r0){alert(T[LANG].wxNotFound);return;}
       LOCNAME=r0.name+(r0.admin1?', '+r0.admin1:'');
       try{localStorage.setItem('ldc_locname',LOCNAME)}catch(e){}
-      saveLoc(r0.latitude,r0.longitude);fetchWeather();fetchTide();
+      placeAdd(LOCNAME,r0.latitude,r0.longitude,false);
+      saveLoc(r0.latitude,r0.longitude);WX=null;TD=null;fetchWeather();fetchTide();
     }).catch(()=>alert(T[LANG].wxNotFound));
 }
 // Open-Meteo /v1/search chỉ tra theo TÊN, không nhận toạ độ — không dùng để tra ngược.
@@ -1826,12 +1918,18 @@ function fetchLocName(la,lo){
   try{localStorage.removeItem('ldc_locname')}catch(e){}
 }
 function askLoc(){
-  if(!navigator.geolocation){alert(T[LANG].wxErr);return;}
+  const t=T[LANG];
+  if(!navigator.geolocation){alert(t.geoUnavail);openCityForm();return;}
   navigator.geolocation.getCurrentPosition(p=>{
     saveLoc(p.coords.latitude,p.coords.longitude);
     fetchLocName(p.coords.latitude,p.coords.longitude);
-    fetchWeather();fetchTide();
-  },()=>{alert(T[LANG].wxErr);},{timeout:12000,maximumAge:600000});
+    placeAdd(t.placeMe,p.coords.latitude,p.coords.longitude,true);
+    WX=null;TD=null;fetchWeather();fetchTide();
+  },err=>{
+    // Moi ma loi mot cach xu ly khac nhau — bao chung chung thi nguoi dung khong biet lam gi tiep.
+    const msg=err&&err.code===1?t.geoDeny:(err&&err.code===3?t.geoTimeout:t.geoUnavail);
+    alert(msg);openCityForm();
+  },{timeout:20000,maximumAge:120000,enableHighAccuracy:false});
 }
 function wcodeIcon(c){
   if(c===0)return '☀';if(c<=2)return '⛅';if(c===3)return '☁';
@@ -1911,13 +2009,15 @@ function tideRegime(t){
 }
 function panelWeather(){
   const t=T[LANG],L=loadLoc();
-  if(!L)return `<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
+  if(!L)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
     <button class="locbtn" onclick="askLoc()">📍 ${t.wxLoc}</button>
+    ${cityFormHtml(t)}
     <div class="note">${t.wxSrc}</div></div>`;
-  if(!WX){fetchWeather();return `<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
-  if(WX.err)return `<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
+  if(!WX){fetchWeather();return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
+  if(WX.err)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
     <div class="note" style="border:none;margin:0 0 10px;padding:0">${t.wxErr}</div>
-    <button class="locbtn" onclick="WX=null;fetchWeather()">${t.wxRetry}</button></div>`;
+    <button class="locbtn" onclick="WX=null;fetchWeather()">${t.wxRetry}</button>
+    ${cityFormHtml(t)}</div>`;
   const c=WX.current,dl=WX.daily;
   let rows7='';
   for(let i=0;i<7;i++){
@@ -1941,8 +2041,8 @@ function panelWeather(){
     }
   }
   const smt=sunMoonTimes(VIEW);
-  return `<div class="card">
-    <h2>${t.wx}</h2><div class="en">${LANG=='vi'?'Hiện tại':'Now'} · Open-Meteo</div>
+  return placesBoard(t)+`<div class="card">
+    <h2>${t.wx}</h2><div class="en">${(LOCNAME||t.locHere)+' · '}${LANG=='vi'?'hiện tại':'now'}</div>
     <div class="wxbig">${Math.round(c.temperature_2m)}°</div>
     <div style="font-size:16px;color:var(--muted);margin:6px 0 12px">${wcodeName(c.weather_code,t)}</div>
     <div class="row"><span class="k">${t.wxFeel}</span><span class="v"><b>${Math.round(c.apparent_temperature)}°</b></span></div>
@@ -2561,10 +2661,7 @@ function hubWeather(t){
       <button class="wxbtn" onclick="event.stopPropagation();askLoc()">📍 ${t.wxOn}</button>
       <button class="wxbtn alt" onclick="event.stopPropagation();openCityForm()">${t.wxType}</button>
     </div>
-    <div id="cityForm" style="display:none;margin-top:12px">
-      <input id="cityIn" type="text" placeholder="${t.wxCityPh}" onkeydown="if(event.key==='Enter')submitCity()">
-      <button class="wxbtn" style="margin-top:8px;width:100%" onclick="submitCity()">${t.wxFind}</button>
-    </div></div>`;
+    ${cityFormHtml(t)}</div>`;
   const c=WX.current,dl=WX.daily;
   return `<div class="hub wx" onclick="goExp(4)">
     <div class="lbl">${t.wx}</div>
@@ -2677,7 +2774,7 @@ function expItems(t){
   ];
 }
 function screenExplore(){ return hubScreen([0,2,3,1,6],T[LANG]); }   // Trăng, Phật, Tạng, Vũ trụ, Hoàng đạo Tây
-function screenWeatherTab(){ const ids=(TD&&TD.nodata)?[4]:[4,5]; return hubScreen(ids,T[LANG]); }     // Thời tiết, Triều
+function screenWeatherTab(){ return hubScreen([4,5],T[LANG]); }   // Trieu luon co mat: het du lieu thi bao, khong an di     // Thời tiết, Triều
 function hubScreen(ids,t){
   if(EXPOPEN){
     const fns=[panelAstro,panelCosmic,panelBuddha,panelDrukpa,panelWeather,panelTide,panelZodiac];
