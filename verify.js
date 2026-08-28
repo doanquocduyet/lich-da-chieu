@@ -101,12 +101,13 @@ function serve(root) {
   // "có" => tìm đúng cặp nhãn/giá trị trên panel Tạng, không phải dò chuỗi.
   // "hết" => soi text của MỌI màn, không phải một màn.
   const vi = all.vi.join('\n'), en = all.en.join('\n');
-  const row = (lang, k, v) => (tibRows[lang] || []).some(([a, b]) => a === k && (v instanceof RegExp ? v.test(b) : b === v));
+  const eq = (pat, s) => (pat instanceof RegExp ? pat.test(s) : s === pat);
+  const row = (lang, k, v) => (tibRows[lang] || []).some(([a, b]) => eq(k, a) && eq(v, b));
 
   const specs = [
     ['VI có dòng "Hệ lịch: Phugpa (Janson)"', row('vi', 'Hệ lịch', 'Phugpa (Janson)')],
     ['EN có dòng "Calendar system: Phugpa (Janson)"', row('en', 'Calendar system', 'Phugpa (Janson)')],
-    ['VI có dòng "Tính năm: Dương/Âm"',    row('vi', 'Tính năm', /^(Dương|Âm)$/)],
+    ['VI có dòng tính chất năm = Dương/Âm', row('vi', /^Tính (chất )?năm$/, /^(năm )?(Dương|Âm)$/)],
     ['VI hết "Lịch Tạng · Phugpa"',       !vi.includes('Lịch Tạng · Phugpa')],
     ['EN hết "Tibetan · Phugpa"',         !en.includes('Tibetan · Phugpa')],
     ['VI hết "Giới tính năm"',            !vi.includes('Giới tính năm')],

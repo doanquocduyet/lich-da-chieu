@@ -68,10 +68,10 @@ PATCHES = [
         "probe": r'termNow:"Currently in this solar term".{0,160}',
     },
     {
-        "name": '5. "Tính năm: Dương/Âm" thay cho "Giới tính năm: Nam/Nữ"',
-        "old": 'tibGender:"Giới tính năm",gMale:"Nam",gFemale:"Nữ",',
-        "new": 'tibGender:"Tính năm",gMale:"Dương",gFemale:"Âm",',
-        "done": 'tibGender:"Tính năm",gMale:"Dương",gFemale:"Âm",',
+        "name": '5. Tính chất năm là Dương/Âm, không phải Nam/Nữ',
+        "old": 'gMale:"Nam",gFemale:"Nữ",',
+        "new": 'gMale:"Dương",gFemale:"Âm",',
+        "done": 'gMale:"Dương",gFemale:"Âm",',
         "probe": r"tibGender:\".{0,120}",
     },
     {
@@ -83,8 +83,8 @@ PATCHES = [
     },
     {
         "name": "7. Thêm dòng Hệ lịch: Phugpa (Janson) vào panel Tạng",
-        "old": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?t.gMale:t.gFemale}</span></div>""",
-        "new": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?t.gMale:t.gFemale}</span></div>
+        "old": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year')}</span></div>""",
+        "new": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year')}</span></div>
       <div class="row"><span class="k">${t.tibSystem}</span><span class="v">${t.tibSystemV}</span></div>""",
         "done": '<span class="k">${t.tibSystem}</span>',
         "probe": r"\$\{t\.tibGender\}.{0,260}",
