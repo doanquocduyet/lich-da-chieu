@@ -646,6 +646,15 @@
   .cosc .cosbig{font-size:30px;font-weight:800;margin-top:10px}
   .cosc .cosago{font-size:14.5px;color:#9A92C8;margin-top:3px;margin-bottom:10px}
   .cosc .cosnow{margin:10px 0;padding:11px 13px;background:#6D4FA81a;border-radius:12px;font-size:15.5px}
+  .bkrow{display:flex;gap:8px;margin-top:10px}
+  .bkbtn{flex:1;padding:11px;background:none;border:1px solid var(--bd);border-radius:12px;font-size:14px;font-family:inherit;color:#6E6A5E;cursor:pointer}
+  .ablink{text-decoration:underline;cursor:pointer}
+  .abox{max-height:82vh;overflow-y:auto}
+  .abox .abh{font-weight:750;color:var(--ink);margin:14px 0 4px;font-size:14.5px}
+  .abox p{margin:0 0 6px}
+  .abox .absrc{font-size:13.5px;color:#6E6A5E}
+  .abwipe{width:100%;margin-top:16px;padding:12px;background:none;border:1px solid #D9A8A3;border-radius:12px;color:#B03A30;font-size:14.5px;font-family:inherit;cursor:pointer}
+  .backtoday{text-align:center;font-size:13.5px;color:#B03A30;padding:4px 0 2px;cursor:pointer;font-weight:600}
   .zodc{text-align:center}
   .zsym{font-size:64px;line-height:1;margin-top:14px;color:#7A5C8E}
   .zname{font-size:26px;font-weight:800;letter-spacing:.02em;margin-top:8px}
@@ -711,7 +720,7 @@ window.SunCalc=SunCalc;
 <script>
 // ═══════════════ I18N ═══════════════
 const T={
-vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức · Tiết khí: theo kinh độ Mặt Trời · Lịch Tạng: Phugpa (Janson) — tham khảo",
+vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức · Tiết khí: theo kinh độ Mặt Trời · Lịch Tạng: Phugpa (Janson) — tham khảo · <span class='ablink' onclick='openAbout()'>Về ứng dụng</span>",
   mains:["Hôm nay","Lịch","Hệ lịch","Thời tiết","Sự kiện"],
   sGio:"GIỜ",sNgay:"NGÀY",sThang:"THÁNG",sNam:"NĂM",
   monthEvTitle:"Sự kiện trong tháng",evTitle:"Sự kiện 12 tháng tới",back:"Quay lại",detailTitle:"Chi tiết ngày",
@@ -752,6 +761,25 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   shareDay:"Chia sẻ hôm nay",
   dEvents:"Sự kiện trong ngày",
   noteAdd:"Thêm ngày giỗ · sinh nhật",noteName:"Tên (vd: Ông nội, Mẹ...)",noteSave:"Lưu",noteCancel:"Đóng",noteNeedName:"Nhập tên trước đã",
+  bkExport:"Xuất bản sao",bkImport:"Nhập bản sao",
+  impConfirm:"{n} ghi chú sẽ được khôi phục:",impOverwrite:"Thao tác này sẽ THAY THẾ {c} ghi chú hiện có.",
+  impErr:"Không thể khôi phục bản sao này. Dữ liệu hiện tại của bạn chưa bị thay đổi.",
+  wipeC1:"Bạn có chắc muốn xóa toàn bộ dữ liệu (ghi chú, vị trí, thống kê) khỏi máy này?",
+  wipeC2:"Hành động này không thể hoàn tác. Xóa thật chứ?",
+  abTtl:"Về Lịch Đa Chiều",
+  abIdea:"Lịch Đa Chiều được làm với một ý tưởng đơn giản: một ngày có thể được nhìn từ nhiều hệ quy chiếu khác nhau — lịch Việt, thiên văn, Phật giáo, lịch Tạng, và cả lịch sử vũ trụ.",
+  abDataH:"Dữ liệu",
+  abData:"Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức · Thiên văn: SunCalc (BSD) · Lịch Tạng: Phugpa, thư viện Janson (MIT) · Thời tiết & mực nước: Open-Meteo · Kālacakra: kalacakra.org (E. Henning)",
+  abNotH:"Điều app không làm",
+  abNot:"Lịch Đa Chiều không dự đoán vận mệnh, không đưa ra ngày tốt/xấu cho quyết định cá nhân. Những phân loại truyền thống (hoàng đạo, 28 tú, 12 Trực) được thuật lại nguyên văn từ sách lịch, kèm ghi chú rõ ràng.",
+  abYoursH:"Dữ liệu của bạn",
+  abYours:"Ghi chú của bạn được lưu trên thiết bị này. App không có máy chủ riêng, không cần tài khoản. Toạ độ chỉ được gửi thẳng tới Open-Meteo khi bạn bật thời tiết. Hãy dùng nút Xuất bản sao để giữ một bản dự phòng.",
+  abWhoH:"Người làm",
+  abWho:"doanquocduyet · góp ý & báo lỗi: github.com/doanquocduyet/lich-da-chieu",
+  abWipe:"Xóa toàn bộ dữ liệu",
+  a2Saved:"Đã lưu",a2Ask:"Muốn mở nhanh Lịch Đa Chiều mỗi ngày? Thêm app vào Màn hình chính — ghi chú của bạn cũng được giữ bền hơn.",
+  a2How:"Trên iPhone: bấm nút Chia sẻ (ô vuông mũi tên lên) → kéo xuống → \"Thêm vào MH chính\".",
+  a2Later:"Đã hiểu",
   moonTonight:"Đêm nay",moonRise:"mọc",moonSet:"lặn",
   cosTodayTtl:"Hôm nay trong năm vũ trụ",cosDayN:"Ngày {d} / 365",
   cosToday:"Hôm nay",cosPrev:"Mốc gần nhất",cosNext:"Mốc kế tiếp",
@@ -837,7 +865,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   weekdays:["Chủ Nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"],
   months:["Một","Hai","Ba","Tư","Năm","Sáu","Bảy","Tám","Chín","Mười","Mười một","Chạp"],
   moShort:["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"]},
-en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar terms: by solar longitude · Tibetan: Phugpa (Janson) — reference",
+en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar terms: by solar longitude · Tibetan: Phugpa (Janson) — reference · <span class='ablink' onclick='openAbout()'>About</span>",
   mains:["Today","Calendar","Calendars","Weather","Events"],
   sGio:"HOUR",sNgay:"DAY",sThang:"MONTH",sNam:"YEAR",
   monthEvTitle:"This month's observances",evTitle:"Next 12 months",back:"Back",detailTitle:"Day detail",
@@ -878,6 +906,25 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   shareDay:"Share today",
   dEvents:"Events this day",
   noteAdd:"Add memorial · birthday",noteName:"Name (e.g. Grandpa, Mom...)",noteSave:"Save",noteCancel:"Close",noteNeedName:"Enter a name first",
+  bkExport:"Export backup",bkImport:"Import backup",
+  impConfirm:"{n} notes will be restored:",impOverwrite:"This will REPLACE your {c} existing notes.",
+  impErr:"Could not restore this backup. Your current data has not been changed.",
+  wipeC1:"Delete ALL data (notes, location, stats) from this device?",
+  wipeC2:"This cannot be undone. Really delete?",
+  abTtl:"About",
+  abIdea:"Lịch Đa Chiều is built on a simple idea: one day can be seen through many frames of reference — Vietnamese calendar, astronomy, Buddhist and Tibetan calendars, and cosmic history.",
+  abDataH:"Data",
+  abData:"Lunar & sexagenary: Hồ Ngọc Đức algorithm · Astronomy: SunCalc (BSD) · Tibetan: Phugpa, Janson library (MIT) · Weather & sea level: Open-Meteo · Kālacakra: kalacakra.org (E. Henning)",
+  abNotH:"What this app does not do",
+  abNot:"No fortune-telling, no good/bad-day advice for personal decisions. Traditional classifications (auspicious days, 28 mansions, 12 officers) are recounted as-is from almanacs, clearly labelled.",
+  abYoursH:"Your data",
+  abYours:"Your notes live on this device. The app has no server and needs no account. Coordinates go only to Open-Meteo when you enable weather. Use Export backup to keep a copy.",
+  abWhoH:"Maker",
+  abWho:"doanquocduyet · feedback: github.com/doanquocduyet/lich-da-chieu",
+  abWipe:"Delete all data",
+  a2Saved:"Saved",a2Ask:"Open Lịch Đa Chiều quickly every day? Add it to your Home Screen — your notes are also kept more safely.",
+  a2How:"On iPhone: tap Share (square with arrow) → scroll down → \"Add to Home Screen\".",
+  a2Later:"Got it",
   moonTonight:"Tonight",moonRise:"rise",moonSet:"set",
   cosTodayTtl:"Today in the cosmic year",cosDayN:"Day {d} / 365",
   cosToday:"Today",cosPrev:"Last milestone",cosNext:"Next milestone",
@@ -1419,6 +1466,49 @@ let DETAIL=false,CVMODE=0;
 // Rabjung: chu kỳ 60 năm, Rabjung 1 khởi 1027 CE (nguồn: THL, Rigpa Wiki, Janson)
 function rabjung(gy){return{cycle:Math.floor((gy-1027)/60)+1,year:((gy-1027)%60)+1};}
 function cycle60(gy){return{prev:gy-60,next:gy+60};}
+// ═══════════════ SAO LƯU & KHÔI PHỤC GHI CHÚ (không server, không tài khoản) ═══════════════
+function exportNotes(){
+  const data={app:'lich-da-chieu',version:1,exported:new Date().toISOString().slice(0,10),notes:loadNotes()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='lich-da-chieu-backup-'+data.exported+'.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  track('note_add','export');
+}
+function importNotesFile(){document.getElementById('impFile').click();}
+function handleImport(ev){
+  const f=ev.target.files&&ev.target.files[0];
+  if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const j=JSON.parse(rd.result);
+      const ns=Array.isArray(j)?j:(j&&Array.isArray(j.notes)?j.notes:null);
+      if(!ns||!ns.every(x=>x&&x.name&&x.m&&x.d&&x.cal))throw 0;
+      const t=T[LANG];
+      const preview=ns.slice(0,4).map(x=>'• '+noteTypeName(x.type)+' '+x.name+' · '+x.d+'/'+x.m+(x.cal==='lunar'?(LANG=='vi'?' âm':' lunar'):'')).join('\n');
+      const cur=loadNotes().length;
+      if(confirm(t.impConfirm.replace('{n}',ns.length)+'\n\n'+preview+(ns.length>4?'\n…':'')+(cur?'\n\n'+t.impOverwrite.replace('{c}',cur):''))){
+        saveNotes(ns.map(x=>({id:x.id||Date.now()+Math.random(),name:String(x.name).slice(0,40),type:x.type||'khac',m:+x.m,d:+x.d,cal:x.cal==='solar'?'solar':'lunar'})));
+        renderScreen();
+      }
+    }catch(e){alert(T[LANG].impErr);}
+    ev.target.value='';
+  };
+  rd.readAsText(f);
+}
+function wipeAll(){
+  const t=T[LANG];
+  if(!confirm(t.wipeC1))return;
+  if(!confirm(t.wipeC2))return;
+  try{
+    for(const k of ['ldc_notes','ldc_locname','lich_loc','lich_analytics_v1','ldc_src','ldc_a2hs'])localStorage.removeItem(k);
+  }catch(e){}
+  WX=null;TD=null;LOCNAME='';
+  location.reload();
+}
 // ═══════════════ GHI CHÚ GIỖ / SINH NHẬT ÂM LỊCH ═══════════════
 // Lưu trên máy: [{id,name,type:'gio'|'sn'|'khac',m,d,cal:'lunar'|'solar'}]
 function loadNotes(){try{return JSON.parse(localStorage.getItem('ldc_notes')||'[]')}catch(e){return[]}}
@@ -2118,6 +2208,30 @@ const GLOSS={
   phugpa:{vi:["Phugpa","Một hệ tính lịch Tạng được dùng rộng rãi, định hình từ thế kỷ 15."],en:["Phugpa","A widely used Tibetan calendar system, formalised in the 15th century."]},
   tietkhi:{vi:["Tiết khí","24 mốc chia năm theo vị trí Mặt Trời, dùng trong lịch truyền thống Đông Á để đánh dấu chuyển mùa."],en:["Solar term","24 markers dividing the year by the Sun's position, marking seasonal change."]}
 };
+function openAbout(){
+  const t=T[LANG];
+  let el=document.getElementById('glo');
+  if(!el){el=document.createElement('div');el.id='glo';document.body.appendChild(el);}
+  el.innerHTML=`<div class="glbox abox">
+    <div class="glt">${t.abTtl}</div>
+    <div class="glx">
+      <p>${t.abIdea}</p>
+      <p class="abh">${t.abDataH}</p>
+      <p class="absrc">${t.abData}</p>
+      <p class="abh">${t.abNotH}</p>
+      <p>${t.abNot}</p>
+      <p class="abh">${t.abYoursH}</p>
+      <p>${t.abYours}</p>
+      <p class="abh">${t.abWhoH}</p>
+      <p>${t.abWho}</p>
+      <button class="abwipe" onclick="wipeAll()">${t.abWipe}</button>
+    </div>
+    <button onclick="document.getElementById('glo').classList.remove('on')">${LANG=='vi'?'Đóng':'Close'}</button>
+  </div>`;
+  el.classList.add('on');
+  el.onclick=e=>{if(e.target.id==='glo')el.classList.remove('on')};
+  track('tab_open','about');
+}
 function glo(k){
   const g=GLOSS[k];if(!g)return;
   const [ti,tx]=g[LANG]||g.vi;
@@ -2335,6 +2449,11 @@ function remindHtml(d,t){
         <button class="nfsave" onclick="submitNote()">${t.noteSave}</button>
         <button class="nfcancel" onclick="document.getElementById('noteForm').style.display='none'">${t.noteCancel}</button>
       </div>
+      <div class="bkrow">
+        <button class="bkbtn" onclick="exportNotes()">⬇ ${t.bkExport}</button>
+        <button class="bkbtn" onclick="importNotesFile()">⬆ ${t.bkImport}</button>
+        <input type="file" id="impFile" accept=".json,application/json" style="display:none" onchange="handleImport(event)">
+      </div>
       ${loadNotes().length?`<div class="nflist">${loadNotes().map(x=>`<div class="nfitem"><span>${noteTypeName(x.type)} <b>${x.name}</b> · ${x.d}/${x.m}${x.cal==='lunar'?(LANG=='vi'?' âm':' lunar'):''}</span><button onclick="delNote(${x.id});renderScreen()">✕</button></div>`).join('')}</div>`:''}
     </div>
   </div>`;
@@ -2350,6 +2469,27 @@ function submitNote(){
     document.getElementById('nfM').value,document.getElementById('nfD').value,
     document.getElementById('nfCal').value);
   renderScreen();
+  maybeA2HS();
+}
+// Nhắc thêm màn hình chính: MỘT lần duy nhất, đúng lúc vừa lưu ghi chú đầu tiên.
+// Trong chế độ standalone (đã thêm) thì không bao giờ hiện.
+function maybeA2HS(){
+  try{
+    if(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)return;
+    if(localStorage.getItem('ldc_a2hs'))return;
+    localStorage.setItem('ldc_a2hs','1');
+  }catch(e){return}
+  const t=T[LANG];
+  let el=document.getElementById('glo');
+  if(!el){el=document.createElement('div');el.id='glo';document.body.appendChild(el);}
+  el.innerHTML=`<div class="glbox">
+    <div class="glt">✓ ${t.a2Saved}</div>
+    <div class="glx">${t.a2Ask}</div>
+    <div class="glx" style="margin-top:10px;font-size:14px;color:#6E6A5E">${t.a2How}</div>
+    <button onclick="document.getElementById('glo').classList.remove('on')">${t.a2Later}</button>
+  </div>`;
+  el.classList.add('on');
+  el.onclick=e=>{if(e.target.id==='glo')el.classList.remove('on')};
 }
 function tomorrowHtml(d,t){
   const n=new Date(d.getTime()+864e5);
@@ -2534,7 +2674,7 @@ function screenWeatherTab(){ const ids=(TD&&TD.nodata)?[4]:[4,5]; return hubScre
 function hubScreen(ids,t){
   if(EXPOPEN){
     const fns=[panelAstro,panelCosmic,panelBuddha,panelDrukpa,panelWeather,panelTide,panelZodiac];
-    const pk=(SUBEXP===0||SUBEXP===2||SUBEXP===3||SUBEXP===6)?picker():'';
+    const pk=(SUBEXP===0||SUBEXP===1||SUBEXP===2||SUBEXP===3||SUBEXP===6)?picker():'';
     const skins=['sk-moon','sk-cos','sk-bud','sk-tib','sk-wx','sk-td','sk-zod'];
     document.body.className=skins[SUBEXP];
     return `<div class="backbar"><button onclick="expBack()">‹ ${t.mains[MAIN]}</button>
@@ -2559,7 +2699,7 @@ function picker(){
     <button onclick="shiftDay(-1)">‹</button>
     <input type="date" id="dp" value="${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}" onchange="pickDate()">
     <button onclick="shiftDay(1)">›</button>
-  </div>`;
+  </div>${sameDay(VIEW,new Date())?'':`<div class="backtoday" onclick="VIEW=new Date();renderScreen()">↩ ${LANG=='vi'?'Về hôm nay':'Back to today'}</div>`}`;
 }
 function subnav(items,cur,fn){
   return `<div class="subnav">${items.map((it,i)=>
