@@ -589,3 +589,78 @@ chống tối ưu thừa).
 
 Widget/notification, export calendar, React Native, tích hợp NCHMF, chọn giờ chi tiết —
 tất cả vẫn chờ số liệu người dùng thật như §7 đã chốt.
+
+---
+
+## 13. KHÓA THIẾT KẾ (V3.1) — DỪNG TỐI ƯU, CHỜ NGƯỜI THẬT
+
+### 13.1 Trạng thái: khóa
+
+Bản V3.1 đã đi hết những gì **suy ra được** mà không cần người dùng:
+
+| Cách tối ưu | Trạng thái |
+|---|---|
+| Bằng dữ liệu (đo mực, đo khung, đo 16px) | đã làm |
+| Bằng logic (spec §0, quy ước ngôn ngữ) | đã làm |
+| Bằng hồi quy (`patch.py`, `verify.js`, `guard`) | đã làm |
+| **Bằng cảm giác người thật** | **chưa có dữ liệu** |
+
+**Icon tab: KHÓA.** Cỡ quang học lệch 1,2px ở 16px, đã kiểm bằng ảnh phóng
+từng điểm ảnh, hết emoji màu.
+
+**Icon app: KHÓA** (phương án C — ba vòng mềm, không vòng ôm ngoài).
+
+**Không thêm tính năng mới** chỉ vì nghĩ "có thể hay hơn".
+
+> ⛔ **Không sửa icon nữa chỉ vì nhìn 10 phút rồi thấy "hình như vẫn đẹp hơn
+> được".** Đó là bẫy perfectionism. Chỉ sửa khi có người thật lặp lại cùng một
+> vấn đề — xem §13.3.
+
+### 13.2 Cách test người thật (làm đúng, không thành một vòng phỏng đoán mới)
+
+Đưa máy cho người dùng. **KHÔNG** giới thiệu "đây là app lịch đa chiều", không
+giải thích Cosmic Calendar, không giải thích Lịch Tạng, không chỉ nút nào.
+
+Chỉ nói đúng một câu:
+
+> "Đây là một app mới. Anh/chị cứ dùng thử như bình thường."
+
+Rồi **im lặng quan sát**. Ghi lại đúng 3 khoảnh khắc:
+
+1. **5 giây đầu** — mắt họ nhìn đâu?
+2. **Lần đầu họ tự bấm** — họ chọn gì?
+3. **Sau ~2 phút** — câu đầu tiên họ nói là gì?
+
+Sau đó hỏi đúng một câu:
+
+> "Nếu app này ở trên điện thoại anh/chị, ngày mai anh/chị có mở lại không?
+> Vì sao?"
+
+Câu trả lời đó quan trọng hơn mọi điểm 9.x tự chấm.
+
+**Ghi nguyên văn, không diễn giải.** "Nó rối" ≠ "người dùng thấy IA phức tạp".
+Câu thứ hai là suy đoán của người ghi, không phải dữ liệu.
+
+**Test trên máy CỦA HỌ, và cài vào màn hình chính.** App chạy trong tab Safari
+khác hẳn app đã cài: có thanh địa chỉ, không toàn màn hình, không offline. Test
+sai môi trường thì dữ liệu thu được cũng sai.
+
+### 13.3 Cách đọc phản hồi — đừng sửa vội
+
+Người thật nói **"Tôi không hiểu cái này"** → ĐỪNG sửa ngay. Hỏi tiếp:
+> "Chỗ nào làm anh/chị không hiểu?"
+
+Người thật nói **"Tôi không cần cái này"** → ĐỪNG xóa ngay. Hỏi tiếp:
+> "Nếu bỏ nó đi, anh/chị có thấy app tốt hơn không?"
+
+**Chỉ sửa khi nhiều người ĐỘC LẬP lặp lại cùng một vấn đề.** Một người nói một
+lần là giai thoại, không phải dữ liệu. Ba người không quen nhau cùng vấp một
+chỗ mới là tín hiệu.
+
+### 13.4 Mức hoàn thiện — nói cho đúng
+
+Bản này **không phải 10/10 tuyệt đối**. Nó là:
+
+> **10/10 ở mức mà dữ liệu hiện có cho phép xác nhận.**
+
+Phần còn lại không suy ra được bằng AI. Phải lấy từ hành vi thật.
