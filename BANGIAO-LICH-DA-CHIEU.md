@@ -410,8 +410,30 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 - 1 file HTML độc lập ~188 KB, đã nhúng sẵn thư viện Tạng (~7,7 KB minified).
 - Song ngữ Việt/Anh đầy đủ, chuyển bằng nút VI/EN góc trên.
 - Đã test: không lỗi JS, không "undefined", chạy đúng cả 2 ngôn ngữ, 5 tab + 6 mục Khám phá + 4 chế độ lịch + 4 chiều đổi ngày.
-- **Đã deploy** GitHub Pages: https://doanquocduyet.github.io/lich-da-chieu/ — bản V2.5, cache `ldc-v36`.
-- Thư mục gốc đúng 8 file: `index.html` · `sw.js` · `manifest.webmanifest` · 3 icon · `README.md` · `patch.py` (+ file spec này).
+- Thư mục gốc: `index.html` · `sw.js` · `manifest.webmanifest` · 3 icon · `README.md` · `patch.py` · `verify.js` · `.github/workflows/guard.yml` (+ file spec này).
+
+### Đang chạy ở hai nơi — biết để khỏi lẫn
+
+| | |
+|---|---|
+| Trang chính | **https://duyet.online** |
+| Bản sao | https://doanquocduyet.github.io/lich-da-chieu/ |
+
+Tra DNS ngày 29/8/2026:
+
+```
+duyet.online            -> 216.198.79.1              (dải anycast của Vercel)
+www.duyet.online        -> 216.198.79.65, 64.29.17.65
+doanquocduyet.github.io -> 185.199.108-111.153       (dải của GitHub Pages)
+```
+
+`duyet.online` **không** phục vụ từ GitHub Pages, và repo cũng không có file `CNAME` —
+nó nằm trên Vercel. Nội dung khớp với bản build của repo này, nên nhiều khả năng là một
+project Vercel nối thẳng vào repo, tự deploy mỗi khi `main` đổi. **Chưa xác nhận được** —
+sandbox chặn truy cập cả hai tên miền nên không đối chiếu trực tiếp được.
+
+Đáng kiểm một lần cho chắc: so **dấu build** (xem §11) ở cuối `duyet.online` với
+`grep -o 'window.LDC_BUILD=[^;]*' index.html` trong repo. Trùng nghĩa là cùng một đường.
 
 **Việc tiếp theo duy nhất: phát cho 10–20 người → đọc `getStats()` → quyết V3.**
 
@@ -490,6 +512,26 @@ lần build sau lại mất).
 | 6 | EN "Brightness" | Không phải "Illumination" |
 | 7 | Thêm dòng "Hệ lịch: Phugpa (Janson)" | Chỗ đặt tên hệ lịch sau khi gỡ khỏi nhãn |
 
+### Dấu build — nhìn là biết trang đang chạy bản nào
+
+Cuối trang có một dòng mờ, ví dụ `ldc-v45 · c51540ae`. Console cũng in ra, và có
+`window.LDC_BUILD` với đúng chuỗi đó.
+
+- Phần đầu là **tên cache** trong `sw.js`.
+- Phần sau là **8 ký tự đầu md5 của chính `index.html`** sau khi gỡ dấu ra. Tính từ nội
+  dung nên file không đổi thì dấu không đổi — `patch.py` chạy lại không sinh commit rác.
+
+Đối chiếu: `grep -o 'window.LDC_BUILD=[^;]*' index.html` ở repo, so với dòng cuối trang
+thật. Lệch nghĩa là trang phục vụ bản khác — hoặc service worker cache cũ (mở tab ẩn danh
+để loại trừ), hoặc host lấy file từ nơi khác.
+
+**Vì sao có dấu này.** Ngày 29/8/2026 tôi nhìn ảnh chụp `duyet.online`, thấy panel Tạng ghi
+*"Tính chất năm: năm Dương"* trong khi bản local của tôi render *"Tính năm: Dương"*, rồi
+kết luận trang đang chạy một bản không có trong repo. **Sai.** Tôi quên `git fetch` — chuỗi
+đó vào repo từ commit `3753559` (V2.6), local của tôi dừng ở `bafaa0e`. Suy luận từ chênh
+lệch nội dung mà không chắc mình đang cầm bản mới nhất thì dẫn tới kết luận sai. Dấu build
+cắt đứt chuyện đó: hai chuỗi bằng nhau hay không, không phải suy đoán.
+
 ### `verify.js` kiểm những gì
 
 Timezone `Asia/Ho_Chi_Minh`, quét 24 màn hình (2 ngôn ngữ × 12 màn:
@@ -498,9 +540,11 @@ Timezone `Asia/Ho_Chi_Minh`, quét 24 màn hình (2 ngôn ngữ × 12 màn:
 1. **Không `pageerror`, không console error** ở màn nào.
 2. **`document.body.innerText` không chứa "undefined"** ở màn nào.
 3. Sau `setLang('vi')`: `tibYearName(tibetan(new Date(2026,7,17,12)))` phải ra đúng **`"Hỏa Ngựa"`**.
-4. **8 điều kiện chữ nghĩa nhìn thấy trên màn hình thật** — có "Hệ lịch", có "Phugpa (Janson)",
-   hết "Lịch Tạng · Phugpa", có "Tính năm", hết "Giới tính năm", tên năm không có "(dương)",
-   EN có "Calendar system", EN hết "Tibetan · Phugpa".
+4. **11 điều kiện chữ nghĩa nhìn thấy trên màn hình thật** — dòng "Hệ lịch: Phugpa (Janson)"
+   ở cả VI/EN, tính chất năm là Dương/Âm, hết "Lịch Tạng · Phugpa", hết "Giới tính năm",
+   tên năm không kèm "(dương)", EN "Brightness", footer không in HTML thô, không có
+   "1 days", và không còn emoji màu trên giao diện.
+5. **Dấu build có mặt và khớp tên cache** trong `sw.js`.
 
 Mục 4 quan trọng hơn `--check` của `patch.py`: nó soi **kết quả render**, nên bắt được cả
 trường hợp chuỗi có trong mã nguồn mà không hiện ra màn hình.

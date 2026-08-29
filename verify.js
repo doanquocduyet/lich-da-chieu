@@ -120,9 +120,16 @@ function serve(root) {
     ['Không còn emoji màu trên giao diện', !/[\u{1F300}-\u{1FAFF}\u{2600}\u{2638}\u{26C5}\u{2744}\u{26C8}]/u.test(vi + en)],
   ];
 
+  // ── 5. Dấu build có mặt, và khớp tên cache trong sw.js ─────────────────
+  // Bắt trường hợp trang phục vụ một index.html không đi cùng sw.js hiện tại.
+  const build = await page.evaluate(() => window.LDC_BUILD || null);
+  const swCache = (fs.readFileSync(path.join(process.cwd(), 'sw.js'), 'utf8')
+    .match(/const C='(ldc-v\d+)';/) || [])[1] || null;
+  const okBuild = !!build && !!swCache && build.startsWith(swCache + ' ');
+
   const okYear = yearName === 'Hỏa Ngựa';
   const okSpec = specs.every(([, ok]) => ok);
-  const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec;
+  const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
   console.log('1. Lỗi JS / console ....... ' + (errors.length ? '\n   ' + errors.join('\n   ') : 'KHÔNG CÓ'));
@@ -130,6 +137,8 @@ function serve(root) {
   console.log(`3. tibYearName(2026-08-17)  ${JSON.stringify(yearName)}` + (okYear ? '  ✓' : '  ✗ phải là "Hỏa Ngựa"'));
   console.log('4. Chữ nghĩa theo spec:');
   for (const [label, ok] of specs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
+  console.log(`5. Dấu build ............... ${build || 'KHÔNG CÓ'}` +
+    (okBuild ? '  ✓' : `  ✗ phải bắt đầu bằng "${swCache}" (tên cache trong sw.js)`));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();

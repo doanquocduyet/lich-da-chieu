@@ -37,6 +37,19 @@ node verify.js                       # kiểm tra thật trên trình duyệt
 
 Chi tiết ở §11 của file spec.
 
+## Đang chạy bản nào
+
+Cuối trang có một dòng mờ kiểu `ldc-v45 · c51540ae` — tên cache và 8 ký tự đầu md5 của
+`index.html`. So với repo:
+
+```bash
+grep -o 'window.LDC_BUILD=[^;]*' index.html
+```
+
+Lệch nghĩa là trang phục vụ bản khác: hoặc service worker cache cũ (mở tab ẩn danh để loại
+trừ), hoặc host lấy file từ nơi khác. Trang chính là **duyet.online** (Vercel), không phải
+GitHub Pages — xem §10 của file spec.
+
 Toàn bộ phép tính lịch chạy trên máy người dùng. Chỉ thời tiết / thủy triều / tên địa điểm mới cần mạng (Open-Meteo, không cần API key).
 
 ## Chạy thử tại chỗ

@@ -18,6 +18,7 @@ nhận ra được ở cả hai dạng thì DỪNG HẲN, không vá gì cả, v
 quanh đó để sửa PATCHES cho nhanh. Đừng sửa tay đoán mò.
 """
 
+import hashlib
 import io
 import re
 import sys
@@ -129,6 +130,42 @@ def report_lost(s, rows):
           file=sys.stderr)
 
 
+# ── Dấu nhận dạng bản build ────────────────────────────────────────────────
+# Nhìn cuối trang là biết đang chạy bản nào. Ngày 29/8/2026 tốn cả buổi mới đoán
+# ra trang thật chạy bản nào, mà lại đoán SAI vì so với bản local đã cũ. Có dấu
+# này thì liếc một cái là xong, khỏi suy luận.
+#
+# Dấu = <ten cache> · <8 ky tu dau md5 cua chinh file, sau khi go dau cu ra>.
+# Tính từ nội dung nên file không đổi thì dấu không đổi — chạy lại không sinh
+# commit rác.
+#
+# Phải nuốt "\n" ở CẢ HAI đầu. Chỉ nuốt đầu trước thì mỗi vòng gỡ-rồi-đóng-lại
+# để thừa một xuống dòng, file dài thêm 1 byte, md5 đổi, dấu không bao giờ ổn định.
+STAMP_RE = re.compile(r"\n?<!--LDC-BUILD-->.*?<!--/LDC-BUILD-->\n?", re.S)
+
+
+def read_cache(path="sw.js"):
+    m = re.search(r"const C='(ldc-v\d+)';", io.open(path, encoding="utf-8").read())
+    if not m:
+        raise SystemExit("DỪNG — không thấy dòng const C='ldc-vNN'; trong %s" % path)
+    return m.group(1)
+
+
+def stamp(s, cache):
+    body = STAMP_RE.sub("", s)
+    if body.count("</body>") != 1:
+        raise SystemExit("DỪNG — không đóng dấu được: tìm thấy %d thẻ </body>."
+                         % body.count("</body>"))
+    sig = "%s · %s" % (cache, hashlib.md5(body.encode("utf-8")).hexdigest()[:8])
+    tag = (
+        '\n<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;'
+        'letter-spacing:.04em;opacity:.32;padding:10px 0 92px">%s</div>'
+        '<script>window.LDC_BUILD=%r;console.log("Lich Da Chieu build:",window.LDC_BUILD)</script>'
+        "<!--/LDC-BUILD-->" % (sig, str(sig))
+    )
+    return body.replace("</body>", tag + "\n</body>"), sig
+
+
 def bump_sw(path="sw.js"):
     s = io.open(path, encoding="utf-8").read()
     m = re.search(r"const C='ldc-v(\d+)';", s)
@@ -169,25 +206,31 @@ def main(argv):
         print("\nĐủ %d/%d chỗ vá. File deploy được." % (len(PATCHES), len(PATCHES)))
         return 0
 
-    if not todo:
-        print("\nKhông có gì để vá — cả %d chỗ đã có sẵn. Không ghi file, không bump cache."
-              % len(PATCHES))
-        if src != dst:
-            io.open(dst, "w", encoding="utf-8").write(s)
-            print("Đã chép %s -> %s." % (src, dst))
+    if todo:
+        # Chỗ vá 2 gọi tibYearShort — bản build thiếu hàm này là vá xong trắng app.
+        if s.count("function tibYearShort") != 1:
+            raise SystemExit("DỪNG — bản build thiếu function tibYearShort.")
+        for p, _ in todo:
+            s = s.replace(p["old"], p["new"])
+        old, new = bump_sw()
+        print("\nĐã vá %d chỗ. Cache sw.js: ldc-v%d -> ldc-v%d" % (len(todo), old, new))
+    else:
+        print("\nKhông có gì để vá — cả %d chỗ đã có sẵn, không bump cache." % len(PATCHES))
+
+    out, sig = stamp(s, read_cache())
+    try:
+        unchanged = io.open(dst, encoding="utf-8").read() == out
+    except IOError:
+        unchanged = False
+
+    if unchanged:
+        print("%s không đổi một byte nào. Dấu build: %s" % (dst, sig))
         return 0
 
-    # Chỗ vá 2 gọi tibYearShort — bản build thiếu hàm này là vá xong trắng app.
-    if s.count("function tibYearShort") != 1:
-        raise SystemExit("DỪNG — bản build thiếu function tibYearShort.")
-
-    for p, _ in todo:
-        s = s.replace(p["old"], p["new"])
-    io.open(dst, "w", encoding="utf-8").write(s)
-    old, new = bump_sw()
-
-    print("\nĐã vá %d chỗ vào %s. Cache sw.js: ldc-v%d -> ldc-v%d" % (len(todo), dst, old, new))
-    print("CHƯA XONG — chạy `node verify.js` trước khi deploy.")
+    io.open(dst, "w", encoding="utf-8").write(out)
+    print("Đã ghi %s. Dấu build: %s" % (dst, sig))
+    if todo:
+        print("CHƯA XONG — chạy `node verify.js` trước khi deploy.")
     return 0
 
 
