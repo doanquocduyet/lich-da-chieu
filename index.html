@@ -315,7 +315,11 @@
   .wk .c .l{font-size:12px;font-weight:600}
   .ccstrip .cv{font-size:22px;font-weight:800}
   .bnav button{font-size:12.5px;gap:5px;padding:6px 0 2px}
-  .bnav button .bi{font-size:28px}
+  .bnav button .bi{font-size:0;line-height:0;display:block}
+  .bnav button .bi svg{display:block;width:25px;height:25px}
+  .bnav button.on .bi svg{stroke-width:2}
+  .locbtn svg,.wxbtn svg{vertical-align:-3px;margin-right:2px}
+  .hcell .hi svg{display:block;margin:0 auto}
   .wxbig{font-size:58px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink)}
   .wxrow{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:12px 0;border-bottom:1px solid var(--line2);font-size:14.5px}
   .wxrow:last-of-type{border-bottom:none}
@@ -1184,7 +1188,6 @@ function moonPhase(date,hourICT){
 }
 function nextNewMoon(date){const j=findPhase(jdAt(date,12)+1,0);return j==null?null:jdToDateObj(j);}
 function nextFullMoon(date){const j=findPhase(jdAt(date,12)+1,180);return j==null?null:jdToDateObj(j);}
-const moonEmoji=["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘"];
 function getSeason(d){
   let m=d.getMonth()+1,dd=d.getDate();
   if((m==3&&dd>=20)||m==4||m==5||(m==6&&dd<21))return 0;
@@ -1931,6 +1934,21 @@ function askLoc(){
     alert(msg);openCityForm();
   },{timeout:20000,maximumAge:120000,enableHighAccuracy:false});
 }
+// Bo icon mot net — luoi 24, net 1.7, dau tron, an theo currentColor.
+// Thay cho ky tu vi iOS ve ☸ va ☀ thanh emoji MAU trong khi ◈ ▦ ✦ la ky tu den:
+// nam icon ba giong khac nhau. Ky tu con phu thuoc font tung may, khong chinh
+// duoc net, khong doi mau theo skin.
+const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="5.4" width="16.8" height="15" rx="3"/><path d="M3.6 10.1h16.8M8.7 10.1v10.3M15.3 10.1v10.3M3.6 15.3h16.8M8.1 3.2v3.6M15.9 3.2v3.6"/>',wheel:'<circle cx="12" cy="8.6" r="5.1"/><circle cx="8.2" cy="14.6" r="5.1"/><circle cx="15.8" cy="14.6" r="5.1"/>',sun:'<circle cx="12" cy="12" r="4.5"/><path d="M12 2.7v2.5M12 18.8v2.5M2.7 12h2.5M18.8 12h2.5M5.5 5.5l1.8 1.8M16.7 16.7l1.8 1.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8"/>',star:'<path d="M12 4.6c.72 5 1.57 5.85 6.57 6.57-5 .72-5.85 1.57-6.57 6.57-.72-5-1.57-5.85-6.57-6.57C10.43 10.45 11.28 9.6 12 4.6z"/>',pin:'<path d="M12 20.8s6.2-5.6 6.2-10.1a6.2 6.2 0 1 0-12.4 0c0 4.5 6.2 10.1 6.2 10.1z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><path d="M7.8 1.6v1.7M2.2 7.2h1.7M3.7 3.1l1.2 1.2"/><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.4 18.4v3M8.1 19.2l2.6 1.5M10.7 19.2l-2.6 1.5M15.4 18.4v3M14.1 19.2l2.6 1.5M16.7 19.2l-2.6 1.5"/>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13.2 17.6l-3.4 2.9h2.9l-1.5 2.4"/>'};
+function svgIcon(k,sz,sw){
+  return `<svg viewBox="0 0 24 24" width="${sz||26}" height="${sz||26}" fill="none" stroke="currentColor"
+    stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
+}
+function wcodeKey(c){
+  if(c===0)return 'sun';if(c<=2)return 'partly';if(c===3)return 'cloud';
+  if(c===45||c===48)return 'fog';if(c>=51&&c<=57)return 'drizzle';
+  if(c>=61&&c<=67)return 'rain';if(c>=71&&c<=77||c===85||c===86)return 'snow';
+  if(c>=80&&c<=82)return 'drizzle';if(c>=95)return 'storm';return 'partly';
+}
 function wcodeIcon(c){
   if(c===0)return '☀';if(c<=2)return '⛅';if(c===3)return '☁';
   if(c===45||c===48)return '🌫';if(c>=51&&c<=57)return '🌦';
@@ -2010,7 +2028,7 @@ function tideRegime(t){
 function panelWeather(){
   const t=T[LANG],L=loadLoc();
   if(!L)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
-    <button class="locbtn" onclick="askLoc()">📍 ${t.wxLoc}</button>
+    <button class="locbtn" onclick="askLoc()">${svgIcon('pin',17)} ${t.wxLoc}</button>
     ${cityFormHtml(t)}
     <div class="note">${t.wxSrc}</div></div>`;
   if(!WX){fetchWeather();return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
@@ -2035,7 +2053,7 @@ function panelWeather(){
     for(let i=i0;i<Math.min(i0+12,H.time.length);i++){
       const hd=new Date(H.time[i]);
       hrs+=`<div class="hcell"><div class="hh">${i===i0?(LANG=='vi'?'Giờ này':'Now'):pad(hd.getHours())+'h'}</div>
-        <div class="hi">${wcodeIcon(H.weather_code[i])}</div>
+        <div class="hi">${svgIcon(wcodeKey(H.weather_code[i]),22)}</div>
         <div class="ht2">${Math.round(H.temperature_2m[i])}°</div>
         <div class="hp">${H.precipitation_probability[i]??0}%</div></div>`;
     }
@@ -2080,7 +2098,7 @@ function panelTide(){
   const regime=`<div class="row"><span class="k">${LANG=='vi'?'Theo pha trăng':'By moon phase'}</span><span class="v jade"><b>${tideRegime(t)}</b></span></div>
     <div class="note">${t.tideAstro}</div>`;
   if(!L)return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div>
-    <button class="locbtn" onclick="askLoc()">📍 ${t.tideAsk}</button>${regime}</div>`;
+    <button class="locbtn" onclick="askLoc()">${svgIcon('pin',17)} ${t.tideAsk}</button>${regime}</div>`;
   if(!TD){fetchTide();return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
   if(TD.nodata)return `<div class="card"><h2>${t.subExp[5]}</h2><div class="en">Open-Meteo Marine</div>
     <div class="note" style="border:none;margin:0 0 6px;padding:0">${t.tideNoData}</div>${regime}</div>`;
@@ -2658,7 +2676,7 @@ function hubWeather(t){
     <div class="cond" style="margin-top:6px;font-size:15.5px">${t.wxAsk}</div>
     <div style="font-size:12px;color:#5E7480;margin-top:6px;line-height:1.55">${t.wxPrivacy}</div>
     <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-      <button class="wxbtn" onclick="event.stopPropagation();askLoc()">📍 ${t.wxOn}</button>
+      <button class="wxbtn" onclick="event.stopPropagation();askLoc()">${svgIcon('pin',16)} ${t.wxOn}</button>
       <button class="wxbtn alt" onclick="event.stopPropagation();openCityForm()">${t.wxType}</button>
     </div>
     ${cityFormHtml(t)}</div>`;
@@ -3069,9 +3087,9 @@ function panelDrukpa(){
 
 // ═══════════════ NAV / CONTROLS ═══════════════
 function renderMainTabs(){
-  let t=T[LANG],ic=["◈","▦","☸","☀","✦"],mt=document.getElementById('maintabs');
+  let t=T[LANG],ic=['today','cal','wheel','sun','star'],mt=document.getElementById('maintabs');
   mt.innerHTML=t.mains.map((m,i)=>
-    `<button class="${i===MAIN?'on':''}" onclick="setMain(${i})" aria-label="${m}" ${i===MAIN?'aria-current="page"':''}><span class="bi" aria-hidden="true">${ic[i]}</span>${m}</button>`).join('');
+    `<button class="${i===MAIN?'on':''}" onclick="setMain(${i})" aria-label="${m}" ${i===MAIN?'aria-current="page"':''}><span class="bi" aria-hidden="true">${svgIcon(ic[i])}</span>${m}</button>`).join('');
 }
 function renderScreen(){
   let fns=[screenToday,screenCalendar,screenExplore,screenWeatherTab,screenEvents];

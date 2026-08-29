@@ -115,6 +115,9 @@ function serve(root) {
     ['EN có "Brightness", hết "Illumination"', en.includes('Brightness') && !en.includes('Illumination')],
     ['Footer không in HTML thô ra màn', !vi.includes('<span') && !en.includes('<span')],
     ['EN không có "1 days" sai số ít', !/\b1 days\b/.test(en)],
+    // iOS ve nhung ky tu nay thanh emoji MAU -> lech han voi phan con lai cua giao dien.
+    // Da thay bang icon SVG mot net; bay nay chan ban build sau dua emoji quay lai.
+    ['Không còn emoji màu trên giao diện', !/[\u{1F300}-\u{1FAFF}\u{2600}\u{2638}\u{26C5}\u{2744}\u{26C8}]/u.test(vi + en)],
   ];
 
   const okYear = yearName === 'Hỏa Ngựa';
