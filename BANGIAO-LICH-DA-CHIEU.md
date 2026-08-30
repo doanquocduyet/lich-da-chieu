@@ -752,3 +752,60 @@ Bản build sau đổi chỗ này thì phải giữ nguyên dòng đó.
 Máy dựng bản này không có SF Pro Rounded và không phải Safari. Dáng số bo
 tròn, độ mượt thật khi cuộn, và `backdrop-filter` của thanh dưới cùng
 **chỉ iPhone mới nói được**.
+
+---
+
+## 15. RÀ TOÀN SITE (V3.7) — ĐỐI CHIẾU TỪNG YÊU CẦU
+
+Chú Duyệt: *"rà toàn site theo những gì tôi chỉnh sửa xem có cái nào chưa làm không"*.
+Dưới đây là kết quả rà bằng máy, không phải bằng mắt.
+
+### 15.1 "Bo tròn hết" — một luật, không vá từng hình
+
+Vá từng hình thì lần sau lại sót. Nên có **một luật CSS cho cả app**:
+
+```css
+svg,svg *{stroke-linecap:round;stroke-linejoin:round}
+```
+
+Luật CSS đè lên cả thuộc tính viết thẳng trong thẻ SVG, nên **mọi nét trong app —
+kể cả hoa văn nền và bản build sau — đều có đầu tròn và góc nối tròn**, không cần
+nhớ khai báo.
+
+Ngoài ra 16 ký tự nhọn do **font hệ điều hành** vẽ đã thay bằng SVG một nét:
+`‹ › ▾ → ↗ ⬇ ⬆ ✕ ↩ ⌄ ⌃`. Đây cùng một vấn đề với emoji — *"quyền kiểm soát giao
+diện bị trao cho hệ điều hành"*: mỗi máy vẽ một kiểu, không đổi được nét, không
+đổi được màu theo skin.
+
+Còn lại **có chủ ý giữ**:
+- `×` trong câu `"365 × 24 × 3600"` — phép nhân trong câu văn, không phải icon.
+- `♍︎` và 11 dấu hoàng đạo khác — đã kèm sẵn `U+FE0E` ép về dạng chữ đen, không
+  thành emoji màu. Thay 12 dấu này bằng SVG là việc riêng, chưa ai yêu cầu.
+- Dãy núi ở panel Tạng: vẫn là núi, nhưng đỉnh đã mài tròn bằng
+  `stroke-linejoin:round` trên chính đường viền của hình đặc.
+
+### 15.2 Font số — ranh giới đã chọn
+
+`--fnum` (ui-rounded → SF Pro Rounded trên máy Apple) áp cho **ô là con số**:
+số ngày, nhiệt độ, giờ, phần trăm, năm, thanh Can Chi, bảng 7 ngày, dải theo giờ…
+
+**Không** áp cho **câu văn có lẫn số** (`"Dự báo có mưa vào khoảng 22:00"`,
+`"Nén 13,8 tỷ năm vào một năm"`). Tròn cả chữ lẫn số là đổi font toàn app —
+đó là quyết định khác, chưa ai yêu cầu. Nếu chú muốn cả app tròn thì nói một câu.
+
+### 15.3 Hai chốt mới trong `verify.js`
+
+- **Mục 7 — bo tròn:** soi mọi nút và nhãn bấm được trên **từng màn**, cộng với
+  mọi nét SVG. Chạy thử trên bản cũ: báo đỏ **25 chỗ** — và tìm ra một chỗ tôi
+  đã bỏ sót khi sửa tay (nút `⬆ Nhập bản sao`).
+- Lần đầu viết chốt này tôi chỉ chạy **một lần ở cuối** → nó soi đúng một màn
+  cuối cùng và **báo xanh trên cả bản còn đầy mũi tên**. Đây là lần thứ hai mắc
+  đúng lỗi đó trong dự án. Quy tắc: **chốt nào chưa thấy nó báo đỏ trên bản
+  hỏng thì chưa tính là chốt.**
+
+### 15.4 Việc còn treo, cần người thật
+
+- **duyet.online** — nằm trên Vercel, chưa xác nhận được có nối vào repo này
+  không. Sandbox chặn cả hai tên miền. Cách kiểm: so dấu build ở cuối trang.
+- **Dáng số bo tròn thật** — máy dựng bản này không có SF Pro Rounded.
+- **Độ mượt thật khi cuộn** trên Safari iOS.

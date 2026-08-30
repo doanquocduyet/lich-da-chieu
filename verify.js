@@ -57,6 +57,35 @@ function serve(root) {
   // Tắt hẳn khi kiểm, để đọc được toàn bộ trang.
   await page.addStyleTag({ content: '*{content-visibility:visible !important}' });
 
+  // Chu Duyet: "bo tron het". Mui ten / tam giac / dau nhan viet bang KY TU thi
+  // moi may ve mot kieu, khong doi duoc net, khong doi duoc mau — dung van de
+  // voi emoji. Chi soi NUT va nhan bam duoc: dau "×" trong cau "365 × ..." va
+  // mui ten trong o chon "Duong → Am" la chu, khong phai icon.
+  // Phai chay TREN TUNG MAN. Ban dau toi chi chay mot lan o cuoi -> no soi dung
+  // mot man cuoi cung va bao xanh tren ca ban con day mui ten.
+  const sharp = new Set();
+  const sweepSharp = async () => {
+    for (const x of await page.evaluate(() => {
+      const re = /[→←↗↘⬇⬆✕✖▾▴▸◂‹›↩⌄⌃]/u, out = [];
+      for (const el of document.querySelectorAll('button,.go2,.ear,.tla,.mnav .lbl,.backtoday,summary')) {
+        const t = (el.textContent || '').trim();
+        for (const ch of t) if (re.test(ch)) out.push(`${ch} trong <${el.tagName.toLowerCase()}`
+          + (el.className ? '.' + String(el.className).split(' ')[0] : '') + `> "${t.slice(0, 22)}"`);
+      }
+      for (const g of document.querySelectorAll('svg path,svg line,svg polyline,svg polygon')) {
+        const c = getComputedStyle(g);
+        if (c.stroke !== 'none' && (c.strokeLinecap !== 'round' || c.strokeLinejoin !== 'round'))
+          out.push(`nét cắt vuông trong <${g.tagName}> của .${(g.closest('svg').getAttribute('class') || '?')}`);
+      }
+      // Mui ten mo/dong cua <details> nam trong CSS content, khong co trong DOM
+      for (const el of document.querySelectorAll('summary')) {
+        const c = getComputedStyle(el, '::after').content;
+        if (re.test(c)) out.push(`${c} trong ::after của <summary>`);
+      }
+      return out;
+    })) sharp.add(x);
+  };
+
   const scan = async (label) => {
     const txt = await page.evaluate(() => document.body.innerText);
     if (txt.includes('undefined')) {
@@ -83,17 +112,23 @@ function serve(root) {
     await page.evaluate(l => setLang(l), lang); await page.waitForTimeout(350);
     for (let i = 0; i < 3; i++) {                      // Lịch: vạn niên / can chi / Phật lịch
       await page.evaluate(n => goCal(n), i); await page.waitForTimeout(500);
-      all[lang].push(await scan(`${lang}/calendar/sub${i}`)); screens++;
+      all[lang].push(await scan(`${lang}/calendar/sub${i}`)); await sweepSharp(); screens++;
     }
     for (let i = 0; i < 6; i++) {                      // Khám phá: moon/cosmic/buddha/tibet/weather/tide
       await page.evaluate(n => goExp(n), i); await page.waitForTimeout(700);
-      all[lang].push(await scan(`${lang}/systems/sub${i}`)); screens++;
+      all[lang].push(await scan(`${lang}/systems/sub${i}`)); await sweepSharp(); screens++;
       if (i === 3) tibRows[lang] = await rows();       // panel Tạng
     }
     for (const m of [0, 3, 4]) {                       // Hôm nay / Thời tiết / Sự kiện
       await page.evaluate(n => setMain(n), m); await page.waitForTimeout(700);
-      all[lang].push(await scan(`${lang}/main${m}`)); screens++;
+      all[lang].push(await scan(`${lang}/main${m}`)); await sweepSharp(); screens++;
     }
+  }
+
+  // Man Lich o che do Thang/Nam co thanh chuyen thang — khong nam trong vong tren.
+  for (const md of ['month', 'year', 'week']) {
+    await page.evaluate(m => { goCal(0); setMode(m); }, md); await page.waitForTimeout(400);
+    await sweepSharp();
   }
 
   // ── 3. Tên năm Tạng ────────────────────────────────────────────────────
@@ -192,7 +227,7 @@ function serve(root) {
   ];
 
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok);
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0;
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -205,6 +240,9 @@ function serve(root) {
     (okBuild ? '  ✓' : `  ✗ phải bắt đầu bằng "${swCache}" (tên cache trong sw.js)`));
   console.log('6. Bảng nơi quan tâm:');
   for (const [label, ok] of boardSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
+  console.log('7. Bo tròn ............... ' + (sharp.size
+    ? '✗ còn ' + sharp.size + ' chỗ nhọn:\n   ' + [...sharp].join('\n   ')
+    : '✓ không còn ký tự nhọn ở nút, không còn nét cắt vuông'));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();

@@ -436,8 +436,12 @@
   .pcard .pr{display:flex;flex-direction:column;align-items:flex-end;text-align:right;flex-shrink:0}
   .pcard .pt{font-size:40px;font-weight:300;line-height:1;letter-spacing:-.02em}
   .pcard .phl{font-size:12px;color:#B9CBD4;margin-top:5px;font-variant-numeric:tabular-nums}
-  .pcard .pdel{position:absolute;top:0;right:0;width:44px;height:44px;border:none;background:none;
-    color:#B9CBD4;font-size:20px;line-height:1;cursor:pointer}
+  /* Nut xoa tung nam de len chinh so nhiet do. Gio no la mot nut tron rieng,
+     va khi dang sua thi the chua chua san cho o ben phai. */
+  .pcard .pdel{position:absolute;top:50%;right:9px;transform:translateY(-50%);
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    border:none;border-radius:50%;background:#00000030;color:#DCE7EC;cursor:pointer;padding:0}
+  .pbd.edit .pcard{padding-right:54px}
   .pbar{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 10px}
   .pbar .ptt{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5E7480}
   .pbar button{background:none;border:none;color:#2E6579;font-family:inherit;font-size:14px;
@@ -661,8 +665,9 @@
   .more summary{padding:15px 16px;font-size:15px;color:#6E6A5E;cursor:pointer;list-style:none;
     display:flex;align-items:center;justify-content:space-between}
   .more summary::-webkit-details-marker{display:none}
-  .more summary::after{content:'⌄';font-size:17px;color:#B5AE9E}
-  .more[open] summary::after{content:'⌃'}
+  .more summary::after{content:'';width:15px;height:15px;flex:0 0 auto;
+    background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B5AE9E' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.4 9.4 12 15.8l6.6-6.4'/%3E%3C/svg%3E") no-repeat center/contain}
+  .more[open] summary::after{transform:rotate(180deg)}
   .more .mbody{padding:0 4px 4px}
   .more .rmbox{border:0;background:none;padding:0 12px 12px}
   .rmtop{background:#FDF6F5;border:1px solid #F0DCD9;border-radius:14px;padding:10px 15px;margin-top:12px;cursor:pointer}
@@ -715,7 +720,10 @@
   .hero .dm,.hero .mo,.ccstrip .cv,.mgrid .d .g,.mgrid .d .l,.wk .c .g,.wk .c .l,
   .big,.wxbig,.hub.wx .tmp,.hub.mn .pc,.hub.bd .era,.hub.tb .dnum,
   .pcard .pt,.pcard .phl,.hcell .ht2,.hcell .hh,.hcell .hp,.ymon .yc i,.evrow .ed .d1,
-  .wxtmp,.cd-d,.rmd{font-family:var(--fnum)}
+  .wxtmp,.cd-d,.rmd,
+  .whero .wh,.wday .dn,.wday .dlo,.wday .dhi,.wday .dp,.whrs .hc .hu,.whrs .hc .hd,
+  .wtile .tr,.wgc .tr,.cosbig,.v2,.evl,.mnav .lbl,.d2,.dw,.hd,.ud,.zdate,.tt,
+  .pcard .ps,.row .v,.tsrc,.qsrc,.lu,.lun,.yr,.tm-l,.tm-r,.evmonth,.s2{font-family:var(--fnum)}
   /* ═══ THỨ BẬC MÀN HÔM NAY ═══
      Anh Duyet: "so chinh mong va nho qua", "khong biet cai nao chinh cai nao phu",
      "gio/ngay/thang/nam phai la chinh thu nhi".
@@ -835,7 +843,8 @@
   /* Thẻ nơi quan tâm khi đứng trên nền trời: đổi sang kính cho cùng một chất */
   body.sk-wx .pcard{background:#ffffff1f;border-color:#ffffff2e;color:#fff}
   body.sk-wx .pcard.on{box-shadow:inset 0 0 0 2px #ffffffa6}
-  body.sk-wx .pcard .ps,body.sk-wx .pcard .phl,body.sk-wx .pcard .pdel{color:#ffffffb8}
+  body.sk-wx .pcard .ps,body.sk-wx .pcard .phl{color:#ffffffb8}
+  body.sk-wx .pcard .pdel{background:#ffffff2e;color:#fff}
   body.sk-wx .pcard{padding:12px 15px}
   body.sk-wx .pcard .pt{font-size:31px}
   body.sk-wx .pcard .pn{font-size:17.5px}
@@ -853,6 +862,18 @@
      lại rồi trình duyệt phải tính bố cục cho TOÀN BỘ, kể cả phần dưới màn.
      content-visibility cho phép bỏ qua phần chưa nhìn thấy; contain-intrinsic-size
      giữ chiều cao ước lượng để thanh cuộn không nhảy. */
+  /* ═══ BO TRÒN HẾT — MỘT LUẬT CHO CẢ APP ═══
+     Chú Duyệt: "các icon này nên hạn chế có góc nhọn và hình khối tam giác,
+     nhìn khó chịu, hãy nghiên cứu và bo tròn hết". Va tung hinh thi lan sau
+     lai sot. Luat CSS de len ca thuoc tinh viet thang trong the SVG, nen chi
+     mot dong nay la moi net trong app — ke ca hoa van nen va ban build sau —
+     deu co dau tron va goc noi tron. */
+  svg,svg *{stroke-linecap:round;stroke-linejoin:round}
+  /* Icon nam LAN TRONG DONG CHU thi phai tut xuong duong chan chu, khong thi
+     no lo lung tren dau chu. */
+  .go2 svg,.tla svg,.sharebtn svg,.bkbtn svg,.backtoday svg,.locbtn svg,
+  .backbar button svg,.mnav .lbl svg{vertical-align:-.22em}
+  .mnav .tdy{white-space:nowrap}
   .card,.wgc,.wtile,.pcard,.exp{content-visibility:auto;contain-intrinsic-size:auto 180px}
   button,.exp,.pcard,.hub,.bnav button{touch-action:manipulation}
   .screen{animation:fade .16s ease-out}
@@ -1621,9 +1642,9 @@ function navRow(t){
   else if(MODE==='week'){const mon=new Date(VIEW);mon.setDate(VIEW.getDate()-((VIEW.getDay()+6)%7));
     const sun=new Date(mon);sun.setDate(mon.getDate()+6);
     lbl=`<span class="lbl" onclick="setMode('month')">${mon.getDate()}–${sun.getDate()} ${t.moShort[sun.getMonth()]} · ${sun.getFullYear()}</span>`;}
-  else if(MODE==='month')lbl=`<span class="lbl" style="white-space:nowrap" onclick="setMode('year')">${LANG=='vi'?'Tháng '+(GM+1):t.moShort[GM]} · ${GY} ▾</span>`;
+  else if(MODE==='month')lbl=`<span class="lbl" style="white-space:nowrap" onclick="setMode('year')" data-caret>${LANG=='vi'?'Tháng '+(GM+1):t.moShort[GM]} · ${GY} ${svgIcon('chevD',15,2.1)}</span>`;
   else lbl=`<span class="lbl">${GY}</span>`;
-  return `<div class="mnav"><button onclick="navUnit(-1)">‹</button>${lbl}<button class="tdy" onclick="goToday()">${t.navToday}</button><button onclick="navUnit(1)">›</button></div>`;
+  return `<div class="mnav"><button onclick="navUnit(-1)" aria-label="prev">${svgIcon('chevL',20,2)}</button>${lbl}<button class="tdy" onclick="goToday()">${t.navToday}</button><button onclick="navUnit(1)" aria-label="next">${svgIcon('chevR',20,2)}</button></div>`;
 }
 function navUnit(n){
   if(MODE==='day'){VIEW=new Date(VIEW.getTime()+n*864e5);syncGYM();}
@@ -1787,7 +1808,7 @@ function detailBody(t){
 }
 function dayDetail(t){
   const d=VIEW;
-  return `<div class="backbar"><button onclick="closeDetail()">‹ ${t.back}</button>
+  return `<div class="backbar"><button onclick="closeDetail()">${svgIcon('chevL',16,2.1)} ${t.back}</button>
     <span class="bt">${t.weekdays[d.getDay()]}, ${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>`
     +detailBody(t);
 }
@@ -2052,13 +2073,13 @@ function placesBoard(t){
       <span class="pl"><span class="pn">${p.n}</span><span class="ps">${sub}</span></span>
       <span class="pr"><span class="pt">${c?Math.round(c.temperature_2m)+'°':'–'}</span>
         ${dl?`<span class="phl">C:${Math.round(dl.temperature_2m_max[0])}° T:${Math.round(dl.temperature_2m_min[0])}°</span>`:''}</span>
-      ${PEDIT?`<button class="pdel" onclick="event.stopPropagation();placeDel(${i})">×</button>`:''}
+      ${PEDIT?`<button class="pdel" onclick="event.stopPropagation();placeDel(${i})" aria-label="del">${svgIcon('close',17,2.1)}</button>`:''}
     </div>`;
   }).join('');
   return `<div class="pbar"><span class="ptt">${t.placesTtl}</span>
       <span><button onclick="placeEditToggle()">${PEDIT?t.placeDone:t.placeEdit}</button>
       <button onclick="openCityForm()" style="margin-left:14px">+ ${t.placeAdd}</button></span></div>
-    <div class="pbd">${cards}</div>
+    <div class="pbd${PEDIT?' edit':''}">${cards}</div>
     ${cityFormHtml(t)}`;
 }
 function loadLoc(){try{return JSON.parse(localStorage.getItem('ldc_loc')||'null')}catch(e){return null}}
@@ -2123,7 +2144,7 @@ function askLoc(){
 // Thay cho ky tu vi iOS ve ☸ va ☀ thanh emoji MAU trong khi ◈ ▦ ✦ la ky tu den:
 // nam icon ba giong khac nhau. Ky tu con phu thuoc font tung may, khong chinh
 // duoc net, khong doi mau theo skin.
-const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>',wind:'<path d="M3.4 8.6h9.2a2.7 2.7 0 1 0-2.7-2.7M3.4 12.6h13.1a2.7 2.7 0 1 1-2.7 2.7M3.4 16.6h6.4"/>',drop:'<path d="M12 3.6c3.1 3.6 5.4 6.4 5.4 9.2a5.4 5.4 0 0 1-10.8 0c0-2.8 2.3-5.6 5.4-9.2z"/>',therm:'<path d="M14.2 13.6V6.1a2.2 2.2 0 1 0-4.4 0v7.5a4 4 0 1 0 4.4 0z"/><circle cx="12" cy="17.2" r="1.6" fill="currentColor" stroke="none"/>',clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3.2 1.9"/>',dusk:'<circle cx="12" cy="12.4" r="3.9"/><path d="M3.6 18.6h16.8"/><g fill="currentColor" stroke="none"><circle cx="12" cy="4.6" r="1.05"/><circle cx="5.1" cy="12.4" r="1.05"/><circle cx="18.9" cy="12.4" r="1.05"/><circle cx="6.5" cy="6.9" r="1.05"/><circle cx="17.5" cy="6.9" r="1.05"/></g>'};
+const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>',wind:'<path d="M3.4 8.6h9.2a2.7 2.7 0 1 0-2.7-2.7M3.4 12.6h13.1a2.7 2.7 0 1 1-2.7 2.7M3.4 16.6h6.4"/>',drop:'<path d="M12 3.6c3.1 3.6 5.4 6.4 5.4 9.2a5.4 5.4 0 0 1-10.8 0c0-2.8 2.3-5.6 5.4-9.2z"/>',therm:'<path d="M14.2 13.6V6.1a2.2 2.2 0 1 0-4.4 0v7.5a4 4 0 1 0 4.4 0z"/><circle cx="12" cy="17.2" r="1.6" fill="currentColor" stroke="none"/>',clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3.2 1.9"/>',chevL:'<path d="M14.6 5.4 8.2 12l6.4 6.6"/>',chevR:'<path d="M9.4 5.4 15.8 12l-6.4 6.6"/>',chevD:'<path d="M5.4 9.4 12 15.8l6.6-6.4"/>',chevU:'<path d="M5.4 14.6 12 8.2l6.6 6.4"/>',arrR:'<path d="M4.6 12h13.6M12.9 6.7 18.2 12l-5.3 5.3"/>',share:'<path d="M12 15.4V4.2M8.3 7.9 12 4.2l3.7 3.7"/><path d="M5.6 13.4v4.4a1.9 1.9 0 0 0 1.9 1.9h9a1.9 1.9 0 0 0 1.9-1.9v-4.4"/>',down:'<path d="M12 4.2v11.2M8.3 11.7 12 15.4l3.7-3.7"/><path d="M5.6 19.5h12.8"/>',up:'<path d="M12 19.6V8.4M8.3 12.1 12 8.4l3.7 3.7"/><path d="M5.6 4.3h12.8"/>',close:'<path d="M7.8 7.8 16.2 16.2M16.2 7.8 7.8 16.2"/>',uturn:'<path d="M9.4 6.2 5.2 10.4l4.2 4.2"/><path d="M5.2 10.4h8.2a4.7 4.7 0 0 1 0 9.4h-2.1"/>',dusk:'<circle cx="12" cy="12.4" r="3.9"/><path d="M3.6 18.6h16.8"/><g fill="currentColor" stroke="none"><circle cx="12" cy="4.6" r="1.05"/><circle cx="5.1" cy="12.4" r="1.05"/><circle cx="18.9" cy="12.4" r="1.05"/><circle cx="6.5" cy="6.9" r="1.05"/><circle cx="17.5" cy="6.9" r="1.05"/></g>'};
 function svgIcon(k,sz,sw){
   return `<svg viewBox="0 0 24 24" width="${sz||26}" height="${sz||26}" fill="none" stroke="currentColor"
     stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
@@ -2197,7 +2218,8 @@ function tideSpark(j){
   const now=nowAtLoc(),i0=Math.max(0,Math.min(n-1,Math.round((now-new Date(tm[0]))/36e5)));
   const hasNow=vals[i0]!=null;
   const nx=(i0/(n-1)*320).toFixed(1),ny=hasNow?(82-(vals[i0]-mn)/sp*66).toFixed(1):0;
-  return `<svg class="tidegraph" viewBox="0 0 320 90" preserveAspectRatio="none">
+  return `<svg class="tidegraph" viewBox="0 0 320 90" preserveAspectRatio="none"
+    stroke-linecap="round" stroke-linejoin="round">
     ${pts.map(p=>`<polyline points="${p}" fill="none" stroke="#6F9585" stroke-width="2.5"/>`).join('')}
     ${hasNow?`<circle cx="${nx}" cy="${ny}" r="4" fill="#B03A30"/>`:''}
   </svg>`;
@@ -2238,7 +2260,8 @@ function windDial(deg,t){
   const hx=c+Math.sin(a)*R*0.72, hy=c-Math.cos(a)*R*0.72;
   const tx=c-Math.sin(a)*R*0.72, ty=c+Math.cos(a)*R*0.72;
   const L=t.wxDirs;
-  return `<svg class="wdial" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+  return `<svg class="wdial" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true"
+    stroke-linecap="round" stroke-linejoin="round">
     <circle cx="${c}" cy="${c}" r="${R}" fill="none" stroke="#ffffff40" stroke-width="1.5"/>
     <g fill="#ffffff8f" font-size="9" text-anchor="middle" font-family="inherit">
       <text x="${c}" y="9">${L[0]}</text><text x="81" y="${c+3.2}">${L[2]}</text>
@@ -2253,10 +2276,12 @@ function sunArc(rise,set,now){
   const W=150,H=64,y0=46,A=32;
   const k=Math.max(-0.12,Math.min(1.12,(now-rise)/Math.max(1,set-rise)));
   const x=10+k*(W-20), y=y0-Math.sin(Math.max(0,Math.min(1,k))*Math.PI)*A;
-  return `<svg class="warc" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+  return `<svg class="warc" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true"
+    stroke-linecap="round" stroke-linejoin="round">
     <path d="M10 ${y0} Q ${W/2} ${y0-A*2} ${W-10} ${y0}" fill="none" stroke="#ffffff45"
       stroke-width="1.6" stroke-linecap="round"/>
-    <line x1="4" y1="${y0}" x2="${W-4}" y2="${y0}" stroke="#ffffff2e" stroke-width="1" stroke-dasharray="3 4"/>
+    <line x1="4" y1="${y0}" x2="${W-4}" y2="${y0}" stroke="#ffffff2e" stroke-width="1.4"
+      stroke-dasharray="0.1 6" stroke-linecap="round"/>
     <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.6" fill="#FFD98A"/>
   </svg>`;
 }
@@ -2458,7 +2483,7 @@ function screenToday(){
   <details class="more"><summary>${t.moreToday}</summary>
     <div class="mbody">${remindHtml(d,t)}</div>
   </details>
-  <button class="sharebtn" onclick="shareDay()">↗ ${t.shareDay}</button>`;
+  <button class="sharebtn" onclick="shareDay()">${svgIcon('share',16,1.9)} ${t.shareDay}</button>`;
 }
 // ═══════════════ ELEMENTAL YOGA (Kālacakra · khams kyi sbyor ba) ═══════════════
 // Nguyên tố THỨ TRONG TUẦN + nguyên tố CHÒM SAO MẶT TRĂNG → 10 tổ hợp có tên Tạng/Phạn.
@@ -2497,7 +2522,8 @@ function ornLotus(size,color){
     const x2=c+Math.sin(a+0.42)*c*0.34,y2=c-Math.cos(a+0.42)*c*0.34;
     p+=`<path d="M${c} ${c} Q${x1} ${y1} ${x.toFixed(1)} ${y.toFixed(1)} Q${x2} ${y2} ${c} ${c} Z" fill="none" stroke="${color}" stroke-width="1.1"/>`;
   }
-  return `<svg class="lotus" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${p}
+  return `<svg class="lotus" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"
+    stroke-linecap="round" stroke-linejoin="round">${p}
     <circle cx="${c}" cy="${c}" r="${size*0.1}" fill="none" stroke="${color}" stroke-width="1.1"/></svg>`;
 }
 // bánh xe Pháp 8 nan
@@ -2875,8 +2901,8 @@ function remindHtml(d,t){
         <button class="nfcancel" onclick="document.getElementById('noteForm').style.display='none'">${t.noteCancel}</button>
       </div>
       <div class="bkrow">
-        <button class="bkbtn" onclick="exportNotes()">⬇ ${t.bkExport}</button>
-        <button class="bkbtn" onclick="importNotesFile()">⬆ ${t.bkImport}</button>
+        <button class="bkbtn" onclick="exportNotes()">${svgIcon('down',16,1.9)} ${t.bkExport}</button>
+        <button class="bkbtn" onclick="importNotesFile()">${svgIcon('up',16,1.9)} ${t.bkImport}</button>
         <input type="file" id="impFile" accept=".json,application/json" style="display:none" onchange="handleImport(event)">
       </div>
       ${loadNotes().length?`<div class="nflist">${loadNotes().map(x=>`<div class="nfitem"><span>${noteTypeName(x.type)} <b>${x.name}</b> · ${x.d}/${x.m}${x.cal==='lunar'?(LANG=='vi'?' âm':' lunar'):''}</span><button onclick="delNote(${x.id});renderScreen()">✕</button></div>`).join('')}</div>`:''}
@@ -2996,12 +3022,12 @@ function hubWeather(t){
         const rain=(H.precipitation_probability[i]??0)>=55;
         out.push(`<span class="tlh"><b>${hh}h</b> ${rain?'☂':Math.round(H.temperature_2m[i])+'°'}</span>`);
       }
-      return out.length>=3?`<div class="tline">${out.join('<span class="tla">→</span>')}</div>`:'';
+      return out.length>=3?`<div class="tline">${out.join(`<span class="tla">${svgIcon('arrR',15,2)}</span>`)}</div>`:'';
     })()}
     <div class="horizon"></div>
     <div class="sun"><span>${t.wxSunrise}<b>${dl.sunrise[0].slice(11,16)}</b></span>
       <span style="text-align:right">${t.wxSunset}<b>${dl.sunset[0].slice(11,16)}</b></span></div>
-    <span class="go2">${t.goWx} →</span></div>`;
+    <span class="go2">${t.goWx} ${svgIcon('arrR',15,2)}</span></div>`;
 }
 // ② mặt trăng
 function hubMoon(mp,t){
@@ -3011,7 +3037,7 @@ function hubMoon(mp,t){
     <div class="nm">${t.phases[mp.idx]}</div>
     <div class="pc">${Math.round(mp.illum*100)}%</div>
     <div class="sub">${t.moonAgeShort.replace('{n}',Math.round(mp.age))}</div>
-    <span class="go2">${t.goMoon} →</span></div>`;
+    <span class="go2">${t.goMoon} ${svgIcon('arrR',15,2)}</span></div>`;
 }
 // ③ tiết khí
 function hubTerm(cur,nt,d,t){
@@ -3024,7 +3050,7 @@ function hubTerm(cur,nt,d,t){
     <div class="bar"><i style="left:calc(${pos}% - 7px)"></i></div>
     <div class="ends"><span>${LANG=='vi'?'Hôm nay':'Today'}</span>
       <span>${t.terms[nt.idx]}${end?' · '+pad(end.getDate())+'.'+pad(end.getMonth()+1):''}</span></div>
-    <span class="go2">${t.goTerm} →</span></div>`;
+    <span class="go2">${t.goTerm} ${svgIcon('arrR',15,2)}</span></div>`;
 }
 // ④ phật lịch
 function hubBuddha(lun,ev,d,t){
@@ -3034,7 +3060,7 @@ function hubBuddha(lun,ev,d,t){
     <div class="lun">${LANG=='vi'?'Ngày '+lun.day+' tháng '+lun.month+' âm lịch':'Lunar '+lun.day+'/'+lun.month}</div>
     ${ev?`<div class="evt">${ev}</div>`:''}
     <div class="ln"></div>
-    <span class="go2">${t.goBuddha} →</span></div>`;
+    <span class="go2">${t.goBuddha} ${svgIcon('arrR',15,2)}</span></div>`;
 }
 // ⑤ tạng
 function hubTibet(tb,mon,sac,t){
@@ -3046,10 +3072,11 @@ function hubTibet(tb,mon,sac,t){
     <div class="yr">${tibYearShort(tb)} · ${tb.year}</div>
     ${sac?`<div class="sac">✦ ${sac}</div>`:''}
     ${ey?`<div class="eyl">${ey.pair} · ${ey.mean}</div>`:''}
-    <span class="go2">${t.goTibet} →</span>
-    <svg class="mtn" viewBox="0 0 400 44" preserveAspectRatio="none">
-      <path d="M0 44 L60 20 L96 30 L150 6 L210 30 L250 16 L300 34 L350 22 L400 40 L400 44 Z" fill="#2E3446"/>
-      <path d="M0 44 L52 30 L110 38 L165 24 L225 40 L290 28 L340 38 L400 30 L400 44 Z" fill="#3A4157" opacity=".75"/>
+    <span class="go2">${t.goTibet} ${svgIcon('arrR',15,2)}</span>
+    <svg class="mtn" viewBox="0 0 400 44" preserveAspectRatio="none"
+      stroke-linejoin="round" stroke-linecap="round">
+      <path d="M0 44 L60 20 L96 30 L150 6 L210 30 L250 16 L300 34 L350 22 L400 40 L400 44 Z" fill="#2E3446" stroke="#2E3446" stroke-width="4"/>
+      <path d="M0 44 L52 30 L110 38 L165 24 L225 40 L290 28 L340 38 L400 30 L400 44 Z" fill="#3A4157" stroke="#3A4157" stroke-width="3.4" opacity=".75"/>
     </svg></div>`;
 }
 
@@ -3080,11 +3107,11 @@ function expItems(t){
     {i:1,c:'#6D4FA8',nm:t.subExp[1],sb:`${t.youHere} · 31/12 23:59:59`,vl:'',
      orn:`<svg viewBox="0 0 340 62"><ellipse cx="292" cy="31" rx="44" ry="15" fill="none" stroke="#6D4FA8" stroke-width="1.2" opacity=".4"/><ellipse cx="292" cy="31" rx="24" ry="8" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity=".45"/><circle cx="292" cy="31" r="3.5" fill="#D4AF37" opacity=".55"/><circle cx="252" cy="15" r="1.4" fill="#6D4FA8" opacity=".5"/><circle cx="324" cy="48" r="1.2" fill="#6D4FA8" opacity=".45"/></svg>`},
     {i:2,c:'#C9922E',nm:t.subExp[2],sb:`${t.buddhaEra} ${d.getFullYear()+544} · ${lun.day}/${lun.month} ${LANG=='vi'?'âm':''}`,vl:'',
-     orn:`<svg viewBox="0 0 340 62"><g fill="none" stroke="#C9922E" stroke-width="1.4" opacity=".42" transform="translate(296,31)"><circle r="17"/><circle r="4.6"/><g stroke-width="1.1"><line y1="-17" y2="-4.6"/><line y1="4.6" y2="17"/><line x1="-17" x2="-4.6"/><line x1="4.6" x2="17"/><line x1="-12" y1="-12" x2="-3.3" y2="-3.3"/><line x1="12" y1="12" x2="3.3" y2="3.3"/><line x1="12" y1="-12" x2="3.3" y2="-3.3"/><line x1="-12" y1="12" x2="-3.3" y2="3.3"/></g></g></svg>`},
+     orn:`<svg viewBox="0 0 340 62"><g fill="none" stroke="#C9922E" stroke-width="1.4" opacity=".42" stroke-linecap="round" transform="translate(296,31)"><circle r="17"/><circle r="4.6"/><g stroke-width="1.1"><line y1="-17" y2="-4.6"/><line y1="4.6" y2="17"/><line x1="-17" x2="-4.6"/><line x1="4.6" x2="17"/><line x1="-12" y1="-12" x2="-3.3" y2="-3.3"/><line x1="12" y1="12" x2="3.3" y2="3.3"/><line x1="12" y1="-12" x2="3.3" y2="-3.3"/><line x1="-12" y1="12" x2="-3.3" y2="3.3"/></g></g></svg>`},
     {i:3,c:'#8C2A20',nm:t.subExp[3],sb:`${LANG=='vi'?'Ngày':'Day'} ${tb.day} · ${LANG=='vi'?'tháng':'m.'} ${tb.month} · ${tibYearShort(tb)}${ey?' · '+ey.mean:''}`,vl:'',
-     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><path d="M196 62 L226 44 L248 51 L278 36 L308 50 L330 42 L340 48 L340 62Z" fill="#8C2A20" opacity=".24"/><path d="M228 62 L254 50 L286 56 L316 47 L340 55 L340 62Z" fill="#8C2A20" opacity=".16"/></svg>`},
+     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><g stroke="#8C2A20" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M196 62 L226 44 L248 51 L278 36 L308 50 L330 42 L340 48 L340 62Z" fill="#8C2A20" opacity=".24"/></g><g stroke="#8C2A20" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M228 62 L254 50 L286 56 L316 47 L340 55 L340 62Z" fill="#8C2A20" opacity=".16"/></g></svg>`},
     {i:4,c:'#4A7A8C',nm:t.subExp[4],sb:wxOk?`${wcodeName(WX.current.weather_code,t)} · ${LOCNAME||t.locHere}`:t.wxAskShort,vl:wxOk?Math.round(WX.current.temperature_2m)+'°':'',
-     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><g fill="none" stroke="#4A7A8C" stroke-width="1.5" opacity=".38"><g transform="translate(262,26)"><circle r="9"/><g stroke-width="1.2"><line y1="-13" y2="-17"/><line y1="13" y2="17"/><line x1="-13" x2="-17"/><line x1="13" x2="17"/></g></g><g transform="translate(304,32)"><path d="M-20 6 q0 -7 7 -7 q1 -7 9 -7 q6 0 8 5 q7 1 7 7 q0 5 -5 5h-20 q-6 0 -6 -3z"/><path d="M-10 14 l-2 6 M-1 14 l-2 6 M8 14 l-2 6" stroke-width="1.1"/></g></g></svg>`},
+     orn:`<svg viewBox="0 0 340 62" preserveAspectRatio="none"><g fill="none" stroke="#4A7A8C" stroke-width="1.5" opacity=".38" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(262,26)"><circle r="9"/><g stroke-width="1.2"><line y1="-13" y2="-17"/><line y1="13" y2="17"/><line x1="-13" x2="-17"/><line x1="13" x2="17"/></g></g><g transform="translate(304,32)"><path d="M-20 6 q0 -7 7 -7 q1 -7 9 -7 q6 0 8 5 q7 1 7 7 q0 5 -5 5h-20 q-6 0 -6 -3z"/><path d="M-10 14 l-2 6 M-1 14 l-2 6 M8 14 l-2 6" stroke-width="1.1"/></g></g></svg>`},
     {i:5,c:'#4E7565',nm:t.subExp[5],sb:TD&&!TD.nodata?(function(){const e=tideExtremes(TD);return e.length?(e[0].hi?t.tideHi:t.tideLo)+' '+pad(e[0].d.getHours())+':'+pad(e[0].d.getMinutes())+' · '+e[0].v.toFixed(2)+' m':t.tideHi})():(loadLoc()?t.tideNoData:t.tideAsk),vl:'',
      orn:`<svg viewBox="0 0 340 62"><defs><g id="sgx"><circle r="13" fill="none" stroke="#4E7565" stroke-width="1.3"/><circle r="8.5" fill="none" stroke="#4E7565" stroke-width="1.1" opacity=".7"/><circle r="4.4" fill="none" stroke="#4E7565" stroke-width="1" opacity=".5"/></g></defs><g opacity=".4" clip-path="inset(0 0 18 0)"><use href="#sgx" x="232" y="44"/><use href="#sgx" x="258" y="44"/><use href="#sgx" x="284" y="44"/><use href="#sgx" x="310" y="44"/><use href="#sgx" x="336" y="44"/><use href="#sgx" x="245" y="31"/><use href="#sgx" x="271" y="31"/><use href="#sgx" x="297" y="31"/><use href="#sgx" x="323" y="31"/></g></svg>`}
     ,{i:6,c:'#7A5C8E',nm:t.subExp[6],sb:(function(){const z=zodiacWest(lun.jd);return ZOD_SYM[z]+' '+(LANG=='vi'?ZOD_VI:ZOD_EN)[z]+' · '+ZOD_DATE[z]})(),vl:'',
@@ -3099,7 +3126,7 @@ function hubScreen(ids,t){
     const pk=(SUBEXP===0||SUBEXP===1||SUBEXP===2||SUBEXP===3||SUBEXP===6)?picker():'';
     const skins=['sk-moon','sk-cos','sk-bud','sk-tib','sk-wx','sk-td','sk-zod'];
     document.body.className=skins[SUBEXP];
-    return `<div class="backbar"><button onclick="expBack()">‹ ${t.mains[MAIN]}</button>
+    return `<div class="backbar"><button onclick="expBack()">${svgIcon('chevL',16,2.1)} ${t.mains[MAIN]}</button>
       <span class="bt">${t.subExp[SUBEXP]}</span></div>`+pk+`<div id="expBody">${fns[SUBEXP]()}</div>`;
   }
   const all=expItems(t),items=ids.map(i=>all[i]);
@@ -3110,7 +3137,7 @@ function hubScreen(ids,t){
       <span class="edot"></span>
       <span class="etx"><span class="enm">${x.nm}</span><span class="esb">${x.sb}</span></span>
       ${x.vl?`<span class="evl">${x.vl}</span>`:''}
-      <span class="ear">›</span>
+      <span class="ear">${svgIcon('chevR',17,2)}</span>
     </div>`).join('')}</div>`;
 }
 function openExp(i){SUBEXP=i;EXPOPEN=true;track('tab_open','explore:'+['moon','cosmic','buddha','tibet','weather','tide'][i]);renderScreen();window.scrollTo(0,0);}
@@ -3118,10 +3145,10 @@ function expBack(){EXPOPEN=false;document.body.className='';renderScreen();windo
 function picker(){
   let d=VIEW;
   return `<div class="picker">
-    <button onclick="shiftDay(-1)">‹</button>
+    <button onclick="shiftDay(-1)" aria-label="prev">${svgIcon('chevL',19,2)}</button>
     <input type="date" id="dp" value="${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}" onchange="pickDate()">
-    <button onclick="shiftDay(1)">›</button>
-  </div>${sameDay(VIEW,new Date())?'':`<div class="backtoday" onclick="VIEW=new Date();renderScreen()">↩ ${LANG=='vi'?'Về hôm nay':'Back to today'}</div>`}`;
+    <button onclick="shiftDay(1)" aria-label="next">${svgIcon('chevR',19,2)}</button>
+  </div>${sameDay(VIEW,new Date())?'':`<div class="backtoday" onclick="VIEW=new Date();renderScreen()">${svgIcon('uturn',15,2)} ${LANG=='vi'?'Về hôm nay':'Back to today'}</div>`}`;
 }
 function subnav(items,cur,fn){
   return `<div class="subnav">${items.map((it,i)=>
@@ -3428,6 +3455,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v48 · fad5c0dd</div><script>window.LDC_BUILD='ldc-v48 · fad5c0dd';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v49 · 5fa4f518</div><script>window.LDC_BUILD='ldc-v49 · 5fa4f518';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
