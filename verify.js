@@ -51,6 +51,12 @@ function serve(root) {
   await page.goto(`http://127.0.0.1:${PORT}/index.html`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1500);
 
+  // index.html dùng content-visibility:auto để trình duyệt bỏ qua phần chưa nhìn
+  // thấy (bấm đổi tab nhanh hơn gấp đôi). Nhưng innerText CŨNG bỏ qua phần đó —
+  // nghĩa là mọi mục "hết chữ X" dưới đây sẽ đậu oan chỉ vì chữ đó nằm ngoài màn.
+  // Tắt hẳn khi kiểm, để đọc được toàn bộ trang.
+  await page.addStyleTag({ content: '*{content-visibility:visible !important}' });
+
   const scan = async (label) => {
     const txt = await page.evaluate(() => document.body.innerText);
     if (txt.includes('undefined')) {

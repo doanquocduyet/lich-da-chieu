@@ -712,3 +712,43 @@ Bản này **không phải 10/10 tuyệt đối**. Nó là:
 > **10/10 ở mức mà dữ liệu hiện có cho phép xác nhận.**
 
 Phần còn lại không suy ra được bằng AI. Phải lấy từ hành vi thật.
+
+---
+
+## 14. MÀN THỜI TIẾT DỰNG LẠI (V3.5) — CÓ CHỦ Ý, ĐỪNG "DỌN GỌN" LẠI
+
+§13 khoá thiết kế **icon tab và icon app**. Khoá đó vẫn còn hiệu lực.
+Mục này là chuyện khác: chú Duyệt xem bản V3.4 rồi nói thẳng
+*"Nhìn còn đơn giản quá chưa dễ chịu, chưa bắt mắt / Thiết kế và đồ hoạ
+giống web chuyên này"* kèm ảnh app Thời tiết iOS. Đây là yêu cầu của người
+dùng, không phải AI tự thấy "hình như đẹp hơn được".
+
+### 14.1 Những thứ bản build sau KHÔNG ĐƯỢC làm mất
+
+| Thứ | Vì sao có |
+|---|---|
+| **Nền trời đổi theo dữ liệu** (`skyClass`) — nắng / nhiều mây / mưa / bão / tuyết / đêm | Liếc một cái là biết trời thế nào trước khi đọc chữ nào. Không phải trang trí |
+| **Thanh nhiệt độ 7 ngày** đặt trong khoảng min–max của cả tuần, chấm trắng = nhiệt độ hiện tại ở hàng Hôm nay | Đây là đồ hoạ duy nhất cho thấy *quan hệ giữa các ngày*. Bảng số suông không làm được |
+| **Vòng gió, cung mặt trời, thang UV** vẽ bằng SVG, đầu tròn, không mũi nhọn | §8: chú Duyệt không chịu được góc nhọn |
+| **Thẻ kính KHÔNG dùng `backdrop-filter`** | Hơn mười thẻ mờ nền cùng lúc là bắt đầu giật khi cuộn trên iPhone. Đặt trên nền chuyển màu mượt thì nhìn không khác gì |
+| Icon từng ô đúng nghĩa: nhiệt kế / gió / hoàng hôn / giọt nước / đồng hồ | Bản nháp đầu dùng icon **sét** cho ô Gió và **mưa phùn** cho ô Độ ẩm — sai nghĩa còn tệ hơn không có icon |
+| Không ô nào lặp lại nội dung ô bên cạnh | Bản nháp đầu: ô UV ghi giờ mọc/lặn y hệt ô Mặt trời lặn ngay cạnh; ô Độ ẩm ghi lại "cảm giác như" của ô Cảm nhận |
+
+### 14.2 Ba chỗ sửa cho mượt tay — đo được, không phải cảm giác
+
+Đo ở CPU giả lập chậm 4× (gần với điện thoại):
+
+- `content-visibility:auto` cho thẻ → bấm đổi tab, khung tệ nhất **117ms → 67ms**
+- `.screen` mờ dần **250ms → 160ms**
+- `touch-action:manipulation` → bỏ độ trễ chạm 300ms của iOS
+
+**Bẫy đi kèm:** `content-visibility:auto` khiến `innerText` **bỏ qua** phần
+chưa nhìn thấy — mọi mục "hết chữ X" trong `verify.js` sẽ đậu oan. `verify.js`
+giờ chèn `*{content-visibility:visible !important}` trước khi quét chữ.
+Bản build sau đổi chỗ này thì phải giữ nguyên dòng đó.
+
+### 14.3 Chưa kiểm được ở đây
+
+Máy dựng bản này không có SF Pro Rounded và không phải Safari. Dáng số bo
+tròn, độ mượt thật khi cuộn, và `backdrop-filter` của thanh dưới cùng
+**chỉ iPhone mới nói được**.

@@ -735,6 +735,117 @@
      Lam nhat vien va bo net dam de no lui ve bac 3 */
   .hero .lu{font-size:15.5px;font-weight:400;background:#FFFDF8;border-color:#EDE6D8}
   .mgrid .d .g{font-weight:800}
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MÀN THỜI TIẾT — BẦU TRỜI
+     Nền đổi theo trời thật và theo ngày/đêm (lớp .sky-* do JS gắn vào body),
+     nội dung nổi trên đó bằng thẻ kính mờ. KHÔNG dùng backdrop-filter:
+     trên iPhone, hơn mười thẻ mờ nền cùng lúc là bắt đầu giật khi cuộn —
+     mà đặt trên nền chuyển màu mượt thì nhìn không khác gì.
+     ═══════════════════════════════════════════════════════════════════════ */
+  body.sk-wx,body.sk-wx .wrap{background:linear-gradient(178deg,#5B7C93 0%,#7C9AAD 46%,#A9C0CE 100%) !important}
+  body.sk-wx.sky-clear,body.sk-wx.sky-clear .wrap{background:linear-gradient(178deg,#2C74AE 0%,#5FA3CF 48%,#9CCBE4 100%) !important}
+  body.sk-wx.sky-rain,body.sk-wx.sky-rain .wrap{background:linear-gradient(178deg,#47596A 0%,#65798A 48%,#8E9FAD 100%) !important}
+  body.sk-wx.sky-storm,body.sk-wx.sky-storm .wrap{background:linear-gradient(178deg,#2F3B47 0%,#495764 48%,#6B7A88 100%) !important}
+  body.sk-wx.sky-snow,body.sk-wx.sky-snow .wrap{background:linear-gradient(178deg,#6D7F8E 0%,#9BADBA 48%,#CBD7DE 100%) !important}
+  body.sk-wx.sky-night,body.sk-wx.sky-night .wrap{background:linear-gradient(178deg,#0E1B2C 0%,#1D3149 52%,#2E4A64 100%) !important}
+  body.sk-wx .backbar button{background:#ffffff1f;border-color:#ffffff33;color:#fff}
+  body.sk-wx .backbar .bt,body.sk-wx .hubttl{color:#ffffffcc !important}
+  body.sk-wx footer,body.sk-wx footer *{color:#ffffffb5 !important}
+  body.sk-wx footer a{color:#fff !important}
+  body.sk-wx #ldcBuild{color:#ffffffa8}
+  body.sk-wx .bnav{background:#16283699;border-top-color:#ffffff26;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  body.sk-wx .bnav button{color:#ffffff8c}
+  body.sk-wx .bnav button.on{color:#fff}
+  body.sk-wx .brand .orb,body.sk-wx .brand .nm{color:#ffffffdb}
+  body.sk-wx .lang{background:#ffffff26}
+  body.sk-wx .lang button{color:#ffffffa3}
+  body.sk-wx .lang button.on{background:#ffffffed;color:#20323F}
+
+  /* ── Đầu màn: tên nơi, số to, trời, cao–thấp ────────────────────────── */
+  .whero{text-align:center;color:#fff;padding:10px 0 22px;text-shadow:0 1px 12px #00000026}
+  .whero .wn{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#ffffffd9;font-weight:500}
+  .whero .wt{font-size:96px;font-weight:200;line-height:1;letter-spacing:-.045em;margin:2px 0 0;
+    font-family:var(--fnum);font-variant-numeric:tabular-nums}
+  .whero .wc{font-size:19px;color:#ffffffe0;margin-top:2px}
+  .whero .wh{font-size:17px;color:#ffffffc2;margin-top:5px;font-variant-numeric:tabular-nums}
+
+  /* ── Thẻ kính ───────────────────────────────────────────────────────── */
+  .wgc{background:#ffffff1f;border:1px solid #ffffff2e;border-radius:20px;padding:14px 16px;
+    margin-bottom:12px;color:#fff;overflow:hidden}
+  .wgh{display:flex;align-items:center;gap:7px;font-size:11.5px;letter-spacing:.11em;
+    text-transform:uppercase;color:#ffffffbd;margin-bottom:11px}
+  .wgh svg{flex:0 0 auto;opacity:.85}
+  .wsum{font-size:15px;color:#ffffffeb;line-height:1.5;margin:-3px 0 12px}
+
+  /* ── Dải theo giờ ───────────────────────────────────────────────────── */
+  .whrs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain;
+    margin:0 -16px;padding:2px 16px 0}
+  .whrs::-webkit-scrollbar{display:none}
+  .whrs .hc{flex:0 0 auto;width:60px;text-align:center;scroll-snap-align:start}
+  .whrs .hc .hu{font-size:13.5px;color:#ffffffc4;font-weight:500}
+  .whrs .hc .hi{margin:9px 0 7px;color:#fff;height:24px}
+  .whrs .hc .hd{font-size:11px;color:#C6E8FB;font-weight:500;min-height:15px;font-variant-numeric:tabular-nums}
+  .whrs .hc .hv{font-size:18px;font-weight:500;font-family:var(--fnum);font-variant-numeric:tabular-nums}
+
+  /* ── Nhiều ngày: thanh nhiệt độ ─────────────────────────────────────── */
+  .wday{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #ffffff1f}
+  .wday:first-of-type{border-top:none}
+  .wday .dn{width:62px;font-size:15.5px;font-weight:500;color:#fff;white-space:nowrap}
+  .wday .di{width:26px;text-align:center;color:#fff;line-height:0}
+  .wday .dp{width:34px;font-size:11.5px;color:#C6E8FB;font-weight:500;font-variant-numeric:tabular-nums}
+  .wday .dlo,.wday .dhi{font-size:15.5px;font-variant-numeric:tabular-nums;width:34px}
+  .wday .dlo{color:#ffffff96;text-align:right}
+  .wday .dhi{color:#fff}
+  .wbar{flex:1;height:4px;border-radius:2px;background:#ffffff30;position:relative;overflow:visible}
+  .wbar i{position:absolute;top:0;height:4px;border-radius:2px;display:block}
+  .wbar b{position:absolute;top:-2px;width:8px;height:8px;border-radius:50%;background:#fff;
+    box-shadow:0 0 0 1.5px #ffffff5c;margin-left:-4px}
+
+  /* ── Lưới ô chi tiết ────────────────────────────────────────────────── */
+  .wtiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .wtile{background:#ffffff1f;border:1px solid #ffffff2e;border-radius:20px;padding:14px 15px;
+    color:#fff;min-height:150px;display:flex;flex-direction:column}
+  .wtile .tv{font-size:34px;font-weight:300;line-height:1.05;font-family:var(--fnum);
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .wtile .ts{font-size:19px;font-weight:500;margin-top:1px}
+  .wtile .tn{font-size:13px;color:#ffffffb8;line-height:1.45;margin-top:auto;padding-top:10px}
+  .wtile .tr,.wgc .tr{display:flex;justify-content:space-between;font-size:14.5px;padding:6px 0;
+    border-top:1px solid #ffffff1f;font-variant-numeric:tabular-nums}
+  .wtile .tr:first-of-type,.wgc .tr:first-of-type{border-top:none}
+  .wtile .tr span:last-child,.wgc .tr span:last-child{color:#ffffffc4}
+  .wuv{height:4px;border-radius:2px;margin:12px 0 0;position:relative;
+    background:linear-gradient(90deg,#4CBB6C,#F2D24B,#F09040,#E8514B,#B461C9)}
+  .wuv b{position:absolute;top:-3px;width:10px;height:10px;border-radius:50%;background:#fff;
+    margin-left:-5px;box-shadow:0 1px 3px #0000004d}
+  .wdial,.warc{display:block;margin:6px auto 0}
+
+  /* Thẻ nơi quan tâm khi đứng trên nền trời: đổi sang kính cho cùng một chất */
+  body.sk-wx .pcard{background:#ffffff1f;border-color:#ffffff2e;color:#fff}
+  body.sk-wx .pcard.on{box-shadow:inset 0 0 0 2px #ffffffa6}
+  body.sk-wx .pcard .ps,body.sk-wx .pcard .phl,body.sk-wx .pcard .pdel{color:#ffffffb8}
+  body.sk-wx .pcard{padding:12px 15px}
+  body.sk-wx .pcard .pt{font-size:31px}
+  body.sk-wx .pcard .pn{font-size:17.5px}
+  body.sk-wx .pbd{gap:8px;margin-bottom:10px}
+  body.sk-wx .whero{padding-top:4px}
+  body.sk-wx .ptt{color:#ffffffa8 !important}
+  body.sk-wx .pbar button{color:#fff}
+  body.sk-wx #cityIn{background:#ffffff1f;border-color:#ffffff33;color:#fff}
+  body.sk-wx #cityIn::placeholder{color:#ffffff7a}
+  body.sk-wx .wxbtn{background:#ffffff21;border-color:#ffffff38;color:#fff}
+  body.sk-wx .note{color:#ffffff9e;border-color:#ffffff26}
+
+  /* ═══ MƯỢT TAY ═══
+     Bấm đổi tab khoá luồng chính ~117ms (đo ở CPU chậm 4×) vì cả màn bị dựng
+     lại rồi trình duyệt phải tính bố cục cho TOÀN BỘ, kể cả phần dưới màn.
+     content-visibility cho phép bỏ qua phần chưa nhìn thấy; contain-intrinsic-size
+     giữ chiều cao ước lượng để thanh cuộn không nhảy. */
+  .card,.wgc,.wtile,.pcard,.exp{content-visibility:auto;contain-intrinsic-size:auto 180px}
+  button,.exp,.pcard,.hub,.bnav button{touch-action:manipulation}
+  .screen{animation:fade .16s ease-out}
+  @media (prefers-reduced-motion:reduce){.screen{animation:none}}
 </style>
 </head>
 <body>
@@ -877,6 +988,12 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   goWx:"Xem dự báo",goMoon:"Xem chi tiết",goTerm:"Xem 24 tiết khí",goBuddha:"Xem lịch Phật",goTibet:"Xem lịch Tạng",
   wxErr:"Không lấy được dữ liệu — cần mạng và quyền vị trí",wxRetry:"Thử lại",
   wxFeel:"Cảm giác như",wxHum:"Độ ẩm",wxWind:"Gió",wxProb:"Mưa",wxSunrise:"Mặt trời mọc",wxSunset:"Mặt trời lặn",
+  wxUV:"Chỉ số UV",wxUVs:["Thấp","Trung bình","Cao","Rất cao","Cực cao"],wxGust:"Gió giật",wxDir:"Hướng",
+  wxRainAmt:"Lượng mưa",wxPress:"Áp suất",wxNowH:"Bây giờ",wxToday:"Hôm nay",wxRealFeel:"Thực tế",
+  wxDirs:["B","ĐB","Đ","ĐN","N","TN","T","TB"],wxWarmer:"Gió đang khiến bạn thấy ấm hơn.",
+  wxCooler:"Gió đang khiến bạn thấy mát hơn.",wxSame:"Gần đúng với nhiệt độ thực tế.",
+  wxRainAt:"Dự báo có mưa vào khoảng %s.",wxNoRain:"12 giờ tới không có dấu hiệu mưa.",
+  wxFeelS:"Cảm nhận",wxUVday:"Cao nhất trong ngày",wxUVavoid:"Tránh nắng khoảng 10:00–15:00.",
   wx7:"7 ngày tới",wxSrc:"Nguồn: Open-Meteo · vị trí lưu trên máy của bạn, không gửi đi đâu",
   wc:["Quang đãng","Ít mây","Nhiều mây","Sương mù","Mưa phùn","Mưa","Tuyết","Mưa rào","Dông"],
   tideHi:"Nước lớn",tideLo:"Nước ròng",tideNext:"Các lần nước lớn / nước ròng tới",
@@ -1028,6 +1145,12 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   goWx:"See forecast",goMoon:"See details",goTerm:"See 24 solar terms",goBuddha:"See Buddhist calendar",goTibet:"See Tibetan calendar",
   wxErr:"Could not load — needs network & location permission",wxRetry:"Retry",
   wxFeel:"Feels like",wxHum:"Humidity",wxWind:"Wind",wxProb:"Rain",wxSunrise:"Sunrise",wxSunset:"Sunset",
+  wxUV:"UV index",wxUVs:["Low","Moderate","High","Very high","Extreme"],wxGust:"Gusts",wxDir:"Direction",
+  wxRainAmt:"Precipitation",wxPress:"Pressure",wxNowH:"Now",wxToday:"Today",wxRealFeel:"Actual",
+  wxDirs:["N","NE","E","SE","S","SW","W","NW"],wxWarmer:"Wind is making it feel warmer.",
+  wxCooler:"Wind is making it feel cooler.",wxSame:"Close to the actual temperature.",
+  wxRainAt:"Rain expected around %s.",wxNoRain:"No rain in the next 12 hours.",
+  wxFeelS:"Feels like",wxUVday:"Highest today",wxUVavoid:"Avoid the sun 10:00–15:00.",
   wx7:"Next 7 days",wxSrc:"Source: Open-Meteo · location stored on your device only",
   wc:["Clear","Partly cloudy","Overcast","Fog","Drizzle","Rain","Snow","Showers","Thunderstorm"],
   tideHi:"High tide",tideLo:"Low tide",tideNext:"Upcoming highs / lows",
@@ -1989,7 +2112,7 @@ function askLoc(){
 // Thay cho ky tu vi iOS ve ☸ va ☀ thanh emoji MAU trong khi ◈ ▦ ✦ la ky tu den:
 // nam icon ba giong khac nhau. Ky tu con phu thuoc font tung may, khong chinh
 // duoc net, khong doi mau theo skin.
-const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>'};
+const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>',wind:'<path d="M3.4 8.6h9.2a2.7 2.7 0 1 0-2.7-2.7M3.4 12.6h13.1a2.7 2.7 0 1 1-2.7 2.7M3.4 16.6h6.4"/>',drop:'<path d="M12 3.6c3.1 3.6 5.4 6.4 5.4 9.2a5.4 5.4 0 0 1-10.8 0c0-2.8 2.3-5.6 5.4-9.2z"/>',therm:'<path d="M14.2 13.6V6.1a2.2 2.2 0 1 0-4.4 0v7.5a4 4 0 1 0 4.4 0z"/><circle cx="12" cy="17.2" r="1.6" fill="currentColor" stroke="none"/>',clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3.2 1.9"/>',dusk:'<circle cx="12" cy="12.4" r="3.9"/><path d="M3.6 18.6h16.8"/><g fill="currentColor" stroke="none"><circle cx="12" cy="4.6" r="1.05"/><circle cx="5.1" cy="12.4" r="1.05"/><circle cx="18.9" cy="12.4" r="1.05"/><circle cx="6.5" cy="6.9" r="1.05"/><circle cx="17.5" cy="6.9" r="1.05"/></g>'};
 function svgIcon(k,sz,sw){
   return `<svg viewBox="0 0 24 24" width="${sz||26}" height="${sz||26}" fill="none" stroke="currentColor"
     stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
@@ -2015,7 +2138,7 @@ function wcodeName(c,t){
 }
 function fetchWeather(){
   const L=loadLoc();if(!L||WXL)return;WXL=true;
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${L.la}&longitude=${L.lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=7`)
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${L.la}&longitude=${L.lo}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day,surface_pressure&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max,precipitation_sum&timezone=auto&forecast_days=7`)
     .then(r=>r.json()).then(j=>{WX=j&&j.current?j:{err:1};window._wxAt=Date.now();window._wxKey=(loadLoc()||{}).la+','+(loadLoc()||{}).lo;WXL=false;renderScreen();})
     .catch(()=>{WX={err:1};WXL=false;renderScreen();});
 }
@@ -2076,6 +2199,56 @@ function tideRegime(t){
   if(dQtr<=2.5)return t.tideNeap;
   return t.tideMid;
 }
+// ═══ MÀN THỜI TIẾT ═══════════════════════════════════════════════════════
+// Nen troi doi theo ma thoi tiet that va theo ngay/dem. Khong to mau cho vui:
+// nguoi dung liec mot cai la biet troi dang the nao truoc khi doc chu nao.
+function skyClass(c,isDay){
+  if(!isDay)return 'sky-night';
+  if(c===0||c===1)return 'sky-clear';
+  if(c>=95)return 'sky-storm';
+  if((c>=71&&c<=77)||c===85||c===86)return 'sky-snow';
+  if((c>=51&&c<=67)||(c>=80&&c<=82))return 'sky-rain';
+  return '';                       // nhieu may -> nen mac dinh
+}
+// Nhiet do -> mau. Cac moc nay la mau cua thang nhiet, khong phai mau thuong hieu.
+function tcolor(v){
+  const S=[[2,[111,155,224]],[10,[107,195,216]],[16,[124,207,166]],[21,[228,206,98]],
+           [26,[239,169,78]],[31,[228,115,76]],[36,[212,70,62]]];
+  if(v<=S[0][0])return `rgb(${S[0][1]})`;
+  for(let i=1;i<S.length;i++){
+    if(v<=S[i][0]){const [a,ca]=S[i-1],[b,cb]=S[i],k=(v-a)/(b-a);
+      return `rgb(${ca.map((x,j)=>Math.round(x+(cb[j]-x)*k)).join(',')})`;}
+  }
+  return `rgb(${S[S.length-1][1]})`;
+}
+function windDial(deg,t){
+  // Kim tron hai dau, khong mui nhon. Cham to = huong gio THOI TOI.
+  const R=30,c=42,a=(deg+180)*Math.PI/180;   // Open-Meteo cho huong gio THOI TU
+  const hx=c+Math.sin(a)*R*0.72, hy=c-Math.cos(a)*R*0.72;
+  const tx=c-Math.sin(a)*R*0.72, ty=c+Math.cos(a)*R*0.72;
+  const L=t.wxDirs;
+  return `<svg class="wdial" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+    <circle cx="${c}" cy="${c}" r="${R}" fill="none" stroke="#ffffff40" stroke-width="1.5"/>
+    <g fill="#ffffff8f" font-size="9" text-anchor="middle" font-family="inherit">
+      <text x="${c}" y="9">${L[0]}</text><text x="81" y="${c+3.2}">${L[2]}</text>
+      <text x="${c}" y="79">${L[4]}</text><text x="3" y="${c+3.2}">${L[6]}</text></g>
+    <line x1="${tx.toFixed(1)}" y1="${ty.toFixed(1)}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}"
+      stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="3.6" fill="#fff"/>
+  </svg>`;
+}
+function sunArc(rise,set,now){
+  // Cung ngay: cham chay tu moc den lan. Qua duong chan troi thi cham nam duoi.
+  const W=150,H=64,y0=46,A=32;
+  const k=Math.max(-0.12,Math.min(1.12,(now-rise)/Math.max(1,set-rise)));
+  const x=10+k*(W-20), y=y0-Math.sin(Math.max(0,Math.min(1,k))*Math.PI)*A;
+  return `<svg class="warc" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+    <path d="M10 ${y0} Q ${W/2} ${y0-A*2} ${W-10} ${y0}" fill="none" stroke="#ffffff45"
+      stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="4" y1="${y0}" x2="${W-4}" y2="${y0}" stroke="#ffffff2e" stroke-width="1" stroke-dasharray="3 4"/>
+    <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.6" fill="#FFD98A"/>
+  </svg>`;
+}
 function panelWeather(){
   const t=T[LANG],L=loadLoc();
   if(!L)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
@@ -2086,42 +2259,99 @@ function panelWeather(){
     <div class="note" style="border:none;margin:0 0 10px;padding:0">${t.wxErr}</div>
     <button class="locbtn" onclick="WX=null;fetchWeather()">${t.wxRetry}</button></div>`;
   const c=WX.current,dl=WX.daily;
-  let rows7='';
-  for(let i=0;i<7;i++){
-    const d=new Date(dl.time[i]+'T12:00:00');
-    const lbl=i===0?(LANG=='vi'?'Hôm nay':'Today'):t.dow[(d.getDay()+6)%7];
-    rows7+=`<div class="wxrow"><span class="wxday">${lbl}</span>
-      <span style="flex:1;color:var(--muted);font-size:13.5px;padding:0 8px">${wcodeName(dl.weather_code[i],t)}</span>
-      <span style="color:var(--muted)">${t.wxProb} ${dl.precipitation_probability_max[i]??0}%</span>
-      <span class="wxtmp" style="min-width:86px;text-align:right">${Math.round(dl.temperature_2m_min[i])}° – <b>${Math.round(dl.temperature_2m_max[i])}°</b></span></div>`;
-  }
-  let hrs='';
+  // hubScreen da dat body.className truoc khi goi ham nay -> chi them lop bau troi.
+  const sky=skyClass(c.weather_code,c.is_day!==0);
+  if(sky)document.body.classList.add(sky);
+
+  // ── Dai theo gio + mot cau tom tat ──────────────────────────────────
+  let hrs='',rainAt='';
   if(WX.hourly&&WX.hourly.time){
     const now=nowAtLoc(),H=WX.hourly;
     let i0=H.time.findIndex(x=>new Date(x)>=now);if(i0<0)i0=0;
     for(let i=i0;i<Math.min(i0+12,H.time.length);i++){
-      const hd=new Date(H.time[i]);
-      hrs+=`<div class="hcell"><div class="hh">${i===i0?(LANG=='vi'?'Giờ này':'Now'):pad(hd.getHours())+'h'}</div>
-        <div class="hi">${svgIcon(wcodeKey(H.weather_code[i]),22)}</div>
-        <div class="ht2">${Math.round(H.temperature_2m[i])}°</div>
-        <div class="hp">${H.precipitation_probability[i]??0}%</div></div>`;
+      const hd=new Date(H.time[i]),pr=H.precipitation_probability[i]??0;
+      hrs+=`<div class="hc"><div class="hu">${i===i0?t.wxNowH:pad(hd.getHours())+'h'}</div>
+        <div class="hi">${svgIcon(wcodeKey(H.weather_code[i]),24)}</div>
+        <div class="hd">${pr>=20?pr+'%':''}</div>
+        <div class="hv">${Math.round(H.temperature_2m[i])}°</div></div>`;
+      if(!rainAt&&pr>=55&&i>i0)rainAt=pad(hd.getHours())+':00';
     }
   }
-  const smt=sunMoonTimes(VIEW);
-  return placesBoard(t)+`<div class="card">
-    <h2>${t.wx}</h2><div class="en">${(LOCNAME||t.locHere)+' · '}${LANG=='vi'?'hiện tại':'now'}</div>
-    <div class="wxbig">${Math.round(c.temperature_2m)}°</div>
-    <div style="font-size:16px;color:var(--muted);margin:6px 0 12px">${wcodeName(c.weather_code,t)}</div>
-    <div class="row"><span class="k">${t.wxFeel}</span><span class="v"><b>${Math.round(c.apparent_temperature)}°</b></span></div>
-    <div class="row"><span class="k">${t.wxHum}</span><span class="v">${c.relative_humidity_2m}%</span></div>
-    <div class="row"><span class="k">${t.wxWind}</span><span class="v">${Math.round(c.wind_speed_10m)} km/h</span></div>
-    ${WX.elevation!=null?`<div class="row"><span class="k">${t.wxElev}</span><span class="v"><b>${Math.round(WX.elevation)} m</b> ${LANG=='vi'?'so với mực nước biển':'above sea level'}</span></div>`:''}
-    <div class="row"><span class="k">${t.wxSunrise} · ${t.wxSunset}</span><span class="v">${dl.sunrise[0].slice(11,16)} · ${dl.sunset[0].slice(11,16)}</span></div>
-  </div>
-  ${hrs?`<div class="card"><h2>${t.wxHourly}</h2><div class="en">${LANG=='vi'?'12 giờ tới':'Next 12 hours'}</div>
-    <div class="hscroll">${hrs}</div></div>`:''}
-  <div class="card"><h2>${t.wx7}</h2><div class="en">${LANG=='vi'?'Nhiệt độ thấp – cao':'Low – high'}</div>${rows7}
-    <div class="note">${t.wxSrc}</div></div>`;
+  const sum=rainAt?t.wxRainAt.replace('%s',rainAt):t.wxNoRain;
+
+  // ── Nhieu ngay: thanh nhiet do dat trong khoang cua ca tuan ─────────
+  const N=Math.min(7,dl.time.length);
+  const wLo=Math.min(...dl.temperature_2m_min.slice(0,N)),
+        wHi=Math.max(...dl.temperature_2m_max.slice(0,N)),
+        span=Math.max(1,wHi-wLo);
+  let rows7='';
+  for(let i=0;i<N;i++){
+    const d=new Date(dl.time[i]+'T12:00:00'),lo=dl.temperature_2m_min[i],hi=dl.temperature_2m_max[i];
+    const pr=dl.precipitation_probability_max[i]??0;
+    const l=(lo-wLo)/span*100,w=Math.max(6,(hi-lo)/span*100);
+    const dot=i===0?`<b style="left:${((c.temperature_2m-wLo)/span*100).toFixed(1)}%"></b>`:'';
+    rows7+=`<div class="wday"><span class="dn">${i===0?t.wxToday:t.dow[(d.getDay()+6)%7]}</span>
+      <span class="di">${svgIcon(wcodeKey(dl.weather_code[i]),21)}</span>
+      <span class="dp">${pr>=20?pr+'%':''}</span>
+      <span class="dlo">${Math.round(lo)}°</span>
+      <span class="wbar"><i style="left:${l.toFixed(1)}%;width:${w.toFixed(1)}%;
+        background:linear-gradient(90deg,${tcolor(lo)},${tcolor(hi)})"></i>${dot}</span>
+      <span class="dhi">${Math.round(hi)}°</span></div>`;
+  }
+
+  // ── Cac o chi tiet ──────────────────────────────────────────────────
+  const dTmp=Math.round(c.apparent_temperature)-Math.round(c.temperature_2m);
+  const feelNote=dTmp<=-2?t.wxCooler:(dTmp>=2?t.wxWarmer:t.wxSame);
+  const uv=dl.uv_index_max&&dl.uv_index_max[0]!=null?dl.uv_index_max[0]:null;
+  const uvName=uv==null?'':t.wxUVs[uv<3?0:uv<6?1:uv<8?2:uv<11?3:4];
+  const rise=dl.sunrise[0].slice(11,16),set=dl.sunset[0].slice(11,16);
+  const mins=x=>(+x.slice(0,2))*60+(+x.slice(3,5));
+  const nl=nowAtLoc();
+  const rain0=dl.precipitation_sum&&dl.precipitation_sum[0]!=null?dl.precipitation_sum[0]:null;
+  const rain1=dl.precipitation_sum&&dl.precipitation_sum[1]!=null?dl.precipitation_sum[1]:null;
+  const ic=(k,sz)=>svgIcon(k,sz||14,1.9);
+
+  const tiles=`<div class="wtiles">
+    <div class="wtile"><div class="wgh">${ic('therm')}${t.wxFeelS}</div>
+      <div class="tv">${Math.round(c.apparent_temperature)}°</div>
+      <div class="tn">${t.wxRealFeel}: ${Math.round(c.temperature_2m)}° · ${feelNote}</div></div>
+    ${uv!=null?`<div class="wtile"><div class="wgh">${ic('sun')}${t.wxUV}</div>
+      <div class="tv">${Math.round(uv)}</div><div class="ts">${uvName}</div>
+      <div class="wuv"><b style="left:${Math.min(100,uv/11*100).toFixed(0)}%"></b></div>
+      <div class="tn" style="padding-top:9px">${uv>=6?t.wxUVavoid:t.wxUVday}</div></div>`:''}
+    <div class="wtile"><div class="wgh">${ic('wind')}${t.wxWind}</div>
+      ${windDial(c.wind_direction_10m||0,t)}
+      <div class="tn" style="text-align:center">${Math.round(c.wind_speed_10m)} km/h${
+        c.wind_gusts_10m!=null?` · ${t.wxGust} ${Math.round(c.wind_gusts_10m)}`:''}</div></div>
+    <div class="wtile"><div class="wgh">${ic('dusk')}${t.wxSunset}</div>
+      <div class="tv">${set}</div>
+      ${sunArc(mins(rise),mins(set),nl.getHours()*60+nl.getMinutes())}
+      <div class="tn" style="padding-top:4px">${t.wxSunrise}: ${rise}</div></div>
+    ${rain0!=null?`<div class="wtile"><div class="wgh">${ic('rain')}${t.wxRainAmt}</div>
+      <div class="tv">${rain0.toFixed(rain0<10?1:0)}<span style="font-size:19px"> mm</span></div>
+      <div class="ts" style="font-size:16px;font-weight:400;color:#ffffffc4">${t.wxToday}</div>
+      ${rain1!=null?`<div class="tn">${t.dow[(new Date(dl.time[1]+'T12:00:00').getDay()+6)%7]}: ${rain1.toFixed(rain1<10?1:0)} mm</div>`:''}</div>`:''}
+    <div class="wtile"><div class="wgh">${ic('drop')}${t.wxHum}</div>
+      <div class="tv">${c.relative_humidity_2m}<span style="font-size:19px">%</span></div>
+      ${c.surface_pressure!=null?`<div class="tn">${t.wxPress}: ${Math.round(c.surface_pressure)} hPa</div>`:''}</div>
+  </div>`;
+
+  // Do cao la thu it app thoi tiet nao ghi, ma o Da Lat / vung nui thi rat co nghia.
+  const extra=WX.elevation!=null
+    ? `<div class="tr"><span>${t.wxElev}</span><span>${Math.round(WX.elevation)} m ${LANG=='vi'?'so với mực nước biển':'above sea level'}</span></div>` : '';
+
+  return placesBoard(t)+`<div class="whero">
+      <div class="wn">${LOCNAME||t.locHere}</div>
+      <div class="wt">${Math.round(c.temperature_2m)}°</div>
+      <div class="wc">${wcodeName(c.weather_code,t)}</div>
+      <div class="wh">C:${Math.round(dl.temperature_2m_max[0])}°  T:${Math.round(dl.temperature_2m_min[0])}°</div>
+    </div>
+    ${hrs?`<div class="wgc"><div class="wgh">${ic('clock')}${t.wxHourly}</div>
+      <div class="wsum">${sum}</div><div class="whrs">${hrs}</div></div>`:''}
+    <div class="wgc"><div class="wgh">${ic('cal')}${t.wx7}</div>${rows7}</div>
+    ${tiles}
+    ${extra?`<div class="wgc" style="padding-top:10px">${extra}</div>`:''}
+    <div class="note" style="margin-top:2px">${t.wxSrc}</div>`;
 }
 function panelZodiac(){
   const t=T[LANG],d=VIEW;
@@ -3177,6 +3407,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v46 · 89487886</div><script>window.LDC_BUILD='ldc-v46 · 89487886';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v47 · 3cff7b81</div><script>window.LDC_BUILD='ldc-v47 · 3cff7b81';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
