@@ -788,6 +788,17 @@
   .whrs .hc .hi{margin:9px 0 7px;color:#fff;height:24px}
   .whrs .hc .hd{font-size:11px;color:#C6E8FB;font-weight:500;min-height:15px;font-variant-numeric:tabular-nums}
   .whrs .hc .hv{font-size:18px;font-weight:500;font-family:var(--fnum);font-variant-numeric:tabular-nums}
+  .whrs .hc{padding:7px 0 6px;border-radius:15px}
+  .whrs .hc.wet{background:#59ACE03d}
+  /* Cot lam day mot KHUNG co san: co khung thi 20% va 90% moi so duoc voi
+     nhau bang mat. Khong khung thi 20% chi la mot cham nho, khong doc ra gi. */
+  .whrs .hb{width:8px;height:27px;margin:7px auto 5px;border-radius:4px;
+    background:#ffffff2b;position:relative;overflow:hidden}
+  .whrs .hb i{position:absolute;left:0;right:0;bottom:0;
+    background:linear-gradient(180deg,#BCE6FF,#3F97D6)}
+  .whrs .hsep{flex:0 0 auto;width:46px;display:flex;align-items:center;justify-content:center}
+  .whrs .hsep span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#ffffffd6;
+    background:#ffffff29;border:1px solid #ffffff2b;border-radius:10px;padding:5px 9px;white-space:nowrap}
 
   /* ── Nhiều ngày: thanh nhiệt độ ─────────────────────────────────────── */
   .wday{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #ffffff1f}
@@ -992,7 +1003,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   wxRainAmt:"Lượng mưa",wxPress:"Áp suất",wxNowH:"Bây giờ",wxToday:"Hôm nay",wxRealFeel:"Thực tế",
   wxDirs:["B","ĐB","Đ","ĐN","N","TN","T","TB"],wxWarmer:"Gió đang khiến bạn thấy ấm hơn.",
   wxCooler:"Gió đang khiến bạn thấy mát hơn.",wxSame:"Gần đúng với nhiệt độ thực tế.",
-  wxRainAt:"Dự báo có mưa vào khoảng %s.",wxNoRain:"12 giờ tới không có dấu hiệu mưa.",
+  wxRainAt:"Dự báo có mưa vào khoảng %s.",wxNoRain:"Hai ngày tới không có dấu hiệu mưa.",
   wxFeelS:"Cảm nhận",wxUVday:"Cao nhất trong ngày",wxUVavoid:"Tránh nắng khoảng 10:00–15:00.",
   wx7:"7 ngày tới",wxSrc:"Nguồn: Open-Meteo · vị trí lưu trên máy của bạn, không gửi đi đâu",
   wc:["Quang đãng","Ít mây","Nhiều mây","Sương mù","Mưa phùn","Mưa","Tuyết","Mưa rào","Dông"],
@@ -1149,7 +1160,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   wxRainAmt:"Precipitation",wxPress:"Pressure",wxNowH:"Now",wxToday:"Today",wxRealFeel:"Actual",
   wxDirs:["N","NE","E","SE","S","SW","W","NW"],wxWarmer:"Wind is making it feel warmer.",
   wxCooler:"Wind is making it feel cooler.",wxSame:"Close to the actual temperature.",
-  wxRainAt:"Rain expected around %s.",wxNoRain:"No rain in the next 12 hours.",
+  wxRainAt:"Rain expected around %s.",wxNoRain:"No rain in the next two days.",
   wxFeelS:"Feels like",wxUVday:"Highest today",wxUVavoid:"Avoid the sun 10:00–15:00.",
   wx7:"Next 7 days",wxSrc:"Source: Open-Meteo · location stored on your device only",
   wc:["Clear","Partly cloudy","Overcast","Fog","Drizzle","Rain","Snow","Showers","Thunderstorm"],
@@ -2264,17 +2275,27 @@ function panelWeather(){
   if(sky)document.body.classList.add(sky);
 
   // ── Dai theo gio + mot cau tom tat ──────────────────────────────────
+  // 48 gio, khong phai 12: nguoi ta can biet hom nay VA ngay mai. Sang ngay
+  // moi thi chen mot vach ten thu, khong thi cuon mai khong biet dang o dau.
   let hrs='',rainAt='';
   if(WX.hourly&&WX.hourly.time){
     const now=nowAtLoc(),H=WX.hourly;
     let i0=H.time.findIndex(x=>new Date(x)>=now);if(i0<0)i0=0;
-    for(let i=i0;i<Math.min(i0+12,H.time.length);i++){
+    const end=Math.min(i0+48,H.time.length),d0=new Date(H.time[i0]).getDate();
+    let lastD=d0;
+    for(let i=i0;i<end;i++){
       const hd=new Date(H.time[i]),pr=H.precipitation_probability[i]??0;
-      hrs+=`<div class="hc"><div class="hu">${i===i0?t.wxNowH:pad(hd.getHours())+'h'}</div>
+      if(hd.getDate()!==lastD){lastD=hd.getDate();
+        hrs+=`<div class="hsep"><span>${t.dow[(hd.getDay()+6)%7]}</span></div>`;}
+      // Cot mua cao theo xac suat: mot doan troi mua hien ra thanh mot dai
+      // xanh lien nhau, thay truoc khi kip doc con so.
+      hrs+=`<div class="hc${pr>=60?' wet':''}"><div class="hu">${i===i0?t.wxNowH:pad(hd.getHours())+'h'}</div>
         <div class="hi">${svgIcon(wcodeKey(H.weather_code[i]),24)}</div>
-        <div class="hd">${pr>=20?pr+'%':''}</div>
-        <div class="hv">${Math.round(H.temperature_2m[i])}°</div></div>`;
-      if(!rainAt&&pr>=55&&i>i0)rainAt=pad(hd.getHours())+':00';
+        <div class="hv">${Math.round(H.temperature_2m[i])}°</div>
+        <div class="hb"><i style="height:${pr}%"></i></div>
+        <div class="hd">${pr>=15?pr+'%':''}</div></div>`;
+      if(!rainAt&&pr>=55&&i>i0)
+        rainAt=(hd.getDate()!==d0?t.dow[(hd.getDay()+6)%7]+' ':'')+pad(hd.getHours())+':00';
     }
   }
   const sum=rainAt?t.wxRainAt.replace('%s',rainAt):t.wxNoRain;
@@ -3407,6 +3428,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v47 · 3cff7b81</div><script>window.LDC_BUILD='ldc-v47 · 3cff7b81';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v48 · fad5c0dd</div><script>window.LDC_BUILD='ldc-v48 · fad5c0dd';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
