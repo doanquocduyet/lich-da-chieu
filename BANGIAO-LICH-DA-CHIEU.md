@@ -385,6 +385,10 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 | Thiếu chuỗi i18n | Hiện "undefined" trên giao diện | Test cả 2 ngôn ngữ, grep "undefined" |
 | Bản build mới đè lên index.html, mất 7 chỗ đã vá | Lỗi ngày khuyết + sai spec chữ nghĩa quay lại, đã lặp ở V2.4 và V2.5 | **Không bao giờ chép thẳng bản build vào index.html.** Luôn qua `patch.py` — xem §11 |
 | `sw.js` cache mọi request kể cả khác origin | Kết quả thời tiết lần đầu bị đóng băng vĩnh viễn (cộng `ignoreSearch:true`) | Chỉ cache request cùng origin; API ngoài để đi thẳng ra mạng |
+| `openCityForm()` tự gọi lại bằng `setTimeout` không giới hạn khi không tìm thấy ô nhập | **Treo app.** Bấm "+ Thêm nơi" lúc thời tiết đang chạy được → vẽ lại toàn màn ~17 lần/giây và ép `MAIN=3`, bấm tab khác bị kéo ngược về Thời tiết. Người dùng báo là *hai* lỗi, thật ra là *một* | Không bao giờ để một hàm tự gọi lại vô hạn để "chờ" DOM. Đặt thứ cần bấm **ngay cạnh nút bấm nó** — ô nhập giờ nằm trong chính `placesBoard()`. Nếu buộc phải thử lại thì **đếm số lần** |
+| Điều kiện gọi lại mạng là "chưa có dữ liệu" | Gọi hỏng cũng là chưa có dữ liệu → gọi lại mãi | So bằng **khoá của danh sách** (`PWQ !== placesKey()`), không so bằng "rỗng hay chưa" |
+| `PW` xếp theo chỉ số của `PLACES` nhưng lượt gọi cũ về sau lượt mới | Thẻ đọc nhầm nhiệt độ của nhau khi vừa thêm/xoá nơi | Đánh số lượt gọi (`PWSEQ`), lượt cũ về thì bỏ; xoá nơi thì cắt luôn ô `PW` tương ứng |
+| Chốt kiểm thử viết xong không thử trên bản hỏng | Chốt "bảng nơi quan tâm" đầu tiên **báo xanh trên cả bản có lỗi** (vì chặn mạng khiến app rơi vào nhánh khác) | **Mọi chốt mới phải chạy thử trên bản hỏng và thấy nó báo đỏ**, rồi mới tin |
 
 ---
 

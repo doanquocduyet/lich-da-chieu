@@ -127,8 +127,66 @@ function serve(root) {
     .match(/const C='(ldc-v\d+)';/) || [])[1] || null;
   const okBuild = !!build && !!swCache && build.startsWith(swCache + ' ');
 
+  // ── 6. Bấm "+ Thêm nơi" phải mở được ô nhập VÀ KHÔNG ĐƯỢC làm app vẽ lại vô tận ─
+  // Bản V3.3 có lỗi: khi đã có vị trí, nút này gọi openCityForm() mãi mỗi 60ms,
+  // mỗi lần lại ép MAIN=3 -> app đứng hình, bấm tab khác bị kéo ngược về Thời tiết.
+  // Chốt này diễn lại đúng thao tác đó.
+  const board = await (async () => {
+    const ctx2 = await browser.newContext({ timezoneId: 'Asia/Ho_Chi_Minh' });
+    // Phải giả THÀNH CÔNG, không được chặn: chặn thì app rơi vào nhánh "lỗi thời tiết",
+    // mà nhánh đó vốn đã tự vẽ ô nhập -> chốt sẽ báo xanh trên cả bản hỏng.
+    // Cảnh gây treo là cảnh thời tiết CHẠY ĐƯỢC mà vẫn bấm "+ Thêm nơi".
+    const dailyN = n => Array(7).fill(n);
+    const WXOK = {
+      utc_offset_seconds: 25200,
+      current: { temperature_2m: 31, weather_code: 2, relative_humidity_2m: 70,
+        apparent_temperature: 35, wind_speed_10m: 9, is_day: 1 },
+      daily: { time: ['2026-08-29','2026-08-30','2026-08-31','2026-09-01','2026-09-02','2026-09-03','2026-09-04'],
+        temperature_2m_max: dailyN(33), temperature_2m_min: dailyN(26), weather_code: dailyN(2),
+        sunrise: dailyN('2026-08-29T05:30'), sunset: dailyN('2026-08-29T18:10'),
+        precipitation_probability_max: dailyN(20), uv_index_max: dailyN(8) },
+      hourly: { time: Array.from({ length: 48 }, (_, i) => `2026-08-29T${String(i % 24).padStart(2, '0')}:00`),
+        temperature_2m: Array(48).fill(30), weather_code: Array(48).fill(2),
+        precipitation_probability: Array(48).fill(10) },
+    };
+    await ctx2.route('**api.open-meteo.com/**', r => r.fulfill(
+      { contentType: 'application/json', body: JSON.stringify(WXOK) }));
+    await ctx2.route('**marine-api.open-meteo.com/**', r => r.fulfill(
+      { contentType: 'application/json', body: '{"hourly":{"time":[],"sea_level_height_msl":[]}}' }));
+    const p2 = await ctx2.newPage();
+    await p2.addInitScript(() => {
+      localStorage.setItem('ldc_loc', JSON.stringify({ la: 21.028, lo: 105.834 }));
+      localStorage.setItem('ldc_places', JSON.stringify([{ n: 'Hà Nội', la: 21.028, lo: 105.834, me: false }]));
+    });
+    await p2.goto(`http://127.0.0.1:${PORT}/index.html`, { waitUntil: 'domcontentloaded' });
+    await p2.waitForTimeout(800);
+    await p2.evaluate(() => { setMain(3); SUBEXP = 4; EXPOPEN = true; renderScreen(); });
+    await p2.waitForTimeout(400);
+    await p2.evaluate(() => { window.__n = 0; const o = renderScreen;
+      window.renderScreen = function () { window.__n++; return o.apply(this, arguments); }; });
+    const btn = p2.locator('.pbar button').filter({ hasText: 'Thêm nơi' }).first();
+    const hasBtn = await btn.count() > 0;
+    if (hasBtn) await btn.click();
+    await p2.waitForTimeout(1200);
+    const form = await p2.locator('#cityForm').count();
+    const loops = await p2.evaluate(() => window.__n);
+    await p2.evaluate(() => setMain(2));           // sang Hệ lịch
+    await p2.waitForTimeout(700);
+    const stay = await p2.evaluate(() => MAIN);    // phải ở lại tab 2
+    const dup = await p2.evaluate(() => document.querySelectorAll('#cityForm').length);
+    await ctx2.close();
+    return { hasBtn, form, loops, stay, dup };
+  })();
+  const boardSpecs = [
+    ['Bảng nơi quan tâm có nút "+ Thêm nơi"', board.hasBtn],
+    ['Bấm "+" mở được ô nhập ngay tại chỗ', board.form === 1],
+    [`Bấm "+" không vẽ lại vô tận (đếm được ${board.loops} lần, cho phép ≤3)`, board.loops <= 3],
+    [`Bấm sang Hệ lịch thì ở lại Hệ lịch (đang ở tab ${board.stay})`, board.stay === 2],
+    ['Chỉ có đúng một ô nhập #cityForm trên màn', board.dup <= 1],
+  ];
+
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok);
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok);
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -139,6 +197,8 @@ function serve(root) {
   for (const [label, ok] of specs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
   console.log(`5. Dấu build ............... ${build || 'KHÔNG CÓ'}` +
     (okBuild ? '  ✓' : `  ✗ phải bắt đầu bằng "${swCache}" (tên cache trong sw.js)`));
+  console.log('6. Bảng nơi quan tâm:');
+  for (const [label, ok] of boardSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();

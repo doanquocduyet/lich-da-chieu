@@ -1860,16 +1860,22 @@ function moonSVG(f,wax,size){
 let WX=null,TD=null,WXL=false,TDL=false;
 // ═══ NƠI QUAN TÂM — danh sách nhiều địa điểm, xem thời tiết cùng lúc ═══
 let PLACES=(function(){try{return JSON.parse(localStorage.getItem('ldc_places')||'[]')}catch(e){return[]}})();
-let PW=null,PWL=false,PEDIT=false;
+let PW=null,PWL=false,PEDIT=false,PWQ='',PWSEQ=0;
 function savePlaces(){try{localStorage.setItem('ldc_places',JSON.stringify(PLACES))}catch(e){}}
 function placeKey(la,lo){return (+la).toFixed(2)+','+(+lo).toFixed(2);}
+function placesKey(){return PLACES.map(p=>placeKey(p.la,p.lo)).join(';');}
 function placeAdd(nm,la,lo,me){
   const k=placeKey(la,lo),i=PLACES.findIndex(p=>placeKey(p.la,p.lo)===k||(me&&p.me));
   if(i>=0){PLACES[i]={n:nm,la:+la,lo:+lo,me:!!me};}
   else{ if(PLACES.length>=10){alert(T[LANG].placeMax);return false;} PLACES.push({n:nm,la:+la,lo:+lo,me:!!me}); }
-  savePlaces();PW=null;fetchPlaces();return true;
+  savePlaces();fetchPlaces();return true;
 }
-function placeDel(i){PLACES.splice(i,1);savePlaces();PW=null;if(PLACES.length)fetchPlaces();else renderScreen();}
+function placeDel(i){
+  // PW xep theo dung chi so cua PLACES -> xoa mot noi thi phai xoa ca o du lieu
+  // cua no, khong thi cac the con lai doc nham nhiet do cua nhau.
+  PLACES.splice(i,1);if(PW)PW.splice(i,1);savePlaces();
+  if(PLACES.length)fetchPlaces();renderScreen();
+}
 function placeUse(i){
   if(PEDIT)return;
   const p=PLACES[i];if(!p)return;
@@ -1880,17 +1886,27 @@ function placeUse(i){
 function placeEditToggle(){PEDIT=!PEDIT;renderScreen();}
 // Open-Meteo nhan nhieu toa do cach nhau dau phay -> mot lan goi cho ca danh sach
 function fetchPlaces(){
-  if(!PLACES.length||PWL)return;PWL=true;
+  const key=placesKey();
+  if(!PLACES.length||(PWL&&PWQ===key))return;
+  PWQ=key;PWL=true;const seq=++PWSEQ;
   const la=PLACES.map(p=>p.la).join(','),lo=PLACES.map(p=>p.lo).join(',');
   fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`)
-    .then(r=>r.json()).then(j=>{PW=Array.isArray(j)?j:[j];PWL=false;renderScreen();})
-    .catch(()=>{PWL=false;});
+    .then(r=>r.json()).then(j=>{
+      // Vua them noi khi luot cu chua ve: ket qua cu it hon mot cot, cac the
+      // se doc lech. Chi nhan luot moi nhat.
+      if(seq!==PWSEQ)return;
+      PW=Array.isArray(j)?j:[j];PWL=false;renderScreen();
+    })
+    .catch(()=>{if(seq===PWSEQ){PWL=false;renderScreen();}});
 }
 function placesBoard(t){
   if(!PLACES.length)return `<div class="pbar"><span class="ptt">${t.placesTtl}</span>
       <button onclick="openCityForm()">+ ${t.placeAdd}</button></div>
-    <div class="note" style="border:none;margin:0 0 14px;padding:0">${t.placeEmpty}</div>`;
-  if(!PW&&!PWL)fetchPlaces();
+    <div class="note" style="border:none;margin:0 0 14px;padding:0">${t.placeEmpty}</div>
+    ${cityFormHtml(t)}`;
+  // Chi goi lai khi danh sach thuc su doi. Truoc day dieu kien la "chua co du lieu",
+  // ma goi hong cung la chua co du lieu -> goi lai mai.
+  if(PWQ!==placesKey()&&!PWL)fetchPlaces();
   const act=loadLoc();
   const cards=PLACES.map((p,i)=>{
     const w=PW&&PW[i],c=w&&w.current,dl=w&&w.daily;
@@ -1908,7 +1924,8 @@ function placesBoard(t){
   return `<div class="pbar"><span class="ptt">${t.placesTtl}</span>
       <span><button onclick="placeEditToggle()">${PEDIT?t.placeDone:t.placeEdit}</button>
       <button onclick="openCityForm()" style="margin-left:14px">+ ${t.placeAdd}</button></span></div>
-    <div class="pbd">${cards}</div>`;
+    <div class="pbd">${cards}</div>
+    ${cityFormHtml(t)}`;
 }
 function loadLoc(){try{return JSON.parse(localStorage.getItem('ldc_loc')||'null')}catch(e){return null}}
 function saveLoc(la,lo){WX=null;TD=null;window._wxAt=0;window._tdAt=0;try{localStorage.setItem('ldc_loc',JSON.stringify({la:+la.toFixed(3),lo:+lo.toFixed(3)}))}catch(e){}}
@@ -1919,24 +1936,33 @@ function cityFormHtml(t){
       <button class="wxbtn" style="margin-top:8px;width:100%" onclick="submitCity()">${t.wxFind}</button>
     </div>`;
 }
-function openCityForm(){
+function openCityForm(again){
   const f=document.getElementById('cityForm');
-  // Man dang xem khong co o tim (vd bam tu bang noi quan tam) -> mo panel Thoi tiet roi thu lai.
-  if(!f){SUBEXP=4;EXPOPEN=true;MAIN=3;renderMainTabs();renderScreen();setTimeout(openCityForm,60);return;}
+  // Man dang xem khong co o tim -> mo panel Thoi tiet roi thu LAI DUNG MOT LAN.
+  // Truoc day cho lai khong gioi han: neu man vua mo cung khong co o tim thi ham
+  // nay tu goi lai moi 60ms, moi lan ve lai ca man hinh VA dat MAIN=3 — app dung
+  // hinh, bam sang tab khac lien bi keo nguoc ve Thoi tiet. Bay gio o tim luon
+  // nam san trong bang noi quan tam nen nhanh nay gan nhu khong con chay toi.
+  if(!f){if(again)return;SUBEXP=4;EXPOPEN=true;MAIN=3;renderMainTabs();renderScreen();
+    setTimeout(()=>openCityForm(true),60);return;}
   f.style.display=f.style.display==='none'?'block':'none';
   if(f.style.display==='block')setTimeout(()=>{const i=document.getElementById('cityIn');if(i)i.focus()},80);
 }
 function submitCity(){
-  const q=(document.getElementById('cityIn')||{}).value||'';
+  const inp=document.getElementById('cityIn'),q=(inp&&inp.value)||'';
   if(!q.trim())return;
   fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q.trim())}&count=1&language=vi`)
     .then(r=>r.json()).then(j=>{
       const r0=j&&j.results&&j.results[0];
       if(!r0){alert(T[LANG].wxNotFound);return;}
-      LOCNAME=r0.name+(r0.admin1?', '+r0.admin1:'');
-      try{localStorage.setItem('ldc_locname',LOCNAME)}catch(e){}
-      placeAdd(LOCNAME,r0.latitude,r0.longitude,false);
-      saveLoc(r0.latitude,r0.longitude);WX=null;TD=null;fetchWeather();fetchTide();
+      const nm=r0.name+(r0.admin1?', '+r0.admin1:'');
+      // Chua co noi nao -> lay luon lam noi dang xem. Da co roi -> chi them vao
+      // bang; muon xem noi moi thi cham vao the cua no (giong app Thoi tiet iOS).
+      const first=!loadLoc();
+      if(!placeAdd(nm,r0.latitude,r0.longitude,false))return;
+      if(first){LOCNAME=nm;try{localStorage.setItem('ldc_locname',nm)}catch(e){}
+        saveLoc(r0.latitude,r0.longitude);WX=null;TD=null;fetchWeather();fetchTide();}
+      renderScreen();
     }).catch(()=>alert(T[LANG].wxNotFound));
 }
 // Open-Meteo /v1/search chỉ tra theo TÊN, không nhận toạ độ — không dùng để tra ngược.
@@ -2054,13 +2080,11 @@ function panelWeather(){
   const t=T[LANG],L=loadLoc();
   if(!L)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
     <button class="locbtn" onclick="askLoc()">${svgIcon('pin',17)} ${t.wxLoc}</button>
-    ${cityFormHtml(t)}
     <div class="note">${t.wxSrc}</div></div>`;
   if(!WX){fetchWeather();return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div><div class="note" style="border:none;margin:0;padding:0">${t.wxLoad}</div></div>`;}
   if(WX.err)return placesBoard(t)+`<div class="card"><h2>${t.wx}</h2><div class="en">Open-Meteo</div>
     <div class="note" style="border:none;margin:0 0 10px;padding:0">${t.wxErr}</div>
-    <button class="locbtn" onclick="WX=null;fetchWeather()">${t.wxRetry}</button>
-    ${cityFormHtml(t)}</div>`;
+    <button class="locbtn" onclick="WX=null;fetchWeather()">${t.wxRetry}</button></div>`;
   const c=WX.current,dl=WX.daily;
   let rows7='';
   for(let i=0;i<7;i++){
@@ -3153,6 +3177,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v45 · c51540ae</div><script>window.LDC_BUILD='ldc-v45 · c51540ae';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v46 · 89487886</div><script>window.LDC_BUILD='ldc-v46 · 89487886';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
