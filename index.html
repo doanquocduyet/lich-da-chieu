@@ -814,7 +814,9 @@
     border-top:1px solid #ffffff20;font-size:14.5px}
   .nextp .k{font-family:var(--fnum)}
   /* Dai hom qua · hom nay · ngay mai — toa do trong thang Tang */
-  .tstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
+  .tstrip{display:grid;grid-template-columns:1.7fr 1fr;gap:8px;margin:0 0 14px}
+  .tstrip .tcell:not(.on){opacity:.75}
+  .tstrip .tcell:not(.on) .tcn{font-size:19px;font-weight:600}
   .tcell{background:#ffffff12;border:1px solid #ffffff1f;border-radius:14px;
     padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
     color:inherit;font-family:inherit;cursor:pointer}
@@ -857,10 +859,12 @@
   .chayline.on .cl2{color:#8C7530}
   .chayline svg{flex:0 0 auto;opacity:.45}
   /* Nut vao trang chi tiet ngay tu trang chu */
-  .daydetail{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
-    margin:-6px 0 14px;padding:12px;border-radius:14px;border:1px solid var(--bd);
-    background:#fff;color:#6E6A5E;font-family:inherit;font-size:14px;cursor:pointer}
-  .daydetail svg{opacity:.5}
+  /* Vien thuoc nho, noi ro trong o dau tien — hoc theo lich pho thong */
+  .daydetail{display:inline-flex;align-items:center;gap:6px;margin:12px auto 0;
+    padding:10px 18px;border-radius:20px;border:1px solid #E9D5C8;
+    background:#FBF3EC;color:var(--red);font-family:inherit;font-size:14px;
+    font-weight:600;cursor:pointer}
+  .daydetail svg{opacity:.6}
   /* Gio Ly Thuan Phong: ten (mau theo tot/xau) — nghia — cap gio */
   .ltp{padding:11px 0;border-bottom:1px solid var(--line2)}
   .ltp:last-of-type{border-bottom:none}
@@ -2677,10 +2681,10 @@ function screenToday(){
     <div class="lu">${lday} ${LANG=='vi'?'tháng '+t.months[lun.month-1]:'· lunar month '+lun.month}${lun.leap?(LANG=='vi'?' (nhuận)':' (leap)'):''}</div>
     <div class="cy">${LANG=='vi'?'Năm':'Year'} ${t.can[cyY[0]]} ${t.chi[cyY[1]]} · ${LANG=='vi'?'ngày':'day'} ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</div>
     <div class="cy alm">${t.heroAlm.replace('{h}',hanhNgay(cyD)).replace('{t}',(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]).replace('{s}',TU28_VI[tu28(lun.jd)])}</div>
+    <div><button class="daydetail" onclick="MODE='day';goCal(1)">${t.dayDetail} ${svgIcon('chevR',14,2.1)}</button></div>
     ${chayLine(d,t)}
   </div>
   ${ccStrip(d,t)}
-  <button class="daydetail" onclick="MODE='day';goCal(1)">${t.dayDetail} ${svgIcon('chevR',15,2)}</button>
   ${weekStrip(d,t)}
   ${specialHtml(d,t)}
   <div class="hubs">
@@ -3715,8 +3719,9 @@ function panelDrukpa(){
   // Dai hom qua · hom nay · ngay mai: cho nguoi dung mot TOA DO trong thang
   // Tang. Voi lich am/Tang thi biet "toi dang o dau" quan trong khong kem
   // biet "hom nay la ngay may".
+  // Chu Duyet: bo "hom qua", tap trung hom nay, ngay mai la phu.
   let dải='';
-  for(const off of [-1,0,1]){
+  for(const off of [0,1]){
     const x=new Date(d);x.setDate(x.getDate()+off);
     let sn='—',dấu=false;
     try{const tb=tibetan(x);sn=String(tb.day)+(tb.leapDay?'*':'');dấu=!!drukSpecialName(tb,t);}catch(e){}
@@ -3864,6 +3869,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v57 · 93232bca</div><script>window.LDC_BUILD='ldc-v57 · 93232bca';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v58 · 155b9643</div><script>window.LDC_BUILD='ldc-v58 · 155b9643';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

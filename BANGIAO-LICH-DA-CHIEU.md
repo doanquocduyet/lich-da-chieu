@@ -1251,3 +1251,14 @@ Cách làm đúng: **chú chụp đủ các trang** (12 trực + 28 sao) từ m�
 tin — sách lịch vạn niên giấy hoặc app chú đang đối chiếu — tôi sẽ nhập nguyên
 văn, soát chính tả, và ghi rõ nguồn trong app. Đó là việc nhập liệu một buổi,
 không phải việc thuật toán.
+
+---
+
+## 25. HAI CHỈNH THEO LỜI CHÚ (V4.6)
+
+1. **"Xem chi tiết ngày" lên ô đầu tiên trang chủ** — viên thuốc màu điểm nhấn,
+   ngay dưới dòng Hành · Trực · Sao, học theo vị trí của lịch phổ thông chú đối
+   chiếu. Bỏ nút cũ dưới dải Can Chi (không để hai nút trùng việc).
+2. **Lịch Tạng bỏ ô "Hôm qua"** — hôm nay là chính (ô to, số vàng), ngày mai là
+   phụ (ô nhỏ, nhạt hơn, vẫn mang chấm ngày thực hành). Nhãn thật thà khi xem
+   ngày khác vẫn giữ: "Đang xem · Sau".
