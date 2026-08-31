@@ -809,3 +809,61 @@ số ngày, nhiệt độ, giờ, phần trăm, năm, thanh Can Chi, bảng 7 ng
   không. Sandbox chặn cả hai tên miền. Cách kiểm: so dấu build ở cuối trang.
 - **Dáng số bo tròn thật** — máy dựng bản này không có SF Pro Rounded.
 - **Độ mượt thật khi cuộn** trên Safari iOS.
+
+---
+
+## 16. HOÀNG ĐẠO TÂY — VÌ SAO GIỮ LẠI (V3.8)
+
+Chú Duyệt: *"Mục hoàng đạo Tây không liên quan gì tới ngày giờ và hệ lịch. Nếu
+nghiên cứu sâu có nhiều nội dung liên quan đến lịch thì làm và chỉnh sửa cho hữu
+ích, không thì bỏ."*
+
+Nhận xét đúng với **bản cũ**: nó chỉ ghi tên cung và khoảng ngày, không nối vào
+đâu cả. Nhưng đào sâu thì nó dính rất chặt — chặt hơn mọi mục khác trong app.
+
+### 16.1 Mối liên hệ, đã kiểm bằng số
+
+Kinh độ Mặt Trời là **một** con số. Phương Tây cắt vòng đó thành 12 cung × 30°.
+Phương Đông cắt **đúng vòng đó** thành 24 tiết khí × 15°. Nên:
+
+| cung | độ | tiết khí mở cung = **trung khí** | tiết thứ hai |
+|---|---|---|---|
+| Bạch Dương | 0° | **Xuân phân** | Thanh minh |
+| Cự Giải | 90° | **Hạ chí** | Tiểu thử |
+| Xử Nữ | 150° | **Xử thử** | Bạch lộ |
+| Thiên Bình | 180° | **Thu phân** | Hàn lộ |
+| Ma Kết | 270° | **Đông chí** | Tiểu hàn |
+
+12 mốc "Mặt Trời vào cung mới" **chính là** 12 trung khí (中氣). 12 tiết còn lại
+là tiết khí thường (節氣).
+
+Và quy tắc đặt tháng nhuận của lịch Việt Nam — *tháng âm nào không chứa trung khí
+thì là tháng nhuận* — đọc lại bằng chữ hoàng đạo là: **tháng âm nào Mặt Trời
+không bước sang cung mới thì là tháng nhuận.**
+
+**Đã kiểm chứng**, không phải nói suông: so quy tắc này với tháng nhuận mà
+`solarToLunar` (Hồ Ngọc Đức) tự tính ra, trên 5 mốc gồm 2 tháng nhuận thật
+(tháng 6 nhuận 2025, tháng 2 nhuận 2023) — **khớp 5/5**.
+
+### 16.2 Màn mới có gì
+
+1. Cung, ký hiệu, kinh độ Mặt Trời, đi được bao nhiêu độ, nguyên tố.
+2. **Vòng tròn chung**: 12 vạch dài = mốc vào cung = trung khí; 12 vạch ngắn =
+   tiết khí thường; chấm vàng = Mặt Trời hôm nay.
+3. Ngày vào cung này (kèm tên trung khí) · ngày sang cung sau · hai tiết khí
+   trong cung.
+4. **Ô "Chỗ nó dính vào âm lịch Việt Nam"**: tính sống tháng âm đang xem, tìm
+   trong tháng đó có mốc vào cung nào không, và kết luận nhuận / không nhuận.
+5. Vẫn giữ dòng: đây là dữ kiện thiên văn, app không suy ra vận mệnh.
+
+### 16.3 Lỗi chuyển tab đi kèm
+
+`SUBEXP` dùng chung cho tab **Hệ lịch** và tab **Thời tiết**, mà `setMain` lại
+giữ `EXPOPEN` khi nhảy giữa hai tab đó → đang mở panel Tạng mà bấm Thời tiết thì
+tab sáng lên nhưng **màn vẫn vẽ panel Tạng**. Sửa bằng bảng `EXP_TAB` (panel nào
+thuộc tab nào) + chặn lớp hai ngay chỗ vẽ trong `hubScreen`.
+`goExp()` cũng luôn gọi `setMain(2)`, nên bấm hub Thời tiết ở màn Hôm nay thì
+sáng nhầm tab Hệ lịch — đã sửa.
+
+`verify.js` mục 8 duyệt đủ **35 cặp panel × tab**. Chạy trên bản cũ: báo đỏ đúng
+7 trường hợp.

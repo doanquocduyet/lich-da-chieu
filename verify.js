@@ -226,8 +226,25 @@ function serve(root) {
     ['Chỉ có đúng một ô nhập #cityForm trên màn', board.dup <= 1],
   ];
 
+  // ── 8. Dang mo mot panel, bam sang tab khac thi PHAI qua ────────────────
+  // SUBEXP dung chung cho tab He lich va tab Thoi tiet. Truoc day setMain giu
+  // EXPOPEN khi nhay giua hai tab do -> dang o panel Tang ma bam Thoi tiet thi
+  // van thay panel Tang. Chu Duyet bao dung canh nay.
+  const tabs = await page.evaluate(() => {
+    const own = { 0:2, 1:2, 2:2, 3:2, 4:3, 5:3, 6:2 }, bad = [];
+    const NM = ['trăng','vũ trụ','phật','tạng','thời tiết','triều','hoàng đạo'];
+    for (const se of [0,1,2,3,4,5,6]) for (const to of [0,1,2,3,4]) {
+      goExp(se); setMain(to);
+      if (MAIN !== to) bad.push(`ở panel ${NM[se]}, bấm tab ${to} → vẫn ở tab ${MAIN}`);
+      else if (EXPOPEN && !(to === own[se] && SUBEXP === se))
+        bad.push(`ở panel ${NM[se]}, bấm tab ${to} → tab ${to} vẫn vẽ panel ${NM[SUBEXP]}`);
+    }
+    setMain(0);
+    return bad;
+  });
+
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0;
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0;
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -243,6 +260,9 @@ function serve(root) {
   console.log('7. Bo tròn ............... ' + (sharp.size
     ? '✗ còn ' + sharp.size + ' chỗ nhọn:\n   ' + [...sharp].join('\n   ')
     : '✓ không còn ký tự nhọn ở nút, không còn nét cắt vuông'));
+  console.log('8. Chuyển tab ............ ' + (tabs.length
+    ? '✗ ' + tabs.length + '/35 sai:\n   ' + tabs.slice(0, 8).join('\n   ')
+    : '✓ cả 35 trường hợp panel × tab đều chuyển đúng'));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();
