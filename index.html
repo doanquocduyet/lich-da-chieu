@@ -847,17 +847,6 @@
   .k2b{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-bottom:12px}
   body.sk-tib .more{background:#ffffff0d;border-color:#ffffff20}
   body.sk-tib .more summary{color:#E8C98B}
-  /* Dong an chay o mat tien: im lang, khong to mau ruc, van cham duoc */
-  .chayline{display:inline-flex;align-items:center;gap:8px;margin:12px auto 0;
-    padding:9px 14px;border-radius:20px;border:1px solid #E4DAC2;background:#F6F2E7;
-    font-family:inherit;font-size:14px;color:#7A6E56;cursor:pointer;max-width:100%}
-  .chayline.on{background:#EFE2BE;border-color:#DCC48D;color:#6E5210}
-  .chayline .cst{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
-  .chayline .cl1{font-weight:600;white-space:nowrap}
-  .chayline .cl2{color:#9A8E75;font-family:var(--fnum);white-space:nowrap;
-    overflow:hidden;text-overflow:ellipsis}
-  .chayline.on .cl2{color:#8C7530}
-  .chayline svg{flex:0 0 auto;opacity:.45}
   /* Nut vao trang chi tiet ngay tu trang chu */
   /* Vien thuoc nho, noi ro trong o dau tien — hoc theo lich pho thong */
   .daydetail{display:inline-flex;align-items:center;gap:6px;margin:12px auto 0;
@@ -2682,7 +2671,6 @@ function screenToday(){
     <div class="cy">${LANG=='vi'?'Năm':'Year'} ${t.can[cyY[0]]} ${t.chi[cyY[1]]} · ${LANG=='vi'?'ngày':'day'} ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</div>
     <div class="cy alm">${t.heroAlm.replace('{h}',hanhNgay(cyD)).replace('{t}',(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]).replace('{s}',TU28_VI[tu28(lun.jd)])}</div>
     <div><button class="daydetail" onclick="MODE='day';goCal(1)">${t.dayDetail} ${svgIcon('chevR',14,2.1)}</button></div>
-    ${chayLine(d,t)}
   </div>
   ${ccStrip(d,t)}
   ${weekStrip(d,t)}
@@ -3387,7 +3375,7 @@ function panelVanNien(){
   let lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   let cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
   let nf=daysToLunarDay(d,15),nn=daysToLunarDay(d,1);
-  return `${chayĐãChọn()?`<div style="text-align:center">${chayLine(d,t)}</div><div style="height:12px"></div>`:''}<div class="card">
+  return `<div class="card">
     <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Lunisolar calendar'}</div>
     <div class="big">${lun.day}/${lun.month}${lun.leap?'*':''}<small>${t.lunar} · ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</small></div>
     <div class="row"><span class="k">${t.solar}</span><span class="v">${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>
@@ -3467,23 +3455,6 @@ function panelCanChi(){
 // ma app truoc do khong tra loi. Bon loi giu chay pho bien o chua Viet:
 const CHAY=[[1,15],[1,14,15,30],[8,14,15,23,29,30],[1,8,14,15,18,23,24,28,29,30],null];
 let CHAYMODE=(function(){try{const v=localStorage.getItem('ldc_chay');return v===null?3:+v}catch(e){return 3}})();
-// Da tu chon loi giu chay chua? Chua chon thi app KHONG mac dinh coi ai cung
-// giu chay — mat tien im lang, dung nhu ngay thuong.
-function chayĐãChọn(){try{return localStorage.getItem('ldc_chay')!==null}catch(e){return false}}
-function chayLine(d,t){
-  if(!chayĐãChọn())return '';
-  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
-  const len=lunarMonthLen(d),days=chayDays(CHAYMODE,len);
-  const là=CHAYMODE===4||(days&&days.indexOf(lun.day)>=0);
-  const kế=nextChay(d,CHAYMODE);
-  const phụ=là?'':(kế?(kế.n===1?t.chayTmr:t.chayNext.replace('{n}',kế.n))
-      .replace('{d}',lunarDayName(kế.day,kế.len,t)):'');
-  const nay=sameDay(d,new Date());
-  return `<button class="chayline ${là?'on':''}" onclick="goExp(2)">
-    <span class="cst"><span class="cl1">${CHAYMODE===4?t.chayEvery:(là?(nay?t.chayYes:t.chayYesD):(nay?t.chayNo:t.chayNoD))}</span>
-    ${phụ?`<span class="cl2">${phụ}</span>`:''}</span>${svgIcon('chevR',15,2)}</button>`;
-}
-function setChay(i){CHAYMODE=i;try{localStorage.setItem('ldc_chay',i)}catch(e){}renderScreen();}
 function lunarMonthLen(d){const sp=lunarMonthSpan(d);return Math.round((sp[1]-sp[0])/864e5)+1;}
 // Thang thieu (29 ngay) thi ngay 30 giu vao ngay 29 — ngay cuoi thang.
 function chayDays(mode,len){
@@ -3869,6 +3840,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v58 · 155b9643</div><script>window.LDC_BUILD='ldc-v58 · 155b9643';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v59 · c0e3d7f4</div><script>window.LDC_BUILD='ldc-v59 · c0e3d7f4';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

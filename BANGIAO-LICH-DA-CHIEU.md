@@ -1262,3 +1262,23 @@ không phải việc thuật toán.
 2. **Lịch Tạng bỏ ô "Hôm qua"** — hôm nay là chính (ô to, số vàng), ngày mai là
    phụ (ô nhỏ, nhạt hơn, vẫn mang chấm ngày thực hành). Nhãn thật thà khi xem
    ngày khác vẫn giữ: "Đang xem · Sau".
+
+---
+
+## 26. NGÀY CHAY VỀ ĐÚNG NHÀ (V4.7)
+
+Chú Duyệt: *"vụ ngày chay để lịch Phật, liên quan gì trang chủ."*
+
+Đã gỡ dòng ăn chay khỏi **trang chủ** (thêm ở §21) và khỏi phần vạn niên của
+trang chi tiết. Ngày chay giờ chỉ sống trong **Lịch Phật** — gồm hub Phật giáo
+và phần Phật giáo bên trong trang "Xem chi tiết ngày" (trang đó xếp chồng cả
+bốn phần vạn niên + can chi + Phật + Tạng, nên chay xuất hiện ở đó là đúng nhà).
+
+Hàm `chayLine` + `chayĐãChọn` + CSS `.chayline` hết người dùng → **xoá hẳn**
+(luật chống code chết §18). Bộ máy tính ngày chay giữ nguyên — hub Phật vẫn
+đầy đủ: chọn lối giữ chay, trạng thái hôm nay, ngày chay tới, lưới tháng.
+
+**Ghi chú cho bản sau:** phép đo §21 ("118 ngày chay, mặt tiền nhắc 0") từng là
+lý do đưa chay lên trang chủ. Chủ app đã quyết khác — trang chủ là màn đa lăng
+kính, chay là chuyện riêng của lăng kính Phật, cách đúng một cú chạm. **Đừng
+"sửa lại" chuyện này như thể nó là lỗi.**
