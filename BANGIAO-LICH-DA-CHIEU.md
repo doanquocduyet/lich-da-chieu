@@ -1143,3 +1143,47 @@ nào giả lập. Đây là chỗ **phải có người thật**, và là việc
 
 Quy trình test đã ghi ở §13. `window.getStats()` trong Console đọc được số lần
 mở từng tab, để chú đối chiếu với những gì người ta *nói*.
+
+---
+
+## 22. "XEM CHI TIẾT NGÀY" — TRANG LỊCH VẠN NIÊN ĐẦY ĐỦ (V4.3)
+
+Chú Duyệt gửi ảnh một app lịch vạn niên phổ thông (nhiều quảng cáo) và nói:
+*"Số đông xem lịch trang chủ sẽ thích và muốn xem những thông tin này. Nên thêm
+một nút Xem chi tiết, trong đó có đầy đủ thông tin này."*
+
+### 22.1 Phần lớn đã có sẵn, chỉ thiếu lối vào
+
+Panel Can Chi (tab Lịch → Ngày) **đã tính sẵn**: 4 trụ can chi, nạp âm, trực
+thần (hoàng đạo/hắc đạo), 12 trực, 28 tú (cát/hung), tuổi xung, 12 giờ hoàng
+đạo. Cái thiếu là (a) hai mục phổ thông chưa có, và (b) **lối vào từ trang chủ**.
+
+Đã thêm:
+- **Nút "Xem chi tiết ngày"** ngay dưới dải Can Chi trên trang chủ →
+  `MODE='day'; goCal(1)` — mang theo đúng ngày đang xem. (Lỗi lần đầu: quên
+  đặt `MODE='day'` nên rơi vào màn Tháng.)
+- **Giờ Lý Thuần Phong** (6 giờ: Đại An, Tốc Hỷ, Lưu Niên, Xích Khẩu, Tiểu Cát,
+  Tuyệt Lộ). Công thức: `(tháng âm + ngày âm − 2 + giờ) mod 6`, khởi Đại An tại
+  Tý.
+- **Hướng xuất hành**: Hỷ thần + Tài thần theo can ngày (bảng Ngọc hạp thông
+  thư bản phổ biến). **Không làm Hạc thần** — chu kỳ 60 ngày lang thang nhiều
+  dị bản, không có nguồn kiểm được thì không ship (§8).
+- **Dòng tiết khí** hiện tại + ngày sang tiết kế.
+
+### 22.2 Kiểm chứng — ảnh của chú chính là bộ số đối chiếu
+
+Ngày 31/8/2026 (19/7 âm, Đinh Sửu), so với ảnh lịch phổ thông:
+
+- **12/12 giờ Lý Thuần Phong khớp** (Tý=Đại An … Hợi=Tuyệt Lộ)
+- **Hỷ thần Nam ✓ · Tài thần Đông ✓**
+- Khớp chéo phần có sẵn: **Minh Đường · ngày hoàng đạo ✓ · Trực Chấp ✓**
+
+→ 14/14 + 2 đối chứng. Bộ số này ghi lại trong comment ngay trên công thức.
+
+### 22.3 Giữ đúng lập trường câu chữ
+
+Lời giải của 6 giờ viết MỘT dòng mô tả ("dễ cãi cọ, miệng tiếng"), không chép
+đoạn văn phán dài của app phổ thông ("Nghiệp khó thành, cầu tài mờ mịt…").
+Ghi chú dưới mỗi mục: *"App thuật lại nguyên văn cách sách xếp — không khuyên
+việc riêng của bạn"*, và *"Riêng Tài thần mỗi sách một dị bản"*. Số đông có đủ
+thông tin họ quen xem; app không biến thành thầy phán.

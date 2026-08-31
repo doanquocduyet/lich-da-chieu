@@ -855,6 +855,17 @@
     overflow:hidden;text-overflow:ellipsis}
   .chayline.on .cl2{color:#8C7530}
   .chayline svg{flex:0 0 auto;opacity:.45}
+  /* Nut vao trang chi tiet ngay tu trang chu */
+  .daydetail{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+    margin:-6px 0 14px;padding:12px;border-radius:14px;border:1px solid var(--bd);
+    background:#fff;color:#6E6A5E;font-family:inherit;font-size:14px;cursor:pointer}
+  .daydetail svg{opacity:.5}
+  /* Gio Ly Thuan Phong: ten (mau theo tot/xau) — nghia — cap gio */
+  .ltp{padding:11px 0;border-bottom:1px solid var(--line2)}
+  .ltp:last-of-type{border-bottom:none}
+  .ltp .ln{font-weight:700;font-size:15px}
+  .ltp .lm{font-size:13px;color:var(--muted);margin-left:8px}
+  .ltp .lh{display:block;font-size:13.5px;color:var(--ink);margin-top:4px;font-family:var(--fnum)}
   .zrow{display:block !important;padding:11px 0}
   .zrow .k{display:block;margin-bottom:5px;text-align:left}
   .zrow .v{display:block;text-align:left;max-width:none}
@@ -1054,6 +1065,16 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   chi:["Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi","Thân","Dậu","Tuất","Hợi"],
   animals:["Chuột","Trâu","Hổ","Mèo","Rồng","Rắn","Ngựa","Dê","Khỉ","Gà","Chó","Lợn"],
   napam:["Hải Trung Kim","Lư Trung Hỏa","Đại Lâm Mộc","Lộ Bàng Thổ","Kiếm Phong Kim","Sơn Đầu Hỏa","Giản Hạ Thủy","Thành Đầu Thổ","Bạch Lạp Kim","Dương Liễu Mộc","Tuyền Trung Thủy","Ốc Thượng Thổ","Tích Lịch Hỏa","Tùng Bách Mộc","Trường Lưu Thủy","Sa Trung Kim","Sơn Hạ Hỏa","Bình Địa Mộc","Bích Thượng Thổ","Kim Bạch Kim","Phú Đăng Hỏa","Thiên Hà Thủy","Đại Trạch Thổ","Thoa Xuyến Kim","Tang Đố Mộc","Đại Khê Thủy","Sa Trung Thổ","Thiên Thượng Hỏa","Thạch Lựu Mộc","Đại Hải Thủy"],
+  dayDetail:"Xem chi tiết ngày",
+  ltpTitle:"Giờ Lý Thuần Phong",ltpGood:"giờ tốt",ltpBad:"giờ xấu",
+  ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
+  ltpMean:["mọi việc yên ổn, bền chắc","tin vui đến nhanh","việc kéo dài, chậm mà chắc",
+    "dễ cãi cọ, miệng tiếng","thuận lợi, hòa hợp","cầu gì cũng khó, nên chờ"],
+  ltpNote:"Sáu giờ luân phiên theo tháng và ngày âm lịch, cách tính Lý Thuần Phong trong sách lịch cổ. App thuật lại nguyên văn cách sách xếp — không khuyên việc riêng của bạn.",
+  xhTitle:"Hướng xuất hành",hyThan:"Hỷ thần",taiThan:"Tài thần",
+  dir8:["Bắc","Đông Bắc","Đông","Đông Nam","Nam","Tây Nam","Tây","Tây Bắc"],
+  xhNote:"Hướng thần theo can của ngày, bản phổ biến trong sách Ngọc hạp thông thư. Riêng Tài thần mỗi sách một dị bản.",
+  termRow:"Tiết khí",termNext2:"sang {t} sau {n} ngày",
   chayTtl:"Ăn chay",chayAsk:"Bạn giữ chay theo lối nào?",
   chayNames:["Nhị trai","Tứ trai","Lục trai","Thập trai","Chay trường"],
   chayYes:"Hôm nay là ngày chay",chayNo:"Hôm nay không phải ngày chay",
@@ -1237,6 +1258,16 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   chi:["Zǐ","Chǒu","Yín","Mǎo","Chén","Sì","Wǔ","Wèi","Shēn","Yǒu","Xū","Hài"],
   animals:["Rat","Ox","Tiger","Cat","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"],
   napam:["Gold in the Sea","Fire in the Furnace","Wood of the Forest","Earth by the Road","Metal of the Sword","Fire on the Hilltop","Water in the Stream","Earth on the Wall","Metal of the Wax","Wood of the Willow","Water of the Spring","Earth on the Roof","Thunderbolt Fire","Wood of Pine & Cypress","Long-flowing Water","Metal in the Sand","Fire at the Foot of the Hill","Wood of the Plain","Earth of the Wall","Metal of Foil","Lamp Fire","Water of the Milky Way","Earth of the Homestead","Metal of Ornaments","Wood of the Mulberry","Water of the Great Stream","Earth in the Sand","Fire in the Sky","Wood of the Pomegranate","Water of the Great Sea"],
+  dayDetail:"Full day details",
+  ltpTitle:"Lý Thuần Phong hours",ltpGood:"favorable",ltpBad:"unfavorable",
+  ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
+  ltpMean:["calm and steady","good news comes quickly","slow, drawn out",
+    "quarrels and gossip","small smooth luck","hard to attain; better wait"],
+  ltpNote:"Six hour-signs rotating with the lunar month and day — the Lý Thuần Phong method of old almanacs. The app relays the almanac verbatim; it gives no personal advice.",
+  xhTitle:"Auspicious directions",hyThan:"Joy god (Hỷ thần)",taiThan:"Wealth god (Tài thần)",
+  dir8:["North","Northeast","East","Southeast","South","Southwest","West","Northwest"],
+  xhNote:"Directions follow the day stem, per the common Ngọc hạp thông thư tables. Wealth-god tables vary between almanacs.",
+  termRow:"Solar term",termNext2:"{t} in {n} days",
   chayTtl:"Vegetarian days",chayAsk:"Which schedule do you keep?",
   chayNames:["2 days","4 days","6 days","10 days","Every day"],
   chayYes:"Today is a vegetarian day",chayNo:"Today is not a vegetarian day",
@@ -1906,6 +1937,19 @@ async function shareDay(){
 function openDetail(){VIEW=new Date();syncGYM();DETAIL=true;MAIN=1;renderMainTabs();renderScreen();window.scrollTo(0,0);}
 function closeDetail(){DETAIL=false;renderScreen();window.scrollTo(0,0);}
 // thanh can chi GIỜ | NGÀY | THÁNG | NĂM — giờ chạy theo đồng hồ thật
+// ═══ GIO LY THUAN PHONG & HUONG XUAT HANH ═══════════════════════════════
+// Sau gio luan phien: (thang am + ngay am - 2 + gio) mod 6, khoi Dai An tai Ty.
+// Thu tu: Dai An, Toc Hy, Luu Nien, Xich Khau, Tieu Cat, Tuyet Lo.
+// DOI CHIEU: ngay 19/7 am (31/8/2026) lich van nien pho thong ghi Ty=Dai An,
+// Suu=Toc Hy, Dan=Luu Nien, Mao=Xich Khau, Thin=Tieu Cat, Ty.=Tuyet Lo,
+// Ngo=Dai An — cong thuc nay ra dung ca 12 gio.
+const LTP_GOOD=[1,1,0,0,1,0];
+function ltpBase(lun){return ((lun.month+lun.day-2)%6+6)%6;}
+// Huong than theo CAN ngay (idx dir8: 0 Bac..7 Tay Bac).
+// Hy than: Giap/Ky DB, At/Canh TB, Binh/Tan TN, Dinh/Nham N, Mau/Quy DN.
+// DOI CHIEU: ngay Dinh Suu -> Hy=Nam, Tai=Dong (khop lich pho thong).
+const HY_THAN=[1,7,5,4,3,1,7,5,4,3];
+const TAI_THAN=[3,3,2,2,0,0,5,5,6,6];
 function ccStrip(d,t){
   const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   const cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
@@ -2603,6 +2647,7 @@ function screenToday(){
     ${chayLine(d,t)}
   </div>
   ${ccStrip(d,t)}
+  <button class="daydetail" onclick="MODE='day';goCal(1)">${t.dayDetail} ${svgIcon('chevR',15,2)}</button>
   ${weekStrip(d,t)}
   ${specialHtml(d,t)}
   <div class="hubs">
@@ -3355,6 +3400,26 @@ function panelCanChi(){
     <h2>${t.hoursTitle}</h2><div class="en">
       <span class="tag jade">${t.luckyLabel}</span><span class="tag" style="color:var(--muted);border:1px solid var(--line)">${t.blackLabel}</span></div>
     <div class="hours">${hoursHtml}</div>
+  </div>
+  <div class="card">
+    <h2>${t.ltpTitle}</h2><div class="en">${LANG=='vi'?'6 giờ luân phiên theo ngày âm':'Six rotating hour-signs'}</div>
+    ${(function(){
+      const base=ltpBase(lun);let out='';
+      for(let k=0;k<6;k++){
+        const h1=((k-base)%6+6)%6,h2=h1+6,good=LTP_GOOD[k];
+        out+=`<div class="ltp"><span class="ln" style="color:${good?'#3E7A4E':'#A05436'}">${t.ltpNames[k]}</span>
+          <span class="lm">${t.ltpMean[k]}</span>
+          <span class="lh">${t.chi[h1]} ${hourRange(h1)} · ${t.chi[h2]} ${hourRange(h2)}</span></div>`;
+      }
+      return out;})()}
+    <div class="note">${t.ltpNote}</div>
+  </div>
+  <div class="card">
+    <h2>${t.xhTitle}</h2><div class="en">${LANG=='vi'?'Theo can của ngày':'By the day stem'}</div>
+    <div class="row"><span class="k">${t.hyThan}</span><span class="v"><b>${t.dir8[HY_THAN[cyD[0]]]}</b></span></div>
+    <div class="row"><span class="k">${t.taiThan}</span><span class="v"><b>${t.dir8[TAI_THAN[cyD[0]]]}</b></span></div>
+    <div class="row"><span class="k">${t.termRow}</span><span class="v"><b>${t.terms[currentTermIdx(lun.jd)]}</b> · ${t.termNext2.replace('{t}',t.terms[nextTerm(d).idx]).replace('{n}',nextTerm(d).days)}</span></div>
+    <div class="note">${t.xhNote}</div>
   </div>`;
 }
 
@@ -3759,6 +3824,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v54 · 795ed290</div><script>window.LDC_BUILD='ldc-v54 · 795ed290';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v55 · 67c754bf</div><script>window.LDC_BUILD='ldc-v55 · 67c754bf';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
