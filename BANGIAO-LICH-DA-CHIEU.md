@@ -1220,3 +1220,34 @@ hở thật — và hai chỗ **app đang nói dối** khi xem ngày khác.
   **"Ngày đang xem"**. Dòng chay cũng thôi nói "Hôm nay" khi xem ngày khác.
 
 Quy tắc rút ra: **chữ "hôm nay" chỉ được xuất hiện khi `sameDay(VIEW, new Date())`.**
+
+---
+
+## 24. TÊN ĐẦY ĐỦ 28 SAO — VÀ RANH GIỚI DỮ LIỆU (V4.5)
+
+Chú Duyệt gửi thêm ảnh trang chi tiết sao/trực của app phổ thông. Ảnh cho hai
+bộ số đối chiếu mới, cả hai app đều **khớp tuyệt đối**:
+
+- **Giờ hoàng đạo** ngày Đinh Sửu: Dần, Mão, Tỵ, Thân, Tuất, Hợi — app khớp 6/6.
+- **Sao Nguy = "Nguy Nguyệt Yến, chủ trị ngày thứ 2"** — tức thất diệu của sao
+  phải trùng thứ trong tuần. Quét 3650 ngày liên tiếp: **0 lệch**. Chu kỳ 28 sao
+  của app chuẩn, nên ghép tên đầy đủ là an toàn.
+
+### 24.1 Đã thêm
+
+Dòng Sao trong trang chi tiết giờ ghi đủ ba thành phần truyền thống:
+**Nguy Nguyệt Yến · tướng tinh chim én · chủ trị thứ hai** (khớp từng chữ với
+lịch phổ thông). Tên = [tên sao] + [thất diệu, suy từ chỉ số mod 7] + [tướng
+tinh theo bảng mục truyền thống Giác Mộc Giao … Chẩn Thủy Dẫn].
+
+### 24.2 Thứ CỐ Ý CHƯA làm — cần chú cấp nguồn
+
+Các trang **"Nên làm / Kiêng cử / Ngoại lệ"** của 12 trực và 28 sao, cùng bài
+thơ cổ mỗi sao. Đây là **văn bản tra cứu tôn giáo–văn hóa**; tôi nhớ được đại ý
+nhưng không dám chép từ trí nhớ — sai một dòng "kiêng cử" với đúng nhóm người
+dùng này là hỏng lòng tin cả app (§8).
+
+Cách làm đúng: **chú chụp đủ các trang** (12 trực + 28 sao) từ một nguồn chú
+tin — sách lịch vạn niên giấy hoặc app chú đang đối chiếu — tôi sẽ nhập nguyên
+văn, soát chính tả, và ghi rõ nguồn trong app. Đó là việc nhập liệu một buổi,
+không phải việc thuật toán.

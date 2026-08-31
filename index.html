@@ -1963,6 +1963,21 @@ const TAI_THAN=[3,3,2,2,0,0,5,5,6,6];
 // Hanh (ngu hanh nap am) cua ngay: chu cuoi cua ten nap am tieng Viet —
 // "Hai Trung Kim" -> Kim. Khong lay tu ban EN ("Gold in the Sea" -> "Sea").
 const HANH_EN={'Kim':'Metal','Mộc':'Wood','Thủy':'Water','Hỏa':'Fire','Thổ':'Earth'};
+const TU28_DIEU=['Mộc','Kim','Thổ','Nhật','Nguyệt','Hỏa','Thủy'];
+const TU28_DIEU_EN=['Jupiter','Venus','Saturn','Sun','Moon','Mars','Mercury'];
+const TU28_TUONG=['giao long','rồng','con lạc','thỏ','cáo','hổ','báo',
+ 'con giải','trâu','dơi','chuột','chim én','heo','con du',
+ 'sói','chó','chim trĩ','gà','quạ','khỉ','vượn',
+ 'con hãn','dê','hoẵng','ngựa','hươu','rắn','giun đất'];
+const TU28_TUONG_EN=['flood dragon','dragon','raccoon-dog','hare','fox','tiger','leopard',
+ 'xiezhi','ox','bat','rat','swallow','pig','yayu',
+ 'wolf','dog','pheasant','rooster','crow','monkey','gibbon',
+ 'han','sheep','roe deer','horse','deer','snake','earthworm'];
+function tu28Full(i){
+  return LANG=='vi'
+    ? TU28_VI[i]+' '+TU28_DIEU[i%7]+' '+({'giao long':'Giao','rồng':'Long','con lạc':'Lạc','thỏ':'Thỏ','cáo':'Hồ','hổ':'Hổ','báo':'Báo','con giải':'Giải','trâu':'Ngưu','dơi':'Bức','chuột':'Thử','chim én':'Yến','heo':'Trư','con du':'Du','sói':'Lang','chó':'Cẩu','chim trĩ':'Trĩ','gà':'Kê','quạ':'Ô','khỉ':'Hầu','vượn':'Viên','con hãn':'Hãn','dê':'Dương','hoẵng':'Chương','ngựa':'Mã','hươu':'Lộc','rắn':'Xà','giun đất':'Dẫn'})[TU28_TUONG[i]]
+    : TU28_VI[i]+' · '+TU28_DIEU_EN[i%7];
+}
 function hanhNgay(cyD){
   const h=T.vi.napam[napAm(cyD[0],cyD[1])].split(' ').pop();
   return LANG=='vi'?h:(HANH_EN[h]||h);
@@ -3409,7 +3424,8 @@ function panelCanChi(){
     <div class="row"><span class="k">${t.zodiac}</span><span class="v">${t.animals[cyY[1]]}</span></div>
     <div class="row"><span class="k">${t.hdLbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('hd')">ⓘ</i></span><span class="v"><b style="color:${dayHoangDao(d).good?'#C9702A':'#6E6A5E'}">${dayHoangDao(d).god}</b> · ${dayHoangDao(d).good?t.hdGood:t.hdBad}</span></div>
     <div class="row"><span class="k">${t.trucLbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('truc')">ⓘ</i></span><span class="v"><b>${(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]}</b></span></div>
-    <div class="row"><span class="k">${t.tu28Lbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('tu28')">ⓘ</i></span><span class="v"><b>${TU28_VI[tu28(lun.jd)]}</b> · ${TU28_CAT[tu28(lun.jd)]?t.catTu:t.hungTu}</span></div>
+    <div class="row zrow"><span class="k">${t.tu28Lbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('tu28')">ⓘ</i></span><span class="v"><b>${tu28Full(tu28(lun.jd))}</b> · ${TU28_CAT[tu28(lun.jd)]?t.catTu:t.hungTu}<br>
+      <span style="color:var(--muted);font-size:13px">${LANG=='vi'?'tướng tinh '+TU28_TUONG[tu28(lun.jd)]+' · chủ trị '+t.weekdays[d.getDay()].toLowerCase():'totem: '+TU28_TUONG_EN[tu28(lun.jd)]+' · governs '+t.weekdays[d.getDay()]}</span></span></div>
     <div class="row"><span class="k">${t.xungLbl}</span><span class="v">${t.xungTxt.replace('{a}',t.chi[ccDay(lun.jd)[1]]).replace('{b}',t.chi[chiXung(ccDay(lun.jd)[1])])}</span></div>
     <div class="row"><span class="k">${t.xungMLbl}</span><span class="v">${t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])}</span></div>
     <div class="note" style="margin-top:10px">${t.trucNote}</div>
@@ -3848,6 +3864,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v56 · be1ebba0</div><script>window.LDC_BUILD='ldc-v56 · be1ebba0';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v57 · 93232bca</div><script>window.LDC_BUILD='ldc-v57 · 93232bca';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
