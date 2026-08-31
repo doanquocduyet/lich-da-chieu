@@ -1075,3 +1075,71 @@ spec báo đỏ oan. Yêu cầu của spec là **app CÓ thông tin đó**, khô
 luôn mở sẵn — và dòng ghi nguồn `drukNote` (kèm cảnh báo Drukpa/Bhutan theo
 Tsurphu nên ngày có thể lệch) **vẫn luôn hiện**. Đã cho `verify.js` mở hết
 `<details>` trước khi đọc. Cùng một bài học với `content-visibility` ở §18.
+
+---
+
+## 21. CHẠY 5 BÀI THỬ BẰNG MÁY — VÀ MỘT LỖ HỔNG ĐO ĐƯỢC (V4.2)
+
+Bản nghiên cứu tiếp theo đề ra 5 bài thử người dùng và kết luận **đừng thêm UI
+nữa, hãy đi test người thật**. Tôi đồng ý. Nhưng bốn trong năm bài đó **máy đo
+được một phần** — và làm vậy thì không rơi vào bẫy "AI tự chấm AI".
+
+### 21.1 Bài thử 4 — "ngày mà mọi thứ xảy ra cùng lúc"
+
+Quét 400 ngày tìm ngày chồng chất nhất:
+
+```
+20/2/2027  Rằm + Rằm tháng Giêng + ngày chay + Chötrul Düchen
+ 6/2/2027  Mùng Một + Vía Di Lặc (Tết) + ngày chay + Ngày Phật Thích Ca
+```
+
+Rồi quét **cả năm** xem màn "Hôm nay" có trả lời câu hỏi của hai khách hàng
+chính không:
+
+| | trước V4.2 | sau |
+|---|---|---|
+| **118 ngày ăn chay** → mặt tiền nhắc | **0 ngày (0%)** | 118 (100%) khi đã chọn lối giữ chay |
+| **72 ngày thực hành Tạng** → mặt tiền nhắc | 55 (76%) | **66 (92%)** |
+| ngày im lặng hoàn toàn | 262 (72%) | 253 (69%) |
+
+**Câu hỏi số một của khách hàng chính không hề có ở cửa trước.** Phải bấm
+Hệ lịch → Phật giáo mới thấy. Đây không phải suy đoán — 0/118 là con số đếm được.
+
+### 21.2 Lỗi thứ hai: danh sách chép tay bị lệch
+
+Mục "điểm nhấn" ngày thực hành Tạng chép tay `[8,10,15,25,30]` — **thiếu ngày
+29 (Hộ pháp)**, lệch với bảng dữ liệu thật `drukDays{8,10,15,25,29,30}`.
+Đã đổi sang gọi thẳng `drukSpecialName()` nên hai chỗ không thể lệch nữa.
+Đó là lý do con số nhảy 76% → 92%.
+
+### 21.3 Cách sửa — và một quyết định về sự tôn trọng
+
+Ngày ăn chay **không phải "tin đặc biệt"** để nhét vào ô điểm nhấn. Nó là việc
+tu của riêng người đó. Nên:
+
+> **Dòng ăn chay ở mặt tiền chỉ hiện khi người dùng đã TỰ CHỌN lối giữ chay.**
+
+App không mặc định coi ai cũng giữ chay. Chưa chọn → mặt tiền im lặng đúng như
+ngày thường. Đã chọn → mỗi sáng mở ra là thấy, và ngày không chay thì nó nói
+luôn ngày chay tới còn mấy hôm.
+
+Đo trên màn hình thật, 365 ngày:
+
+| người dùng | kết quả |
+|---|---|
+| chưa chọn | mặt tiền **im lặng** — đúng |
+| chọn Thập trai | 118/118 ngày đều nhắc |
+| chọn Nhị trai | 24/24, ngày thường ghi *"Ngày chay tới · Mùng Một · còn 12 ngày"* |
+| chọn Chay trường | *"Ngày nào cũng là ngày chay"*, không đếm ngược |
+
+Dòng này đặt ngay dưới viên âm lịch, màu trầm, chạm được → sang hub Phật giáo.
+**Không phá thứ bậc**: số ngày vẫn to nhất, dải Can Chi vẫn bậc hai.
+
+### 21.4 Bài thử 5 thì máy chịu
+
+*"Ba ngày sau, đưa máy và nói: mở app xem hôm nay là ngày gì."* Không có cách
+nào giả lập. Đây là chỗ **phải có người thật**, và là việc đáng làm nhất bây giờ
+— không phải sửa thêm giao diện.
+
+Quy trình test đã ghi ở §13. `window.getStats()` trong Console đọc được số lần
+mở từng tab, để chú đối chiếu với những gì người ta *nói*.
