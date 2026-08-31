@@ -861,6 +861,49 @@
   .ltp .lm{font-size:13px;color:var(--muted);margin-left:8px}
   .ltp .lh{display:block;font-size:13.5px;color:var(--ink);margin-top:4px;font-family:var(--fnum)}
   .cy.alm{opacity:.75;font-size:13px;margin-top:4px}
+  /* ═══ TRANG CHI TIẾT NGÀY — bat chuoc bo khung lich van nien pho thong ═══ */
+  body.sk-alm,body.sk-alm .wrap{background:linear-gradient(178deg,#E3F2ED 0%,#EDF6F2 100%) !important}
+  body.sk-alm .bnav{background:#F2FAF7;border-top-color:#D8E6E0}
+  body.sk-alm .bnav button.on{color:#1D6FB8}
+  .almv .sect{background:#fff;border:1px solid #DCE8E3;border-radius:16px;
+    padding:16px 17px;margin-bottom:12px}
+  .almv .sh{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+  .almv .sh .ic{width:33px;height:33px;border-radius:50%;background:#EDF3F0;
+    display:flex;align-items:center;justify-content:center;color:#7C8A92;flex:0 0 auto}
+  .almv .sh h3{font-size:15px;letter-spacing:.1em;color:#1D6FB8;text-transform:uppercase;
+    font-weight:700;margin:0}
+  .almv .good,.almv b.good,.almv .v b.good{color:#1E7A34}
+  .almv .bad,.almv b.bad,.almv .v b.bad{color:#C03A2B}
+  .almv .lbl-b{color:#1D6FB8;font-weight:700}
+  .almv .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+  .almv .g3 em{display:block;font-style:normal;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:#8A97A0;margin-bottom:5px}
+  .almv .g3 b{font-size:17.5px;color:#1D6FB8;font-weight:700}
+  .almv .g3.hts{margin-top:13px;padding-top:13px;border-top:1px solid #E8F0EC;
+    font-size:13.5px;color:#5C6A72}
+  .almv .g3.hts b{font-size:14.5px;color:#232A30;font-weight:700}
+  .almv .rows{margin-top:10px}
+  .almv .ghdg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .almv .ghd{display:flex;align-items:center;gap:10px;background:#F7FAF8;
+    border:1px solid #E4EDE8;border-radius:13px;padding:9px 11px}
+  .almv .zc{width:42px;height:42px;border-radius:50%;background:#E5EFF8;color:#1D6FB8;
+    display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;flex:0 0 auto}
+  .almv .zt{display:flex;flex-direction:column;min-width:0}
+  .almv .zt b{font-size:15px;color:#232A30}
+  .almv .zt em{font-style:normal;font-size:12px;color:#8A97A0;font-family:var(--fnum)}
+  .almv .ltp{padding:9px 0;border-bottom:1px solid #EEF3F0;font-size:14px}
+  .almv .ltp:last-of-type{border-bottom:none}
+  .almv .ltp .ln{font-weight:700;margin-right:7px}
+  .almv .ltp .lh{color:#232A30;font-family:var(--fnum)}
+  .almv .ltp .lm{display:block;font-size:12.5px;color:#8A97A0;margin-top:2px}
+  .almv .s28{font-size:15.5px;line-height:1.55}
+  .almv .s28sub{font-size:13px;color:#8A97A0;margin-top:4px}
+  .almv .xrow{display:flex;gap:10px}
+  .almv .xbox{border:1.5px solid #D5E2EC;border-radius:13px;padding:11px 20px;text-align:center;min-width:86px}
+  .almv .xbox b{display:block;font-size:18px;color:#1D6FB8}
+  .almv .xbox em{font-style:normal;font-size:12px;color:#8A97A0}
+  .almv .note{border-color:#E4EDE8}
+  .almv .row{border-bottom-color:#EEF3F0}
   .zrow{display:block !important;padding:11px 0}
   .zrow .k{display:block;margin-bottom:5px;text-align:left}
   .zrow .v{display:block;text-align:left;max-width:none}
@@ -1065,6 +1108,9 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   xungMLbl:"Xung tháng",xungTxtM:"Tháng {a} — xung với tuổi {b}",
   viewingDay:"Ngày đang xem",chayYesD:"Ngày chay",chayNoD:"Không phải ngày chay",
   tibPrevD:"Trước",tibViewD:"Đang xem",tibNextD:"Sau",
+  aGioHD:"Giờ hoàng đạo",aKT:"Thập nhị Kiến trừ",a28:"Nhị thập bát tú",
+  aXungN:"Tuổi xung theo ngày",aXungT:"Tuổi xung theo tháng",aTK:"Tiết khí",
+  aGiua:"Giữa {a} — {b}",tuoi:"tuổi",
   ltpTitle:"Giờ Lý Thuần Phong",ltpGood:"giờ tốt",ltpBad:"giờ xấu",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
   ltpMean:["mọi việc yên ổn, bền chắc","tin vui đến nhanh","việc kéo dài, chậm mà chắc",
@@ -1262,6 +1308,9 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   xungMLbl:"Month clash",xungTxtM:"Month of {a} — clashes with {b}",
   viewingDay:"Viewing",chayYesD:"Vegetarian day",chayNoD:"Not a vegetarian day",
   tibPrevD:"Before",tibViewD:"Viewing",tibNextD:"After",
+  aGioHD:"Auspicious hours",aKT:"Twelve Day Officers",a28:"28 Lunar Mansions",
+  aXungN:"Day clash",aXungT:"Month clash",aTK:"Solar term",
+  aGiua:"Between {a} — {b}",tuoi:"year of the",
   ltpTitle:"Lý Thuần Phong hours",ltpGood:"favorable",ltpBad:"unfavorable",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
   ltpMean:["calm and steady","good news comes quickly","slow, drawn out",
@@ -1883,7 +1932,7 @@ function detailBody(t){
   const evH=evs.length?`<div class="card"><h2>${t.dEvents}</h2>
     ${evs.map(e=>`<div class="row"><span class="k">${e.b||''}</span><span class="v">${e.n}</span></div>`).join('')}
   </div>`:'';
-  return evH+panelVanNien()+panelCanChi()+panelBuddha()+panelDrukpa();
+  return evH+panelVanNien()+almanac()+panelBuddha()+panelDrukpa();
 }
 function dayDetail(t){
   const d=VIEW;
@@ -3294,6 +3343,9 @@ function hubTibet(tb,mon,sac,t){
 // ═══════════════ RENDER: CALENDAR ═══════════════
 function screenCalendar(){
   let t=T[LANG];
+  // Trang chi tiet ngay co da rieng (nen xanh ngoc nhat, the trang) nhu anh
+  // lich pho thong chu doi chieu. Cac che do khac cua tab Lich giu nen kem.
+  document.body.className=(MODE==='day'&&!DETAIL)?'sk-alm':'';
   if(DETAIL)return dayDetail(t);
   let grid='';
   if(MODE==='convert')
@@ -3388,68 +3440,89 @@ function panelVanNien(){
   </div>`;
 }
 
-function panelCanChi(){
-  let d=VIEW,t=T[LANG];
-  let lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
-  let cyD=ccDay(lun.jd),cyY=ccYear(lun.year),cyM=ccMonth(lun.year,lun.month);
-  let na=napAm(cyD[0],cyD[1]);
-  // giờ theo NGÀY XEM: nếu là hôm nay thì lấy giờ thật, ngày khác thì giờ Tý mặc định
-  let now=new Date(),isToday=d.toDateString()===now.toDateString();
-  let curH=isToday?now.getHours():0;
-  let cyH=ccHour(lun.jd,curH);
-  let lucky=luckyChiSet(cyD[1]);
-  let hoursHtml='';
-  for(let c=0;c<12;c++){
-    let isL=lucky.includes(c);
-    hoursHtml+=`<div class="hr ${isL?'lucky':''}"><span class="dot"></span>
-      <span class="hn">${t.chi[c]}</span><span class="ht">${hourRange(c)}</span></div>`;
-  }
-  return `<div class="card">
-    <h2>${t.subCal[1]}</h2><div class="en">${LANG=='vi'?'Can Chi · Ngũ hành':'Stems, branches & elements'}</div>
-    <div class="grid2">
-      <div class="cell"><div class="cl">${t.ccYear}</div><div class="cv"><b>${t.can[cyY[0]]} ${t.chi[cyY[1]]}</b></div></div>
-      <div class="cell"><div class="cl">${t.ccMonth}</div><div class="cv">${t.can[cyM[0]]} ${t.chi[cyM[1]]}</div></div>
-      <div class="cell"><div class="cl">${t.ccDay}</div><div class="cv"><b>${t.can[cyD[0]]} ${t.chi[cyD[1]]}</b></div></div>
-      <div class="cell"><div class="cl">${t.ccHour}${isToday?'':' ('+(LANG=='vi'?'giờ Tý':'Zi')+')'}</div><div class="cv">${t.can[cyH[0]]} ${t.chi[cyH[1]]}</div></div>
-    </div>
-    <div class="row" style="margin-top:6px"><span class="k">${t.napAm} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('napam')">ⓘ</i></span><span class="v"><b>${t.napam[na]}</b></span></div>
-    <div class="row"><span class="k">${t.zodiac}</span><span class="v">${t.animals[cyY[1]]}</span></div>
-    <div class="row"><span class="k">${t.hdLbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('hd')">ⓘ</i></span><span class="v"><b style="color:${dayHoangDao(d).good?'#C9702A':'#6E6A5E'}">${dayHoangDao(d).god}</b> · ${dayHoangDao(d).good?t.hdGood:t.hdBad}</span></div>
-    <div class="row"><span class="k">${t.trucLbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('truc')">ⓘ</i></span><span class="v"><b>${(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]}</b></span></div>
-    <div class="row zrow"><span class="k">${t.tu28Lbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('tu28')">ⓘ</i></span><span class="v"><b>${tu28Full(tu28(lun.jd))}</b> · ${TU28_CAT[tu28(lun.jd)]?t.catTu:t.hungTu}<br>
-      <span style="color:var(--muted);font-size:13px">${LANG=='vi'?'tướng tinh '+TU28_TUONG[tu28(lun.jd)]+' · chủ trị '+t.weekdays[d.getDay()].toLowerCase():'totem: '+TU28_TUONG_EN[tu28(lun.jd)]+' · governs '+t.weekdays[d.getDay()]}</span></span></div>
-    <div class="row"><span class="k">${t.xungLbl}</span><span class="v">${t.xungTxt.replace('{a}',t.chi[ccDay(lun.jd)[1]]).replace('{b}',t.chi[chiXung(ccDay(lun.jd)[1])])}</span></div>
-    <div class="row"><span class="k">${t.xungMLbl}</span><span class="v">${t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])}</span></div>
-    <div class="note" style="margin-top:10px">${t.trucNote}</div>
-    <div class="tspan">${t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)}</div>
-  </div>
-  <div class="card">
-    <h2>${t.hoursTitle}</h2><div class="en">
-      <span class="tag jade">${t.luckyLabel}</span><span class="tag" style="color:var(--muted);border:1px solid var(--line)">${t.blackLabel}</span></div>
-    <div class="hours">${hoursHtml}</div>
-  </div>
-  <div class="card">
-    <h2>${t.ltpTitle}</h2><div class="en">${LANG=='vi'?'6 giờ luân phiên theo ngày âm':'Six rotating hour-signs'}</div>
-    ${(function(){
-      const base=ltpBase(lun);let out='';
-      for(let k=0;k<6;k++){
-        const h1=((k-base)%6+6)%6,h2=h1+6,good=LTP_GOOD[k];
-        out+=`<div class="ltp"><span class="ln" style="color:${good?'#3E7A4E':'#A05436'}">${t.ltpNames[k]}</span>
-          <span class="lm">${t.ltpMean[k]}</span>
-          <span class="lh">${t.chi[h1]} ${hourRange(h1)} · ${t.chi[h2]} ${hourRange(h2)}</span></div>`;
-      }
-      return out;})()}
-    <div class="note">${t.ltpNote}</div>
-  </div>
-  <div class="card">
-    <h2>${t.xhTitle}</h2><div class="en">${LANG=='vi'?'Theo can của ngày':'By the day stem'}</div>
-    <div class="row"><span class="k">${t.hyThan}</span><span class="v"><b>${t.dir8[HY_THAN[cyD[0]]]}</b></span></div>
-    <div class="row"><span class="k">${t.taiThan}</span><span class="v"><b>${t.dir8[TAI_THAN[cyD[0]]]}</b></span></div>
-    <div class="row"><span class="k">${t.termRow}</span><span class="v"><b>${t.terms[currentTermIdx(lun.jd)]}</b> · ${t.termNext2.replace('{t}',t.terms[nextTerm(d).idx]).replace('{n}',nextTerm(d).days)}</span></div>
-    <div class="note">${t.xhNote}</div>
-  </div>`;
-}
+// ═══ TRANG CHI TIẾT NGÀY — kieu lich van nien pho thong ═══════════════════
+// Chu Duyet: "mau sac va thiet ke ngheo nan chan qua, bat chuoc y het cai hinh
+// toi gui". Bo khung cua lich pho thong: tung khoi trang co tieu de XANH in hoa
+// kem icon tron, tot mau xanh la, xau mau do, dau trang la bang NGAY-THANG-NAM.
+// Trang nay co da rieng (sk-alm) nhu moi the gioi khac cua app.
+function almanac(){
+  const d=VIEW,t=T[LANG];
+  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  const cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
+  const now=new Date(),isToday=sameDay(d,now),curH=isToday?now.getHours():0;
+  const cyH=ccHour(lun.jd,curH);
+  const na=napAm(cyD[0],cyD[1]),tú=tu28(lun.jd),trực=truc12(lun),hd=dayHoangDao(d);
+  const lucky=luckyChiSet(cyD[1]);
+  const cc=(x)=>t.can[x[0]]+' '+t.chi[x[1]];
+  const sh=(ic,ttl)=>'<div class="sh"><span class="ic">'+svgIcon(ic,17,1.9)+'</span><h3>'+ttl+'</h3></div>';
+  const glo1=(k)=>' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\''+k+'\')">ⓘ</i>';
 
+  // Dau trang: NGAY · THANG · NAM — gia tri xanh, to, nhu anh doi chieu
+  const đầu='<div class="sect"><div class="g3">'
+    +'<div><em>'+t.sNgay+'</em><b>'+cc(cyD)+'</b></div>'
+    +'<div><em>'+t.sThang+'</em><b>'+cc(cyM)+'</b></div>'
+    +'<div><em>'+t.sNam+'</em><b>'+cc(cyY)+'</b></div></div>'
+    +'<div class="g3 hts">'
+    +'<div>'+(LANG=='vi'?'Hành':'Element')+': <b>'+hanhNgay(cyD)+'</b></div>'
+    +'<div>'+(LANG=='vi'?'Trực':'Duty')+': <b>'+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</b></div>'
+    +'<div>Sao: <b>'+TU28_VI[tú]+'</b></div></div>'
+    +'<div class="rows"><div class="row"><span class="k">'+t.napAm+glo1('napam')+'</span><span class="v"><b>'+t.napam[na]+'</b></span></div>'
+    +'<div class="row"><span class="k">'+t.zodiac+'</span><span class="v">'+t.animals[cyY[1]]+'</span></div>'
+    +'<div class="row"><span class="k">'+t.ccHour+(isToday?'':' ('+(LANG=='vi'?'giờ Tý':'Zi')+')')+'</span><span class="v">'+cc(cyH)+'</span></div></div></div>';
+
+  // Gio hoang dao: luoi 2 cot, con giap dam, khung gio nhat — nhu anh
+  const ghd='<div class="sect">'+sh('clock',t.aGioHD)
+    +'<div class="ghdg">'+lucky.map(function(c){
+      return '<div class="ghd"><span class="zc">'+t.chi[c]+'</span>'
+        +'<span class="zt"><b>'+t.animals[c]+'</b><em>'+hourRange(c)+'</em></span></div>';}).join('')+'</div></div>';
+
+  // Gio Ly Thuan Phong: ten xanh la / do nhu anh
+  const base=ltpBase(lun);let ltp='';
+  for(let k=0;k<6;k++){
+    const h1=((k-base)%6+6)%6,h2=h1+6,good=LTP_GOOD[k];
+    ltp+='<div class="ltp"><span class="ln '+(good?'good':'bad')+'">'+t.ltpNames[k]+':</span>'
+      +'<span class="lh">'+t.chi[h1]+' '+hourRange(h1)+' · '+t.chi[h2]+' '+hourRange(h2)+'</span>'
+      +'<span class="lm">'+t.ltpMean[k]+'</span></div>';
+  }
+  const ltpS='<div class="sect">'+sh('sun',t.ltpTitle)+ltp+'<div class="note">'+t.ltpNote+'</div></div>';
+
+  // Xuat hanh
+  const xh='<div class="sect">'+sh('pin',t.xhTitle)
+    +'<div class="rows"><div class="row"><span class="k lbl-b">'+t.hyThan+'</span><span class="v"><b>'+t.dir8[HY_THAN[cyD[0]]]+'</b></span></div>'
+    +'<div class="row"><span class="k lbl-b">'+t.taiThan+'</span><span class="v"><b>'+t.dir8[TAI_THAN[cyD[0]]]+'</b></span></div></div>'
+    +'<div class="note">'+t.xhNote+'</div></div>';
+
+  // Thap nhi Kien tru
+  const kt='<div class="sect">'+sh('cal',t.aKT)
+    +'<div class="rows"><div class="row"><span class="k lbl-b">'+t.trucLbl+glo1('truc')+'</span><span class="v"><b>'+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</b></span></div>'
+    +'<div class="row"><span class="k lbl-b">'+t.hdLbl+glo1('hd')+'</span><span class="v"><b class="'+(hd.good?'good':'bad')+'">'+hd.god+'</b> · '+(hd.good?t.hdGood:t.hdBad)+'</span></div></div>'
+    +'<div class="note">'+t.trucNote+'</div></div>';
+
+  // Nhi thap bat tu
+  const s28='<div class="sect">'+sh('star',t.a28)
+    +'<div class="s28"><b class="lbl-b">'+tu28Full(tú)+'</b> — <b class="'+(TU28_CAT[tú]?'good':'bad')+'">'+(TU28_CAT[tú]?t.catTu:t.hungTu)+'</b></div>'
+    +'<div class="s28sub">'+(LANG=='vi'?'tướng tinh '+TU28_TUONG[tú]+' · chủ trị '+t.weekdays[d.getDay()].toLowerCase()
+                                     :'totem: '+TU28_TUONG_EN[tú]+' · governs '+t.weekdays[d.getDay()])+glo1('tu28')+'</div></div>';
+
+  // Tiet khi
+  const ct=currentTermIdx(lun.jd),nt=nextTerm(d);
+  const tk='<div class="sect">'+sh('sun',t.aTK)
+    +'<div class="s28">'+t.aGiua.replace('{a}','<b>'+t.terms[ct]+'</b>').replace('{b}','<b>'+t.terms[nt.idx]+'</b>')
+    +' <span class="s28sub" style="display:inline">· '+t.termNext2.replace('{t}',t.terms[nt.idx]).replace('{n}',nt.days)+'</span></div></div>';
+
+  // Tuoi xung: hop vien nhu anh (theo chi — phan kiem chung duoc)
+  const hộp=(c)=>'<div class="xbox"><b>'+t.chi[c]+'</b><em>'+t.animals[c].toLowerCase()+'</em></div>';
+  const xung='<div class="sect">'+sh('wheel',t.aXungN)
+    +'<div class="xrow">'+hộp(chiXung(cyD[1]))+'</div>'
+    +'<div style="height:8px"></div>'+sh('wheel',t.aXungT)
+    +'<div class="xrow">'+hộp(chiXung(cyM[1]))+'</div>'
+    +'<div class="note">'+t.xungTxt.replace('{a}',t.chi[cyD[1]]).replace('{b}',t.chi[chiXung(cyD[1])])
+    +' · '+t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])+'</div></div>';
+
+  const chuKỳ='<div class="sect"><div class="tspan" style="margin:0">'+t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div>';
+
+  return '<div class="almv">'+đầu+ghd+ltpS+xh+kt+s28+tk+xung+chuKỳ+'</div>';
+}
 // ═══ NGÀY ĂN CHAY ════════════════════════════════════════════════════════
 // Cau hoi hang ngay cua Phat tu Viet la "hom nay co phai ngay chay khong",
 // ma app truoc do khong tra loi. Bon loi giu chay pho bien o chua Viet:
@@ -3840,6 +3913,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v59 · c0e3d7f4</div><script>window.LDC_BUILD='ldc-v59 · c0e3d7f4';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v60 · ad46bfd5</div><script>window.LDC_BUILD='ldc-v60 · ad46bfd5';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

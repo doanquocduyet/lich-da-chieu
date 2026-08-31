@@ -1282,3 +1282,32 @@ Hàm `chayLine` + `chayĐãChọn` + CSS `.chayline` hết người dùng → **
 lý do đưa chay lên trang chủ. Chủ app đã quyết khác — trang chủ là màn đa lăng
 kính, chay là chuyện riêng của lăng kính Phật, cách đúng một cú chạm. **Đừng
 "sửa lại" chuyện này như thể nó là lỗi.**
+
+---
+
+## 27. TRANG CHI TIẾT NGÀY MẶC BỘ KHUNG LỊCH PHỔ THÔNG (V4.8)
+
+Chú Duyệt: *"vào mục chi tiết ngày nhìn màu sắc và thiết kế nghèo nàn chán quá,
+bắt chước y hệt cái hình tôi gửi."*
+
+### 27.1 Bộ khung học theo ảnh
+
+- **Da riêng `sk-alm`**: nền xanh ngọc nhạt, thẻ trắng — đúng kiến trúc "mỗi thế
+  giới một da" của app. Chỉ bật ở chế độ Ngày của tab Lịch, rời đi là trả lại.
+- **Từng khối có tiêu đề XANH in hoa + icon tròn xám** (dùng lại bộ icon một nét).
+- **Tốt xanh lá `#1E7A34` · xấu đỏ `#C03A2B` · nhãn xanh dương `#1D6FB8`.**
+- Đầu trang: bảng **NGÀY · THÁNG · NĂM** (can chi, chữ xanh to) + hàng
+  **Hành · Trực · Sao**.
+- **GIỜ HOÀNG ĐẠO**: lưới 2 cột, vòng tròn tên chi + con giáp đậm + khung giờ.
+- **GIỜ LÝ THUẦN PHONG**: tên giờ tô xanh lá/đỏ theo tốt xấu, kèm nghĩa một dòng.
+- **HƯỚNG XUẤT HÀNH · THẬP NHỊ KIẾN TRỪ · NHỊ THẬP BÁT TÚ · TIẾT KHÍ**.
+- **TUỔI XUNG THEO NGÀY / THÁNG**: hộp viền tên chi + con giáp, như ảnh.
+
+`panelCanChi` cũ bị `almanac()` thay hẳn và đã xoá (hết người gọi — luật §18).
+
+### 27.2 Khác ảnh ở đâu, vì sao
+
+- **Không có mục "Sao tốt sao xấu" (bách kỵ) và "Nên làm/Kiêng cử"** — chưa có
+  nguồn kiểm được (§8, §24.2). Có nguồn là ghép vào đúng bộ khung này.
+- **Không icon con giáp vẽ hình** — vẽ 12 con thú một nét mà xấu thì tệ hơn
+  không vẽ; thay bằng vòng tròn tên chi + tên con giáp chữ. Không quảng cáo.
