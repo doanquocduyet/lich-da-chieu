@@ -1187,3 +1187,36 @@ Lời giải của 6 giờ viết MỘT dòng mô tả ("dễ cãi cọ, miệng
 Ghi chú dưới mỗi mục: *"App thuật lại nguyên văn cách sách xếp — không khuyên
 việc riêng của bạn"*, và *"Riêng Tài thần mỗi sách một dị bản"*. Số đông có đủ
 thông tin họ quen xem; app không biến thành thầy phán.
+
+---
+
+## 23. NGÀY ĐANG XEM LÀ STATE TRUNG TÂM (V4.4)
+
+Bản chốt tiếp theo khẳng định đúng hướng V4.3 và thêm một nguyên tắc:
+*"Hôm nay → Xem chi tiết → chi tiết của CHÍNH NGÀY ĐANG XEM. Nếu từ một mốc
+Kỳ tới nhảy đến 6/9 → Xem chi tiết phải là 6/9."* Soi lại thì còn bốn khoảng
+hở thật — và hai chỗ **app đang nói dối** khi xem ngày khác.
+
+### 23.1 Đã thêm
+
+1. **Dòng mồi ở mặt tiền**: `Hành Thủy · Trực Chấp · Sao Nguy` — nhỏ, mờ, ngay
+   dưới dòng can chi. Ba giá trị này trùng khớp với ảnh app phổ thông (Giản Hạ
+   **Thủy**, Trực **Chấp**, sao **Nguy**) — thêm một lần đối chứng dữ liệu.
+   Hành lấy từ **chữ cuối tên nạp âm tiếng Việt** ("Hải Trung Kim" → Kim),
+   không lấy từ bản EN ("Gold in the Sea" → "Sea" là sai).
+2. **Xung theo tháng** trong trang chi tiết (theo chi — phần kiểm chứng được;
+   danh sách can-chi cụ thể của app phổ thông mỗi sách một dị bản, không ship).
+3. **Nút "Xem chi tiết ngày" trong hub Phật và hub Tạng** — nhảy tới 6/9 bằng
+   "Kỳ tới" rồi bấm là ra chi tiết của đúng 6/9. Đã kiểm cả chuỗi.
+4. **Trang chi tiết ngày cũng hiện dòng chay** của chính ngày đang xem
+   (vẫn theo luật opt-in §21).
+
+### 23.2 Hai chỗ nói dối đã sửa
+
+- Dải ba ô ở panel Tạng ghi **"Hôm qua · Hôm nay · Ngày mai"** kể cả khi đang
+  xem 6/9 — "Hôm nay 17" mà không phải hôm nay. Giờ: xem ngày khác thì ghi
+  **"Trước · Đang xem · Sau"**.
+- Màn Phật ghi nhãn **"HÔM NAY"** cho mọi ngày được xem. Giờ: ngày khác thì ghi
+  **"Ngày đang xem"**. Dòng chay cũng thôi nói "Hôm nay" khi xem ngày khác.
+
+Quy tắc rút ra: **chữ "hôm nay" chỉ được xuất hiện khi `sameDay(VIEW, new Date())`.**

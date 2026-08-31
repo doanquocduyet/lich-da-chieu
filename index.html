@@ -850,6 +850,7 @@
     padding:9px 14px;border-radius:20px;border:1px solid #E4DAC2;background:#F6F2E7;
     font-family:inherit;font-size:14px;color:#7A6E56;cursor:pointer;max-width:100%}
   .chayline.on{background:#EFE2BE;border-color:#DCC48D;color:#6E5210}
+  .chayline .cst{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
   .chayline .cl1{font-weight:600;white-space:nowrap}
   .chayline .cl2{color:#9A8E75;font-family:var(--fnum);white-space:nowrap;
     overflow:hidden;text-overflow:ellipsis}
@@ -866,6 +867,7 @@
   .ltp .ln{font-weight:700;font-size:15px}
   .ltp .lm{font-size:13px;color:var(--muted);margin-left:8px}
   .ltp .lh{display:block;font-size:13.5px;color:var(--ink);margin-top:4px;font-family:var(--fnum)}
+  .cy.alm{opacity:.75;font-size:13px;margin-top:4px}
   .zrow{display:block !important;padding:11px 0}
   .zrow .k{display:block;margin-bottom:5px;text-align:left}
   .zrow .v{display:block;text-align:left;max-width:none}
@@ -1066,6 +1068,10 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   animals:["Chuột","Trâu","Hổ","Mèo","Rồng","Rắn","Ngựa","Dê","Khỉ","Gà","Chó","Lợn"],
   napam:["Hải Trung Kim","Lư Trung Hỏa","Đại Lâm Mộc","Lộ Bàng Thổ","Kiếm Phong Kim","Sơn Đầu Hỏa","Giản Hạ Thủy","Thành Đầu Thổ","Bạch Lạp Kim","Dương Liễu Mộc","Tuyền Trung Thủy","Ốc Thượng Thổ","Tích Lịch Hỏa","Tùng Bách Mộc","Trường Lưu Thủy","Sa Trung Kim","Sơn Hạ Hỏa","Bình Địa Mộc","Bích Thượng Thổ","Kim Bạch Kim","Phú Đăng Hỏa","Thiên Hà Thủy","Đại Trạch Thổ","Thoa Xuyến Kim","Tang Đố Mộc","Đại Khê Thủy","Sa Trung Thổ","Thiên Thượng Hỏa","Thạch Lựu Mộc","Đại Hải Thủy"],
   dayDetail:"Xem chi tiết ngày",
+  heroAlm:"Hành {h} · Trực {t} · Sao {s}",
+  xungMLbl:"Xung tháng",xungTxtM:"Tháng {a} — xung với tuổi {b}",
+  viewingDay:"Ngày đang xem",chayYesD:"Ngày chay",chayNoD:"Không phải ngày chay",
+  tibPrevD:"Trước",tibViewD:"Đang xem",tibNextD:"Sau",
   ltpTitle:"Giờ Lý Thuần Phong",ltpGood:"giờ tốt",ltpBad:"giờ xấu",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
   ltpMean:["mọi việc yên ổn, bền chắc","tin vui đến nhanh","việc kéo dài, chậm mà chắc",
@@ -1259,6 +1265,10 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   animals:["Rat","Ox","Tiger","Cat","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"],
   napam:["Gold in the Sea","Fire in the Furnace","Wood of the Forest","Earth by the Road","Metal of the Sword","Fire on the Hilltop","Water in the Stream","Earth on the Wall","Metal of the Wax","Wood of the Willow","Water of the Spring","Earth on the Roof","Thunderbolt Fire","Wood of Pine & Cypress","Long-flowing Water","Metal in the Sand","Fire at the Foot of the Hill","Wood of the Plain","Earth of the Wall","Metal of Foil","Lamp Fire","Water of the Milky Way","Earth of the Homestead","Metal of Ornaments","Wood of the Mulberry","Water of the Great Stream","Earth in the Sand","Fire in the Sky","Wood of the Pomegranate","Water of the Great Sea"],
   dayDetail:"Full day details",
+  heroAlm:"Element {h} · Duty {t} · Mansion {s}",
+  xungMLbl:"Month clash",xungTxtM:"Month of {a} — clashes with {b}",
+  viewingDay:"Viewing",chayYesD:"Vegetarian day",chayNoD:"Not a vegetarian day",
+  tibPrevD:"Before",tibViewD:"Viewing",tibNextD:"After",
   ltpTitle:"Lý Thuần Phong hours",ltpGood:"favorable",ltpBad:"unfavorable",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
   ltpMean:["calm and steady","good news comes quickly","slow, drawn out",
@@ -1950,6 +1960,13 @@ function ltpBase(lun){return ((lun.month+lun.day-2)%6+6)%6;}
 // DOI CHIEU: ngay Dinh Suu -> Hy=Nam, Tai=Dong (khop lich pho thong).
 const HY_THAN=[1,7,5,4,3,1,7,5,4,3];
 const TAI_THAN=[3,3,2,2,0,0,5,5,6,6];
+// Hanh (ngu hanh nap am) cua ngay: chu cuoi cua ten nap am tieng Viet —
+// "Hai Trung Kim" -> Kim. Khong lay tu ban EN ("Gold in the Sea" -> "Sea").
+const HANH_EN={'Kim':'Metal','Mộc':'Wood','Thủy':'Water','Hỏa':'Fire','Thổ':'Earth'};
+function hanhNgay(cyD){
+  const h=T.vi.napam[napAm(cyD[0],cyD[1])].split(' ').pop();
+  return LANG=='vi'?h:(HANH_EN[h]||h);
+}
 function ccStrip(d,t){
   const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   const cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
@@ -2644,6 +2661,7 @@ function screenToday(){
     <div class="mo">${t.moShort[d.getMonth()]} · ${d.getFullYear()}</div>
     <div class="lu">${lday} ${LANG=='vi'?'tháng '+t.months[lun.month-1]:'· lunar month '+lun.month}${lun.leap?(LANG=='vi'?' (nhuận)':' (leap)'):''}</div>
     <div class="cy">${LANG=='vi'?'Năm':'Year'} ${t.can[cyY[0]]} ${t.chi[cyY[1]]} · ${LANG=='vi'?'ngày':'day'} ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</div>
+    <div class="cy alm">${t.heroAlm.replace('{h}',hanhNgay(cyD)).replace('{t}',(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]).replace('{s}',TU28_VI[tu28(lun.jd)])}</div>
     ${chayLine(d,t)}
   </div>
   ${ccStrip(d,t)}
@@ -3350,7 +3368,7 @@ function panelVanNien(){
   let lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   let cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
   let nf=daysToLunarDay(d,15),nn=daysToLunarDay(d,1);
-  return `<div class="card">
+  return `${chayĐãChọn()?`<div style="text-align:center">${chayLine(d,t)}</div><div style="height:12px"></div>`:''}<div class="card">
     <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Lunisolar calendar'}</div>
     <div class="big">${lun.day}/${lun.month}${lun.leap?'*':''}<small>${t.lunar} · ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</small></div>
     <div class="row"><span class="k">${t.solar}</span><span class="v">${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>
@@ -3393,6 +3411,7 @@ function panelCanChi(){
     <div class="row"><span class="k">${t.trucLbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('truc')">ⓘ</i></span><span class="v"><b>${(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]}</b></span></div>
     <div class="row"><span class="k">${t.tu28Lbl} <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo('tu28')">ⓘ</i></span><span class="v"><b>${TU28_VI[tu28(lun.jd)]}</b> · ${TU28_CAT[tu28(lun.jd)]?t.catTu:t.hungTu}</span></div>
     <div class="row"><span class="k">${t.xungLbl}</span><span class="v">${t.xungTxt.replace('{a}',t.chi[ccDay(lun.jd)[1]]).replace('{b}',t.chi[chiXung(ccDay(lun.jd)[1])])}</span></div>
+    <div class="row"><span class="k">${t.xungMLbl}</span><span class="v">${t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])}</span></div>
     <div class="note" style="margin-top:10px">${t.trucNote}</div>
     <div class="tspan">${t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)}</div>
   </div>
@@ -3439,9 +3458,10 @@ function chayLine(d,t){
   const kế=nextChay(d,CHAYMODE);
   const phụ=là?'':(kế?(kế.n===1?t.chayTmr:t.chayNext.replace('{n}',kế.n))
       .replace('{d}',lunarDayName(kế.day,kế.len,t)):'');
+  const nay=sameDay(d,new Date());
   return `<button class="chayline ${là?'on':''}" onclick="goExp(2)">
-    <span class="cl1">${CHAYMODE===4?t.chayEvery:(là?t.chayYes:t.chayNo)}</span>
-    ${phụ?`<span class="cl2">${phụ}</span>`:''}${svgIcon('chevR',15,2)}</button>`;
+    <span class="cst"><span class="cl1">${CHAYMODE===4?t.chayEvery:(là?(nay?t.chayYes:t.chayYesD):(nay?t.chayNo:t.chayNoD))}</span>
+    ${phụ?`<span class="cl2">${phụ}</span>`:''}</span>${svgIcon('chevR',15,2)}</button>`;
 }
 function setChay(i){CHAYMODE=i;try{localStorage.setItem('ldc_chay',i)}catch(e){}renderScreen();}
 function lunarMonthLen(d){const sp=lunarMonthSpan(d);return Math.round((sp[1]-sp[0])/864e5)+1;}
@@ -3501,7 +3521,7 @@ function panelBuddha(){
 
   return '<div class="idc bud">'
     +'<div class="hd2">'+ornLotus(56,'#C9922E')
-    +'<div class="k2">'+t.buddhaToday+'</div>'
+    +'<div class="k2">'+(sameDay(d,new Date())?t.buddhaToday:t.viewingDay)+'</div>'
     +'<div class="v2">'+đầuĐề+'</div>'
     +'<div class="s2">'+phụ+'</div>'
     +(tags?'<div style="margin-top:11px">'+tags+'</div>':'')
@@ -3543,6 +3563,7 @@ function panelBuddha(){
       +'<div class="qtx">“'+q[LANG]+'”</div>'
       +'<div class="qsrc">'+(LANG=='vi'?q.src:q.srcEn)+'</div></div>'
     +'<div class="note">'+t.buddhaMean+'</div>'
+    +'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>'
     +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
   +'</div>';
 }
@@ -3684,7 +3705,9 @@ function panelDrukpa(){
     let sn='—',dấu=false;
     try{const tb=tibetan(x);sn=String(tb.day)+(tb.leapDay?'*':'');dấu=!!drukSpecialName(tb,t);}catch(e){}
     dải+='<button class="tcell'+(off===0?' on':'')+'" onclick="goDayOff('+off+')">'
-      +'<span class="tcl">'+(off<0?t.tibYest:off>0?t.tibTmr:t.tibNow)+'</span>'
+      +'<span class="tcl">'+(sameDay(d,new Date())
+          ?(off<0?t.tibYest:off>0?t.tibTmr:t.tibNow)
+          :(off<0?t.tibPrevD:off>0?t.tibNextD:t.tibViewD))+'</span>'
       +'<span class="tcn">'+sn+'</span>'
       +'<span class="tcd">'+(dấu?'<i></i>':'')+'</span></button>';
   }
@@ -3713,6 +3736,7 @@ function panelDrukpa(){
       +'<div class="row"><span class="k">'+t.yoga28+'</span><span class="v"><b>'+y28.mean+'</b> · <i style="color:#9A8358">'+y28.tib+'</i></span></div>'
       +'<div class="row"><span class="k">'+t.yogaNak+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'nak\')">ⓘ</i></span><span class="v">'+ey.nak+'</span></div>'
       +'<div class="note">'+t.yogaNote+'</div></div>':'')
+    +'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>'
     +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
     +'</div></details>';
 
@@ -3824,6 +3848,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v55 · 67c754bf</div><script>window.LDC_BUILD='ldc-v55 · 67c754bf';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v56 · be1ebba0</div><script>window.LDC_BUILD='ldc-v56 · be1ebba0';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
