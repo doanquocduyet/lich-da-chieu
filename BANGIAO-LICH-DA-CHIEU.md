@@ -867,3 +867,82 @@ sáng nhầm tab Hệ lịch — đã sửa.
 
 `verify.js` mục 8 duyệt đủ **35 cặp panel × tab**. Chạy trên bản cũ: báo đỏ đúng
 7 trường hợp.
+
+---
+
+## 17. LỖI NẶNG NHẤT CỦA BẢN GIAO NÀY: NGƯỜI DÙNG LUÔN CHẬM MỘT BẢN (V3.9)
+
+Chú Duyệt báo lỗi chuyển tab **vẫn chưa được** ngay sau khi tôi đã sửa và đẩy
+lên. Tôi thử lại bằng chạm thật trên iPhone giả lập: **35/35 đúng**. Nghĩa là
+code đã đúng — máy chú đang chạy bản khác.
+
+### 17.1 Nguyên nhân, đã dựng lại được
+
+`sw.js` lấy **cache trước** cho cả trang chính. Nên:
+
+1. Mở app lần N → đọc `index.html` **từ cache cũ**.
+2. Service worker mới tải bản mới về **ở nền**, `skipWaiting`, `claim`.
+3. Nhưng trang đang hiển thị vẫn là bản cũ. Phải đến **lần mở N+1** mới thấy.
+
+Thử nghiệm 3 lần mở liên tiếp, deploy xen giữa lần 1 và 2:
+
+```
+lần mở 1                   thấy: ldc-v50
+→ deploy bản mới
+lần mở 2 (ngay sau deploy) thấy: ldc-v50   ← vẫn bản cũ
+lần mở 3                   thấy: BẢN-MỚI
+```
+
+**Mọi thứ sửa xong deploy xong, chú mở ra vẫn thấy y nguyên lỗi cũ.** Đây giải
+thích phần lớn vòng lặp "cháu sửa rồi / chú bảo chưa được" của cả bản giao này.
+
+### 17.2 Cách sửa
+
+- `sw.js`: trang chính chuyển sang **lấy mạng trước**, cache chỉ là lưới đỡ.
+  Chờ tối đa **2 giây**; quá thì lấy cache ra dùng ngay và vẫn ghi bản mới vào
+  cache cho lần sau. `navigator.onLine === false` thì bỏ qua mạng luôn.
+  Icon/manifest vẫn lấy cache trước (đổi rất ít).
+- `index.html`: nếu bản mới cài xong lúc trang **đang mở**, hiện một dòng
+  *"Đã có bản mới — Tải lại"*. Không tự nạp lại giữa chừng.
+- Mỗi lần app từ nền quay lại, gọi `reg.update()`.
+
+Kiểm lại: **thấy bản mới ngay lần mở kế tiếp**. Và vẫn mở được khi **ngắt mạng
+hoàn toàn**.
+
+> Chưa kiểm được ở đây: đường tắt `navigator.onLine === false`. Trình duyệt giả
+> lập không báo trạng thái đó xuống service worker, nên lúc mất mạng nó vẫn chờ
+> hết 2 giây. Trên máy thật (chế độ máy bay) thì phải nhanh hơn.
+
+## 18. DỌN CODE DƯ THỪA — CÓ CHỨNG MINH
+
+Chú Duyệt: *"rà kỹ chậm chắc tất cả bộ code, kiểm tra dư thừa, chồng chéo nhau"*.
+
+| việc | kết quả |
+|---|---|
+| Lớp CSS chết (không xuất hiện ở đâu ngoài khối CSS) | xoá **70 selector** / 32 lớp |
+| Cùng selector khai báo lại cùng thuộc tính (cái sau đè cái trước) | gộp **145 khai báo** |
+| Chuỗi ngôn ngữ chết (`legendHtml`, chỉ VI có, giá trị là số `1`) | xoá |
+| Hàm không ai gọi | **không có** |
+| Chuỗi dùng mà chưa định nghĩa | **không có** |
+| VI/EN lệch khoá | **không còn** |
+
+**Cỡ file: 244 KB → 237 KB.**
+
+### 18.1 Cách chứng minh không hỏng gì
+
+Chụp "dấu vân tay" 23 thuộc tính CSS đã tính của **11.994 phần tử** trên **26
+trạng thái màn hình** (2 ngôn ngữ × 5 tab × 4 chế độ lịch × 7 panel × chế độ
+sửa), trước và sau khi dọn. Kết quả: **0 phần tử đổi kiểu dáng.**
+
+### 18.2 Một chỗ dư thừa CỐ Ý GIỮ
+
+`sunLong()` (radian, cho thuật toán âm lịch Hồ Ngọc Đức) và `sunLongDeg()` (độ,
+cho 24 tiết khí + hoàng đạo) chép cùng một công thức Meeus.
+
+Tôi đã thử gộp và kiểm trên **73.414 ngày (1900–2100)**: `getSunLong()` ra
+**giống hệt, 0 ngày lệch**. Nhưng sai số còn **1,26e-13 radian**, không phải 0.
+`getSunLong()` làm tròn con số đó xuống bội số của 30°, và nó quyết định **ranh
+giới tháng âm và vị trí tháng nhuận**.
+
+**Đổi 5 dòng lấy một sai số khác 0 trong đoạn code quan trọng nhất của app là đổi
+lỗ.** Đã ghi chú ngay trên hàm để bản sau không "dọn gọn" nhầm.
