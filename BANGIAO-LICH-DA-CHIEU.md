@@ -1311,3 +1311,29 @@ bắt chước y hệt cái hình tôi gửi."*
   nguồn kiểm được (§8, §24.2). Có nguồn là ghép vào đúng bộ khung này.
 - **Không icon con giáp vẽ hình** — vẽ 12 con thú một nét mà xấu thì tệ hơn
   không vẽ; thay bằng vòng tròn tên chi + tên con giáp chữ. Không quảng cáo.
+
+---
+
+## 28. HÀNH ĐỘNG TRƯỚC, GIẢI THÍCH SAU, NGUỒN CUỐI (V4.9)
+
+Bản nhận định tiếp theo chấm "thứ tự thông tin 7.5, khả năng hành động 7" và
+nói *"nút thắt không còn là CSS — là information hierarchy."* Lọc ra bốn ý làm
+được ngay, đã làm:
+
+1. **TÓM TẮT NGÀY** ngay dưới bảng đầu — app phổ thông đưa dữ liệu rồi bắt
+   người dùng tự tổng hợp; ô này tổng hợp sẵn: *"ngày hắc đạo (Thiên Hình) ·
+   sao Thất — cát tú · trực Phá"*, viền trái xanh/đỏ theo trực thần. Kèm dòng:
+   *"Tóm từ các bảng bên dưới — sách lịch xếp, app thuật lại"* — *tổng hợp mô
+   tả*, không phải lời khuyên.
+2. **"Bây giờ · giờ Tý 23–01h · Hoàng đạo · Tốc Hỷ"** — người ta không cần đọc
+   12 giờ nếu chỉ muốn biết *bây giờ* có tốt không. Chỉ hiện khi xem đúng hôm
+   nay (luật §23: chữ "bây giờ/hôm nay" phải thật).
+3. **Đảo thứ tự**: tóm tắt → giờ → xuất hành → tuổi xung (hành động) → kiến trừ
+   → bát tú → tiết khí (giải thích) → **NGUỒN · PHƯƠNG PHÁP** (cuối).
+4. **Mục Nguồn**: Hồ Ngọc Đức · Meeus · bảng sách lịch truyền thống · Ngọc hạp
+   thông thư, kèm ghi chú đã đối chiếu mẫu 31/8/2026. Người ta có thể đem thông
+   tin đi quyết việc thật — phải minh bạch nó đến từ đâu.
+
+**Chưa làm, đúng chủ ý**: mục "NÊN LÀM / KIÊNG CỬ" — chính bản nhận định cũng
+viết *"phải làm đủ và chuẩn, chứ không làm nửa mùa"*. Chờ nguồn của chú
+(§24.2); khung và vị trí (ngay sau tóm tắt) đã chừa sẵn.

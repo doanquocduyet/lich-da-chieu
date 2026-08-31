@@ -875,6 +875,13 @@
   .almv .good,.almv b.good,.almv .v b.good{color:#1E7A34}
   .almv .bad,.almv b.bad,.almv .v b.bad{color:#C03A2B}
   .almv .lbl-b{color:#1D6FB8;font-weight:700}
+  .almv .sect.tt{border-left:4px solid #1E7A34;padding-left:14px}
+  .almv .sect.tt.b{border-left-color:#C03A2B}
+  .almv .ttl1{font-size:15px;line-height:1.6}
+  .almv .ttl2{font-size:12px;color:#8A97A0;margin-top:5px}
+  .almv .nowh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:14px;
+    background:#F3F8F5;border:1px solid #E0EBE5;border-radius:12px;padding:9px 13px;margin-bottom:12px}
+  .almv .nowh span{color:#5C6A72;font-family:var(--fnum)}
   .almv .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
   .almv .g3 em{display:block;font-style:normal;font-size:11px;letter-spacing:.16em;
     text-transform:uppercase;color:#8A97A0;margin-bottom:5px}
@@ -3470,8 +3477,29 @@ function almanac(){
     +'<div class="row"><span class="k">'+t.zodiac+'</span><span class="v">'+t.animals[cyY[1]]+'</span></div>'
     +'<div class="row"><span class="k">'+t.ccHour+(isToday?'':' ('+(LANG=='vi'?'giờ Tý':'Zi')+')')+'</span><span class="v">'+cc(cyH)+'</span></div></div></div>';
 
+  // TOM TAT NGAY: app pho thong dua du lieu roi bat nguoi dung tu tong hop.
+  // O nay tong hop san — nhung chi MO TA cach sach xep, khong khuyen viec rieng.
+  const tómTắt='<div class="sect tt '+(hd.good?'g':'b')+'">'
+    +'<div class="ttl1"><b class="'+(hd.good?'good':'bad')+'">'+(hd.good?t.hdGood:t.hdBad)
+    +'</b> ('+hd.god+') · sao '+TU28_VI[tú]+' — <b class="'+(TU28_CAT[tú]?'good':'bad')+'">'
+    +(TU28_CAT[tú]?t.catTu.replace(LANG=='vi'?'sách lịch xếp: ':'almanac: ',''):t.hungTu.replace(LANG=='vi'?'sách lịch xếp: ':'almanac: ',''))
+    +'</b> · '+(LANG=='vi'?'trực':'duty')+' '+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</div>'
+    +'<div class="ttl2">'+(LANG=='vi'?'Tóm từ các bảng bên dưới — sách lịch xếp, app thuật lại.':'Summed from the tables below — the almanac\'s ranking, relayed as-is.')+'</div></div>';
+
+  // Dang trong gio nao? — chi hien khi xem dung hom nay. Nguoi ta khong can
+  // doc het 12 gio neu chi muon biet BAY GIO co phai gio tot khong.
+  let bâyGiờ='';
+  if(isToday){
+    const ch=Math.floor(((now.getHours()+1)%24)/2);
+    const tốtGiờ=lucky.indexOf(ch)>=0;
+    const st=(ltpBase(lun)+ch)%6;
+    bâyGiờ='<div class="nowh"><span>'+(LANG=='vi'?'Bây giờ':'Now')+' · '+(LANG=='vi'?'giờ ':'')+t.chi[ch]+' '+hourRange(ch)+'</span>'
+      +'<b class="'+(tốtGiờ?'good':'bad')+'">'+(tốtGiờ?t.luckyLabel:t.blackLabel)+'</b>'
+      +'<b class="'+(LTP_GOOD[st]?'good':'bad')+'">'+t.ltpNames[st]+'</b></div>';
+  }
+
   // Gio hoang dao: luoi 2 cot, con giap dam, khung gio nhat — nhu anh
-  const ghd='<div class="sect">'+sh('clock',t.aGioHD)
+  const ghd='<div class="sect">'+sh('clock',t.aGioHD)+bâyGiờ
     +'<div class="ghdg">'+lucky.map(function(c){
       return '<div class="ghd"><span class="zc">'+t.chi[c]+'</span>'
         +'<span class="zt"><b>'+t.animals[c]+'</b><em>'+hourRange(c)+'</em></span></div>';}).join('')+'</div></div>';
@@ -3519,9 +3547,20 @@ function almanac(){
     +'<div class="note">'+t.xungTxt.replace('{a}',t.chi[cyD[1]]).replace('{b}',t.chi[chiXung(cyD[1])])
     +' · '+t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])+'</div></div>';
 
-  const chuKỳ='<div class="sect"><div class="tspan" style="margin:0">'+t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div>';
+  // NGUON / PHUONG PHAP — nguoi ta co the dem thong tin nay di quyet viec that,
+  // nen phai noi ro tung nhom so lieu den tu dau.
+  const nguồn='<div class="sect">'+sh('cal',LANG=='vi'?'Nguồn · phương pháp':'Sources · method')
+    +'<div class="rows">'
+    +'<div class="row"><span class="k">'+(LANG=='vi'?'Âm lịch · Can Chi':'Lunar · sexagenary')+'</span><span class="v">'+(LANG=='vi'?'thuật toán Hồ Ngọc Đức':'Hồ Ngọc Đức algorithm')+'</span></div>'
+    +'<div class="row"><span class="k">'+(LANG=='vi'?'Tiết khí':'Solar terms')+'</span><span class="v">'+(LANG=='vi'?'kinh độ Mặt Trời (Meeus)':'solar longitude (Meeus)')+'</span></div>'
+    +'<div class="row"><span class="k">'+(LANG=='vi'?'Giờ hoàng đạo · Trực · Sao · Xung':'Hours · Duty · Mansions · Clash')+'</span><span class="v">'+(LANG=='vi'?'bảng sách lịch truyền thống':'traditional almanac tables')+'</span></div>'
+    +'<div class="row"><span class="k">'+(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions')+'</span><span class="v">'+(LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')+'</span></div>'
+    +'</div>'
+    +'<div class="note">'+(LANG=='vi'?'Đã đối chiếu khớp với lịch vạn niên phổ thông (mẫu ngày 31/8/2026: 12 giờ Lý Thuần Phong, hướng thần, trực, sao, giờ hoàng đạo). ':'Cross-checked against a popular Vietnamese almanac (sample day 31/8/2026). ')+t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div>';
 
-  return '<div class="almv">'+đầu+ghd+ltpS+xh+kt+s28+tk+xung+chuKỳ+'</div>';
+  // Thu tu: hanh dong truoc (tom tat, gio, huong, xung) — giai thich sau
+  // (kien tru, bat tu, tiet khi) — nguon cuoi cung.
+  return '<div class="almv">'+đầu+tómTắt+ghd+ltpS+xh+xung+kt+s28+tk+nguồn+'</div>';
 }
 // ═══ NGÀY ĂN CHAY ════════════════════════════════════════════════════════
 // Cau hoi hang ngay cua Phat tu Viet la "hom nay co phai ngay chay khong",
@@ -3913,6 +3952,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v60 · ad46bfd5</div><script>window.LDC_BUILD='ldc-v60 · ad46bfd5';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v61 · bd2c43f6</div><script>window.LDC_BUILD='ldc-v61 · bd2c43f6';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
