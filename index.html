@@ -337,7 +337,7 @@
   button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[role="button"]:focus-visible{outline:3px solid #B03A30;outline-offset:2px;border-radius:6px}
   /* ═══ Skin toàn màn theo hub ═══ */
   body[class^="sk-"] #bgfix{background:transparent}
-  body.sk-tib,body.sk-tib .wrap{background:linear-gradient(178deg,#7E251C 0%,#5A1814 45%,#49120F 100%) !important}
+  body.sk-tib,body.sk-tib .wrap{background:linear-gradient(178deg,#753A34 0%,#57251F 45%,#451C18 100%) !important}
   body.sk-tib .hubttl,body.sk-tib footer,body.sk-tib .backbar .bt{color:#E8C98B !important}
   body.sk-tib .bnav{background:#3A0E0B;border-top-color:#ffffff14}
   body.sk-tib .bnav button{color:#C6A277}body.sk-tib .bnav button.on{color:#F5C24E}
@@ -813,6 +813,38 @@
   .nextp{display:flex;align-items:center;gap:8px;padding:11px 0 2px;
     border-top:1px solid #ffffff20;font-size:14.5px}
   .nextp .k{font-family:var(--fnum)}
+  /* Dai hom qua · hom nay · ngay mai — toa do trong thang Tang */
+  .tstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
+  .tcell{background:#ffffff12;border:1px solid #ffffff1f;border-radius:14px;
+    padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
+    color:inherit;font-family:inherit;cursor:pointer}
+  .tcell.on{background:#ffffff24;border-color:#ffffff3d}
+  .tcell .tcl{font-size:11px;opacity:.7;letter-spacing:.04em}
+  .tcell .tcn{font-size:23px;font-weight:700;font-family:var(--fnum);line-height:1.05}
+  .tcell.on .tcn{color:#F5C24E}
+  .tcell .tcd{height:7px;display:flex;align-items:center}
+  .tcell .tcd i{width:5px;height:5px;border-radius:50%;background:#D4A017;display:block}
+  /* Moc thoi gian cham duoc: phai co mui ten cho biet no dan di dau */
+  .nextp{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+    padding:12px 0 4px;border-top:1px solid #ffffff20;font-size:14.5px;
+    background:none;border-left:none;border-right:none;border-bottom:none;
+    color:inherit;font-family:inherit;text-align:left;cursor:pointer}
+  .up .u{width:100%;background:none;border:none;border-bottom:1px solid #eee;
+    font-family:inherit;text-align:left;cursor:pointer;color:inherit;gap:10px}
+  .up .u svg{flex:0 0 auto;opacity:.4}
+  .chay{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    text-align:left;font-family:inherit;cursor:pointer}
+  .chay .cw{display:flex;flex-direction:column;min-width:0}
+  .chay svg{flex:0 0 auto;opacity:.5}
+  .lookup{display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px;
+    margin-top:14px;padding:14px 16px;border-radius:14px;border:1px solid var(--bd);
+    background:#fff;color:var(--ink);font-family:inherit;font-size:14.5px;cursor:pointer}
+  body.sk-tib .lookup{background:#ffffff12;border-color:#ffffff26;color:#F3EDE0}
+  .more .mbody{padding:0 16px 16px}
+  .elblk{margin-top:16px;padding-top:14px;border-top:1px solid #ffffff20}
+  .k2b{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-bottom:12px}
+  body.sk-tib .more{background:#ffffff0d;border-color:#ffffff20}
+  body.sk-tib .more summary{color:#E8C98B}
   .zrow{display:block !important;padding:11px 0}
   .zrow .k{display:block;margin-bottom:5px;text-align:left}
   .zrow .v{display:block;text-align:left;max-width:none}
@@ -1025,7 +1057,9 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   tibPractice:"Ngày thực hành",tibNextP:"Kỳ tới · {d} · còn {n} ngày",tibNextP1:"Kỳ tới · {d} · ngày mai",
   tibOrdinary:"Ngày thường",tibOrdSub:"Không rơi vào ngày thực hành nào trong tháng Tạng.",
   duchenMerit:"Ngày Düchen — theo truyền thống, công đức của mọi việc lành trong ngày này được nhân lên gấp bội.",
-  tibIdent:"Năm & hệ lịch",
+  tibIdent:"Năm & hệ lịch",tibDetail:"Chi tiết",
+  tibYest:"Hôm qua",tibTmr:"Ngày mai",tibNow:"Hôm nay",
+  tibSpecialTag:"Ngày đặc biệt",lookupDay:"Tra ngày này sang lịch khác",
   buddhaEv:[[1,1,"Vía Di Lặc (Tết)"],[1,15,"Rằm tháng Giêng"],[2,15,"Phật Niết Bàn"],[2,19,"Vía Quán Thế Âm"],[2,21,"Vía Phổ Hiền"],[4,4,"Vía Văn Thù"],[4,15,"Đại lễ Phật Đản"],[6,19,"Vía Quán Âm thành đạo"],[7,15,"Đại lễ Vu Lan"],[7,30,"Vía Địa Tạng"],[9,19,"Vía Quán Âm xuất gia"],[9,30,"Vía Dược Sư"],[11,17,"Vía Phật A Di Đà"],[12,8,"Phật Thành Đạo"]],
   dow:["T2","T3","T4","T5","T6","T7","CN"],
   navToday:"Hôm nay",legend:"● ngày lễ/vía · <span style=\"color:#E8A33D\">●</span> ngày hoàng đạo · số đậm: mùng 1 & rằm",gotoLbl:"Đi tới ngày",
@@ -1206,7 +1240,9 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   tibPractice:"Practice day",tibNextP:"Next · {d} · in {n} days",tibNextP1:"Next · {d} · tomorrow",
   tibOrdinary:"Ordinary day",tibOrdSub:"Not one of the practice days of the Tibetan month.",
   duchenMerit:"A Düchen day — by tradition the merit of any good act today is multiplied many times over.",
-  tibIdent:"Year & calendar system",
+  tibIdent:"Year & calendar system",tibDetail:"Details",
+  tibYest:"Yesterday",tibTmr:"Tomorrow",tibNow:"Today",
+  tibSpecialTag:"Special day",lookupDay:"Convert this day to other calendars",
   buddhaEv:[[1,1,"Maitreya Day"],[1,15,"1st-month full moon"],[2,15,"Parinirvana"],[2,19,"Avalokiteśvara"],[2,21,"Samantabhadra"],[4,4,"Mañjuśrī"],[4,15,"Vesak (Buddha's Birth)"],[6,19,"Guanyin Enlightenment"],[7,15,"Ullambana"],[7,30,"Kṣitigarbha"],[9,19,"Guanyin Ordination"],[9,30,"Bhaiṣajyaguru"],[11,17,"Amitabha Day"],[12,8,"Bodhi Day"]],
   dow:["Mo","Tu","We","Th","Fr","Sa","Su"],
   navToday:"Today",legend:"● holiday · <span style=\"color:#E8A33D\">●</span> auspicious day · bold: new/full moon",gotoLbl:"Go to date",
@@ -3376,11 +3412,13 @@ function panelBuddha(){
     +(tags?'<div style="margin-top:11px">'+tags+'</div>':'')
     +'</div>'
     +'<div class="bd2" style="padding-top:0">'
-      +'<div class="chay '+(là?'on':'')+'">'
-        +'<div class="ct">'+(CHAYMODE===4?t.chayEvery:(là?t.chayYes:t.chayNo))+'</div>'
-        +(kế?'<div class="cs">'+(kế.n===1?t.chayTmr:t.chayNext.replace('{n}',kế.n))
-              .replace('{d}',lunarDayName(kế.day,kế.len,t))+'</div>':'')
-      +'</div>'
+      +(kế?'<button class="chay '+(là?'on':'')+'" onclick="goDay('+kế.d.getFullYear()+','+(kế.d.getMonth()+1)+','+kế.d.getDate()+')">'
+        +'<span class="cw"><span class="ct">'+(CHAYMODE===4?t.chayEvery:(là?t.chayYes:t.chayNo))+'</span>'
+        +'<span class="cs">'+(kế.n===1?t.chayTmr:t.chayNext.replace('{n}',kế.n))
+              .replace('{d}',lunarDayName(kế.day,kế.len,t))+'</span></span>'
+        +svgIcon('chevR',17,2)+'</button>'
+      :'<div class="chay '+(là?'on':'')+'"><span class="cw"><span class="ct">'
+        +(CHAYMODE===4?t.chayEvery:(là?t.chayYes:t.chayNo))+'</span></span></div>')
     +'</div>'
   +'</div>'
   +'<div class="card">'
@@ -3395,8 +3433,12 @@ function panelBuddha(){
   +'<div class="card">'
     +'<h2>'+t.viaTtl+'</h2><div class="en">'+(LANG=='vi'?'12 tháng tới':'Next 12 months')+'</div>'
     +'<div class="up">'+sắp.map(function(u){
-        return '<div class="u"><span class="un">'+u[1]+'<em>'+(LANG=='vi'?u[3]+'/'+u[2]+' âm':'lunar '+u[3]+'/'+u[2])+'</em></span>'
-          +'<span class="ud">'+(u[0]===0?t.today:u[0]+' '+(LANG=='vi'?'ngày':'d'))+'</span></div>'}).join('')+'</div>'
+        const x=new Date(d);x.setDate(x.getDate()+u[0]);
+        return '<button class="u" onclick="goDay('+x.getFullYear()+','+(x.getMonth()+1)+','+x.getDate()+')">'
+          +'<span class="un">'+u[1]+'<em>'+(LANG=='vi'?u[3]+'/'+u[2]+' âm · ':'lunar '+u[3]+'/'+u[2]+' · ')
+            +x.getDate()+'/'+(x.getMonth()+1)+'</em></span>'
+          +'<span class="ud">'+(u[0]===0?t.today:u[0]+' '+(LANG=='vi'?'ngày':'d'))+'</span>'
+          +svgIcon('chevR',15,2)+'</button>'}).join('')+'</div>'
   +'</div>'
   +'<div class="card bud2">'
     +'<h2>'+t.beTtl+'</h2><div class="en">Buddhist Era</div>'
@@ -3406,6 +3448,7 @@ function panelBuddha(){
       +'<div class="qtx">“'+q[LANG]+'”</div>'
       +'<div class="qsrc">'+(LANG=='vi'?q.src:q.srcEn)+'</div></div>'
     +'<div class="note">'+t.buddhaMean+'</div>'
+    +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
   +'</div>';
 }
 
@@ -3534,10 +3577,49 @@ function panelDrukpa(){
   const ey=elementYoga(d),y28=yoga28(d);
   const sốNgày=(LANG=='vi'?'Ngày ':'Day ')+tib.day+(tib.leapDay?'*':'');
   const thángNăm=(LANG=='vi'?'tháng ':'month ')+monLabel+' · '+tib.year+' · '+yn;
-  // Dau de phai MANG TIN. Ngay thuong thi so ngay Tang la tin; ngay thuc hanh
-  // thi ten ngay la tin. Khong de dong chu to nhat ghi "khong co gi dac biet".
   const đầuĐề=special||sốNgày;
   const dòngPhụ=special?(sốNgày+' · '+thángNăm):thángNăm;
+
+  // Dai hom qua · hom nay · ngay mai: cho nguoi dung mot TOA DO trong thang
+  // Tang. Voi lich am/Tang thi biet "toi dang o dau" quan trong khong kem
+  // biet "hom nay la ngay may".
+  let dải='';
+  for(const off of [-1,0,1]){
+    const x=new Date(d);x.setDate(x.getDate()+off);
+    let sn='—',dấu=false;
+    try{const tb=tibetan(x);sn=String(tb.day)+(tb.leapDay?'*':'');dấu=!!drukSpecialName(tb,t);}catch(e){}
+    dải+='<button class="tcell'+(off===0?' on':'')+'" onclick="goDayOff('+off+')">'
+      +'<span class="tcl">'+(off<0?t.tibYest:off>0?t.tibTmr:t.tibNow)+'</span>'
+      +'<span class="tcn">'+sn+'</span>'
+      +'<span class="tcd">'+(dấu?'<i></i>':'')+'</span></button>';
+  }
+
+  const dChi='<details class="more"><summary>'+t.tibDetail+'</summary><div class="mbody">'
+    +'<div class="row"><span class="k">'+t.drukYear+'</span><span class="v"><b>'+tib.year+'</b> · '+yn+'</span></div>'
+    +'<div class="row"><span class="k">'+t.tibGender+'</span><span class="v">'
+      +(tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year'))+'</span></div>'
+    +'<div class="row"><span class="k">'+t.tibSystem+'</span><span class="v">'+t.tibSystemV+'</span></div>'
+    +'<div class="tspan">'+t.span60.replace('{p}',cycle60(d.getFullYear()).prev).replace('{n}',cycle60(d.getFullYear()).next)
+      +'<span class="tsrc">'+t.rabjungLbl.replace('{c}',rabjung(d.getFullYear()).cycle).replace('{y}',rabjung(d.getFullYear()).year)
+      +' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'rabjung\')">ⓘ</i></span></div>'
+    +(ey?'<div class="elblk">'
+      +'<div class="k2b">'+t.yogaTitle+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'yoga\')">ⓘ</i></div>'
+      +'<div class="elpair">'
+        +'<div class="elone"><i style="background:'+EL_COLOR[ey.a]+'"></i><span>'+ey.elA+'</span><em>'+t.elFromWd+'</em></div>'
+        +'<div class="elplus">+</div>'
+        +'<div class="elone"><i style="background:'+EL_COLOR[ey.b]+'"></i><span>'+ey.elB+'</span><em>'+t.elFromNak+'</em></div>'
+      +'</div>'
+      +'<div class="elname '+(ey.good?'g':'b')+'">'+ey.mean+'</div>'
+      +'<div class="eltib">'+ey.tib+' · '+ey.skt+'</div>'
+      +'<div class="explain">'+t.yogaExplain.replace('{wd}',t.weekdays[VIEW.getDay()])
+        .replace('{ea}',ey.elA.toLowerCase()).replace('{nak}',ey.nak)
+        .replace('{eb}',ey.elB.toLowerCase()).replace('{name}',ey.mean.toLowerCase())+'</div>'
+      +'<div class="explain2">'+t.yogaUse+'</div>'
+      +'<div class="row"><span class="k">'+t.yoga28+'</span><span class="v"><b>'+y28.mean+'</b> · <i style="color:#9A8358">'+y28.tib+'</i></span></div>'
+      +'<div class="row"><span class="k">'+t.yogaNak+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'nak\')">ⓘ</i></span><span class="v">'+ey.nak+'</span></div>'
+      +'<div class="note">'+t.yogaNote+'</div></div>':'')
+    +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
+    +'</div></details>';
 
   return '<div class="idc tib'+(dc?' duchen':'')+'">'
     +ornLungta()
@@ -3545,14 +3627,18 @@ function panelDrukpa(){
       +'<div class="k2">'+(special?t.tibPractice:t.tibLbl)+'</div>'
       +'<div class="v2">'+đầuĐề+'</div>'
       +'<div class="s2">'+dòngPhụ+'</div>'
+      // Mau khong duoc thay chu: ngay Duchen phai co CHU noi ro, khong chi doi nen.
+      +(dc?'<div style="margin-top:11px"><span class="tag jade">'+svgIcon('star',13,2)+' '+t.tibSpecialTag+'</span></div>':'')
     +'</div>'
     +ornMountain('#2E3446','#3A4157')
     +'<div class="bd2">'
+      +'<div class="tstrip">'+dải+'</div>'
       +(dc?'<div class="merit">'+t.duchenMerit+'</div>'
          :(special?'<div class="explain2" style="margin:0 0 12px">'+t.sacredMean+'</div>'
                  :'<div class="explain2" style="margin:0 0 12px">'+t.tibOrdSub+'</div>'))
-      +(kế?'<div class="nextp"><span class="k">'+(kế.n===1?t.tibNextP1:t.tibNextP.replace('{n}',kế.n))
-            .replace('{d}',kế.nm)+'</span></div>':'')
+      +(kế?'<button class="nextp" onclick="goDay('+kế.d.getFullYear()+','+(kế.d.getMonth()+1)+','+kế.d.getDate()+')">'
+            +'<span class="k">'+(kế.n===1?t.tibNextP1:t.tibNextP.replace('{n}',kế.n)).replace('{d}',kế.nm)+'</span>'
+            +svgIcon('chevR',16,2)+'</button>':'')
       +(tib.doubled?'<div class="row"><span class="k">'+t.lhagLbl+'</span><span class="v">'+(tib.leapDay?t.lhagLeap:t.lhagMain)+'</span></div>':'')
       +(tib.prevSkipped?'<div class="row"><span class="k">'+t.chadLbl+'</span><span class="v">'+t.chadTxt+'</span></div>':'')
     +'</div>'
@@ -3561,42 +3647,15 @@ function panelDrukpa(){
     +'<h2>'+t.upcoming+'</h2><div class="en">Düchen · Losar</div>'
     +'<div class="up">'+up.map(function(u){
         const p=u[2].split('-');
-        return '<div class="u"><span class="un">'+u[1]+'<em>'+(+p[2])+'/'+(+p[1])+'/'+p[0]+'</em></span>'
-          +'<span class="ud">'+(u[0]===0?t.today:u[0]+' '+(LANG=='vi'?'ngày':'d'))+'</span></div>'}).join('')+'</div>'
+        return '<button class="u" onclick="goDay('+(+p[0])+','+(+p[1])+','+(+p[2])+')">'
+          +'<span class="un">'+u[1]+'<em>'+(+p[2])+'/'+(+p[1])+'/'+p[0]+'</em></span>'
+          +'<span class="ud">'+(u[0]===0?t.today:u[0]+' '+(LANG=='vi'?'ngày':'d'))+'</span>'
+          +svgIcon('chevR',15,2)+'</button>'}).join('')+'</div>'
     +'<div class="note">'+t.drukNote+'</div>'
   +'</div>'
-  +'<div class="card">'
-    +'<h2>'+t.tibIdent+'</h2><div class="en">'+tib.year+' · '+yn+'</div>'
-    +'<div class="row"><span class="k">'+t.drukYear+'</span><span class="v"><b>'+tib.year+'</b> · '+yn+'</span></div>'
-    +'<div class="row"><span class="k">'+t.tibGender+'</span><span class="v">'
-      +(tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year'))+'</span></div>'
-    +'<div class="row"><span class="k">'+t.tibSystem+'</span><span class="v">'+t.tibSystemV+'</span></div>'
-    +'<div class="tspan">'+t.span60.replace('{p}',cycle60(d.getFullYear()).prev).replace('{n}',cycle60(d.getFullYear()).next)
-      +'<span class="tsrc">'+t.rabjungLbl.replace('{c}',rabjung(d.getFullYear()).cycle).replace('{y}',rabjung(d.getFullYear()).year)
-      +' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'rabjung\')">ⓘ</i></span></div>'
-  +'</div>'
-  +(ey?'<div class="idc elc">'
-    +'<div class="hd2">'+ornKnot(34,'#D4A017')
-      +'<div class="k2">'+t.yogaTitle+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'yoga\')">ⓘ</i></div>'
-      +'<div class="elpair">'
-        +'<div class="elone"><i style="background:'+EL_COLOR[ey.a]+'"></i><span>'+ey.elA+'</span><em>'+t.elFromWd+'</em></div>'
-        +'<div class="elplus">+</div>'
-        +'<div class="elone"><i style="background:'+EL_COLOR[ey.b]+'"></i><span>'+ey.elB+'</span><em>'+t.elFromNak+'</em></div>'
-      +'</div>'
-      +'<div class="elname '+(ey.good?'g':'b')+'">'+ey.mean+'</div>'
-      +'<div class="eltib">'+ey.tib+' · '+ey.skt+'</div>'
-    +'</div>'
-    +'<div class="bd2">'
-      +'<div class="explain">'+t.yogaExplain.replace('{wd}',t.weekdays[VIEW.getDay()])
-        .replace('{ea}',ey.elA.toLowerCase()).replace('{nak}',ey.nak)
-        .replace('{eb}',ey.elB.toLowerCase()).replace('{name}',ey.mean.toLowerCase())+'</div>'
-      +'<div class="explain2">'+t.yogaUse+'</div>'
-      +'<div class="row"><span class="k">'+t.yoga28+'</span><span class="v"><b>'+y28.mean+'</b> · <i style="color:#9A8358">'+y28.tib+'</i></span></div>'
-      +'<div class="row"><span class="k">'+t.yogaNak+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'nak\')">ⓘ</i></span><span class="v">'+ey.nak+'</span></div>'
-      +'<div class="note">'+t.yogaNote+'</div>'
-    +'</div>'
-  +'</div>':'');
+  +dChi;
 }
+
 
 // ═══════════════ NAV / CONTROLS ═══════════════
 function renderMainTabs(){
@@ -3615,6 +3674,14 @@ function setSubCal(i){SUBCAL=i;track('tab_open','calendar:'+['vannien','canchi',
 function setSubExp(i){SUBEXP=i;track('tab_open','explore:'+['moon','cosmic','buddha','tibet','weather','tide'][i]);renderScreen();}
 function goCal(i){SUBCAL=i;setMain(1);}
 function goExp(i){SUBEXP=i;EXPOPEN=true;setMain(EXP_TAB[i]);}
+// Thay mot moc thoi gian ma cham vao khong di dau la cut. Cham -> ca app
+// chuyen sang dung ngay do, van o nguyen man dang xem.
+function goDay(y,m,dd){VIEW=new Date(+y,+m-1,+dd);renderScreen();window.scrollTo(0,0);}
+function goDayOff(n){const x=new Date(VIEW);x.setDate(x.getDate()+(+n));
+  VIEW=x;renderScreen();window.scrollTo(0,0);}
+// Bo chuyen doi ngay doc thang VIEW, nen chi can dan sang la no mang theo
+// ngay dang xem — khong bat nguoi dung go lai thu app vua biet.
+function goConvert(){MODE='convert';SUBCAL=0;setMain(1);}
 
 function shiftDay(n){VIEW=new Date(VIEW.getTime()+n*864e5);syncGYM();track('date_select','arrow');renderScreen();}
 function pickDate(){let v=document.getElementById('dp').value;if(v){VIEW=new Date(v+'T12:00:00');syncGYM();track('date_select','picker');renderScreen();}}
@@ -3662,6 +3729,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v52 · 64b27115</div><script>window.LDC_BUILD='ldc-v52 · 64b27115';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v53 · 83b8483c</div><script>window.LDC_BUILD='ldc-v53 · 83b8483c';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

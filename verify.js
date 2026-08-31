@@ -86,7 +86,12 @@ function serve(root) {
     })) sharp.add(x);
   };
 
+  // V4.1 gap du lieu tra cuu vao <details class="more">. Chu ghi nguon van hien
+  // (drukNote), nhung cac dong .row thi nam trong muc gap. innerText bo qua noi
+  // dung trong <details> dong -> ba muc chu nghia bao do oan. Mo het ra khi kiem:
+  // yeu cau cua spec la app CO thong tin do, khong phai no phai luon mo san.
   const scan = async (label) => {
+    await page.evaluate(() => document.querySelectorAll('details').forEach(d => d.open = true));
     const txt = await page.evaluate(() => document.body.innerText);
     if (txt.includes('undefined')) {
       const i = txt.indexOf('undefined');
@@ -99,7 +104,8 @@ function serve(root) {
   // dò chuỗi trong innerText. Dò chuỗi suông thì đậu oan: "Hệ lịch" là tên
   // tab 3 nên luôn hiện ở thanh tab, "Phugpa (Janson)" nằm sẵn ở dòng footer.
   const rows = () => page.evaluate(() =>
-    [...document.querySelectorAll('.row')]
+    (document.querySelectorAll('details').forEach(d => d.open = true),
+    [...document.querySelectorAll('.row')])
       .map(r => [r.querySelector('.k')?.innerText.trim(), r.querySelector('.v')?.innerText.trim()])
       .filter(([k, v]) => k && v)
   );

@@ -1004,3 +1004,74 @@ Câu chữ: *"Chọn lối của bạn, app chỉ nhắc ngày — không xếp 
 Panel Tạng chuyển từ template literal sang nối chuỗi, nên mốc cũ của chỗ vá số 7
 không còn khớp — `patch.py` **dừng đúng như thiết kế** thay vì đoán bừa. Đã cập
 nhật mốc trong `patch.py`, **không sửa tay `index.html`** (§8).
+
+---
+
+## 20. BỐN VIỆC CUỐI CỦA HAI HUB CHÍNH (V4.1)
+
+Bốn việc này đến từ một bản nghiên cứu đối chiếu Drukpa Lunar Calendar và các
+lịch âm Việt. Tôi đã đối chiếu từng điểm với code thật trước khi làm — phần
+lớn phần **chẩn đoán** của bản đó mô tả app **trước V4.0**, nên chỉ bốn việc
+dưới đây là khoảng trống có thật.
+
+### 20.1 Mốc thời gian phải chạm được
+
+Thấy *"Kỳ tới · Ngày Dakini · còn 7 ngày"* mà chạm vào không đi đâu là cụt.
+Giờ chạm → cả app chuyển sang đúng ngày đó, vẫn ở nguyên màn đang xem.
+
+Áp cho: **Kỳ tới** (Tạng) · **Ngày chay tới** (Phật) · **mọi dòng trong
+"Ngày lễ sắp tới" và "Vía & lễ sắp tới"**. Mỗi mốc có mũi tên bo tròn để
+người dùng biết nó dẫn đi đâu. Đã bấm thật đủ 6 loại mốc, tất cả nhảy đúng ngày.
+
+### 20.2 Dải "hôm qua · hôm nay · ngày mai" cho lịch Tạng
+
+Với lịch âm/Tạng, biết *"tôi đang ở đâu trong tháng"* quan trọng không kém biết
+*"hôm nay là ngày mấy"*. Ba ô, số ngày Tạng, chấm vàng nếu là ngày thực hành,
+chạm để đi.
+
+### 20.3 "Tra ngày này sang lịch khác"
+
+App **đã có** bộ chuyển đổi 4 chiều (kể cả Dương↔Tạng) ở tab Lịch. Vấn đề là
+người dùng phải tự đi tìm. Giờ có một nút ngay trong hub, và **`cvInputs()` vốn
+đọc thẳng `VIEW`** nên nó tự mang theo ngày đang xem — không bắt người dùng gõ
+lại thứ app vừa biết.
+
+### 20.4 Gập dữ liệu tra cứu vào "Chi tiết"
+
+Thẻ "Tổ hợp nguyên tố" cao **838px** — khối lớn nhất màn Tạng, mà là tra cứu.
+Giờ nó cùng "Năm · Rabjung · chu kỳ" nằm trong `<details>` gập sẵn. Người mới
+không ngợp, người chuyên sâu không mất gì.
+
+### 20.5 Màu: hạ độ bão hoà da Tạng một bậc
+
+`#7E251C → #753A34`. Vẫn là đỏ tía Tạng, bớt "lửa" để đọc đoạn dài đỡ mỏi.
+**Giữ nguyên hệ da theo từng hệ lịch** — đó là nét riêng của app, không đổi
+sang accent-only.
+
+Và một luật: **màu không được thay chữ.** Ngày Düchen phải có nhãn chữ
+"✦ Ngày đặc biệt", không chỉ đổi nền rồi bắt người dùng tự đoán.
+
+### 20.6 Ba việc CỐ Ý KHÔNG LÀM
+
+| đề xuất | vì sao không |
+|---|---|
+| **Ảnh/thangka có nguồn cho ngày lớn** | App là **một file chạy offline**. Một ảnh tử tế 150–300 KB; thêm cho 4 Düchen + Losar + chục ngày vía là **nhân cỡ app lên 5–10 lần** và phá khả năng cài offline. Cộng nghĩa vụ bản quyền. Và ảnh thiêng gán sai ngày là xúc phạm, không phải lỗi thẩm mỹ. App đã có **9 hoa văn SVG** ~1 KB mỗi cái — muốn "phần thưởng cho ngày đáng nhớ" thì làm hoa văn riêng cho từng Düchen |
+| **Serif cho tiêu đề** | Đi ngược yêu cầu "bo tròn hết / font số dễ thương dễ gần". Và serif đủ dấu tiếng Việt không có trong font hệ thống Android → phải tải ~100 KB → phá offline-first |
+| **Bỏ hẳn "ngày tốt/xấu"** | Đồng ý về *lập trường*, không đồng ý *xoá*. App **đã** viết mô tả chứ không phán: *"Trực, sao và xung là cách sách lịch xưa phân loại ngày — app thuật lại nguyên văn, không khuyên việc riêng của bạn."* Grep toàn file: **không một câu nào** bảo người dùng nên làm gì. Xoá nội dung này là mất một phần lớn khán giả lịch Việt |
+
+### 20.7 Hai lỗi tự gây ra trong lúc làm, đã sửa
+
+- Đặt lớp `.tl` cho ô ngày, **trùng với `.tl` của dòng thời gian Vũ trụ** — lớp
+  đó có `::before` vẽ một vạch nối dọc, nên mỗi con số mọc thêm một gạch. Đổi
+  thành `.tcl/.tcn/.tcd`. Đúng loại chồng chéo vừa dọn ở §18 — **lớp mới phải
+  kiểm tên trước khi đặt.**
+- Khi đổi tên hàng loạt, đổi nhầm cả `<span class="tn">` của dòng thời gian Vũ
+  trụ. Phát hiện vì đếm được **2 chỗ** thay vì 1.
+
+### 20.8 `verify.js` phải mở mục gập trước khi quét
+
+`innerText` bỏ qua nội dung trong `<details>` đóng, nên ba mục chữ nghĩa của
+spec báo đỏ oan. Yêu cầu của spec là **app CÓ thông tin đó**, không phải nó phải
+luôn mở sẵn — và dòng ghi nguồn `drukNote` (kèm cảnh báo Drukpa/Bhutan theo
+Tsurphu nên ngày có thể lệch) **vẫn luôn hiện**. Đã cho `verify.js` mở hết
+`<details>` trước khi đọc. Cùng một bài học với `content-visibility` ở §18.
