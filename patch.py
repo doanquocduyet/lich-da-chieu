@@ -84,11 +84,15 @@ PATCHES = [
     },
     {
         "name": "7. Thêm dòng Hệ lịch: Phugpa (Janson) vào panel Tạng",
-        "old": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year')}</span></div>""",
-        "new": """      <div class="row"><span class="k">${t.tibGender}</span><span class="v">${tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year')}</span></div>
-      <div class="row"><span class="k">${t.tibSystem}</span><span class="v">${t.tibSystemV}</span></div>""",
-        "done": '<span class="k">${t.tibSystem}</span>',
-        "probe": r"\$\{t\.tibGender\}.{0,260}",
+        # V4.0 dung lai panel Tang: markup chuyen tu template literal sang noi chuoi,
+        # va dong Gioi tinh nam nam trong the "Nam & he lich". Moc cu khong con.
+        "old": """    +'<div class="row"><span class="k">'+t.tibGender+'</span><span class="v">'
+      +(tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year'))+'</span></div>'""",
+        "new": """    +'<div class="row"><span class="k">'+t.tibGender+'</span><span class="v">'
+      +(tib.gender==='Male'?(LANG=='vi'?'năm Dương':'Yang year'):(LANG=='vi'?'năm Âm':'Yin year'))+'</span></div>'
+    +'<div class="row"><span class="k">'+t.tibSystem+'</span><span class="v">'+t.tibSystemV+'</span></div>'""",
+        "done": """+'<div class="row"><span class="k">'+t.tibSystem+'</span>""",
+        "probe": r"t\.tibGender.{0,300}",
     },
 ]
 

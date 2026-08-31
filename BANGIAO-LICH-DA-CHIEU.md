@@ -946,3 +946,61 @@ giới tháng âm và vị trí tháng nhuận**.
 
 **Đổi 5 dòng lấy một sai số khác 0 trong đoạn code quan trọng nhất của app là đổi
 lỗ.** Đã ghi chú ngay trên hàm để bản sau không "dọn gọn" nhầm.
+
+---
+
+## 19. PHẬT & TẠNG — HAI MÀN CỦA NGƯỜI DÙNG CHÍNH (V4.0)
+
+Chú Duyệt: *"phần lịch Tạng và lịch Phật tôi đặc biệt đưa vào trọng tâm, vì đó
+là đối tượng khách hàng chính."*
+
+### 19.1 Chẩn đoán: app trả lời sai câu hỏi
+
+| màn | app **đang** trả lời | người ta **thật sự** hỏi |
+|---|---|---|
+| Phật giáo | "Phật lịch 2570" (số to nhất màn) | **"Hôm nay có phải ngày chay không?"** |
+| Lịch Tạng | "Ngày 17" | **"Hôm nay là ngày thực hành gì? Kỳ tới bao giờ?"** |
+
+**Ngày ăn chay hoàn toàn không có trong app.** Đây là câu hỏi hằng ngày của Phật
+tử Việt, và là lỗ hổng lớn nhất của bản giao này.
+
+### 19.2 Lịch Phật — dựng lại
+
+1. **Đầu đề là tên ngày người ta thật sự gọi**: "Đại lễ Vu Lan", "Rằm",
+   "Mùng Một" — không phải "Ngày 15".
+2. **Ô ăn chay ngay dưới đầu đề**: *Hôm nay là ngày chay* / *không phải*, kèm
+   *ngày chay tới · Ngày 23 · còn 5 ngày*.
+3. **Người dùng chọn lối giữ chay của mình** (lưu trên máy):
+
+   | lối | ngày âm lịch |
+   |---|---|
+   | Nhị trai | 1, 15 |
+   | Tứ trai | 1, 14, 15, 30 |
+   | Lục trai | 8, 14, 15, 23, 29, 30 |
+   | Thập trai | 1, 8, 14, 15, 18, 23, 24, 28, 29, 30 |
+   | Chay trường | mọi ngày |
+
+   **Tháng thiếu (29 ngày): ngày 30 giữ vào ngày 29** — đã xử lý, và app nói rõ.
+4. **Lưới ngày trong tháng âm** — nhìn một cái thấy cả nhịp giữ chay của tháng.
+5. Vía & lễ sắp tới (kèm ngày âm), rồi Phật lịch + câu kinh xuống dưới cùng.
+
+Câu chữ: *"Chọn lối của bạn, app chỉ nhắc ngày — không xếp loại ai giữ nhiều hay
+ít."* Không được để app trở thành cái thước đo đạo hạnh.
+
+### 19.3 Lịch Tạng — dựng lại
+
+1. **Đầu đề phải mang tin.** Ngày thực hành → tên ngày là đầu đề
+   ("Lhabab Düchen", "Ngày Guru Rinpoche"). Ngày thường → số ngày Tạng là đầu
+   đề. **Không bao giờ để dòng chữ to nhất ghi "không có gì đặc biệt".**
+2. **Düchen** đổi nền đậm hơn + ô vàng: *"công đức của mọi việc lành trong ngày
+   này được nhân lên gấp bội"*.
+3. **"Kỳ tới · Ngày Dakini · còn 7 ngày"** — người tu hỏi câu này, không hỏi
+   "hôm nay là ngày thứ mấy của tháng Tạng".
+4. Ngày trùng/khuyết (lhag/chad) nằm ngay trong thẻ đầu, không phải cuối trang.
+5. Năm & hệ lịch, rồi tổ hợp nguyên tố (yoga) — xuống dưới, là tra cứu.
+
+### 19.4 `patch.py` mốc số 7 đã đổi
+
+Panel Tạng chuyển từ template literal sang nối chuỗi, nên mốc cũ của chỗ vá số 7
+không còn khớp — `patch.py` **dừng đúng như thiết kế** thay vì đoán bừa. Đã cập
+nhật mốc trong `patch.py`, **không sửa tay `index.html`** (§8).
