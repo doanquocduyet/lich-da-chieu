@@ -909,6 +909,23 @@
   .almv .ltp .lm{display:block;font-size:12.5px;color:#8A97A0;margin-top:2px}
   .almv .s28{font-size:15.5px;line-height:1.55}
   .almv .s28sub{font-size:13px;color:#8A97A0;margin-top:4px}
+  .almv .s28m{font-size:12.5px;color:#8A97A0;font-weight:400}
+  /* bảng nên/kiêng của trực & sao — chép theo nguồn, app thuật lại */
+  .almv .nk{margin-top:11px;display:grid;gap:7px}
+  .almv .nkr{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:baseline;
+    font-size:13.5px;line-height:1.62}
+  .almv .nkr em{font-style:normal;font-weight:700;font-size:12px;letter-spacing:.05em;
+    border-radius:9px;text-align:center;padding:2.5px 0}
+  .almv .nkr.n em{color:#1E7A34;background:#E7F3EA}
+  .almv .nkr.kk em{color:#C03A2B;background:#FAECE9}
+  .almv .nkr span{color:#3D4750}
+  .almv .exon{margin-top:11px;font-size:13.5px;line-height:1.6;color:#5A4A12;
+    background:#FBF3DC;border:1px solid #EFDFB4;border-radius:12px;padding:9px 13px}
+  .almv .exr{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:7px 0;
+    border-bottom:1px solid #EEF1F3;font-size:13px;line-height:1.6}
+  .almv .exr b{color:#1D6FB8;white-space:nowrap;font-family:var(--fnum)}
+  .almv .exr span{color:#5C6A72}
+  .almv .ttl2.exn{color:#5A4A12;margin-top:7px}
   .almv .xrow{display:flex;gap:10px}
   .almv .xbox{border:1.5px solid #D5E2EC;border-radius:13px;padding:11px 20px;text-align:center;min-width:86px}
   .almv .xbox b{display:block;font-size:18px;color:#1D6FB8}
@@ -1952,10 +1969,12 @@ function almNguon(){
     +r(LANG=='vi'?'Lịch Tạng':'Tibetan calendar','Phugpa (Janson)')
     +r(LANG=='vi'?'Giờ hoàng đạo · Trực · Sao · Xung':'Hours · Duty · Mansions · Clash', LANG=='vi'?'bảng sách lịch truyền thống':'traditional almanac tables')
     +r(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions', LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')
+    +r(LANG=='vi'?'12 Trực · nên, kiêng':'12 duties · lists', LANG=='vi'?'bảng “việc hợp – kỵ của 12 Trực” bản lưu truyền, một hệ nhất quán':'a single consistent traditional table')
+    +r(LANG=='vi'?'28 Tú · nên, kiêng, ngoại lệ':'28 mansions · lists', LANG=='vi'?'văn bản trạch nhật gốc Ngọc Hạp — đối chiếu chéo 2 trang lịch độc lập (9/2026)':'Ngọc Hạp day-selection text — cross-checked across 2 independent almanac sites (9/2026)')
     +'</div><div class="note">'
     +(LANG=='vi'
-      ?'App thuật lại dữ liệu, và phân biệt rõ <b>dữ liệu tính toán</b> (âm lịch, tiết khí, thiên văn) với <b>diễn giải truyền thống</b> (trực, sao, giờ, hướng). Đã đối chiếu khớp lịch vạn niên phổ thông (mẫu 31/8/2026). Phần <b>nên làm · kiêng cữ</b> của 12 trực và 28 sao chưa hiển thị: app chỉ nhập khi chốt được đúng bản sách — nguyên văn, kèm tên nguồn — không chép bảng trôi nổi trên mạng. Nội dung diễn giải là mô tả theo nguồn, không phải lời khuyên của ứng dụng. '
-      :'The app relays data and distinguishes <b>computed data</b> (lunar, solar terms, astronomy) from <b>traditional interpretation</b> (duty, mansions, hours, directions). Cross-checked against a popular almanac (sample 31/8/2026). The <b>favorable · avoid</b> lists for the 12 duties and 28 mansions are not shown yet: they will be added only from a verified source edition, verbatim and credited — never copied from unsourced web tables. Interpretive content describes its source; it is not the app\'s advice. ')
+      ?'App thuật lại dữ liệu, và phân biệt rõ <b>dữ liệu tính toán</b> (âm lịch, tiết khí, thiên văn) với <b>diễn giải truyền thống</b> (trực, sao, giờ, hướng, nên–kiêng). Đã đối chiếu khớp lịch vạn niên phổ thông (mẫu 31/8/2026). Mục nào các nguồn chép lệch nhau thì không nhập; <b>bài quyết cổ</b> của 28 sao chưa đối chiếu được nguyên văn nên chưa hiển thị. Nội dung nên–kiêng là mô tả theo nguồn, không phải lời khuyên của ứng dụng. '
+      :'The app relays data and distinguishes <b>computed data</b> (lunar, solar terms, astronomy) from <b>traditional interpretation</b> (duty, mansions, hours, directions, favorable–avoid lists). Cross-checked against a popular almanac (sample 31/8/2026). Items where sources disagree are left out; the <b>classical verses</b> of the 28 mansions are not shown until their exact text is verified. The lists describe their source; they are not the app\'s advice. ')
     +t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div></div>';
 }
 // Dang DUNG TRONG trang chi tiet thi khong duoc chia them nut 'Xem chi tiet
@@ -2058,6 +2077,190 @@ function tu28Full(i){
   return LANG=='vi'
     ? TU28_VI[i]+' '+TU28_DIEU[i%7]+' '+({'giao long':'Giao','rồng':'Long','con lạc':'Lạc','thỏ':'Thỏ','cáo':'Hồ','hổ':'Hổ','báo':'Báo','con giải':'Giải','trâu':'Ngưu','dơi':'Bức','chuột':'Thử','chim én':'Yến','heo':'Trư','con du':'Du','sói':'Lang','chó':'Cẩu','chim trĩ':'Trĩ','gà':'Kê','quạ':'Ô','khỉ':'Hầu','vượn':'Viên','con hãn':'Hãn','dê':'Dương','hoẵng':'Chương','ngựa':'Mã','hươu':'Lộc','rắn':'Xà','giun đất':'Dẫn'})[TU28_TUONG[i]]
     : TU28_VI[i]+' · '+TU28_DIEU_EN[i%7];
+}
+// ═══ TRẠCH NHẬT: NÊN/KIÊNG/NGOẠI LỆ 28 TÚ + 12 TRỰC (V5.2) ═══════════════
+// Nguồn: bộ văn bản trạch nhật lưu truyền (gốc Ngọc Hạp Thông Thư), đối chiếu
+// chéo 1/9/2026 giữa xemvm.com (loạt bài 460-492) và blogphongthuy.com (loạt
+// "Sao ... tốt hay xấu") — hai nguồn chép cùng một bộ văn bản, mục nào lệch
+// nhau thì không nhập (sổ đối chiếu: BANGIAO §32). Bài quyết cổ chưa đối
+// chiếu được nguyên văn nên chưa hiển thị. App thuật lại bảng của nguồn,
+// không dùng để phán việc riêng của người dùng.
+// Cấu trúc: a=trăm việc tốt, o=không có việc chi hạp, n=nên, k=kiêng,
+// m=nhãn phụ, x=ngoại lệ [điều kiện, ghi chú VI, ghi chú EN];
+// điều kiện: c=[chi ngày] s=[can chi ngày] d=[ngày âm] e=cuối tháng âm.
+const TU28_D=[
+ {a:1,n:['cưới gả','cầu công danh, thi cử'],k:['chôn cất','tu sửa mộ phần'],
+  x:[[{c:[2]},'Đăng Viên — mọi sự tốt đẹp','Đăng Viên (ascension) — all favorable']]},
+ {n:['cắt may áo quần'],k:['chôn cất','cưới gả','kiện tụng','khởi công xây dựng'],
+  x:[[{c:[11,3,7]},'trăm việc đều tốt, ngày Mùi tốt nhất','all works favorable; Mùi day best']]},
+ {o:1,k:['xây cất nhà cửa','chôn cất','cưới gả','xuất hành (nhất là đường thủy)'],
+  x:[[{c:[8,0,4]},'mọi việc tốt, ngày Thìn tốt nhất (Đăng Viên)','all favorable; Thìn day best (Đăng Viên)']]},
+ {a:1,n:['xây cất nhà cửa','chôn cất','cưới gả','xuất hành','đi thuyền','chặt cỏ phá đất','cắt may áo quần'],k:[],
+  x:[[{s:['Kỷ Tỵ','Đinh Tỵ','Kỷ Dậu','Quý Dậu','Đinh Sửu','Tân Sửu']},'riêng chôn cất rất kỵ','burial strongly avoided this day']]},
+ {o:1,k:['xây cất nhà cửa','cưới gả','chôn cất','đóng giường, lót giường','kiện tụng'],
+  x:[[{c:[2]},'Đăng Viên — dùng được cho việc nhỏ','Đăng Viên — usable for minor matters']]},
+ {a:1,n:['chôn cất','cưới gả','xây cất nhà cửa','trổ cửa dựng cửa','đào ao giếng','khai trương','chặt cỏ phá đất'],
+  k:['đóng giường, lót giường','đi thuyền'],
+  x:[[{c:[11,3,7]},'kỵ chôn cất; ngày Mùi là hãm địa','burial avoided; Mùi day weakest'],
+     [{s:['Kỷ Mão']},'rất hung','very inauspicious']]},
+ {a:1,n:['chôn cất','tu sửa mộ phần','trổ cửa dựng cửa','khai trương','xuất hành','nhập trạch'],
+  k:['đóng giường, lót giường'],
+  x:[[{c:[8,0,4]},'trăm việc kỵ (riêng ngày Tý tạm dùng việc nhỏ)','all works avoided (Tý day: minor matters only)']]},
+ {a:1,n:['xây sửa phần mộ','trổ cửa dựng cửa','làm thủy lợi','chặt cỏ phá đất','cắt may áo quần','kinh doanh, giao dịch','cầu công danh, thi cử'],
+  k:['đi thuyền'],
+  x:[[{c:[5]},'mất sức','weakened'],[{c:[9]},'tốt','favorable'],
+     [{c:[1]},'Đăng Viên rất tốt — nhưng cùng lúc phạm Phục Đoạn Sát','Đăng Viên very favorable — yet also Phục Đoạn day']]},
+ {n:['đi thuyền','cắt may áo quần'],
+  k:['xây cất nhà cửa','cưới gả','trổ cửa dựng cửa','làm thủy lợi','gieo trồng','khai trương','xuất hành đường bộ'],
+  x:[[{c:[6]},'Đăng Viên rất tốt','Đăng Viên — very favorable'],[{c:[10]},'yên lành','calm'],
+     [{c:[2]},'Tuyệt Nhật — chớ làm việc gì (riêng Nhâm Dần dùng được)','Tuyệt Nhật — avoid everything (except Nhâm Dần)']]},
+ {n:['lập khế ước, giao dịch','cắt may áo quần'],
+  k:['trổ cửa dựng cửa','tháo nước','chôn cất','kiện tụng','khởi công việc lớn'],
+  x:[[{s:['Quý Hợi']},'trăm việc kỵ (ngày cùng của vòng 60)','all avoided (last of the 60-day cycle)']]},
+ {o:1,k:['xây cất nhà cửa','cưới gả','khai trương','trổ cửa dựng cửa','nhập trạch'],
+  x:[[{c:[8,0,4]},'mọi việc tốt, ngày Thìn đắc địa tốt nhất','all favorable; Thìn day best'],
+     [{c:[0]},'Đăng Viên rất tốt — nhưng cùng lúc phạm Phục Đoạn Sát','Đăng Viên very favorable — yet also Phục Đoạn day']]},
+ {o:1,k:['xây cất nhà cửa','trổ cửa dựng cửa','gác đòn đông','làm thủy lợi','đi thuyền'],
+  x:[[{c:[5,9,1]},'mọi việc tốt, ngày Dậu tốt nhất','all favorable; Dậu day best'],
+     [{c:[1]},'Đăng Viên — xây cất được trọng vọng','Đăng Viên — building brings standing']]},
+ {a:1,n:['xây cất nhà cửa','khai trương','cưới gả','chôn cất','trổ cửa dựng cửa','làm thủy lợi','đi thuyền','cất nóc','nhập trạch'],k:[],
+  x:[[{c:[6]},'Đăng Viên rất tốt','Đăng Viên — very favorable'],
+     [{c:[10]},'tốt','favorable'],
+     [{s:['Bính Dần','Nhâm Dần']},'nguồn ghi vẫn hợp xây cất, an táng','source: still fit for building and burial']]},
+ {a:1,n:['xây cất nhà cửa','cưới gả','chôn cất','trổ cửa dựng cửa','làm thủy lợi','chặt cỏ phá đất','cắt may áo quần','khai trương','xuất hành','cất nóc','nhập trạch'],k:[],
+  x:[[{c:[11]},'Đăng Viên rất tốt — nhưng cùng lúc phạm Phục Đoạn Sát','Đăng Viên very favorable — yet also Phục Đoạn day']]},
+ {m:['nửa cát nửa hung (Lục Bại Tinh)','half-auspicious (one of the Six Fading stars)'],
+  n:['xây cất nhà cửa','nhập học','cầu công danh, thi cử','cắt may áo quần'],
+  k:['chôn cất','khai trương','trổ cửa dựng cửa','đóng giường, lót giường','đào ao giếng','kiện tụng'],x:[]},
+ {a:1,n:['dựng cột, xây cất','cưới gả','trổ cửa dựng cửa','làm thủy lợi','cắt may áo quần'],
+  k:['đóng giường, lót giường','đi thuyền'],
+  x:[[{c:[9]},'Đăng Viên — đại lợi','Đăng Viên — great benefit'],[{c:[5]},'Nhập Trù — rất tốt','Nhập Trù — very favorable'],
+     [{c:[1]},'trung bình','moderate']]},
+ {a:1,n:['xây cất nhà cửa','cưới gả','chôn cất','chặt cỏ phá đất','gieo trồng','khai trương','nhập trạch'],
+  k:['đi thuyền'],
+  x:[[{c:[2]},'mất chí khí (Mậu Dần rất hung)','weakened (Mậu Dần worst)'],
+     [{c:[10]},'Đăng Viên nên cầu công danh — nhưng cùng lúc phạm Phục Đoạn Sát','Đăng Viên for career — yet also Phục Đoạn day']]},
+ {n:['xây cất, tạo tác (việc duy nhất nguồn ghi tạm hợp)'],
+  k:['chôn cất','cưới gả','trổ cửa dựng cửa','khai trương','xuất hành','nhập trạch','đóng giường, lót giường'],
+  x:[[{c:[7]},'mất hiệu lực','loses force'],[{s:['Ất Mão','Đinh Mão']},'tốt','favorable'],
+     [{s:['Quý Mão']},'xây cất hao tài','building drains wealth']]},
+ {a:1,n:['chôn cất','cưới gả','trổ cửa dựng cửa','đào mương tháo nước','chặt cỏ phá đất','khai trương','xây cất nhà cửa','xuất hành','nhập học','cất nóc','nhập trạch'],
+  k:['đi thuyền'],
+  x:[[{c:[8,0,4]},'rất tốt','very favorable']]},
+ {o:1,k:['chôn cất (kỵ nhất)','sửa đắp mồ mả','đóng hòm để sẵn','khởi công tạo tác'],
+  x:[[{c:[5]},'đoạt khí — hung càng thêm hung','drained — worse still'],
+     [{c:[9]},'Đăng Viên (nguồn ghi tốt) — nhưng theo bảng chung cũng phạm Phục Đoạn Sát','Đăng Viên (source: favorable) — yet also Phục Đoạn day'],
+     [{c:[1]},'đắc địa','well-placed']]},
+ {m:['sách xếp cát, mức trung bình','ranked auspicious, moderate'],
+  n:['xây cất nhà cửa','trổ cửa dựng cửa','nhập học','đi thuyền','làm thủy lợi','đào mương tháo nước'],
+  k:['chôn cất','cưới gả','đóng giường, lót giường'],
+  x:[[{c:[10]},'Đăng Viên — cầu công danh, phó nhậm rất tốt','Đăng Viên — career and office very favorable']]},
+ {m:['sách xếp cát, mức trung bình','ranked auspicious, moderate'],
+  n:['xây cất nhà cửa','trổ cửa dựng cửa','đào ao giếng','đi thuyền','nhậm chức','nhập học'],
+  k:['chôn cất','sửa đắp mồ mả','đóng hòm để sẵn'],
+  x:[[{c:[11,3,7]},'mọi việc tốt','all favorable']]},
+ {n:['chôn cất','chặt cỏ phá đất','cắt may áo quần'],
+  k:['xây cất nhà cửa','cưới gả','trổ cửa dựng cửa','tháo nước','đào ao giếng','động thổ, xây tường, dựng cột'],
+  x:[[{c:[0]},'Đăng Viên — thừa kế, nhậm chức tốt','Đăng Viên — inheritance and office favorable']]},
+ {o:1,k:['chôn cất','xây cất nhà cửa','trổ cửa dựng cửa','đào ao giếng','làm thủy lợi'],
+  x:[[{c:[6]},'trăm việc đều tốt','all works favorable'],
+     [{c:[5]},'Đăng Viên — thừa kế, nhậm chức tốt','Đăng Viên — inheritance and office favorable']]},
+ {m:['nửa cát nửa hung','half-auspicious'],
+  n:['làm phòng mới'],k:['cưới gả','chôn cất','tháo nước'],
+  x:[[{c:[2,6,10]},'tốt','favorable'],[{c:[8]},'xây cất tốt, an táng nguy','building fine, burial risky']]},
+ {a:1,n:['xây cất nhà cửa','che mái dựng hiên','trổ cửa dựng cửa','cưới gả','chôn cất','làm ruộng','nuôi tằm','chặt cỏ phá đất','cắt may áo quần','làm thủy lợi'],
+  k:['đóng thuyền, hạ thủy thuyền mới'],
+  x:[[{c:[11,3]},'tốt','favorable'],
+     [{c:[7]},'Đăng Viên rất tốt — nhưng cùng lúc phạm Phục Đoạn Sát','Đăng Viên very favorable — yet also Phục Đoạn day']]},
+ {n:['cắt may áo quần'],
+  k:['chôn cất','cưới gả','xây cất nhà cửa','gác đòn đông','trổ cửa dựng cửa','đào ao giếng'],
+  x:[[{c:[8,4]},'mọi việc tốt, ngày Thìn vượng địa tốt nhất','favorable; Thìn day best'],
+     [{c:[0]},'Đăng Viên — thừa kế, nhậm chức tốt','Đăng Viên — inheritance and office favorable']]},
+ {a:1,n:['xây cất lầu gác (tốt nhất)','chôn cất','cưới gả','dựng phòng, cất trại','xuất hành','chặt cỏ phá đất'],
+  k:['đi thuyền'],
+  x:[[{c:[5,9,1]},'đều tốt','all favorable']]}];
+// Phục Đoạn Sát: chi ngày -> sao phạm (Tý+Hư, Sửu+Đẩu, Dần+Thất, Mão+Nữ,
+// Thìn+Cơ, Tỵ+Phòng, Ngọ+Giác, Mùi+Trương, Thân+Quỷ, Dậu+Chủy, Tuất+Vị, Hợi+Bích)
+const TU28_PD=[10,7,12,9,6,3,0,25,22,19,16,13];
+// Diệt Một: sao -> ngày âm lịch phạm ('e' = ngày cuối tháng âm)
+const TU28_DM={0:[1],1:[15],8:[14],10:[7,8,22,23],15:'e'};
+const PD_VI='Phục Đoạn Sát — kỵ chôn cất, xuất hành, thừa kế, chia gia tài, khởi công lò gốm lò nhuộm; hợp: xây tường, lấp hang lỗ, dứt việc cũ';
+const PD_EN='Phục Đoạn — avoid burial, journeys, inheritance, kiln work; fit for walls, filling holes, ending old matters';
+const DM_VI='Diệt Một — kỵ nhất đi thuyền; cữ làm rượu, lập lò gốm lò nhuộm, nhậm chức, thừa kế';
+const DM_EN='Diệt Một — avoid boats above all; also brewing, kilns, taking office, inheritance';
+// 12 Trực — theo đúng bảng "việc hợp - kỵ của 12 Trực" chú Duyệt chọn (1/9/2026).
+// Loạt bài trực theo Hiệp Kỷ có chỗ lệch (vd Mãn: uống thuốc) — không trộn hai hệ.
+const TRUC_D=[
+ {y:['khởi đầu','beginning'],n:['xuất hành','sinh con thuận'],k:['động thổ, ban nền','lót giường','nhậm chức']},
+ {y:['bỏ cũ','clearing out'],n:['động thổ, ban nền','cúng Táo','chữa bệnh','bốc thuốc, uống thuốc'],k:[]},
+ {y:['đầy','fullness'],n:['xuất hành','đi thuyền','cho vay, thu nợ','mua bán','nhập kho'],k:['nhậm chức','bốc thuốc, uống thuốc']},
+ {y:['cân bằng','balance'],n:['nhập kho','đặt táng','làm, sửa thuyền','bồi đắp nền'],k:['lót giường','đào móc, xả nước']},
+ {y:['ổn định','steadiness'],n:['động thổ, ban nền','sửa bếp','nhập học','cầu thân, hỏi cưới'],k:['mua nuôi súc vật']},
+ {y:['giữ','holding'],n:['lập khế ước, giao dịch','động thổ, ban nền','chữa bệnh','săn bắt'],k:['xây đắp nền, tường']},
+ {y:['phá','breaking'],n:['bốc thuốc, uống thuốc'],k:['hầu hết việc trọng đại']},
+ {y:['nguy','peril'],n:['lót giường','săn bắt','làm lò'],k:['xuất hành đường thủy']},
+ {y:['thành','completion'],n:['lập khế ước, giao dịch','mua bán','xuất hành','xây dựng','cưới hỏi'],k:['kiện tụng','phân tranh']},
+ {y:['thu hoạch','harvest'],n:['thu hoạch, cấy gặt','nhập kho','săn bắt'],k:['khởi đầu việc mới']},
+ {y:['mở','opening'],n:['xuất hành','xây dựng','nhập học','chữa bệnh'],k:['chôn cất']},
+ {y:['đóng','closing'],n:['xây tường','đặt táng','làm cửa','bốc thuốc, uống thuốc'],k:['nhậm chức','nhập học','chữa bệnh mắt']}];
+// Từ vựng VI -> EN cho các mục nên/kiêng (mỗi chuỗi trong TU28_D/TRUC_D phải có ở đây)
+const ACT_EN={'cưới gả':'weddings','cầu công danh, thi cử':'career & exams','chôn cất':'burial',
+ 'tu sửa mộ phần':'tomb repairs','cắt may áo quần':'cutting & sewing clothes','kiện tụng':'lawsuits',
+ 'khởi công xây dựng':'starting construction','xây cất nhà cửa':'building houses',
+ 'xuất hành (nhất là đường thủy)':'journeys (esp. by water)','xuất hành':'journeys','đi thuyền':'boat travel',
+ 'chặt cỏ phá đất':'clearing ground','đóng giường, lót giường':'setting up beds','trổ cửa dựng cửa':'opening & fitting doors',
+ 'đào ao giếng':'digging ponds & wells','khai trương':'opening business','nhập trạch':'moving in',
+ 'xây sửa phần mộ':'building & repairing tombs','làm thủy lợi':'waterworks','kinh doanh, giao dịch':'trade & dealings',
+ 'gieo trồng':'planting','xuất hành đường bộ':'overland journeys','lập khế ước, giao dịch':'contracts & dealings',
+ 'tháo nước':'draining water','khởi công việc lớn':'starting major works','gác đòn đông':'raising the ridge beam',
+ 'cất nóc':'roofing','nhập học':'starting school','dựng cột, xây cất':'raising pillars & building',
+ 'đào mương tháo nước':'digging & draining channels','xây cất, tạo tác (việc duy nhất nguồn ghi tạm hợp)':'building (the one act the source allows)',
+ 'chôn cất (kỵ nhất)':'burial (avoided most)','sửa đắp mồ mả':'tomb repairs','đóng hòm để sẵn':'preparing coffins',
+ 'khởi công tạo tác':'starting any works','nhậm chức':'taking office','động thổ, xây tường, dựng cột':'groundbreaking, walls, pillars',
+ 'làm phòng mới':'building new rooms','che mái dựng hiên':'roofing & porches','làm ruộng':'field work','nuôi tằm':'silkworm raising',
+ 'đóng thuyền, hạ thủy thuyền mới':'building & launching boats','xây cất lầu gác (tốt nhất)':'building upper floors (best)',
+ 'dựng phòng, cất trại':'building rooms & camps','sinh con thuận':'smooth childbirth','động thổ, ban nền':'groundbreaking & foundations',
+ 'cúng Táo':'kitchen-god offerings','chữa bệnh':'treating illness','bốc thuốc, uống thuốc':'taking medicine',
+ 'cho vay, thu nợ':'lending & collecting','mua bán':'buying & selling','nhập kho':'storing goods','lót giường':'setting up beds',
+ 'đặt táng':'placing burials','làm, sửa thuyền':'building & repairing boats','bồi đắp nền':'reinforcing foundations',
+ 'đào móc, xả nước':'digging & draining','sửa bếp':'repairing the kitchen','cầu thân, hỏi cưới':'proposals & betrothals',
+ 'mua nuôi súc vật':'buying livestock','xây đắp nền, tường':'building foundations & walls','hầu hết việc trọng đại':'most major undertakings',
+ 'săn bắt':'hunting','làm lò':'building kilns','xuất hành đường thủy':'journeys by water','xây dựng':'construction',
+ 'cưới hỏi':'weddings','phân tranh':'disputes','thu hoạch, cấy gặt':'harvesting & planting','khởi đầu việc mới':'starting new ventures',
+ 'xây tường':'building walls','làm cửa':'making doors','chữa bệnh mắt':'treating eye illness'};
+const actList=(arr)=>arr.map(s=>LANG=='vi'?s:(ACT_EN[s]||s)).join(' · ');
+// Engine ngoại lệ: trả về các ngoại lệ ĐANG rơi đúng ngày xem + bảng đầy đủ.
+function tu28Ex(idx,lun,cyD,d){
+  const e=TU28_D[idx],act=[],all=[],cuối=lun.day===lunarMonthLen(d);
+  const chi=cyD[1],cc60=T.vi.can[cyD[0]]+' '+T.vi.chi[chi];
+  const đủ=(cond)=>{
+    if(cond.c)return cond.c.map(c=>(LANG=='vi'?'ngày ':'')+T[LANG].chi[c]).join(', ');
+    if(cond.s)return cond.s.join(', ');
+    if(cond.d)return cond.d.map(x=>(LANG=='vi'?'ngày '+x+' âm':'lunar day '+x)).join(', ');
+    return LANG=='vi'?'ngày cuối tháng âm':'last lunar day';
+  };
+  const hit=(cond)=>{
+    if(cond.c)return cond.c.indexOf(chi)>=0;
+    if(cond.s)return cond.s.indexOf(cc60)>=0;
+    if(cond.d)return cond.d.indexOf(lun.day)>=0;
+    if(cond.e)return cuối;
+    return false;
+  };
+  for(const [cond,vi,en] of (e.x||[])){
+    const row={w:đủ(cond),t:LANG=='vi'?vi:en};
+    all.push(row);if(hit(cond))act.push(row);
+  }
+  if(TU28_PD[chi]===idx){const r={w:(LANG=='vi'?'ngày ':'')+T[LANG].chi[chi],t:LANG=='vi'?PD_VI:PD_EN};all.push(r);act.push(r);}
+  else{const pdChi=TU28_PD.indexOf(idx);
+    if(pdChi>=0)all.push({w:(LANG=='vi'?'ngày ':'')+T[LANG].chi[pdChi],t:LANG=='vi'?PD_VI:PD_EN});}
+  const dm=TU28_DM[idx];
+  if(dm){
+    const w=dm==='e'?(LANG=='vi'?'ngày cuối tháng âm':'last lunar day')
+      :dm.map(x=>(LANG=='vi'?(x===1?'mùng 1':x===15?'rằm':'ngày '+x+' âm'):'lunar day '+x)).join(', ');
+    const r={w,t:LANG=='vi'?DM_VI:DM_EN};all.push(r);
+    if(dm==='e'?cuối:dm.indexOf(lun.day)>=0)act.push(r);
+  }
+  return {act,all};
 }
 function hanhNgay(cyD){
   const h=T.vi.napam[napAm(cyD[0],cyD[1])].split(' ').pop();
@@ -3517,11 +3720,15 @@ function almanac(){
 
   // TOM TAT NGAY: app pho thong dua du lieu roi bat nguoi dung tu tong hop.
   // O nay tong hop san — nhung chi MO TA cach sach xep, khong khuyen viec rieng.
+  const ex28=tu28Ex(tú,lun,cyD,d);
   const tómTắt='<div class="sect tt '+(hd.good?'g':'b')+'">'
     +'<div class="ttl1"><b class="'+(hd.good?'good':'bad')+'">'+(hd.good?t.hdGood:t.hdBad)
     +'</b> ('+hd.god+') · sao '+TU28_VI[tú]+' — <b class="'+(TU28_CAT[tú]?'good':'bad')+'">'
     +(TU28_CAT[tú]?t.catTu.replace(LANG=='vi'?'sách lịch xếp: ':'almanac: ',''):t.hungTu.replace(LANG=='vi'?'sách lịch xếp: ':'almanac: ',''))
     +'</b> · '+(LANG=='vi'?'trực':'duty')+' '+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</div>'
+    +(ex28.act.length?'<div class="ttl2 exn"><b>'+(LANG=='vi'?'Ngoại lệ hôm nay: ':'Exception today: ')+'</b>'
+      +ex28.act.map(function(r){return r.t.split(' — ')[0]}).join(' · ')
+      +' — '+(LANG=='vi'?'xem mục Nhị thập bát tú.':'see the 28-mansions block.')+'</div>':'')
     +'<div class="ttl2">'+(LANG=='vi'?'Tóm từ các bảng bên dưới — sách lịch xếp, app thuật lại.':'Summed from the tables below — the almanac\'s ranking, relayed as-is.')+'</div></div>';
 
   // Dang trong gio nao? — chi hien khi xem dung hom nay. Nguoi ta khong can
@@ -3558,17 +3765,39 @@ function almanac(){
     +'<div class="row"><span class="k lbl-b">'+t.taiThan+'</span><span class="v"><b>'+t.dir8[TAI_THAN[cyD[0]]]+'</b></span></div></div>'
     +'<div class="note">'+t.xhNote+'</div></div>';
 
-  // Thap nhi Kien tru
+  // Thap nhi Kien tru — kem bang nen/kieng theo ban chu chon (TRUC_D)
+  const td=TRUC_D[trực];
+  const nkRow=(txtN,txtK)=>'<div class="nk"><div class="nkr n"><em>'
+    +(LANG=='vi'?'Nên':'Favorable')+'</em><span>'+txtN+'</span></div>'
+    +'<div class="nkr kk"><em>'+(LANG=='vi'?'Kiêng':'Avoid')+'</em><span>'+txtK+'</span></div></div>';
+  const ktKiêng=td.k.length?actList(td.k)
+    :(trực===1?(LANG=='vi'?'nguồn ghi có điều kiêng riêng nhưng không chép rõ — chưa nhập':'source notes taboos without listing them — not entered')
+             :'—');
   const kt='<div class="sect">'+sh('cal',t.aKT)
-    +'<div class="rows"><div class="row"><span class="k lbl-b">'+t.trucLbl+glo1('truc')+'</span><span class="v"><b>'+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</b></span></div>'
+    +'<div class="rows"><div class="row"><span class="k lbl-b">'+t.trucLbl+glo1('truc')+'</span><span class="v"><b>'+(LANG=='vi'?TRUC_VI:TRUC_EN)[trực]+'</b>'
+    +(td.y[LANG=='vi'?0:1].toLowerCase()===TRUC_VI[trực].toLowerCase()?'':' · '+td.y[LANG=='vi'?0:1])+'</span></div>'
     +'<div class="row"><span class="k lbl-b">'+t.hdLbl+glo1('hd')+'</span><span class="v"><b class="'+(hd.good?'good':'bad')+'">'+hd.god+'</b> · '+(hd.good?t.hdGood:t.hdBad)+'</span></div></div>'
+    +nkRow(td.n.length?actList(td.n):'—',ktKiêng)
     +'<div class="note">'+t.trucNote+'</div></div>';
 
-  // Nhi thap bat tu
+  // Nhi thap bat tu — nen/kieng + ngoai le co dieu kien (engine tu28Ex)
+  const e28=TU28_D[tú];
+  const nên28=e28.o?(LANG=='vi'?'nguồn ghi: không có việc chi hạp':'source: nothing is favorable')
+    :(e28.a?(LANG=='vi'?'trăm việc đều tốt — tốt nhất: ':'all works favorable — best: ')+actList(e28.n):actList(e28.n));
+  const kiêng28=e28.k.length?actList(e28.k)
+    :(e28.a?(LANG=='vi'?'nguồn không ghi việc phải kiêng':'source lists nothing to avoid'):'—');
   const s28='<div class="sect">'+sh('star',t.a28)
-    +'<div class="s28"><b class="lbl-b">'+tu28Full(tú)+'</b> — <b class="'+(TU28_CAT[tú]?'good':'bad')+'">'+(TU28_CAT[tú]?t.catTu:t.hungTu)+'</b></div>'
+    +'<div class="s28"><b class="lbl-b">'+tu28Full(tú)+'</b> — <b class="'+(TU28_CAT[tú]?'good':'bad')+'">'+(TU28_CAT[tú]?t.catTu:t.hungTu)+'</b>'
+    +(e28.m?' <span class="s28m">· '+e28.m[LANG=='vi'?0:1]+'</span>':'')+'</div>'
     +'<div class="s28sub">'+(LANG=='vi'?'tướng tinh '+TU28_TUONG[tú]+' · chủ trị '+t.weekdays[d.getDay()].toLowerCase()
-                                     :'totem: '+TU28_TUONG_EN[tú]+' · governs '+t.weekdays[d.getDay()])+glo1('tu28')+'</div></div>';
+                                     :'totem: '+TU28_TUONG_EN[tú]+' · governs '+t.weekdays[d.getDay()])+glo1('tu28')+'</div>'
+    +nkRow(nên28,kiêng28)
+    +(ex28.act.length?'<div class="exon"><b>'+(LANG=='vi'?'Ngày này rơi vào ngoại lệ:':'This day hits an exception:')+'</b> '
+      +ex28.act.map(function(r){return r.t}).join(' — ')+'</div>':'')
+    +(ex28.all.length?'<details class="more"><summary>'+(LANG=='vi'?'Ngoại lệ của sao '+TU28_VI[tú]:'Exceptions of mansion '+TU28_VI[tú])+'</summary><div class="mbody">'
+      +ex28.all.map(function(r){return '<div class="exr"><b>'+r.w+'</b><span>'+r.t+'</span></div>'}).join('')
+      +'<div class="note">'+(LANG=='vi'?'Bảng ngoại lệ chép theo nguồn — sách lịch xếp, app thuật lại, không phán việc riêng của bạn.':'Exception table per source — the almanac ranks, the app relays; it does not judge your affairs.')+'</div></div></details>':'')
+    +'</div>';
 
   // Tiet khi
   const ct=currentTermIdx(lun.jd),nt=nextTerm(d);
@@ -3979,6 +4208,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v63 · 861e6c42</div><script>window.LDC_BUILD='ldc-v63 · 861e6c42';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v64 · 6109b394</div><script>window.LDC_BUILD='ldc-v64 · 6109b394';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

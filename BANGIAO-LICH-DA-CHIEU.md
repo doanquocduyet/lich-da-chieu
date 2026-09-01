@@ -1406,3 +1406,53 @@ tiếp." Rà toàn bộ và vá 4 chỗ còn cụt:
 Đã chạm được từ trước: ngày chay tới (nút `.chay`), kỳ thực hành Tạng
 (nút `.nextp`), vía Phật sắp tới. Chuẩn đối chiếu: goDay giữ nguyên màn đang
 xem — trang chủ vẽ theo VIEW nên chạm trên trang chủ là trang chủ đổi ngày.
+
+---
+
+## 32. NÊN LÀM · KIÊNG CỮ · NGOẠI LỆ — 28 TÚ + 12 TRỰC (V5.2)
+
+Chú quyết định (1/9/2026): **"ko có ảnh chụp, AI tự tìm hiểu sâu tất cả và
+làm"** — thay quy trình chờ ảnh sách của §30 bằng quy trình nghiên cứu đối
+chiếu chéo. Đã làm đúng 5 bước trong bản nhận định chú gửi:
+
+1. **Kênh lấy nguồn**: proxy sandbox chặn mở web trực tiếp (curl, WebFetch đều
+   bị 403/EGRESS_BLOCKED với mọi domain lịch) — chỉ còn WebSearch. Mỗi sao một
+   truy vấn riêng, lọc domain về đúng hai loạt bài chép trọn bộ văn bản:
+   xemvm.com (bài 460–492, "Sao X tốt hay xấu") và blogphongthuy.com (loạt
+   cùng tên). Hai nguồn độc lập chép CÙNG một bộ văn bản trạch nhật lưu
+   truyền (gốc Ngọc Hạp Thông Thư) — đó là căn cứ "đối chiếu chéo khớp".
+2. **Sổ đối chiếu**: `DOICHIEU-TRACH-NHAT.md` (trong repo) ghi từng sao DRAFT→CONFIRMED,
+   các CONFLICT và cách phân xử. Đáng ghi:
+   - Đê Thổ Lạc: xemvm + blogphongthuy nhất trí "hung, không có việc chi hạp";
+     bản sonchu từng nói "thuận mai táng" là thiểu số → loại.
+   - Khuê, Tinh, Sâm, Tỉnh: nguồn ghi "nửa cát nửa hung / tốt trung bình" →
+     giữ nhãn nhị phân của bảng 14 cát tú, thêm nhãn phụ `m` trong thẻ.
+   - 12 Trực: dùng NGUYÊN bảng chú gửi 1/9 (một hệ nhất quán). Loạt bài
+     Hiệp Kỷ của xemvm có chỗ lệch (Mãn: nên/kiêng uống thuốc ngược nhau) —
+     KHÔNG trộn hai hệ. Trực Trừ: nguồn nói "có điều kiêng riêng" mà không
+     liệt kê → phần kiêng hiển thị đúng câu "nguồn không chép rõ — chưa nhập".
+   - **Bài quyết cổ: CHƯA nhập** — kênh search không trả nguyên văn bài thơ
+     nào; "sai một chữ tệ hơn thiếu một mục". Mục Nguồn nói thẳng điều này.
+     Khi nào đối chiếu được nguyên văn (hoặc chú gửi ảnh) thì thêm tầng 3.
+3. **Dữ liệu trong app** (`TU28_D`, `TRUC_D`, `ACT_EN`): mỗi sao/trực có
+   nên `n`, kiêng `k`, cờ `a` (trăm việc tốt) / `o` (không việc chi hạp),
+   nhãn phụ `m`, ngoại lệ `x` = [điều kiện, chú VI, chú EN]. Điều kiện là DỮ
+   LIỆU (chi ngày `c`, can-chi `s`, ngày âm `d`, cuối tháng âm `e`) — không
+   phải câu chú thích chết. Song ngữ qua từ điển `ACT_EN` (mỗi chuỗi VI phải
+   có mặt — chốt 10 bắt thiếu).
+4. **Engine `tu28Ex`**: date → sao → bảng gốc → soi điều kiện → render. Ba bảng
+   điều kiện chung: Phục Đoạn Sát 12 cặp chi+sao (`TU28_PD`), Diệt Một 5 cặp
+   sao+ngày-âm (`TU28_DM`, Lâu = ngày cuối tháng), Đăng Viên nằm trong `x`
+   từng sao. Ngày rơi đúng điều kiện → callout vàng "Ngày này rơi vào ngoại
+   lệ" trong mục 28 tú + một dòng trong TÓM TẮT; bảng đầy đủ nằm trong
+   `<details>` "Ngoại lệ của sao X". Trường hợp kép giữ nguyên như cổ thư:
+   Hư+Tý, Đẩu+Sửu... = "Đăng Viên rất tốt — nhưng cùng lúc phạm Phục Đoạn".
+5. **Chốt 10 verify.js** (đã thấy đỏ trên bản hỏng trước khi tính): đủ 28+12
+   entry; mọi mục có bản dịch EN; cấu trúc hợp lệ; engine quét 200 ngày không
+   sót/oan Phục Đoạn·Diệt Một (bọc try/catch để dữ liệu thiếu BÁO ĐỎ CÓ TÊN
+   chứ không sập harness); trang chi tiết hai ngôn ngữ có bảng Nên·Kiêng.
+   Bản hỏng thử: cắt 1 entry + xoá 1 từ điển → 3 dòng đỏ đúng chỗ.
+
+Giọng chữ giữ nguyên triết lý: mọi bảng đều mở đầu/kết thúc bằng "sách lịch
+xếp, app thuật lại, không phán việc riêng của bạn". Không có chữ "ĐẠI CÁT"
+đập vào mặt; cát/hung luôn kèm "sách lịch xếp:".

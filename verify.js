@@ -131,6 +131,7 @@ function serve(root) {
   // ── 1+2. Quét mọi màn, cả 2 ngôn ngữ ───────────────────────────────────
   let screens = 0;
   const all = { vi: [], en: [] };     // text của MỌI màn, không phải một màn
+  const detailTxt = {};               // riêng trang chi tiết ngày, cho chốt 10
   const tibRows = {};                 // các dòng trên panel Tạng
   for (const lang of ['vi', 'en']) {
     await page.evaluate(l => setLang(l), lang); await page.waitForTimeout(350);
@@ -150,7 +151,8 @@ function serve(root) {
     // Trang chi tiết ngày (MODE='day') — trước V5.1 vòng quét chưa vào đây,
     // mà đây là trang dày mốc thời gian nhất.
     await page.evaluate(() => { MODE = 'day'; goCal(1); }); await page.waitForTimeout(600);
-    all[lang].push(await scan(`${lang}/day-detail`)); await sweepSharp(); await sweepTap(`${lang}/day-detail`); screens++;
+    detailTxt[lang] = await scan(`${lang}/day-detail`);
+    all[lang].push(detailTxt[lang]); await sweepSharp(); await sweepTap(`${lang}/day-detail`); screens++;
     await page.evaluate(() => { MODE = 'month'; setMain(0); }); await page.waitForTimeout(300);
   }
 
@@ -272,8 +274,42 @@ function serve(root) {
     return bad;
   });
 
+  // ── 10. Dữ liệu trạch nhật 28 tú + 12 trực (V5.2) ──────────────────────
+  // Dữ liệu nhập tay từ nguồn đối chiếu — chốt bắt: thiếu entry, mục không có
+  // bản dịch EN, cấu trúc sai, và engine ngoại lệ sót/oan Phục Đoạn / Diệt Một.
+  const alm = await page.evaluate(() => {
+    const out = { miss: [], bad: [], n28: 0, n12: 0, shape: false };
+    if (typeof TU28_D === 'undefined' || typeof TRUC_D === 'undefined') return out;
+    out.n28 = TU28_D.length; out.n12 = TRUC_D.length;
+    const scan = a => { for (const e of a) for (const s of [...(e.n || []), ...(e.k || [])]) if (!ACT_EN[s]) out.miss.push(s); };
+    scan(TU28_D); scan(TRUC_D);
+    out.shape = TU28_D.every(e => Array.isArray(e.k) && (e.a || e.o || (e.n && e.n.length)))
+      && TRUC_D.every(e => e.y && e.y.length === 2 && Array.isArray(e.n) && Array.isArray(e.k));
+    for (let i = 0; i < 200; i++) {
+      // du lieu thieu entry lam tu28Ex nem loi -> phai bao do co ten, khong sap harness
+      try {
+        const d = new Date(Date.now() + i * 864e5);
+        const lun = solarToLunar(d.getDate(), d.getMonth() + 1, d.getFullYear(), 7);
+        const cyD = ccDay(lun.jd), idx = tu28(lun.jd), ex = tu28Ex(idx, lun, cyD, d);
+        const isPD = TU28_PD[cyD[1]] === idx, dm = TU28_DM[idx];
+        const isDM = dm ? (dm === 'e' ? lun.day === lunarMonthLen(d) : dm.indexOf(lun.day) >= 0) : false;
+        if (isPD !== ex.act.some(r => r.t.indexOf('Phục Đoạn') === 0)) out.bad.push('PĐ ' + d.toDateString());
+        if (isDM !== ex.act.some(r => r.t.indexOf('Diệt Một') === 0)) out.bad.push('DM ' + d.toDateString());
+      } catch (e) { out.bad.push('THROW ngày +' + i + ': ' + e.message); break; }
+    }
+    return out;
+  });
+  const almSpecs = [
+    [`TU28_D đủ 28 sao (${alm.n28}) · TRUC_D đủ 12 trực (${alm.n12})`, alm.n28 === 28 && alm.n12 === 12],
+    ['Mọi mục nên/kiêng đều có bản dịch EN', alm.miss.length === 0, alm.miss.slice(0, 4).join(' | ')],
+    ['Cấu trúc entry hợp lệ (kiêng là mảng; có nên hoặc cờ a/o)', alm.shape],
+    ['Engine 200 ngày không sót/oan Phục Đoạn · Diệt Một', alm.bad.length === 0, alm.bad.slice(0, 4).join(' | ')],
+    ['Trang chi tiết VI có bảng Nên · Kiêng', (detailTxt.vi || '').includes('Nên') && (detailTxt.vi || '').includes('Kiêng')],
+    ['Trang chi tiết EN có Favorable · Avoid', (detailTxt.en || '').includes('Favorable') && (detailTxt.en || '').includes('Avoid')],
+  ];
+
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0;
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0 && almSpecs.every(([, ok]) => ok);
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -295,6 +331,8 @@ function serve(root) {
   console.log('9. Luật chạm ............. ' + (orphanTap.size
     ? '✗ ' + orphanTap.size + ' mốc "còn/sau X ngày" chạm không đi đâu:\n   ' + [...orphanTap].slice(0, 8).join('\n   ')
     : '✓ mọi mốc "còn/sau X ngày" đều đi tiếp được'));
+  console.log('10. Trạch nhật 28 tú · 12 trực:');
+  for (const [label, ok, why] of almSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}` + (!ok && why ? ' — ' + why : ''));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();
