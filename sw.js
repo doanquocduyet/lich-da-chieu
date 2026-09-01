@@ -1,7 +1,7 @@
 // Lich Da Chieu - service worker: app shell offline, engine chay hoan toan tren may
 // Ten cache PHAI doi moi lan deploy, khong doi thi may da cai van giu ban cu.
 // patch.py tu tang so cuoi moi khi co gi duoc va - dung sua tay dong duoi.
-const C='ldc-v67';
+const C='ldc-v68';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./favicon.svg','./favicon-32.png'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(C).then(c=>c.addAll(ASSETS.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting()));

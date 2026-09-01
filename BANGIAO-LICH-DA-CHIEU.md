@@ -1534,3 +1534,28 @@ type, width/height, alt, `link rel=image_src`, twitter:card, og.png đúng
 Sandbox không kiểm được (proxy chặn mọi domain ngoài) — đây là loại lỗi phải
 kiểm trên máy chú. Nếu duyet.online chuyển sang deploy thẳng từ GitHub thì
 cả hai vấn đề tự hết cho các lần sau.
+
+---
+
+## 36. GỌN LẠI TRANG CHỦ (V5.6)
+
+Chú rà trang chủ, bảy chỗ, đã làm hết:
+
+1. **"Ngày giỗ · sinh nhật của tôi" → "Ngày quan trọng"** — chú: *"nghe xám và
+   sai quá"*. EN: "Important dates". Nội dung bên trong không đổi.
+2. **Bỏ tiết khí khỏi trang chủ** (`hubTerm` xoá hẳn — hết chỗ dùng). Tiết khí
+   vẫn còn nguyên trong trang chi tiết ngày, chỗ nó thuộc về.
+3. **Mặt trăng xuống cuối**, sau Lịch Tạng: Thời tiết → Phật lịch → Lịch Tạng
+   → Mặt trăng. Vì hai đối tượng chính là người Phật tử và người dùng lịch Tạng.
+4. **Bỏ "Dòng của ngày"** (`dailyLineHtml` + CSS `.dline/.dl-*` + chuỗi
+   `dayLine` xoá). Hàm `dailyLine()` GIỮ — ảnh chia sẻ (shareDay) vẫn dùng.
+5. **"Th9 · 2026" đậm lên**: 17px/thường → 20px/700, màu đậm hơn. Chú:
+   *"ngày tháng quan trọng mà không làm rõ"*.
+6. **Bỏ viên "Ngày 20 tháng Bảy"** dưới hero — bảng NGÀY·THÁNG·NĂM ngay bên
+   dưới đã nói đúng thông tin đó, không lặp hai lần.
+7. **Bảng NGÀY·THÁNG·NĂM bớt đậm**: 28px/800 → 26px/600. Nó là thông tin phụ,
+   không được cạnh tranh với số ngày dương lịch.
+
+Kéo theo: tiêu đề "Năm lăng kính hôm nay" thành **"Các lăng kính hôm nay"** —
+bỏ tiết khí thì còn bốn, để nguyên chữ "Năm" là sai. Dọn luôn biến chết
+(`season`, `nt`, `curTerm`, `lday`) trong screenToday theo §18.
