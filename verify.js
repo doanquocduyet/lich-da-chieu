@@ -326,6 +326,13 @@ function serve(root) {
     [`Đủ file nhận diện${missFiles.length ? ': thiếu ' + missFiles.join(', ') : ''}`, missFiles.length === 0],
     ['Head khai báo favicon SVG + PNG', /rel="icon" href="favicon\.svg"/.test(headHtml) && /favicon-32\.png/.test(headHtml)],
     ['Head có og:image + twitter:card', /og:image/.test(headHtml) && /twitter:card/.test(headHtml)],
+    ['og:image khai báo đủ (type, kích thước, alt, image_src)',
+      /og:image:type/.test(headHtml) && /og:image:width/.test(headHtml)
+      && /og:image:alt/.test(headHtml) && /rel="image_src"/.test(headHtml)],
+    ['og.png đúng 1200×630', (() => {
+      const b = fs.readFileSync(path.join(process.cwd(), 'og.png'));
+      return b.readUInt32BE(16) === 1200 && b.readUInt32BE(20) === 630;
+    })()],
     ['sw.js cache luôn favicon', swTxt.includes('favicon.svg')],
   ];
 
