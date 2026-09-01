@@ -75,6 +75,10 @@
   .big{color:#171717;line-height:1.05;margin:6px 0 4px;font-weight:300;font-variant-numeric:tabular-nums}
   .big small{font-size:13px;color:#888;display:block;margin-top:8px;letter-spacing:0}
   .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #eee}
+  /* luật chạm: mốc thời gian nào nói "còn X ngày" đều đi tiếp được */
+  .rtap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .rtap:active{opacity:.62}
+  .rtap svg{vertical-align:-2px;opacity:.55}
   .row:last-child{border-bottom:none}
   .row .k{flex-shrink:0}
   .row .v{color:#222;text-align:right}
@@ -1950,8 +1954,8 @@ function almNguon(){
     +r(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions', LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')
     +'</div><div class="note">'
     +(LANG=='vi'
-      ?'App thuật lại dữ liệu, và phân biệt rõ <b>dữ liệu tính toán</b> (âm lịch, tiết khí, thiên văn) với <b>diễn giải truyền thống</b> (trực, sao, giờ, hướng). Đã đối chiếu khớp lịch vạn niên phổ thông (mẫu 31/8/2026). '
-      :'The app relays data and distinguishes <b>computed data</b> (lunar, solar terms, astronomy) from <b>traditional interpretation</b> (duty, mansions, hours, directions). Cross-checked against a popular almanac (sample 31/8/2026). ')
+      ?'App thuật lại dữ liệu, và phân biệt rõ <b>dữ liệu tính toán</b> (âm lịch, tiết khí, thiên văn) với <b>diễn giải truyền thống</b> (trực, sao, giờ, hướng). Đã đối chiếu khớp lịch vạn niên phổ thông (mẫu 31/8/2026). Phần <b>nên làm · kiêng cữ</b> của 12 trực và 28 sao chưa hiển thị: app chỉ nhập khi chốt được đúng bản sách — nguyên văn, kèm tên nguồn — không chép bảng trôi nổi trên mạng. Nội dung diễn giải là mô tả theo nguồn, không phải lời khuyên của ứng dụng. '
+      :'The app relays data and distinguishes <b>computed data</b> (lunar, solar terms, astronomy) from <b>traditional interpretation</b> (duty, mansions, hours, directions). Cross-checked against a popular almanac (sample 31/8/2026). The <b>favorable · avoid</b> lists for the 12 duties and 28 mansions are not shown yet: they will be added only from a verified source edition, verbatim and credited — never copied from unsourced web tables. Interpretive content describes its source; it is not the app\'s advice. ')
     +t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div></div>';
 }
 // Dang DUNG TRONG trang chi tiet thi khong duoc chia them nut 'Xem chi tiet
@@ -3155,7 +3159,7 @@ function nextEventLine(d,t){
     const evs=dayEvents(c,t).filter(e=>!e.note);
     if(evs.length){
       const ev=evs.find(e=>e.b!==t.srcLun)||evs[0]; // ưu tiên lễ thật hơn rằm/mùng 1
-      return `<div class="cntdn" onclick="setMain(3)">
+      return `<div class="cntdn rtap" role="button" tabindex="0" onclick="goDay(${c.getFullYear()},${c.getMonth()+1},${c.getDate()})">
         <span class="cd-n">✦ ${ev.n}</span>
         <span class="cd-d">${LANG=='vi'?'còn':'in'} <b>${k}</b> ${LANG=='vi'?'ngày':'days'} · ${c.getDate()}/${c.getMonth()+1}</span>
       </div>`;
@@ -3166,7 +3170,7 @@ function nextEventLine(d,t){
 function remindTop(d,t){
   const up=notesUpcoming(d,3);
   if(!up.length)return '';
-  return `<div class="rmtop" onclick="setMain(0)">${up.slice(0,2).map(u=>`<div class="rmrow" style="border:0;padding:5px 0">
+  return `<div class="rmtop">${up.slice(0,2).map(u=>`<div class="rmrow rtap" role="button" tabindex="0" onclick="goDay(${u.date.getFullYear()},${u.date.getMonth()+1},${u.date.getDate()})" style="border:0;padding:5px 0">
     <span class="rmn">♥ ${noteTypeName(u.n.type)} <b>${u.n.name}</b></span>
     <span class="rmd">${u.days===0?t.today:(u.days===1?t.tomorrow:(LANG=='vi'?'còn '+u.days+' ngày':'in '+u.days+'d'))}</span></div>`).join('')}</div>`;
 }
@@ -3174,7 +3178,7 @@ function remindHtml(d,t){
   const up=notesUpcoming(d,3);
   let inner='';
   if(up.length){
-    inner=up.slice(0,3).map(u=>`<div class="rmrow">
+    inner=up.slice(0,3).map(u=>`<div class="rmrow rtap" role="button" tabindex="0" onclick="goDay(${u.date.getFullYear()},${u.date.getMonth()+1},${u.date.getDate()})">
       <span class="rmn">♥ ${noteTypeName(u.n.type)} <b>${u.n.name}</b></span>
       <span class="rmd">${u.days===0?t.today:(u.days===1?t.tomorrow:(LANG=='vi'?'còn '+u.days+' ngày':'in '+u.days+'d'))}${u.n.cal==='lunar'?' · '+u.n.d+'/'+u.n.m+(LANG=='vi'?' âm':' lunar'):''}</span>
     </div>`).join('');
@@ -3462,12 +3466,21 @@ function panelVanNien(){
   let lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   let cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
   let nf=daysToLunarDay(d,15),nn=daysToLunarDay(d,1);
+  // Luật chạm: mốc "còn X ngày" phải đi tiếp được — chạm là nhảy đúng ngày đó.
+  const rowKỳ=(k,n,jade)=>{
+    const v=n===0?t.today:t.dLeft.replace('{n}',n).replace(/\b1 days\b/,'1 day');
+    const vv='<span class="v'+(jade?' jade':'')+'">'+(jade?'<b>'+v+'</b>':v)
+      +(n>0?' '+svgIcon('chevR',13,2.2):'')+'</span>';
+    return n>0
+      ?'<div class="row rtap" role="button" tabindex="0" onclick="goDayOff('+n+')"><span class="k">'+k+'</span>'+vv+'</div>'
+      :'<div class="row"><span class="k">'+k+'</span>'+vv+'</div>';
+  };
   return `<div class="card">
     <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Lunisolar calendar'}</div>
     <div class="big">${lun.day}/${lun.month}${lun.leap?'*':''}<small>${t.lunar} · ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</small></div>
     <div class="row"><span class="k">${t.solar}</span><span class="v">${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>
-    <div class="row"><span class="k">${t.nextFull}</span><span class="v jade"><b>${nf===0?t.today:t.dLeft.replace('{n}',nf).replace(/\b1 days\b/,'1 day')}</b></span></div>
-    <div class="row"><span class="k">${t.nextNew}</span><span class="v">${nn===0?t.today:t.dLeft.replace('{n}',nn).replace(/\b1 days\b/,'1 day')}</span></div>
+    ${rowKỳ(t.nextFull,nf,1)}
+    ${rowKỳ(t.nextNew,nn,0)}
     <div class="qbox vnq"><div class="qtx">${LANG=='vi'?'“'+cadao(d).vi+'”':cadao(d).en}</div><div class="qsrc">${t.folkSrc}</div></div>
   </div>`;
 }
@@ -3561,7 +3574,7 @@ function almanac(){
   const ct=currentTermIdx(lun.jd),nt=nextTerm(d);
   const tk='<div class="sect">'+sh('sun',t.aTK)
     +'<div class="s28">'+t.aGiua.replace('{a}','<b>'+t.terms[ct]+'</b>').replace('{b}','<b>'+t.terms[nt.idx]+'</b>')
-    +' <span class="s28sub" style="display:inline">· '+t.termNext2.replace('{t}',t.terms[nt.idx]).replace('{n}',nt.days)+'</span></div></div>';
+    +' <span class="s28sub rtap" style="display:inline" role="button" tabindex="0" onclick="goDayOff('+nt.days+')">· '+t.termNext2.replace('{t}',t.terms[nt.idx]).replace('{n}',nt.days)+' '+svgIcon('chevR',12,2.2)+'</span></div></div>';
 
   // Tuoi xung: hop vien nhu anh (theo chi — phan kiem chung duoc)
   const hộp=(c)=>'<div class="xbox"><b>'+t.chi[c]+'</b><em>'+t.animals[c].toLowerCase()+'</em></div>';
@@ -3966,6 +3979,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v62 · 841ebd2e</div><script>window.LDC_BUILD='ldc-v62 · 841ebd2e';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v63 · 861e6c42</div><script>window.LDC_BUILD='ldc-v63 · 861e6c42';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

@@ -1357,3 +1357,52 @@ phần chẩn đoán không còn đúng — nhưng ba ý chưa có thì thật, 
 4. Mục **Nguồn** mở rộng đủ 6 hệ (thêm Phật lịch, Lịch Tạng Phugpa/Janson) và
    câu chốt: *"App thuật lại dữ liệu, phân biệt rõ dữ liệu tính toán với diễn
    giải truyền thống."*
+
+---
+
+## 30. QUY TRÌNH DỮ LIỆU 12 TRỰC · 28 TÚ (V5.1 — chốt trước khi có dữ liệu)
+
+Bản nghiên cứu của chú (đối chiếu nhiều nguồn về 12 Trực + 28 Tú) chốt các
+nguyên tắc sau — đây là **luật dữ liệu**, không phải gợi ý:
+
+1. **Không lấy bảng "Nên làm / Kiêng cữ" trôi nổi trên mạng** rồi gắn nhãn
+   chung. Các hệ sách không thống nhất; cùng một Trực/Tú có danh sách khác
+   nhau tùy sách. Ảnh app đối thủ chỉ là tham khảo UX — *không phải nguồn văn bản*.
+   "Đừng để một app phổ thông trở thành sách gốc của Lịch Đa Chiều."
+2. **Không đơn giản hoá** "Trực A tốt / Trực B xấu", và với 28 Tú không gom
+   "sao tốt = mọi việc tốt". Mẫu câu chuẩn: *"Theo sách lịch, thường được dùng
+   cho: ... Kiêng: ... Nguồn: ..."* — mô tả theo nguồn, không phán.
+3. **Cấu trúc 3 tầng cho mỗi Trực/Tú** khi nhập:
+   tầng 1 tóm gọn (nên/kiêng chính) → tầng 2 "Xem đầy đủ" (nên làm · kiêng cữ
+   · ngoại lệ · điều kiện theo Địa chi, Diệt Một...) → tầng 3 **bài quyết/nguyên
+   văn kèm nguồn**. Bài quyết GIỮ, không bỏ — nó là cách cổ thư ghi nhớ nội dung.
+4. **Nguồn phải cụ thể đến bản sách/bản dịch**, không ghi chung chung "Ngọc Hạp
+   Thông Thư". Mục Nguồn sẽ có dòng riêng: "12 Trực · theo [bản cụ thể]",
+   "28 Tú · theo [bản cụ thể]".
+5. **Quy trình nhập** (chỉ khi chú gửi ảnh trang sách chú tin): ảnh → đọc
+   nguyên văn → đối chiếu chéo → xác định bản → giữ nguyên thuật ngữ → tách
+   Nên/Kiêng/Ngoại lệ/Bài quyết → UX 3 tầng → ghi nguồn. Sai một chữ tệ hơn
+   thiếu một mục — không bịa phần thiếu cho "đủ tính năng".
+6. Trong lúc chờ, mục Nguồn của trang chi tiết đã ghi rõ (V5.1): phần nên
+   làm/kiêng cữ chưa hiển thị vì chưa chốt bản nguồn — minh bạch thay vì im lặng.
+7. **Đừng thêm tính năng nữa** — chuẩn mới của chú: "làm 20 thứ hiện có nhẹ hơn
+   20%". Không nhồi Nakshatra, không thêm bảng/biểu tượng mới trước khi có
+   người dùng thật trả lời 6 câu kiểm tra (§13/§21, bổ sung: có lý do quay lại
+   mỗi ngày không; màu có "tĩnh" không hay vẫn "app kỹ thuật").
+
+## 31. LUẬT CHẠM TOÀN APP (V5.1)
+
+"Bất cứ thứ gì nói *kỳ tới / còn X ngày / ngày mai* đều phải có khả năng đi
+tiếp." Rà toàn bộ và vá 4 chỗ còn cụt:
+
+- **Rằm tới / Mùng 1 tới** (thẻ vạn niên): thành hàng chạm được `goDayOff(n)`,
+  kèm chevron. Khi n=0 ("hôm nay") thì không gắn chạm — không có chỗ để đi.
+- **"✦ lễ gần nhất · còn X ngày"** (trang chủ): trước trỏ `setMain(3)` (nhảy
+  tab, lạc đề) — giờ `goDay(...)` nhảy đúng ngày đó, ở nguyên màn.
+- **Ngày của tôi** (2 chỗ: dải nhắc trên trang chủ + danh sách trong "Hôm nay
+  còn gì"): từng hàng chạm được, nhảy đúng ngày giỗ/sinh nhật đó.
+- CSS chung `.rtap` (cursor + active + chevron mờ) — một class, mọi mốc.
+
+Đã chạm được từ trước: ngày chay tới (nút `.chay`), kỳ thực hành Tạng
+(nút `.nextp`), vía Phật sắp tới. Chuẩn đối chiếu: goDay giữ nguyên màn đang
+xem — trang chủ vẽ theo VIEW nên chạm trên trang chủ là trang chủ đổi ngày.

@@ -86,6 +86,24 @@ function serve(root) {
     })) sharp.add(x);
   };
 
+  // Luật chạm (§31): mốc thời gian "còn/sau X ngày" phải nằm trong phần tử đi
+  // tiếp được (onclick / button / link). Mốc mà chạm không đi đâu là cụt.
+  // Cũng phải chạy trên từng màn — bài học của chốt bo tròn.
+  const orphanTap = new Set();
+  const sweepTap = async (tag) => {
+    for (const x of await page.evaluate(() => {
+      const out = [];
+      document.querySelectorAll('body *').forEach(el => {
+        if (el.children.length > 0) return;
+        const tx = (el.textContent || '').trim();
+        if (!/(còn|sau) \d+ ngày|in \d+ days?\b|\b\d+ days? left\b/.test(tx)) return;
+        if (el.closest('[onclick],button,a,summary,label')) return;
+        out.push((el.className || el.tagName) + ' · "' + tx.slice(0, 48) + '"');
+      });
+      return out;
+    })) orphanTap.add(`${tag}: ${x}`);
+  };
+
   // V4.1 gap du lieu tra cuu vao <details class="more">. Chu ghi nguon van hien
   // (drukNote), nhung cac dong .row thi nam trong muc gap. innerText bo qua noi
   // dung trong <details> dong -> ba muc chu nghia bao do oan. Mo het ra khi kiem:
@@ -118,17 +136,22 @@ function serve(root) {
     await page.evaluate(l => setLang(l), lang); await page.waitForTimeout(350);
     for (let i = 0; i < 3; i++) {                      // Lịch: vạn niên / can chi / Phật lịch
       await page.evaluate(n => goCal(n), i); await page.waitForTimeout(500);
-      all[lang].push(await scan(`${lang}/calendar/sub${i}`)); await sweepSharp(); screens++;
+      all[lang].push(await scan(`${lang}/calendar/sub${i}`)); await sweepSharp(); await sweepTap(`${lang}/calendar/sub${i}`); screens++;
     }
     for (let i = 0; i < 6; i++) {                      // Khám phá: moon/cosmic/buddha/tibet/weather/tide
       await page.evaluate(n => goExp(n), i); await page.waitForTimeout(700);
-      all[lang].push(await scan(`${lang}/systems/sub${i}`)); await sweepSharp(); screens++;
+      all[lang].push(await scan(`${lang}/systems/sub${i}`)); await sweepSharp(); await sweepTap(`${lang}/systems/sub${i}`); screens++;
       if (i === 3) tibRows[lang] = await rows();       // panel Tạng
     }
     for (const m of [0, 3, 4]) {                       // Hôm nay / Thời tiết / Sự kiện
       await page.evaluate(n => setMain(n), m); await page.waitForTimeout(700);
-      all[lang].push(await scan(`${lang}/main${m}`)); await sweepSharp(); screens++;
+      all[lang].push(await scan(`${lang}/main${m}`)); await sweepSharp(); await sweepTap(`${lang}/main${m}`); screens++;
     }
+    // Trang chi tiết ngày (MODE='day') — trước V5.1 vòng quét chưa vào đây,
+    // mà đây là trang dày mốc thời gian nhất.
+    await page.evaluate(() => { MODE = 'day'; goCal(1); }); await page.waitForTimeout(600);
+    all[lang].push(await scan(`${lang}/day-detail`)); await sweepSharp(); await sweepTap(`${lang}/day-detail`); screens++;
+    await page.evaluate(() => { MODE = 'month'; setMain(0); }); await page.waitForTimeout(300);
   }
 
   // Man Lich o che do Thang/Nam co thanh chuyen thang — khong nam trong vong tren.
@@ -250,7 +273,7 @@ function serve(root) {
   });
 
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0;
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0;
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -269,6 +292,9 @@ function serve(root) {
   console.log('8. Chuyển tab ............ ' + (tabs.length
     ? '✗ ' + tabs.length + '/35 sai:\n   ' + tabs.slice(0, 8).join('\n   ')
     : '✓ cả 35 trường hợp panel × tab đều chuyển đúng'));
+  console.log('9. Luật chạm ............. ' + (orphanTap.size
+    ? '✗ ' + orphanTap.size + ' mốc "còn/sau X ngày" chạm không đi đâu:\n   ' + [...orphanTap].slice(0, 8).join('\n   ')
+    : '✓ mọi mốc "còn/sau X ngày" đều đi tiếp được'));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();
