@@ -308,8 +308,29 @@ function serve(root) {
     ['Trang chi tiết EN có Favorable · Avoid', (detailTxt.en || '').includes('Favorable') && (detailTxt.en || '').includes('Avoid')],
   ];
 
+  // ── 11. Thu tu man He lich + bo nhan dien (favicon, og) ────────────────
+  // Chu Duyet chot thu tu: Phat giao, Lich Tang, Mat trang, Hoang dao, Vu tru.
+  const hub = await page.evaluate(() => {
+    setLang('vi'); setMain(2);
+    return [...document.querySelectorAll('.explist .enm')].map(e => e.innerText.trim());
+  });
+  await page.waitForTimeout(200);
+  const wantHub = ['Phật giáo', 'Lịch Tạng', 'Mặt trăng', 'Hoàng đạo', 'Vũ trụ'];
+  const headHtml = fs.readFileSync(path.join(process.cwd(), 'index.html'), 'utf8').slice(0, 4000);
+  const brandFiles = ['favicon.svg', 'favicon-32.png', 'og.png', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
+  const missFiles = brandFiles.filter(f => !fs.existsSync(path.join(process.cwd(), f)));
+  const swTxt = fs.readFileSync(path.join(process.cwd(), 'sw.js'), 'utf8');
+  const brandSpecs = [
+    [`Hệ lịch đúng thứ tự (${hub.join(' · ')})`, JSON.stringify(hub) === JSON.stringify(wantHub)],
+    ['Hết chữ "Hoàng đạo Tây"', !vi.includes('Hoàng đạo Tây')],
+    [`Đủ file nhận diện${missFiles.length ? ': thiếu ' + missFiles.join(', ') : ''}`, missFiles.length === 0],
+    ['Head khai báo favicon SVG + PNG', /rel="icon" href="favicon\.svg"/.test(headHtml) && /favicon-32\.png/.test(headHtml)],
+    ['Head có og:image + twitter:card', /og:image/.test(headHtml) && /twitter:card/.test(headHtml)],
+    ['sw.js cache luôn favicon', swTxt.includes('favicon.svg')],
+  ];
+
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0 && almSpecs.every(([, ok]) => ok);
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0 && almSpecs.every(([, ok]) => ok) && brandSpecs.every(([, ok]) => ok);
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -333,6 +354,8 @@ function serve(root) {
     : '✓ mọi mốc "còn/sau X ngày" đều đi tiếp được'));
   console.log('10. Trạch nhật 28 tú · 12 trực:');
   for (const [label, ok, why] of almSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}` + (!ok && why ? ' — ' + why : ''));
+  console.log('11. Hệ lịch · nhận diện:');
+  for (const [label, ok] of brandSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();

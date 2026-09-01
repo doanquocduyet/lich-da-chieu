@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Lịch Đa Chiều">
+  <rect width="512" height="512" rx="114" fill="#B03A30"/>
+  <g fill="none" stroke="#FAF7F0" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="186" r="96"/>
+    <circle cx="176" cy="326" r="96"/>
+    <circle cx="336" cy="326" r="96"/>
+  </g>
+  <circle cx="256" cy="286" r="26" fill="#FAF7F0"/>
+</svg>

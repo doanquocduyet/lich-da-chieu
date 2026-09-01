@@ -10,7 +10,23 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Lịch Đa Chiều">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <title>Lịch Đa Chiều · Multi-Calendar</title>
+<meta name="description" content="Một ngày, nhìn qua nhiều hệ lịch: dương, âm · Can Chi, Phật giáo, Tạng Phugpa, thiên văn, thời tiết. Dùng được khi không có mạng.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lịch Đa Chiều">
+<meta property="og:title" content="Lịch Đa Chiều">
+<meta property="og:description" content="Một ngày, nhìn qua nhiều hệ lịch: dương, âm · Can Chi, Phật giáo, Tạng Phugpa, thiên văn, thời tiết.">
+<meta property="og:url" content="https://duyet.online/">
+<meta property="og:image" content="https://duyet.online/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="vi_VN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lịch Đa Chiều">
+<meta name="twitter:description" content="Một ngày, nhìn qua nhiều hệ lịch: dương, âm · Can Chi, Phật giáo, Tạng Phugpa, thiên văn, thời tiết.">
+<meta name="twitter:image" content="https://duyet.online/og.png">
 <style>
   :root{
     --paper:#171717; --gold:#222; --gold-soft:#444;
@@ -993,7 +1009,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   cult:[[1,1,"Tết Nguyên Đán"],[1,15,"Tết Nguyên Tiêu"],[3,3,"Tết Hàn Thực"],[3,10,"Giỗ Tổ Hùng Vương"],[5,5,"Tết Đoan Ngọ"],[7,7,"Lễ Thất Tịch"],[7,15,"Rằm tháng Bảy · Vu Lan"],[8,15,"Tết Trung Thu"],[9,9,"Tết Trùng Cửu"],[10,15,"Tết Hạ Nguyên"],[12,23,"Ông Công Ông Táo"]],
   hlMoon:"Pha mặt trăng",hlDay:"Ngày âm lịch",hlTerm:"Tiết khí",hlCanchi:"Can Chi ngày",hlBuddha:"Phật giáo",hlDruk:"Lịch Tạng",
   hlToday:"Năm lăng kính hôm nay",
-  subCal:["Vạn Niên","Can Chi","Phật Giáo"],subExp:["Mặt trăng","Vũ trụ","Phật giáo","Lịch Tạng","Thời tiết","Thủy triều","Hoàng đạo Tây"],
+  subCal:["Vạn Niên","Can Chi","Phật Giáo"],subExp:["Mặt trăng","Vũ trụ","Phật giáo","Lịch Tạng","Thời tiết","Thủy triều","Hoàng đạo"],
   wx:"Thời tiết",wxLoc:"Bật vị trí để xem trời hôm nay nơi bạn ở",wxLoad:"Đang lấy dữ liệu…",
   wxAsk:"Xem thời tiết nơi bạn ở",
   wxPrivacy:"Vị trí chỉ lưu trên máy bạn và chỉ dùng để lấy dữ liệu thời tiết — không gửi đi đâu khác.",
@@ -1977,7 +1993,7 @@ function almNguon(){
     +r(LANG=='vi'?'Lịch Tạng':'Tibetan calendar','Phugpa (Janson)')
     +r(LANG=='vi'?'Giờ hoàng đạo · Trực · Sao · Xung':'Hours · Duty · Mansions · Clash', LANG=='vi'?'bảng sách lịch truyền thống':'traditional almanac tables')
     +r(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions', LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')
-    +r(LANG=='vi'?'12 Trực · nên, kiêng':'12 duties · lists', LANG=='vi'?'bảng “việc hợp – kỵ của 12 Trực” bản lưu truyền, một hệ nhất quán':'a single consistent traditional table')
+    +r(LANG=='vi'?'12 Trực · nên, kiêng':'12 duties · lists', LANG=='vi'?'cách tính khởi theo nguyệt kiến (Hiệp Kỷ Biện Phương Thư) · bảng nên–kiêng theo bản lưu truyền':'month-branch method (Hiệp Kỷ Biện Phương Thư) · lists from a single traditional table')
     +r(LANG=='vi'?'28 Tú · nên, kiêng, ngoại lệ':'28 mansions · lists', LANG=='vi'?'văn bản trạch nhật gốc Ngọc Hạp — đối chiếu chéo 2 trang lịch độc lập (9/2026)':'Ngọc Hạp day-selection text — cross-checked across 2 independent almanac sites (9/2026)')
     +'</div><div class="note">'
     +(LANG=='vi'
@@ -3634,7 +3650,7 @@ function expItems(t){
 // Panel nao thuoc ve tab nao. Thieu bang nay thi SUBEXP dung chung giua hai
 // tab se lam tab Thoi tiet ve ra panel cua tab He lich.
 const EXP_TAB=[2,2,2,2,3,3,2];   // trang, vu tru, phat, tang, thoi tiet, trieu, hoang dao
-function screenExplore(){ return hubScreen([0,2,3,1,6],T[LANG]); }   // Trăng, Phật, Tạng, Vũ trụ, Hoàng đạo Tây
+function screenExplore(){ return hubScreen([2,3,0,6,1],T[LANG]); }   // Phật, Tạng, Trăng, Hoàng đạo, Vũ trụ
 function screenWeatherTab(){ return hubScreen([4,5],T[LANG]); }   // Trieu luon co mat: het du lieu thi bao, khong an di     // Thời tiết, Triều
 function hubScreen(ids,t){
   // Chan hai lop: du trang thai co sai thi man cung khong ve panel cua tab khac.
@@ -4218,6 +4234,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v65 · 18b44276</div><script>window.LDC_BUILD='ldc-v65 · 18b44276';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v66 · c1e362ca</div><script>window.LDC_BUILD='ldc-v66 · c1e362ca';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

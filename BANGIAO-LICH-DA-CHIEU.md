@@ -1479,3 +1479,33 @@ icon tròn, xanh lá/đỏ đúng nghĩa). Ba chỗ sửa:
    hai lần -> "· còn 6 ngày ›" (tái dùng chuỗi dLeft, vẫn chạm được).
    Bỏ chuỗi termNext2 hết dùng. Trực Phá hết hiện "Phá · phá" (ẩn nghĩa khi
    trùng tên — sửa cùng đợt V5.2).
+
+---
+
+## 34. THỨ TỰ HỆ LỊCH · NGUỒN 12 TRỰC · BỘ NHẬN DIỆN (V5.4)
+
+1. **Thứ tự màn Hệ lịch** (chú chốt 1/9): Phật giáo → Lịch Tạng → Mặt trăng →
+   Hoàng đạo → Vũ trụ. Đổi đúng một chỗ: `screenExplore()` dùng
+   `hubScreen([2,3,0,6,1])`. **Không đụng chỉ số SUBEXP nội bộ** (0=trăng…
+   6=hoàng đạo) vì EXP_TAB, skins, fns, chốt tab 35 ô đều neo theo chỉ số đó —
+   đổi index là gãy cả bốn nơi. Muốn đổi thứ tự lần sau: chỉ sửa mảng ids này.
+2. **"Hoàng đạo Tây" → "Hoàng đạo"** (i18n VI). Trong trang chi tiết vẫn có
+   "ngày hoàng đạo" (trực thần) — hai thứ khác nhau, khác màn, không gộp.
+3. **Nguồn 12 Trực** (theo bản nghiên cứu của chú): Ngọc Hạp Thông Thư có
+   *cách tính* trực nhưng không có bảng nên–kiêng dạng 12 card; nên mục Nguồn
+   giờ ghi tách bạch: *"cách tính khởi theo nguyệt kiến (Hiệp Kỷ Biện Phương
+   Thư) · bảng nên–kiêng theo bản lưu truyền"*. Engine app tính trực bằng
+   `(chi ngày − chi tháng) mod 12` — đúng phép khởi theo nguyệt kiến đó.
+   Vẫn giữ luật: không gắn nhãn "theo Ngọc Hạp" cho phần app không lấy từ đó.
+4. **Bộ nhận diện mới**: dấu ba vòng giao nhau (đúng motif cũ, đảo màu) — nền
+   đỏ #B03A30, nét kem #FAF7F0, chấm tâm = "một ngày ở giữa nhiều hệ lịch".
+   - `favicon.svg` (vector, full-bleed) + `favicon-32.png` dự phòng
+   - `apple-touch-icon.png` 180 full-bleed; `icon-192/512.png` **maskable**
+     (hình thu 76% cho vùng an toàn — Android bo tròn không cắt mất vòng)
+   - `og.png` 1200×630: dấu + tên + một câu + 6 chip, nền kem như app
+   - head: `rel=icon` (svg + png), og:*, twitter:* trỏ `https://duyet.online/og.png`
+   Đã render thử ở 16/32px trước khi chốt (nét 30 + chấm 26 là bản đọc được ở
+   16px mà vẫn sạch ở 32px) — không chọn bằng mắt trên bản 512.
+5. **Chốt 11 verify.js**: thứ tự 5 mục Hệ lịch đúng danh sách, hết chữ "Hoàng
+   đạo Tây", đủ 6 file nhận diện, head khai báo favicon + og:image + twitter,
+   sw.js cache favicon.
