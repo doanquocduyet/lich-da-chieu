@@ -334,13 +334,18 @@
   .hub.st .ends{display:flex;justify-content:space-between;font-size:12.5px;color:#977F4E}
   .hub.st .go2{color:#977F4E}
   /* ④ phật lịch — tĩnh,trang nghiêm */
-  .hub.bd{background:#FBF7EE;border:1px solid #E9DFC9;padding:24px 20px;text-align:center}
-  .hub.bd .lbl{font-size:11.5px;letter-spacing:.24em;color:#9A8358;text-transform:uppercase}
-  .hub.bd .era{font-size:46px;font-weight:300;color:#57492E;margin:10px 0 4px;letter-spacing:.01em}
-  .hub.bd .lun{font-size:15px;color:#7A6844}
-  .hub.bd .evt{font-size:15px;color:#8C2F2F;margin-top:12px;font-weight:600}
-  .hub.bd .ln{width:44px;height:1px;background:#DCCFAE;margin:16px auto 12px}
-  .hub.bd .go2{color:#9A8358}
+  .hub.bd{background:linear-gradient(168deg,#FFF7E6 0%,#F8EBD1 56%,#F0DFBA 100%);
+    border:1px solid #E4D2A6;padding:26px 20px 22px;text-align:center;
+    box-shadow:0 10px 26px -18px rgba(122,92,30,.55)}
+  .hub.bd .blot{position:absolute;right:-26px;top:-22px;opacity:.16;pointer-events:none}
+  .hub.bd .lbl{font-size:11.5px;letter-spacing:.24em;color:#8A6B2E;text-transform:uppercase;position:relative}
+  .hub.bd .era{font-size:56px;font-weight:600;color:#6B5320;margin:8px 0 2px;letter-spacing:-.01em;
+    line-height:1;position:relative}
+  .hub.bd .lun{font-size:15.5px;color:#7C6433;position:relative}
+  .hub.bd .evt{font-size:14.5px;color:#8C2F2F;margin-top:13px;font-weight:600;display:inline-block;
+    background:#fffdf7;border:1px solid #E4D2A6;border-radius:999px;padding:6px 15px;position:relative}
+  .hub.bd .ln{width:44px;height:1px;background:#D9C39A;margin:16px auto 12px}
+  .hub.bd .go2{color:#8A6B2E;position:relative}
   /* ⑤ tạng — núi,chiều sâu */
   .hub.tb{background:linear-gradient(170deg,#8C2A20 0%,#6E1F1A 55%,#571714 100%);padding:22px 20px 0;border:1px solid #6E1F1A}
   .hub.tb .lbl{font-size:11.5px;letter-spacing:.2em;color:#E8C98B;text-transform:uppercase}
@@ -391,6 +396,9 @@
   .pcard.on{box-shadow:inset 0 0 0 2px #C9A227}
   .pcard .pl{display:flex;flex-direction:column;min-width:0;flex:1}
   .pcard .pn{font-size:19px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard .pnw{display:flex;align-items:center;gap:8px;min-width:0}
+  .pcard .pnow{flex:0 0 auto;font-style:normal;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    border:1px solid currentColor;border-radius:999px;padding:2.5px 8px;opacity:.7;white-space:nowrap}
   .pcard .ps{font-size:12.5px;color:#B9CBD4;margin-top:4px}
   .pcard .pr{display:flex;flex-direction:column;align-items:flex-end;text-align:right;flex-shrink:0}
   .pcard .pt{font-size:40px;font-weight:300;line-height:1;letter-spacing:-.02em}
@@ -653,6 +661,7 @@
      BAC 3 — moi thu con lai: vien thuoc am lich,dai tuan,nhan. */
   .hero .dm{font-size:136px;font-weight:830;letter-spacing:-.05em;line-height:.9}
   .ccstrip .cv{font-size:26px;font-weight:600;letter-spacing:-.01em}
+  .ccstrip .cc:first-child .cv{font-weight:700}
   .ccstrip .cl{font-size:11px}
   /* dai tuan la thanh DIEU HUONG,khong phai tieu de — ha xuong bac 3 de khoi
      tranh cho voi thanh Can Chi ngay ben tren */
@@ -2462,6 +2471,10 @@ function placeDel(i){
 function placeUse(i){
   if(PEDIT)return;
   const p=PLACES[i];if(!p)return;
+  const cur=loadLoc();
+  // Cham dung noi dang xem: khong tai lai gi ca. Truoc day van xoa WX/TD roi
+  // goi mang lai -> man nhap nhay "dang tai" roi ve y cu.
+  if(cur&&placeKey(cur.la,cur.lo)===placeKey(p.la,p.lo))return;
   LOCNAME=p.me?'':p.n;
   try{p.me?localStorage.removeItem('ldc_locname'):localStorage.setItem('ldc_locname',p.n)}catch(e){}
   saveLoc(p.la,p.lo);WX=null;TD=null;fetchWeather();fetchTide();renderScreen();
@@ -2496,9 +2509,13 @@ function placesBoard(t){
     const lt=w&&w.utc_offset_seconds!=null
       ? (function(){const d=new Date(Date.now()+w.utc_offset_seconds*1000);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())})() : '';
     const on=act&&placeKey(act.la,act.lo)===placeKey(p.la,p.lo);
-    const sub=[p.me?t.placeMe:lt,c?wcodeName(c.weather_code,t):(PWL?t.wxLoad:'—'),on?t.placeNow:''].filter(Boolean).join(' · ');
+    // Gio dia phuong chi dang gia tri khi noi do LECH mui gio voi may; cung mui
+    // thi no lap lai dong ho tren dau man, chi lam roi.
+    const off=w&&w.utc_offset_seconds!=null?w.utc_offset_seconds:null;
+    const same=off===null||off===-new Date().getTimezoneOffset()*60;
+    const sub=[p.me?t.placeMe:(same?'':lt),c?wcodeName(c.weather_code,t):(PWL?t.wxLoad:'—')].filter(Boolean).join(' · ');
     return `<div class="pcard ${on?'on':''}" onclick="placeUse(${i})">
-      <span class="pl"><span class="pn">${p.n}</span><span class="ps">${sub}</span></span>
+      <span class="pl"><span class="pnw"><span class="pn">${p.n}</span>${on?`<i class="pnow">${t.placeNow}</i>`:''}</span><span class="ps">${sub}</span></span>
       <span class="pr"><span class="pt">${c?Math.round(c.temperature_2m)+'°':'–'}</span>
         ${dl?`<span class="phl">C:${Math.round(dl.temperature_2m_max[0])}° T:${Math.round(dl.temperature_2m_min[0])}°</span>`:''}</span>
       ${PEDIT?`<button class="pdel" onclick="event.stopPropagation();placeDel(${i})" aria-label="del">${svgIcon('close',17,2.1)}</button>`:''}
@@ -3555,6 +3572,7 @@ function hubMoon(mp,t){
 // ④ phật lịch
 function hubBuddha(lun,ev,d,t){
   return `<div class="hub bd" onclick="goExp(2)">
+    <span class="blot">${ornLotus(150,'#8A6B2E')}</span>
     <div class="lbl">${t.buddhaEra}</div>
     <div class="era">${d.getFullYear()+544}</div>
     <div class="lun">${LANG=='vi'?'Ngày '+lun.day+' tháng '+lun.month+' âm lịch':'Lunar '+lun.day+'/'+lun.month}</div>
@@ -3607,7 +3625,7 @@ function expItems(t){
   return [
     {i:0,c:'#3C4560',nm:t.subExp[0],sb:`${t.phases[mp.idx]}${nf?' · '+(LANG=='vi'?'rằm':'full')+' '+nf.getDate()+'/'+(nf.getMonth()+1):''}`,vl:Math.round(mp.illum*100)+'%',
      orn:`<svg viewBox="0 0 340 62"><circle cx="298" cy="31" r="17" fill="#3C4560" opacity=".22"/><path d="M298 14 A17 17 0 0 1 298 48 A8 17 0 0 0 298 14Z" fill="#3C4560" opacity=".45"/><circle cx="298" cy="31" r="25" fill="none" stroke="#3C4560" stroke-width="1" opacity=".28"/></svg>`},
-    {i:1,c:'#6D4FA8',nm:t.subExp[1],sb:`${t.youHere} · 31/12 23:59:59`,vl:'',
+    {i:1,c:'#6D4FA8',nm:t.subExp[1],sb:t.cosmicScale,vl:'',
      orn:`<svg viewBox="0 0 340 62"><ellipse cx="292" cy="31" rx="44" ry="15" fill="none" stroke="#6D4FA8" stroke-width="1.2" opacity=".4"/><ellipse cx="292" cy="31" rx="24" ry="8" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity=".45"/><circle cx="292" cy="31" r="3.5" fill="#D4AF37" opacity=".55"/><circle cx="252" cy="15" r="1.4" fill="#6D4FA8" opacity=".5"/><circle cx="324" cy="48" r="1.2" fill="#6D4FA8" opacity=".45"/></svg>`},
     {i:2,c:'#C9922E',nm:t.subExp[2],sb:`${t.buddhaEra} ${d.getFullYear()+544} · ${lun.day}/${lun.month} ${LANG=='vi'?'âm':''}`,vl:'',
      orn:`<svg viewBox="0 0 340 62"><g fill="none" stroke="#C9922E" stroke-width="1.4" opacity=".42" stroke-linecap="round" transform="translate(296,31)"><circle r="17"/><circle r="4.6"/><g stroke-width="1.1"><line y1="-17" y2="-4.6"/><line y1="4.6" y2="17"/><line x1="-17" x2="-4.6"/><line x1="4.6" x2="17"/><line x1="-12" y1="-12" x2="-3.3" y2="-3.3"/><line x1="12" y1="12" x2="3.3" y2="3.3"/><line x1="12" y1="-12" x2="3.3" y2="-3.3"/><line x1="-12" y1="12" x2="-3.3" y2="3.3"/></g></g></svg>`},
@@ -4208,6 +4226,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v68 · 88f2c903</div><script>window.LDC_BUILD='ldc-v68 · 88f2c903';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v69 · 58a993b5</div><script>window.LDC_BUILD='ldc-v69 · 58a993b5';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

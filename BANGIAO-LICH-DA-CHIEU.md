@@ -1559,3 +1559,29 @@ Chú rà trang chủ, bảy chỗ, đã làm hết:
 Kéo theo: tiêu đề "Năm lăng kính hôm nay" thành **"Các lăng kính hôm nay"** —
 bỏ tiết khí thì còn bốn, để nguyên chữ "Năm" là sai. Dọn luôn biến chết
 (`season`, `nt`, `curTerm`, `lday`) trong screenToday theo §18.
+
+---
+
+## 37. Ô PHẬT LỊCH · Ô GIỜ · VŨ TRỤ · THẺ NƠI (V5.7)
+
+1. **Ô Phật lịch trên trang chủ "chìm quá"** — đúng: nền #FBF7EE gần như trắng,
+   số BE 46px/300, đứng cạnh ô thời tiết (số 64px/800) và ô Tạng (nền đỏ đậm)
+   thì mất hút. Sửa theo hướng *nổi mà vẫn tĩnh*: nền chuyển sắc giấy vàng ấm
+   (#FFF7E6 → #F0DFBA), viền vàng nhạt, bóng đổ rất mềm; số BE 56px/600 màu nâu
+   vàng #6B5320; hoa sen (ornLotus 150px, opacity .16) làm nền góc phải; dòng
+   lễ vía thành viên bo tròn nền trắng. Không dùng đỏ/đen mạnh — giữ chất an yên.
+2. **Ô GIỜ đậm hơn một chút**: `.ccstrip .cc:first-child .cv` lên 700, ba ô còn
+   lại giữ 600 (giờ là thứ đổi từng phút, được nhìn nhiều nhất trong bảng).
+3. **Mục Vũ trụ**: phụ đề "BẠN Ở ĐÂY · 31/12 23:59:59" — ngày nào cũng y hệt,
+   không nói được gì. Thay bằng `cosmicScale` ("Nếu 13,8 tỷ năm nén thành 1
+   năm") — mô tả đúng việc của mục thay vì giả vờ là thông tin của hôm nay.
+4. **Thẻ nơi (thời tiết)**: dòng phụ từng là "giờ địa phương · thời tiết · đang
+   xem". Giờ địa phương chỉ có nghĩa khi nơi đó **lệch múi giờ** với máy; cùng
+   múi thì nó lặp lại đồng hồ ngay trên đầu màn → bỏ. "Đang xem" tách khỏi
+   chuỗi, thành nhãn viền bo tròn cạnh tên. Nhãn `flex:0 0 auto` để không bị
+   cắt khi tên nơi dài (bản đầu bị cắt thành "ĐANG X…" vì nằm trong ô cắt chữ).
+5. **Bấm vào chính nơi đang xem bị tải lại** — `placeUse()` luôn xoá WX/TD rồi
+   gọi mạng, kể cả khi bấm đúng nơi đang xem: màn nháy "đang tải" rồi về y cũ,
+   người dùng tưởng app lỗi. Nay so toạ độ trước, trùng thì **thoát ngay**.
+   Đo bằng harness: bấm nơi đang xem → 0 lần vẽ lại, 0 lần gọi mạng; bấm nơi
+   khác vẫn đổi bình thường.
