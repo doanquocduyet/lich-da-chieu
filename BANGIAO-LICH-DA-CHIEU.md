@@ -1456,3 +1456,26 @@ chiếu chéo. Đã làm đúng 5 bước trong bản nhận định chú gửi:
 Giọng chữ giữ nguyên triết lý: mọi bảng đều mở đầu/kết thúc bằng "sách lịch
 xếp, app thuật lại, không phán việc riêng của bạn". Không có chữ "ĐẠI CÁT"
 đập vào mặt; cát/hung luôn kèm "sách lịch xếp:".
+
+---
+
+## 33. RÀ THIẾT KẾ V5.3 — PHÂN TẦNG "BẤM ĐƯỢC / CHỈ ĐỌC"
+
+Chụp và soi lại toàn bộ 13 màn (390px, x2). Tổng thể da từng thế giới đã theo
+đúng ngôn ngữ ảnh mẫu (nền bạc hà, thẻ trắng bo lớn, tiêu đề xanh in hoa kèm
+icon tròn, xanh lá/đỏ đúng nghĩa). Ba chỗ sửa:
+
+1. **Ăn chay** — chú chỉ đúng: nút chọn lối (Nhị/Tứ/Lục/Thập trai, Chay trường)
+   BẤM ĐƯỢC nhưng trông y hệt ô số 1–29 chỉ-để-đọc bên dưới. Sửa hai phía:
+   nút ra dáng nút (viền 1.5px, bóng nhẹ, nút đang chọn tô vàng + icon check
+   một nét — thêm `check` vào bộ ICON); lưới ngày làm phẳng (ô thường trong
+   suốt, chỉ ngày chay có nền vàng) + nhãn ghi rõ "· bảng chỉ để xem".
+   Đây là LUẬT chung từ nay: thứ bấm được phải có viền/bóng/nền nút; bảng
+   chỉ đọc phải phẳng, không mang dáng nút.
+2. **Tuổi xung**: hai khối rời (theo ngày / theo tháng), mỗi khối một ô lẻ
+   lệch trái -> gộp một khối "TUỔI XUNG", hai ô có nhãn nhỏ in hoa đứng giữa
+   card như ảnh mẫu. Bỏ 2 chuỗi i18n aXungN/aXungT hết dùng.
+3. **Tiết khí**: "Giữa Xử thử — Bạch lộ · sang Bạch lộ sau 6 ngày" lặp tên
+   hai lần -> "· còn 6 ngày ›" (tái dùng chuỗi dLeft, vẫn chạm được).
+   Bỏ chuỗi termNext2 hết dùng. Trực Phá hết hiện "Phá · phá" (ẩn nghĩa khi
+   trùng tên — sửa cùng đợt V5.2).

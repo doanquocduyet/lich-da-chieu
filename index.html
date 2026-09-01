@@ -795,15 +795,21 @@
   .chay.on{background:linear-gradient(160deg,#F0E4C4,#E9D9AE);border-color:#D8BE85}
   .chay.on .ct{color:#7A5A12}
   .chay.on .cs{color:#9A7B33}
+  /* Nut chon loi chay phai RA DANG NUT (vien ro, bong nhe, cai dang chon co
+     dau check); luoi ngay ben duoi la BANG DOC — o thuong trong suot, khong
+     duoc giong nut. Chu Duyet: "nhin tuong dau de bam vo may cai o ke ben". */
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
-  .chips button{background:#fff;border:1px solid var(--bd);border-radius:20px;
-    padding:9px 15px;font-family:inherit;font-size:13.5px;color:var(--muted);cursor:pointer}
-  .chips button.on{background:#8C6D1F;border-color:#8C6D1F;color:#FFF8E6;font-weight:600}
+  .chips button{background:#fff;border:1.5px solid #D9CDB0;border-radius:20px;
+    padding:9px 15px;font-family:inherit;font-size:13.5px;color:#4A4232;cursor:pointer;
+    box-shadow:0 1px 2px rgba(90,74,18,.08)}
+  .chips button:active{opacity:.65}
+  .chips button.on{background:#8C6D1F;border-color:#8C6D1F;color:#FFF8E6;font-weight:600;box-shadow:none}
+  .chips button.on svg{vertical-align:-2px}
   .clbl{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:16px 0 9px}
   .cdays{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
   .cdays span{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-    border-radius:9px;font-size:12.5px;font-family:var(--fnum);color:#A79C86;
-    background:#F6F2E7;border:1px solid transparent}
+    border-radius:9px;font-size:12.5px;font-family:var(--fnum);color:#B5AA90;
+    background:transparent;border:1px solid transparent}
   .cdays span.on{background:#E9D9AE;color:#6B4E0F;font-weight:700}
   .cdays span.now{border-color:#8C6D1F;box-shadow:0 0 0 1px #8C6D1F}
   .up .u .un{display:flex;flex-direction:column;gap:3px}
@@ -926,8 +932,10 @@
   .almv .exr b{color:#1D6FB8;white-space:nowrap;font-family:var(--fnum)}
   .almv .exr span{color:#5C6A72}
   .almv .ttl2.exn{color:#5A4A12;margin-top:7px}
-  .almv .xrow{display:flex;gap:10px}
-  .almv .xbox{border:1.5px solid #D5E2EC;border-radius:13px;padding:11px 20px;text-align:center;min-width:86px}
+  .almv .xrow{display:flex;gap:14px;justify-content:center}
+  .almv .xbox{border:1.5px solid #D5E2EC;border-radius:13px;padding:11px 20px;text-align:center;min-width:104px}
+  .almv .xbox i{display:block;font-style:normal;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:#8A97A0;margin-bottom:4px}
   .almv .xbox b{display:block;font-size:18px;color:#1D6FB8}
   .almv .xbox em{font-style:normal;font-size:12px;color:#8A97A0}
   .almv .note{border-color:#E4EDE8}
@@ -1137,7 +1145,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   viewingDay:"Ngày đang xem",chayYesD:"Ngày chay",chayNoD:"Không phải ngày chay",
   tibPrevD:"Trước",tibViewD:"Đang xem",tibNextD:"Sau",
   aGioHD:"Giờ hoàng đạo",aKT:"Thập nhị Kiến trừ",a28:"Nhị thập bát tú",
-  aXungN:"Tuổi xung theo ngày",aXungT:"Tuổi xung theo tháng",aTK:"Tiết khí",
+  aTK:"Tiết khí",
   aGiua:"Giữa {a} — {b}",tuoi:"tuổi",
   ltpTitle:"Giờ Lý Thuần Phong",ltpGood:"giờ tốt",ltpBad:"giờ xấu",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
@@ -1147,7 +1155,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   xhTitle:"Hướng xuất hành",hyThan:"Hỷ thần",taiThan:"Tài thần",
   dir8:["Bắc","Đông Bắc","Đông","Đông Nam","Nam","Tây Nam","Tây","Tây Bắc"],
   xhNote:"Hướng thần theo can của ngày, bản phổ biến trong sách Ngọc hạp thông thư. Riêng Tài thần mỗi sách một dị bản.",
-  termRow:"Tiết khí",termNext2:"sang {t} sau {n} ngày",
+  termRow:"Tiết khí",
   chayTtl:"Ăn chay",chayAsk:"Bạn giữ chay theo lối nào?",
   chayNames:["Nhị trai","Tứ trai","Lục trai","Thập trai","Chay trường"],
   chayYes:"Hôm nay là ngày chay",chayNo:"Hôm nay không phải ngày chay",
@@ -1337,7 +1345,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   viewingDay:"Viewing",chayYesD:"Vegetarian day",chayNoD:"Not a vegetarian day",
   tibPrevD:"Before",tibViewD:"Viewing",tibNextD:"After",
   aGioHD:"Auspicious hours",aKT:"Twelve Day Officers",a28:"28 Lunar Mansions",
-  aXungN:"Day clash",aXungT:"Month clash",aTK:"Solar term",
+  aTK:"Solar term",
   aGiua:"Between {a} — {b}",tuoi:"year of the",
   ltpTitle:"Lý Thuần Phong hours",ltpGood:"favorable",ltpBad:"unfavorable",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
@@ -1347,7 +1355,7 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   xhTitle:"Auspicious directions",hyThan:"Joy god (Hỷ thần)",taiThan:"Wealth god (Tài thần)",
   dir8:["North","Northeast","East","Southeast","South","Southwest","West","Northwest"],
   xhNote:"Directions follow the day stem, per the common Ngọc hạp thông thư tables. Wealth-god tables vary between almanacs.",
-  termRow:"Solar term",termNext2:"{t} in {n} days",
+  termRow:"Solar term",
   chayTtl:"Vegetarian days",chayAsk:"Which schedule do you keep?",
   chayNames:["2 days","4 days","6 days","10 days","Every day"],
   chayYes:"Today is a vegetarian day",chayNo:"Today is not a vegetarian day",
@@ -2549,7 +2557,7 @@ function askLoc(){
 // Thay cho ky tu vi iOS ve ☸ va ☀ thanh emoji MAU trong khi ◈ ▦ ✦ la ky tu den:
 // nam icon ba giong khac nhau. Ky tu con phu thuoc font tung may, khong chinh
 // duoc net, khong doi mau theo skin.
-const ICON={today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>',wind:'<path d="M3.4 8.6h9.2a2.7 2.7 0 1 0-2.7-2.7M3.4 12.6h13.1a2.7 2.7 0 1 1-2.7 2.7M3.4 16.6h6.4"/>',drop:'<path d="M12 3.6c3.1 3.6 5.4 6.4 5.4 9.2a5.4 5.4 0 0 1-10.8 0c0-2.8 2.3-5.6 5.4-9.2z"/>',therm:'<path d="M14.2 13.6V6.1a2.2 2.2 0 1 0-4.4 0v7.5a4 4 0 1 0 4.4 0z"/><circle cx="12" cy="17.2" r="1.6" fill="currentColor" stroke="none"/>',clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3.2 1.9"/>',chevL:'<path d="M14.6 5.4 8.2 12l6.4 6.6"/>',chevR:'<path d="M9.4 5.4 15.8 12l-6.4 6.6"/>',chevD:'<path d="M5.4 9.4 12 15.8l6.6-6.4"/>',chevU:'<path d="M5.4 14.6 12 8.2l6.6 6.4"/>',arrR:'<path d="M4.6 12h13.6M12.9 6.7 18.2 12l-5.3 5.3"/>',share:'<path d="M12 15.4V4.2M8.3 7.9 12 4.2l3.7 3.7"/><path d="M5.6 13.4v4.4a1.9 1.9 0 0 0 1.9 1.9h9a1.9 1.9 0 0 0 1.9-1.9v-4.4"/>',down:'<path d="M12 4.2v11.2M8.3 11.7 12 15.4l3.7-3.7"/><path d="M5.6 19.5h12.8"/>',up:'<path d="M12 19.6V8.4M8.3 12.1 12 8.4l3.7 3.7"/><path d="M5.6 4.3h12.8"/>',close:'<path d="M7.8 7.8 16.2 16.2M16.2 7.8 7.8 16.2"/>',uturn:'<path d="M9.4 6.2 5.2 10.4l4.2 4.2"/><path d="M5.2 10.4h8.2a4.7 4.7 0 0 1 0 9.4h-2.1"/>',dusk:'<circle cx="12" cy="12.4" r="3.9"/><path d="M3.6 18.6h16.8"/><g fill="currentColor" stroke="none"><circle cx="12" cy="4.6" r="1.05"/><circle cx="5.1" cy="12.4" r="1.05"/><circle cx="18.9" cy="12.4" r="1.05"/><circle cx="6.5" cy="6.9" r="1.05"/><circle cx="17.5" cy="6.9" r="1.05"/></g>'};
+const ICON={check:'<polyline points="5 12.5 10 17.5 19 7.5"/>',today:'<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="2.7" fill="currentColor" stroke="none"/>',cal:'<rect x="3.6" y="4.6" width="16.8" height="15.4" rx="4.6"/><path d="M3.6 9.4h16.8M12 9.6v10.2M3.6 14.7h16.8"/>',wheel:'<circle cx="12" cy="8.3" r="4.5"/><circle cx="7.5" cy="15.8" r="4.5"/><circle cx="16.5" cy="15.8" r="4.5"/>',sun:'<circle cx="12" cy="12" r="4.9"/><g fill="currentColor" stroke="none"><circle cx="12" cy="3.6" r="1.15"/><circle cx="12" cy="20.4" r="1.15"/><circle cx="3.6" cy="12" r="1.15"/><circle cx="20.4" cy="12" r="1.15"/><circle cx="6.06" cy="6.06" r="1.15"/><circle cx="17.94" cy="17.94" r="1.15"/><circle cx="17.94" cy="6.06" r="1.15"/><circle cx="6.06" cy="17.94" r="1.15"/></g>',star:'<path d="M9.70 6.50a2.3 2.3 0 0 1 4.6 0Q14.90 9.10 17.50 9.70a2.3 2.3 0 0 1 0 4.6Q14.90 14.90 14.30 17.50a2.3 2.3 0 0 1 -4.6 0Q9.10 14.90 6.50 14.30a2.3 2.3 0 0 1 0 -4.6Q9.10 9.10 9.70 6.50z"/>',pin:'<path d="M12 20.4c2.6-2.6 6-6.2 6-9.7a6 6 0 1 0-12 0c0 3.5 3.4 7.1 6 9.7z"/><circle cx="12" cy="10.5" r="2.3"/>',cloud:'<path d="M7.6 18h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1A3.5 3.5 0 0 0 7.6 18z"/>',partly:'<circle cx="7.8" cy="7.2" r="3.1"/><g fill="currentColor" stroke="none"><circle cx="7.8" cy="2.3" r="1"/><circle cx="2.9" cy="7.2" r="1"/><circle cx="4.3" cy="3.7" r="1"/></g><path d="M10.5 19.6h7.2a3.1 3.1 0 0 0 .2-6.2 4.5 4.5 0 0 0-8.6-1 3.2 3.2 0 0 0 1.2 7.2z"/>',fog:'<path d="M7.6 14.6h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M4.6 18h14.8M7 21.2h10"/>',drizzle:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M9.6 18.6l-.8 2.4M15 18.6l-.8 2.4"/>',rain:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M8.6 18.2l-1 3M12.5 18.2l-1 3M16.4 18.2l-1 3"/>',snow:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><g fill="currentColor" stroke="none"><circle cx="9.2" cy="19.2" r="1.15"/><circle cx="14.8" cy="19.2" r="1.15"/><circle cx="12" cy="21.9" r="1.15"/></g>',storm:'<path d="M7.6 15.4h8.9a3.4 3.4 0 0 0 .2-6.8 5 5 0 0 0-9.5-1.1 3.5 3.5 0 0 0 .4 7.9z"/><path d="M13 17.4c-1.6 1.2-2.4 2-2.4 2.5s.6.7 1.9.7c-1.3 1.1-2.2 1.9-2.7 2.4"/>',wind:'<path d="M3.4 8.6h9.2a2.7 2.7 0 1 0-2.7-2.7M3.4 12.6h13.1a2.7 2.7 0 1 1-2.7 2.7M3.4 16.6h6.4"/>',drop:'<path d="M12 3.6c3.1 3.6 5.4 6.4 5.4 9.2a5.4 5.4 0 0 1-10.8 0c0-2.8 2.3-5.6 5.4-9.2z"/>',therm:'<path d="M14.2 13.6V6.1a2.2 2.2 0 1 0-4.4 0v7.5a4 4 0 1 0 4.4 0z"/><circle cx="12" cy="17.2" r="1.6" fill="currentColor" stroke="none"/>',clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3.2 1.9"/>',chevL:'<path d="M14.6 5.4 8.2 12l6.4 6.6"/>',chevR:'<path d="M9.4 5.4 15.8 12l-6.4 6.6"/>',chevD:'<path d="M5.4 9.4 12 15.8l6.6-6.4"/>',chevU:'<path d="M5.4 14.6 12 8.2l6.6 6.4"/>',arrR:'<path d="M4.6 12h13.6M12.9 6.7 18.2 12l-5.3 5.3"/>',share:'<path d="M12 15.4V4.2M8.3 7.9 12 4.2l3.7 3.7"/><path d="M5.6 13.4v4.4a1.9 1.9 0 0 0 1.9 1.9h9a1.9 1.9 0 0 0 1.9-1.9v-4.4"/>',down:'<path d="M12 4.2v11.2M8.3 11.7 12 15.4l3.7-3.7"/><path d="M5.6 19.5h12.8"/>',up:'<path d="M12 19.6V8.4M8.3 12.1 12 8.4l3.7 3.7"/><path d="M5.6 4.3h12.8"/>',close:'<path d="M7.8 7.8 16.2 16.2M16.2 7.8 7.8 16.2"/>',uturn:'<path d="M9.4 6.2 5.2 10.4l4.2 4.2"/><path d="M5.2 10.4h8.2a4.7 4.7 0 0 1 0 9.4h-2.1"/>',dusk:'<circle cx="12" cy="12.4" r="3.9"/><path d="M3.6 18.6h16.8"/><g fill="currentColor" stroke="none"><circle cx="12" cy="4.6" r="1.05"/><circle cx="5.1" cy="12.4" r="1.05"/><circle cx="18.9" cy="12.4" r="1.05"/><circle cx="6.5" cy="6.9" r="1.05"/><circle cx="17.5" cy="6.9" r="1.05"/></g>'};
 function svgIcon(k,sz,sw){
   return `<svg viewBox="0 0 24 24" width="${sz||26}" height="${sz||26}" fill="none" stroke="currentColor"
     stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]||''}</svg>`;
@@ -3803,14 +3811,15 @@ function almanac(){
   const ct=currentTermIdx(lun.jd),nt=nextTerm(d);
   const tk='<div class="sect">'+sh('sun',t.aTK)
     +'<div class="s28">'+t.aGiua.replace('{a}','<b>'+t.terms[ct]+'</b>').replace('{b}','<b>'+t.terms[nt.idx]+'</b>')
-    +' <span class="s28sub rtap" style="display:inline" role="button" tabindex="0" onclick="goDayOff('+nt.days+')">· '+t.termNext2.replace('{t}',t.terms[nt.idx]).replace('{n}',nt.days)+' '+svgIcon('chevR',12,2.2)+'</span></div></div>';
+    +' <span class="s28sub rtap" style="display:inline" role="button" tabindex="0" onclick="goDayOff('+nt.days+')">· '+t.dLeft.replace('{n}',nt.days).replace(/\b1 days\b/,'1 day')+' '+svgIcon('chevR',12,2.2)+'</span></div></div>';
 
   // Tuoi xung: hop vien nhu anh (theo chi — phan kiem chung duoc)
-  const hộp=(c)=>'<div class="xbox"><b>'+t.chi[c]+'</b><em>'+t.animals[c].toLowerCase()+'</em></div>';
-  const xung='<div class="sect">'+sh('wheel',t.aXungN)
-    +'<div class="xrow">'+hộp(chiXung(cyD[1]))+'</div>'
-    +'<div style="height:8px"></div>'+sh('wheel',t.aXungT)
-    +'<div class="xrow">'+hộp(chiXung(cyM[1]))+'</div>'
+  // Mot khoi TUOI XUNG duy nhat, hai o co nhan "theo ngay / theo thang" dung
+  // canh nhau giua card — truoc la hai khoi roi, moi khoi mot o le loi lech trai.
+  const hộp=(c,lb)=>'<div class="xbox"><i>'+lb+'</i><b>'+t.chi[c]+'</b><em>'+t.animals[c].toLowerCase()+'</em></div>';
+  const xung='<div class="sect">'+sh('wheel',LANG=='vi'?'Tuổi xung':'Age clashes')
+    +'<div class="xrow">'+hộp(chiXung(cyD[1]),LANG=='vi'?'theo ngày':'by day')
+    +hộp(chiXung(cyM[1]),LANG=='vi'?'theo tháng':'by month')+'</div>'
     +'<div class="note">'+t.xungTxt.replace('{a}',t.chi[cyD[1]]).replace('{b}',t.chi[chiXung(cyD[1])])
     +' · '+t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])+'</div></div>';
 
@@ -3898,8 +3907,9 @@ function panelBuddha(){
   +'<div class="card">'
     +'<h2>'+t.chayTtl+'</h2><div class="en">'+t.chayAsk+'</div>'
     +'<div class="chips">'+t.chayNames.map(function(n,i){
-        return '<button class="'+(i===CHAYMODE?'on':'')+'" onclick="setChay('+i+')">'+n+'</button>'}).join('')+'</div>'
-    +'<div class="clbl">'+t.chayInMonth+' · '+len+' '+(LANG=='vi'?'ngày':'days')+'</div>'
+        return '<button class="'+(i===CHAYMODE?'on':'')+'" onclick="setChay('+i+')">'
+          +(i===CHAYMODE?svgIcon('check',13,2.6)+' ':'')+n+'</button>'}).join('')+'</div>'
+    +'<div class="clbl">'+t.chayInMonth+' · '+len+' '+(LANG=='vi'?'ngày':'days')+' · '+(LANG=='vi'?'bảng chỉ để xem':'read-only')+'</div>'
     +'<div class="cdays">'+lưới+'</div>'
     +(len===29?'<div class="note" style="border:none;margin:10px 0 0;padding:0">'+t.chayShort+'</div>':'')
     +'<div class="note">'+t.chayNote+'</div>'
@@ -4208,6 +4218,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v64 · 6109b394</div><script>window.LDC_BUILD='ldc-v64 · 6109b394';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v65 · 18b44276</div><script>window.LDC_BUILD='ldc-v65 · 18b44276';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>
