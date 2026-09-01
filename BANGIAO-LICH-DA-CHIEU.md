@@ -1509,3 +1509,28 @@ icon tròn, xanh lá/đỏ đúng nghĩa). Ba chỗ sửa:
 5. **Chốt 11 verify.js**: thứ tự 5 mục Hệ lịch đúng danh sách, hết chữ "Hoàng
    đạo Tây", đủ 6 file nhận diện, head khai báo favicon + og:image + twitter,
    sw.js cache favicon.
+
+---
+
+## 35. ẢNH OG KHÔNG HIỆN KHI GỬI LINK — CHẨN ĐOÁN (V5.5)
+
+Thẻ trong `index.html` đã đủ và có chốt canh (chốt 11: og:image, secure_url,
+type, width/height, alt, `link rel=image_src`, twitter:card, og.png đúng
+1200×630). Nên khi ảnh không hiện, lỗi nằm ở **hai chỗ ngoài repo**:
+
+1. **Máy chủ chưa có file `og.png`.** Thẻ trỏ `https://duyet.online/og.png`.
+   Nếu duyet.online (Vercel) được cập nhật bằng cách up tay index.html + sw.js
+   thì 4 file mới (og.png, favicon.svg, favicon-32.png, icon-192/512,
+   apple-touch-icon) **chưa hề có trên đó** → link ảnh 404 → Zalo/FB không
+   hiện gì. Cách thử 10 giây: mở thẳng `https://duyet.online/og.png` — không
+   ra ảnh nghĩa là thiếu file.
+2. **Zalo/Facebook đã lưu bản cũ.** Một link từng gửi trước khi có thẻ OG sẽ
+   bị nhớ là "không ảnh", gửi lại vẫn trống. Phải xoá cache:
+   - Facebook: developers.facebook.com/tools/debug → dán link → **Scrape Again**
+   - Zalo: developers.zalo.me/tools/open-graph → dán link → làm mới
+   Mẹo thử nhanh không đụng cache: gửi link kèm tham số lạ, ví dụ
+   `duyet.online/?v=2` — Zalo/FB coi là link mới, đọc lại từ đầu.
+
+Sandbox không kiểm được (proxy chặn mọi domain ngoài) — đây là loại lỗi phải
+kiểm trên máy chú. Nếu duyet.online chuyển sang deploy thẳng từ GitHub thì
+cả hai vấn đề tự hết cho các lần sau.
