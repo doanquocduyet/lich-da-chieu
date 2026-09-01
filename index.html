@@ -1934,12 +1934,40 @@ function screenEvents(){
   return `<div class="card" style="padding:16px 18px"><h2 style="font-size:16px">${t.evTitle}</h2></div>`+h;
 }
 // trang chi tiết 1 ngày: đủ 4 lăng kính
+// NGUON & PHUONG PHAP — dat CUOI TRANG, sau ca cac lich khac, vi no noi ve
+// TAT CA du lieu ben tren. Nguoi ta co the dem thong tin di quyet viec that.
+function almNguon(){
+  const t=T[LANG],d=VIEW;
+  const sh='<div class="sh"><span class="ic">'+svgIcon('cal',17,1.9)+'</span><h3>'
+    +(LANG=='vi'?'Nguồn · phương pháp':'Sources · method')+'</h3></div>';
+  const r=(k,v)=>'<div class="row"><span class="k">'+k+'</span><span class="v">'+v+'</span></div>';
+  return '<div class="almv"><div class="sect">'+sh+'<div class="rows">'
+    +r(LANG=='vi'?'Âm lịch · Can Chi':'Lunar · sexagenary', LANG=='vi'?'thuật toán Hồ Ngọc Đức':'Hồ Ngọc Đức algorithm')
+    +r(LANG=='vi'?'Tiết khí · thiên văn':'Solar terms · astronomy', LANG=='vi'?'kinh độ Mặt Trời (Meeus)':'solar longitude (Meeus)')
+    +r(LANG=='vi'?'Phật lịch':'Buddhist era', LANG=='vi'?'năm dương + 544 · lễ vía theo âm lịch Việt':'solar year + 544 · Vietnamese lunar observances')
+    +r(LANG=='vi'?'Lịch Tạng':'Tibetan calendar','Phugpa (Janson)')
+    +r(LANG=='vi'?'Giờ hoàng đạo · Trực · Sao · Xung':'Hours · Duty · Mansions · Clash', LANG=='vi'?'bảng sách lịch truyền thống':'traditional almanac tables')
+    +r(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions', LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')
+    +'</div><div class="note">'
+    +(LANG=='vi'
+      ?'App thuật lại dữ liệu, và phân biệt rõ <b>dữ liệu tính toán</b> (âm lịch, tiết khí, thiên văn) với <b>diễn giải truyền thống</b> (trực, sao, giờ, hướng). Đã đối chiếu khớp lịch vạn niên phổ thông (mẫu 31/8/2026). '
+      :'The app relays data and distinguishes <b>computed data</b> (lunar, solar terms, astronomy) from <b>traditional interpretation</b> (duty, mansions, hours, directions). Cross-checked against a popular almanac (sample 31/8/2026). ')
+    +t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div></div>';
+}
+// Dang DUNG TRONG trang chi tiet thi khong duoc chia them nut 'Xem chi tiet
+// ngay' tro ve chinh no — 'chi tiet ngay phai la noi noi dung da mo day du'.
+let INDETAIL=false;
 function detailBody(t){
   const evs=dayEvents(VIEW,t);
   const evH=evs.length?`<div class="card"><h2>${t.dEvents}</h2>
     ${evs.map(e=>`<div class="row"><span class="k">${e.b||''}</span><span class="v">${e.n}</span></div>`).join('')}
   </div>`:'';
-  return evH+panelVanNien()+almanac()+panelBuddha()+panelDrukpa();
+  // Duong doc: su kien dang chu y -> bang ngay + tom tat + bay gio + hanh dong
+  // -> am lich chi tiet -> Phat -> Tang -> NGUON o cuoi cung (noi ve tat ca).
+  INDETAIL=true;
+  const ra=evH+almanac()+panelVanNien()+panelBuddha()+panelDrukpa()+almNguon();
+  INDETAIL=false;
+  return ra;
 }
 function dayDetail(t){
   const d=VIEW;
@@ -3438,9 +3466,6 @@ function panelVanNien(){
     <h2>${t.subCal[0]}</h2><div class="en">${LANG=='vi'?'Lịch âm dương':'Lunisolar calendar'}</div>
     <div class="big">${lun.day}/${lun.month}${lun.leap?'*':''}<small>${t.lunar} · ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</small></div>
     <div class="row"><span class="k">${t.solar}</span><span class="v">${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}</span></div>
-    <div class="row"><span class="k">${t.ccDay}</span><span class="v"><b>${t.can[cyD[0]]} ${t.chi[cyD[1]]}</b></span></div>
-    <div class="row"><span class="k">${t.ccMonth}</span><span class="v">${t.can[cyM[0]]} ${t.chi[cyM[1]]}</span></div>
-    <div class="row"><span class="k">${t.ccYear}</span><span class="v">${t.can[cyY[0]]} ${t.chi[cyY[1]]}</span></div>
     <div class="row"><span class="k">${t.nextFull}</span><span class="v jade"><b>${nf===0?t.today:t.dLeft.replace('{n}',nf).replace(/\b1 days\b/,'1 day')}</b></span></div>
     <div class="row"><span class="k">${t.nextNew}</span><span class="v">${nn===0?t.today:t.dLeft.replace('{n}',nn).replace(/\b1 days\b/,'1 day')}</span></div>
     <div class="qbox vnq"><div class="qtx">${LANG=='vi'?'“'+cadao(d).vi+'”':cadao(d).en}</div><div class="qsrc">${t.folkSrc}</div></div>
@@ -3547,20 +3572,9 @@ function almanac(){
     +'<div class="note">'+t.xungTxt.replace('{a}',t.chi[cyD[1]]).replace('{b}',t.chi[chiXung(cyD[1])])
     +' · '+t.xungTxtM.replace('{a}',t.chi[cyM[1]]).replace('{b}',t.chi[chiXung(cyM[1])])+'</div></div>';
 
-  // NGUON / PHUONG PHAP — nguoi ta co the dem thong tin nay di quyet viec that,
-  // nen phai noi ro tung nhom so lieu den tu dau.
-  const nguồn='<div class="sect">'+sh('cal',LANG=='vi'?'Nguồn · phương pháp':'Sources · method')
-    +'<div class="rows">'
-    +'<div class="row"><span class="k">'+(LANG=='vi'?'Âm lịch · Can Chi':'Lunar · sexagenary')+'</span><span class="v">'+(LANG=='vi'?'thuật toán Hồ Ngọc Đức':'Hồ Ngọc Đức algorithm')+'</span></div>'
-    +'<div class="row"><span class="k">'+(LANG=='vi'?'Tiết khí':'Solar terms')+'</span><span class="v">'+(LANG=='vi'?'kinh độ Mặt Trời (Meeus)':'solar longitude (Meeus)')+'</span></div>'
-    +'<div class="row"><span class="k">'+(LANG=='vi'?'Giờ hoàng đạo · Trực · Sao · Xung':'Hours · Duty · Mansions · Clash')+'</span><span class="v">'+(LANG=='vi'?'bảng sách lịch truyền thống':'traditional almanac tables')+'</span></div>'
-    +'<div class="row"><span class="k">'+(LANG=='vi'?'Lý Thuần Phong · Xuất hành':'Lý Thuần Phong · directions')+'</span><span class="v">'+(LANG=='vi'?'Ngọc hạp thông thư (bản phổ biến)':'Ngọc hạp thông thư (common ed.)')+'</span></div>'
-    +'</div>'
-    +'<div class="note">'+(LANG=='vi'?'Đã đối chiếu khớp với lịch vạn niên phổ thông (mẫu ngày 31/8/2026: 12 giờ Lý Thuần Phong, hướng thần, trực, sao, giờ hoàng đạo). ':'Cross-checked against a popular Vietnamese almanac (sample day 31/8/2026). ')+t.span60cc.replace('{p}',cycle60(d.getFullYear()).prev)+'</div></div>';
-
   // Thu tu: hanh dong truoc (tom tat, gio, huong, xung) — giai thich sau
   // (kien tru, bat tu, tiet khi) — nguon cuoi cung.
-  return '<div class="almv">'+đầu+tómTắt+ghd+ltpS+xh+xung+kt+s28+tk+nguồn+'</div>';
+  return '<div class="almv">'+đầu+tómTắt+ghd+ltpS+xh+xung+kt+s28+tk+'</div>';
 }
 // ═══ NGÀY ĂN CHAY ════════════════════════════════════════════════════════
 // Cau hoi hang ngay cua Phat tu Viet la "hom nay co phai ngay chay khong",
@@ -3666,7 +3680,7 @@ function panelBuddha(){
       +'<div class="qtx">“'+q[LANG]+'”</div>'
       +'<div class="qsrc">'+(LANG=='vi'?q.src:q.srcEn)+'</div></div>'
     +'<div class="note">'+t.buddhaMean+'</div>'
-    +'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>'
+    +(INDETAIL?'':'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>')
     +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
   +'</div>';
 }
@@ -3840,7 +3854,7 @@ function panelDrukpa(){
       +'<div class="row"><span class="k">'+t.yoga28+'</span><span class="v"><b>'+y28.mean+'</b> · <i style="color:#9A8358">'+y28.tib+'</i></span></div>'
       +'<div class="row"><span class="k">'+t.yogaNak+' <i class="gl" role="button" tabindex="0" aria-label="Giải nghĩa" onclick="event.stopPropagation();glo(\'nak\')">ⓘ</i></span><span class="v">'+ey.nak+'</span></div>'
       +'<div class="note">'+t.yogaNote+'</div></div>':'')
-    +'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>'
+    +(INDETAIL?'':'<button class="lookup" onclick="MODE=\'day\';goCal(1)">'+t.dayDetail+' '+svgIcon('chevR',15,2)+'</button>')
     +'<button class="lookup" onclick="goConvert()">'+t.lookupDay+' '+svgIcon('chevR',15,2)+'</button>'
     +'</div></details>';
 
@@ -3952,6 +3966,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v61 · bd2c43f6</div><script>window.LDC_BUILD='ldc-v61 · bd2c43f6';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v62 · 841ebd2e</div><script>window.LDC_BUILD='ldc-v62 · 841ebd2e';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

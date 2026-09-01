@@ -1337,3 +1337,23 @@ nói *"nút thắt không còn là CSS — là information hierarchy."* Lọc ra
 **Chưa làm, đúng chủ ý**: mục "NÊN LÀM / KIÊNG CỬ" — chính bản nhận định cũng
 viết *"phải làm đủ và chuẩn, chứ không làm nửa mùa"*. Chờ nguồn của chú
 (§24.2); khung và vị trí (ngay sau tóm tắt) đã chừa sẵn.
+
+---
+
+## 29. ĐƯỜNG ĐỌC TRỌN TRANG CHI TIẾT (V5.0)
+
+Bản nhận định tiếp theo soi nhầm file cũ (`index (27).html`, trước V4.8) nên
+phần chẩn đoán không còn đúng — nhưng ba ý chưa có thì thật, đã làm:
+
+1. **Đường đọc trọn trang đúng bản 10/10**: NGÀY → TÓM TẮT → BÂY GIỜ → GIỜ →
+   XUẤT HÀNH → TUỔI XUNG → KIẾN TRỪ → BÁT TÚ → TIẾT KHÍ → *các lịch khác*
+   (vạn niên · Phật · Tạng) → **NGUỒN cuối cùng** (vì nó nói về tất cả bên trên).
+2. **Hết trùng lặp**: 3 dòng Can Chi trong thẻ vạn niên trùng với bảng đầu
+   trang — xoá. "Can Chi ngày" giờ xuất hiện đúng 1 lần.
+3. **Hết nút tự trỏ**: trong trang chi tiết từng còn nút "Xem chi tiết ngày"
+   (trong phần Phật/Tạng nhúng vào) trỏ về chính trang đó. Thêm cờ `INDETAIL`:
+   ở hub thì nút còn, vào trang chi tiết thì ẩn — *"chi tiết ngày phải là nơi
+   nội dung đã mở đầy đủ."* Nút "Tra ngày sang lịch khác" giữ (nó dẫn đi nơi khác).
+4. Mục **Nguồn** mở rộng đủ 6 hệ (thêm Phật lịch, Lịch Tạng Phugpa/Janson) và
+   câu chốt: *"App thuật lại dữ liệu, phân biệt rõ dữ liệu tính toán với diễn
+   giải truyền thống."*
