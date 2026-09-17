@@ -411,10 +411,11 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 
 ## 10. TRẠNG THÁI FILE HIỆN TẠI
 
-- 1 file HTML độc lập ~188 KB, đã nhúng sẵn thư viện Tạng (~7,7 KB minified).
+- 1 file HTML độc lập, ~310 KB (đo 17/9/2026), đã nhúng sẵn thư viện Tạng (~7,7 KB minified).
+  Con số này lạc hậu nhanh — cách đo đúng lúc cần: `wc -c index.html`.
 - Song ngữ Việt/Anh đầy đủ, chuyển bằng nút VI/EN góc trên.
 - Đã test: không lỗi JS, không "undefined", chạy đúng cả 2 ngôn ngữ, 5 tab + 6 mục Khám phá + 4 chế độ lịch + 4 chiều đổi ngày.
-- Thư mục gốc: `index.html` · `sw.js` · `manifest.webmanifest` · 3 icon · `README.md` · `patch.py` · `verify.js` · `.github/workflows/guard.yml` (+ file spec này).
+- Thư mục gốc: `index.html` · `sw.js` · `manifest.webmanifest` · 3 icon + `favicon.svg`/`favicon-32.png`/`og.png` · `README.md` · `patch.py` · `verify.js` · `.github/workflows/guard.yml` (+ file spec này và `DOICHIEU-TRACH-NHAT.md`).
 
 ### Đang chạy ở hai nơi — biết để khỏi lẫn
 
@@ -423,11 +424,11 @@ Lưu `localStorage` key `lich_analytics_v1`. Đọc bằng `window.getStats()`. 
 | Trang chính | **https://duyet.online** |
 | Bản sao | https://doanquocduyet.github.io/lich-da-chieu/ |
 
-Tra DNS ngày 29/8/2026:
+Tra DNS, đo lại ngày 17/9/2026:
 
 ```
 duyet.online            -> 216.198.79.1              (dải anycast của Vercel)
-www.duyet.online        -> 216.198.79.65, 64.29.17.65
+www.duyet.online        -> 216.198.79.1, 64.29.17.1
 doanquocduyet.github.io -> 185.199.108-111.153       (dải của GitHub Pages)
 ```
 
