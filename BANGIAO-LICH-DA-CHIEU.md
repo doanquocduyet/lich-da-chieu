@@ -1585,3 +1585,67 @@ bỏ tiết khí thì còn bốn, để nguyên chữ "Năm" là sai. Dọn luô
    người dùng tưởng app lỗi. Nay so toạ độ trước, trùng thì **thoát ngay**.
    Đo bằng harness: bấm nơi đang xem → 0 lần vẽ lại, 0 lần gọi mạng; bấm nơi
    khác vẫn đổi bình thường.
+
+---
+
+## 38. NHẮC VIỆC · CÂU MỞ ĐẦU · MÀN ĐẦU GỌN (V5.8)
+
+Từ bài tự soi app bằng mắt ba nhóm khách khó tính, chú chọn làm ba việc:
+
+### 1. Nhắc việc — việc quan trọng nhất
+
+Vấn đề thật: *"app không bao giờ nhắc tôi; tôi vẫn phải nhớ trong đầu, vậy
+cần nó làm gì?"* Người dùng mở 3 ngày đầu rồi quên dần.
+
+**Vì sao không dùng thông báo đẩy**: app không có máy chủ, không tài khoản —
+đó là xương sống của §8 và của lời hứa riêng tư. Push thật cần máy chủ giữ
+khoá VAPID và biết ai đang đăng ký; làm push là phải bỏ lời hứa đó. Thông báo
+cục bộ thì chỉ bắn được khi app đang mở — lúc đó người ta đã nhìn thấy rồi.
+
+**Cách chạy thật trên mọi máy**: xuất **file .ics** cho Lịch của điện thoại.
+Người dùng nhập một lần, từ đó **máy tự nhắc kể cả khi app không mở**, không
+xin quyền gì, không gửi dữ liệu đi đâu. Đúng tinh thần app.
+
+- Thẻ **"Nhắc tôi"** đứng đầu màn Sự kiện: 5 hộp chọn (rằm & mùng Một · ngày
+  chay theo đúng lối đang giữ · lễ vía Phật + lễ cổ truyền · đại lễ Tạng ·
+  ngày quan trọng của tôi), chọn giờ nhắc (tối hôm trước 20:00 / sáng 06:00),
+  nút tải có sẵn số ngày. Lựa chọn nhớ trong `ldc_remind`.
+- `rmdDays()` quét 366 ngày tới, gộp mọi thứ rơi vào cùng một ngày thành MỘT
+  sự kiện (không bắn 3 thông báo cho một ngày). Chay trường (mode 4) không
+  xuất — nhắc mỗi ngày là vô nghĩa, thẻ nói rõ điều đó.
+- `icsBuild()` dựng chuỗi RFC 5545: CRLF, gấp dòng ≤75 octet, thoát `, ; \`,
+  UID duy nhất, `VALARM TRIGGER:-PT4H` (20:00 hôm trước) hoặc `PT6H`.
+  **Tách riêng khỏi `rmdExport()`** để chốt kiểm được nội dung file mà không
+  cần bấm nút tải.
+
+### 2. Câu mở đầu trang chi tiết
+
+Người không rành lịch mở trang chi tiết là gặp ngay bảng can chi, hoàng đạo,
+28 sao — không biết bắt đầu từ đâu, cũng không biết hôm nay có đáng chú ý
+không. Thêm `dayInWords()` đứng trên tất cả: *"Hôm nay không có lễ lớn nào —
+ngày 8 tháng 8 âm lịch."* / *"Ngày này là Tết Trung Thu — rằm tháng 8 âm
+lịch."* Chỉ thuật ngày đó là ngày gì, **không nói tốt xấu**. Rằm và mùng Một
+tự nó đáng chú ý nên không bị gọi là "không có lễ lớn", và tên ngày không bị
+lặp hai lần trong một câu.
+
+### 3. Màn đầu gọn lại
+
+- Bỏ dòng **"Hành · Trực · Sao"** khỏi hero: ba chữ người mới không hiểu mà
+  lại nằm ngay dòng thứ tư; trang chi tiết đã có đủ kèm giải nghĩa.
+- Bảng bốn ô thêm nhãn **"ÂM LỊCH · CAN CHI"** — trước đó người mới nhìn số 8
+  và 8 mà không biết đó là ngày âm.
+
+### Chốt 12 (đã thấy đỏ trên bản hỏng trước khi tính)
+
+Câu mở đầu có/đúng dạng/không lặp · hero hết Hành-Trực-Sao · bảng có nhãn ·
+thẻ Nhắc tôi + nút tải · số ngày > 20 · .ics đủ đầu-cuối · số VEVENT khớp số
+ngày · mỗi sự kiện một chuông · CRLF · không dòng nào quá 75 octet · UID
+không trùng. Bản thử: bỏ câu mở đầu + bỏ gấp dòng → đỏ đúng hai dòng.
+
+**Sửa kèm**: chốt 4 từng báo đỏ oan vì `\b1 days\b` khớp cả "Moon age 6.1
+days" — lỗi ẩn từ lâu, chỉ lộ vào ngày tuổi trăng lẻ .1. Đổi thành
+`(?<![\d.])1 days\b`. Đồng thời sửa lỗi thật: "in 1 days" ở dòng lễ gần nhất
+bản tiếng Anh giờ thành "in 1 day".
+
+**Chưa làm (chú chưa chọn)**: trang Giới thiệu & Liên hệ cho khách doanh
+nghiệp, và nhắc sao lưu sau khi người dùng ghi ngày quan trọng thứ hai.

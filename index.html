@@ -187,8 +187,10 @@
   .hr.lucky .dot{background:var(--jade2)}
   .subnav button.on,.lang button.on{background:var(--ink);border-color:var(--ink)}
   .mnav .tdy{color:var(--red)}
+  .cclbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9A9384;
+    text-align:center;margin:20px 0 7px}
   .ccstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:#fff;border:1px solid var(--bd);
-    border-radius:16px;margin:18px 0 0}
+    border-radius:16px;margin:0}
   .ccstrip .cc{text-align:center}
   .ccstrip .cl{letter-spacing:.14em}
   .ccstrip .cv{margin-top:4px;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -909,6 +911,30 @@
   .almv .good,.almv b.good,.almv .v b.good{color:#1E7A34}
   .almv .bad,.almv b.bad,.almv .v b.bad{color:#C03A2B}
   .almv .lbl-b{color:#1D6FB8;font-weight:700}
+  .rmd2 .rmlist{display:grid;gap:8px;margin-top:14px}
+  .rmck{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1.5px solid var(--bd);
+    border-radius:14px;padding:13px 15px;cursor:pointer;transition:none}
+  .rmck.on{border-color:#B0846B;background:#FFF9F3}
+  .rmck input{position:absolute;opacity:0;width:0;height:0}
+  .rmck .rmcb{flex:0 0 auto;width:22px;height:22px;border-radius:7px;border:1.5px solid #CFC7B6;
+    display:flex;align-items:center;justify-content:center;color:#fff;margin-top:1px}
+  .rmck.on .rmcb{background:var(--red);border-color:var(--red)}
+  .rmck .rmtx{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .rmck .rmtx b{font-size:15.5px;font-weight:600}
+  .rmck .rmtx em{font-style:normal;font-size:12.5px;color:#8A8577}
+  .rmwrow{display:flex;gap:8px;flex-wrap:wrap}
+  .rmw{background:#fff;border:1.5px solid var(--bd);border-radius:999px;padding:9px 16px;
+    font-family:inherit;font-size:13.5px;color:#4A4232;cursor:pointer}
+  .rmw.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+  .rmgo{width:100%;margin-top:16px;background:var(--red);color:#fff;border:0;border-radius:15px;
+    padding:15px;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:9px}
+  .rmgo:active{opacity:.8}
+  .rmgo svg{opacity:.9}
+  .inwords{background:#fff;border:1px solid var(--bd);border-radius:18px;padding:18px 18px 15px;
+    margin-bottom:14px;font-size:17px;line-height:1.55;color:var(--ink)}
+  .inwords b{font-weight:700}
+  .inwords .iwn{display:block;margin-top:9px;font-size:12.5px;line-height:1.6;color:#8A97A0}
   .almv .sect.tt{border-left:4px solid #1E7A34;padding-left:14px}
   .almv .sect.tt.b{border-left-color:#C03A2B}
   .almv .ttl1{font-size:15px;line-height:1.6}
@@ -1006,7 +1032,7 @@ window.SunCalc=SunCalc;
 const T={
 vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức · Tiết khí: theo kinh độ Mặt Trời · Lịch Tạng: Phugpa (Janson) — tham khảo · <span class='ablink' onclick='openAbout()'>Về ứng dụng</span>",
   mains:["Hôm nay","Lịch","Hệ lịch","Thời tiết","Sự kiện"],
-  sGio:"GIỜ",sNgay:"NGÀY",sThang:"THÁNG",sNam:"NĂM",
+  sGio:"GIỜ",sNgay:"NGÀY",sThang:"THÁNG",sNam:"NĂM",ccStripTtl:"Âm lịch · Can Chi",
   monthEvTitle:"Sự kiện trong tháng",evTitle:"Sự kiện 12 tháng tới",back:"Quay lại",detailTitle:"Chi tiết ngày",
   cvModes:["Dương → Âm","Âm → Dương","Dương → Tạng","Tạng → Dương"],
   cvFrom:"Ngày cần đổi",cvBtn:"Chuyển đổi",cvShare:"Chia sẻ kết quả",cvCopied:"Đã sao chép ✓",
@@ -1164,12 +1190,27 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   animals:["Chuột","Trâu","Hổ","Mèo","Rồng","Rắn","Ngựa","Dê","Khỉ","Gà","Chó","Lợn"],
   napam:["Hải Trung Kim","Lư Trung Hỏa","Đại Lâm Mộc","Lộ Bàng Thổ","Kiếm Phong Kim","Sơn Đầu Hỏa","Giản Hạ Thủy","Thành Đầu Thổ","Bạch Lạp Kim","Dương Liễu Mộc","Tuyền Trung Thủy","Ốc Thượng Thổ","Tích Lịch Hỏa","Tùng Bách Mộc","Trường Lưu Thủy","Sa Trung Kim","Sơn Hạ Hỏa","Bình Địa Mộc","Bích Thượng Thổ","Kim Bạch Kim","Phú Đăng Hỏa","Thiên Hà Thủy","Đại Trạch Thổ","Thoa Xuyến Kim","Tang Đố Mộc","Đại Khê Thủy","Sa Trung Thổ","Thiên Thượng Hỏa","Thạch Lựu Mộc","Đại Hải Thủy"],
   dayDetail:"Xem chi tiết ngày",
-  heroAlm:"Hành {h} · Trực {t} · Sao {s}",
   xungMLbl:"Xung tháng",xungTxtM:"Tháng {a} — xung với tuổi {b}",
   viewingDay:"Ngày đang xem",chayYesD:"Ngày chay",chayNoD:"Không phải ngày chay",
   tibPrevD:"Trước",tibViewD:"Đang xem",tibNextD:"Sau",
   aGioHD:"Giờ hoàng đạo",aKT:"Thập nhị Kiến trừ",a28:"Nhị thập bát tú",
   aTK:"Tiết khí",
+  wToday:"Hôm nay",wThisDay:"Ngày này",
+  rmdTtl:"Nhắc tôi",rmdSub:"Đưa vào lịch điện thoại — nhắc cả khi không mở app",
+  rmdLun:"Rằm & mùng Một",rmdLunS:"mỗi tháng âm lịch",
+  rmdChay:"Ngày chay",rmdChayAll:"đang để chay trường — không cần nhắc từng ngày",
+  rmdChayName:"Ngày chay",
+  rmdBud:"Lễ · vía Phật giáo",rmdBudS:"và các ngày lễ cổ truyền",
+  rmdTib:"Đại lễ lịch Tạng",rmdTibS:"Losar, Saga Dawa, Chökhor Düchen…",
+  rmdNote:"Ngày quan trọng của tôi",rmdNoteS:"giỗ, sinh nhật, kỷ niệm đã ghi",
+  rmdWhen:"Nhắc lúc nào",rmdEve:"Tối hôm trước · 20:00",rmdMorn:"Sáng hôm đó · 06:00",
+  rmdGo:"Tải lịch nhắc · {n} ngày",
+  rmdNone:"Chưa chọn mục nào để nhắc.",
+  rmdCalName:"Lịch Đa Chiều",rmdFrom:"Lịch Đa Chiều",
+  rmdHow:"Tải xong, mở file vừa tải rồi chọn thêm vào Lịch của máy. Từ đó điện thoại tự nhắc, không cần mở app. Đổi lối chay hay thêm ngày mới thì tải lại một lần nữa.",
+  wIs:"{m} là {x}",
+  wPlain:"{m} không có lễ lớn nào — {a}.",
+  wNote:"Bên dưới là cách các sách lịch xưa xếp ngày này. App thuật lại, không khuyên việc riêng của bạn.",
   aGiua:"Giữa {a} — {b}",tuoi:"tuổi",
   ltpTitle:"Giờ Lý Thuần Phong",ltpGood:"giờ tốt",ltpBad:"giờ xấu",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
@@ -1206,7 +1247,7 @@ vi:{brand:"Lịch Đa Chiều",foot:"Âm lịch & Can Chi: thuật toán Hồ Ng
   moShort:["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"]},
 en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar terms: by solar longitude · Tibetan: Phugpa (Janson) — reference · <span class='ablink' onclick='openAbout()'>About</span>",
   mains:["Today","Calendar","Explore","Weather","Events"],
-  sGio:"HOUR",sNgay:"DAY",sThang:"MONTH",sNam:"YEAR",
+  sGio:"HOUR",sNgay:"DAY",sThang:"MONTH",sNam:"YEAR",ccStripTtl:"Lunar date · Stems & Branches",
   monthEvTitle:"This month's observances",evTitle:"Next 12 months",back:"Back",detailTitle:"Day detail",
   cvModes:["Solar → Lunar","Lunar → Solar","Solar → Tibetan","Tibetan → Solar"],
   cvFrom:"Date to convert",cvBtn:"Convert",cvShare:"Share result",cvCopied:"Copied ✓",
@@ -1364,12 +1405,27 @@ en:{brand:"Multi-Calendar",foot:"Lunar & Can Chi: Ho Ngoc Duc algorithm · Solar
   animals:["Rat","Ox","Tiger","Cat","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"],
   napam:["Gold in the Sea","Fire in the Furnace","Wood of the Forest","Earth by the Road","Metal of the Sword","Fire on the Hilltop","Water in the Stream","Earth on the Wall","Metal of the Wax","Wood of the Willow","Water of the Spring","Earth on the Roof","Thunderbolt Fire","Wood of Pine & Cypress","Long-flowing Water","Metal in the Sand","Fire at the Foot of the Hill","Wood of the Plain","Earth of the Wall","Metal of Foil","Lamp Fire","Water of the Milky Way","Earth of the Homestead","Metal of Ornaments","Wood of the Mulberry","Water of the Great Stream","Earth in the Sand","Fire in the Sky","Wood of the Pomegranate","Water of the Great Sea"],
   dayDetail:"Full day details",
-  heroAlm:"Element {h} · Duty {t} · Mansion {s}",
   xungMLbl:"Month clash",xungTxtM:"Month of {a} — clashes with {b}",
   viewingDay:"Viewing",chayYesD:"Vegetarian day",chayNoD:"Not a vegetarian day",
   tibPrevD:"Before",tibViewD:"Viewing",tibNextD:"After",
   aGioHD:"Auspicious hours",aKT:"Twelve Day Officers",a28:"28 Lunar Mansions",
   aTK:"Solar term",
+  wToday:"Today",wThisDay:"This day",
+  rmdTtl:"Remind me",rmdSub:"Add to your phone calendar — reminds you even when the app is closed",
+  rmdLun:"Full & new moon",rmdLunS:"every lunar month",
+  rmdChay:"Vegetarian days",rmdChayAll:"set to full-time — no per-day reminder needed",
+  rmdChayName:"Vegetarian day",
+  rmdBud:"Buddhist observances",rmdBudS:"and traditional festivals",
+  rmdTib:"Tibetan great days",rmdTibS:"Losar, Saga Dawa, Chökhor Düchen…",
+  rmdNote:"My important dates",rmdNoteS:"memorials, birthdays, anniversaries",
+  rmdWhen:"When to remind",rmdEve:"Evening before · 20:00",rmdMorn:"That morning · 06:00",
+  rmdGo:"Download reminders · {n} days",
+  rmdNone:"Nothing selected to remind.",
+  rmdCalName:"Lich Da Chieu",rmdFrom:"Lich Da Chieu",
+  rmdHow:"Open the downloaded file and add it to your phone calendar. From then on your phone reminds you — no need to open the app. Download again if you change your vegetarian schedule or add new dates.",
+  wIs:"{m} is {x}",
+  wPlain:"{m} has no major observance — {a}.",
+  wNote:"Below is how the old almanacs rank this day. The app relays them; it gives no personal advice.",
   aGiua:"Between {a} — {b}",tuoi:"year of the",
   ltpTitle:"Lý Thuần Phong hours",ltpGood:"favorable",ltpBad:"unfavorable",
   ltpNames:["Đại An","Tốc Hỷ","Lưu Niên","Xích Khẩu","Tiểu Cát","Tuyệt Lộ"],
@@ -1974,6 +2030,105 @@ function monthEvents(t){
     for(const ev of dayEvents(c,t))h+=evRow(c,ev,t);}
   return h?`<div class="evmonth">${t.monthEvTitle}</div>${h}`:'';
 }
+let RMD=(function(){try{return JSON.parse(localStorage.getItem('ldc_remind')||'null')}catch(e){return null}})()
+  ||{lun:true,chay:true,bud:true,tib:false,note:true,when:'eve'};
+function saveRmd(){try{localStorage.setItem('ldc_remind',JSON.stringify(RMD))}catch(e){}}
+function rmdSet(k,v){RMD[k]=v;saveRmd();renderScreen();}
+// RFC 5545: gap dong >75 octet, va thoat , ; \ va xuong dong
+function icsEsc(x){return String(x).replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
+function icsFold(line){
+  const b=[];let cur='';
+  for(const ch of line){
+    if(new TextEncoder().encode(cur+ch).length>73){b.push(cur);cur=' '+ch;}else cur+=ch;
+  }
+  b.push(cur);return b.join('\r\n');
+}
+function icsDate(d){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());}
+// Gom moi ngay dang nhac trong 12 thang toi thanh mot su kien ca ngay
+function rmdDays(t){
+  const out=[],start=new Date();start.setHours(0,0,0,0);
+  const len0=lunarMonthLen(start);
+  for(let k=0;k<366;k++){
+    const c=new Date(start.getTime()+k*864e5);
+    const lun=solarToLunar(c.getDate(),c.getMonth()+1,c.getFullYear(),7);
+    const ten=[];
+    if(RMD.note)for(const n of notesOn(c))ten.push(noteTypeName(n.type)+' '+n.name);
+    const be=t.buddhaEv.find(e=>e[0]===lun.month&&e[1]===lun.day);
+    const cu=t.cult.find(e=>e[0]===lun.month&&e[1]===lun.day);
+    if(RMD.bud&&be)ten.push(be[2]);
+    if(RMD.bud&&!be&&cu)ten.push(cu[2]);
+    if(RMD.lun&&(lun.day===1||lun.day===15))
+      ten.push(lunarDayName(lun.day,lunarMonthLen(c),t)+(LANG=='vi'?' tháng '+lun.month:' · lunar month '+lun.month));
+    if(RMD.chay&&CHAYMODE!==4){
+      const ds=chayDays(CHAYMODE,lunarMonthLen(c));
+      if(ds&&ds.indexOf(lun.day)>=0&&!ten.some(x=>/chay|veg/i.test(x)))ten.push(t.rmdChayName);
+    }
+    if(RMD.tib){
+      const tb=tibetan(c);
+      if(!tb.leap)for(const e of DUCHEN)if(tb.month===e[0]&&tb.day===e[1])ten.push(t[e[2]]);
+    }
+    if(ten.length)out.push({d:c,lun,ten});
+  }
+  return out;
+}
+function icsBuild(){
+  const t=T[LANG],days=rmdDays(t);
+  if(!days.length)return '';
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
+  const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Lich Da Chieu//'+LANG.toUpperCase()+'//',
+    'CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:'+icsEsc(t.rmdCalName),'X-WR-TIMEZONE:Asia/Ho_Chi_Minh'];
+  for(const x of days){
+    const dd=icsDate(x.d),nx=icsDate(new Date(x.d.getTime()+864e5));
+    const am=LANG=='vi'?'Âm lịch '+x.lun.day+'/'+x.lun.month:'Lunar '+x.lun.day+'/'+x.lun.month;
+    L.push('BEGIN:VEVENT');
+    L.push('UID:ldc-'+dd+'-'+Math.abs(x.ten.join('').split('').reduce((a,c)=>((a<<5)-a+c.charCodeAt(0))|0,0))+'@lichdachieu');
+    L.push('DTSTAMP:'+stamp);
+    L.push('DTSTART;VALUE=DATE:'+dd);
+    L.push('DTEND;VALUE=DATE:'+nx);
+    L.push(icsFold('SUMMARY:'+icsEsc(x.ten.join(' · '))));
+    L.push(icsFold('DESCRIPTION:'+icsEsc(am+' — '+t.rmdFrom)));
+    L.push('TRANSP:TRANSPARENT');
+    L.push('BEGIN:VALARM');
+    // toi hom truoc 20h = 4 tieng truoc 00:00 ngay do; hoac 6h sang chinh ngay
+    L.push('TRIGGER:'+(RMD.when==='eve'?'-PT4H':'PT6H'));
+    L.push('ACTION:DISPLAY');
+    L.push(icsFold('DESCRIPTION:'+icsEsc(x.ten.join(' · '))));
+    L.push('END:VALARM');
+    L.push('END:VEVENT');
+  }
+  L.push('END:VCALENDAR');
+  return L.join('\r\n')+'\r\n';
+}
+function rmdExport(){
+  const t=T[LANG],txt=icsBuild();
+  if(!txt){alert(t.rmdNone);return;}
+  const blob=new Blob([txt],{type:'text/calendar;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='lich-da-chieu.ics';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+  track('note_add','ics');
+}
+function rmdCard(t){
+  const n=rmdDays(t).length;
+  const ck=(k,lb,sub)=>'<label class="rmck'+(RMD[k]?' on':'')+'"><input type="checkbox" '+(RMD[k]?'checked':'')
+    +' onchange="rmdSet(\''+k+'\',this.checked)"><span class="rmcb">'+(RMD[k]?svgIcon('check',13,2.8):'')+'</span>'
+    +'<span class="rmtx"><b>'+lb+'</b>'+(sub?'<em>'+sub+'</em>':'')+'</span></label>';
+  const wh=(v,lb)=>'<button class="rmw'+(RMD.when===v?' on':'')+'" onclick="rmdSet(\'when\',\''+v+'\')">'+lb+'</button>';
+  return '<div class="card rmd2"><h2>'+t.rmdTtl+'</h2><div class="en">'+t.rmdSub+'</div>'
+    +'<div class="rmlist">'
+    +ck('lun',t.rmdLun,t.rmdLunS)
+    +ck('chay',t.rmdChay,CHAYMODE===4?t.rmdChayAll:t.chayNames[CHAYMODE])
+    +ck('bud',t.rmdBud,t.rmdBudS)
+    +ck('tib',t.rmdTib,t.rmdTibS)
+    +ck('note',t.rmdNote,t.rmdNoteS)
+    +'</div>'
+    +'<div class="clbl" style="margin:16px 0 8px">'+t.rmdWhen+'</div>'
+    +'<div class="rmwrow">'+wh('eve',t.rmdEve)+wh('morn',t.rmdMorn)+'</div>'
+    +'<button class="rmgo" onclick="rmdExport()">'+svgIcon('down',17,2)+' '+t.rmdGo.replace('{n}',n)+'</button>'
+    +'<div class="note">'+t.rmdHow+'</div></div>';
+}
 function screenEvents(){
   const t=T[LANG],now=new Date();let h='';
   for(let k=0;k<12;k++){
@@ -1984,7 +2139,7 @@ function screenEvents(){
       for(const ev of dayEvents(c,t))mh+=evRow(c,ev,t);}
     if(mh)h+=`<div class="evmonth">${LANG=='vi'?'Tháng '+(m+1)+'/'+y:t.moShort[m]+' '+y}</div>`+mh;
   }
-  return `<div class="card" style="padding:16px 18px"><h2 style="font-size:16px">${t.evTitle}</h2></div>`+h;
+  return rmdCard(t)+`<div class="card" style="padding:16px 18px"><h2 style="font-size:16px">${t.evTitle}</h2></div>`+h;
 }
 // trang chi tiết 1 ngày: đủ 4 lăng kính
 // NGUON & PHUONG PHAP — dat CUOI TRANG, sau ca cac lich khac, vi no noi ve
@@ -2012,6 +2167,29 @@ function almNguon(){
 // Dang DUNG TRONG trang chi tiet thi khong duoc chia them nut 'Xem chi tiet
 // ngay' tro ve chinh no — 'chi tiet ngay phai la noi noi dung da mo day du'.
 let INDETAIL=false;
+// Mot cau nguoi thuong doc duoc, dat TREN cung trang chi tiet. Chi noi ngay
+// nay la ngay gi theo lich — khong noi tot xau, khong khuyen viec gi.
+function dayInWords(d,t){
+  const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
+  // Bo "Ram"/"Mung Mot" ra khoi danh sach le: ve sau cau da noi ngay am roi,
+  // giu lai thi thanh "la Mung Mot - mung Mot thang 9 am lich".
+  const evs=dayEvents(d,t).filter(e=>!e.note&&e.b!==t.srcLun);
+  const hnay=sameDay(d,new Date());
+  const mo=hnay?t.wToday:t.wThisDay;
+  const am=LANG=='vi'
+    ? (lun.day===1?'mùng Một':lun.day===15?'rằm':'ngày '+lun.day)+' tháng '+lun.month+' âm lịch'
+    : 'lunar '+lun.day+'/'+lun.month;
+  let cau;
+  if(evs.length){
+    cau=t.wIs.replace('{m}',mo).replace('{x}','<b>'+evs.map(e=>e.n).join(' · ')+'</b>')+' — '+am+'.';
+  }else if(lun.day===1||lun.day===15){
+    // Ram va mung Mot tu no da la ngay dang chu y, khong noi "khong co le lon".
+    cau=t.wIs.replace('{m}',mo).replace('{x}','<b>'+am+'</b>')+'.';
+  }else{
+    cau=t.wPlain.replace('{m}',mo).replace('{a}',am);
+  }
+  return '<div class="inwords">'+cau+'<span class="iwn">'+t.wNote+'</span></div>';
+}
 function detailBody(t){
   const evs=dayEvents(VIEW,t);
   const evH=evs.length?`<div class="card"><h2>${t.dEvents}</h2>
@@ -2020,7 +2198,7 @@ function detailBody(t){
   // Duong doc: su kien dang chu y -> bang ngay + tom tat + bay gio + hanh dong
   // -> am lich chi tiet -> Phat -> Tang -> NGUON o cuoi cung (noi ve tat ca).
   INDETAIL=true;
-  const ra=evH+almanac()+panelVanNien()+panelBuddha()+panelDrukpa()+almNguon();
+  const ra=dayInWords(VIEW,t)+evH+almanac()+panelVanNien()+panelBuddha()+panelDrukpa()+almNguon();
   INDETAIL=false;
   return ra;
 }
@@ -2302,7 +2480,7 @@ function ccStrip(d,t){
   const lun=solarToLunar(d.getDate(),d.getMonth()+1,d.getFullYear(),7);
   const cyD=ccDay(lun.jd),cyM=ccMonth(lun.year,lun.month),cyY=ccYear(lun.year);
   const n=new Date(),ch=ccHour(lun.jd,n.getHours());
-  return `<div class="ccstrip">
+  return `<div class="cclbl">${t.ccStripTtl}</div><div class="ccstrip">
     <div class="cc"><div class="cl">${t.sGio}</div><div class="cv" id="ccNowT">${pad(n.getHours())}:${pad(n.getMinutes())}</div><div class="cn" id="ccNowP">${t.can[ch[0]]} ${t.chi[ch[1]]}</div></div>
     <div class="cc"><div class="cl">${t.sNgay}</div><div class="cv">${lun.day}</div><div class="cn">${t.can[cyD[0]]} ${t.chi[cyD[1]]}</div></div>
     <div class="cc"><div class="cl">${t.sThang}</div><div class="cv">${lun.month}${lun.leap?'*':''}</div><div class="cn">${t.can[cyM[0]]} ${t.chi[cyM[1]]}</div></div>
@@ -2997,7 +3175,6 @@ function screenToday(){
     <div class="dm">${pad(d.getDate())}</div>
     <div class="mo">${t.moShort[d.getMonth()]} · ${d.getFullYear()}</div>
     <div class="cy">${LANG=='vi'?'Năm':'Year'} ${t.can[cyY[0]]} ${t.chi[cyY[1]]} · ${LANG=='vi'?'ngày':'day'} ${t.can[cyD[0]]} ${t.chi[cyD[1]]}</div>
-    <div class="cy alm">${t.heroAlm.replace('{h}',hanhNgay(cyD)).replace('{t}',(LANG=='vi'?TRUC_VI:TRUC_EN)[truc12(lun)]).replace('{s}',TU28_VI[tu28(lun.jd)])}</div>
     <div><button class="daydetail" onclick="MODE='day';goCal(1)">${t.dayDetail} ${svgIcon('chevR',14,2.1)}</button></div>
   </div>
   ${ccStrip(d,t)}
@@ -3391,7 +3568,7 @@ function nextEventLine(d,t){
       const ev=evs.find(e=>e.b!==t.srcLun)||evs[0]; // ưu tiên lễ thật hơn rằm/mùng 1
       return `<div class="cntdn rtap" role="button" tabindex="0" onclick="goDay(${c.getFullYear()},${c.getMonth()+1},${c.getDate()})">
         <span class="cd-n">✦ ${ev.n}</span>
-        <span class="cd-d">${LANG=='vi'?'còn':'in'} <b>${k}</b> ${LANG=='vi'?'ngày':'days'} · ${c.getDate()}/${c.getMonth()+1}</span>
+        <span class="cd-d">${LANG=='vi'?'còn':'in'} <b>${k}</b> ${LANG=='vi'?'ngày':(k===1?'day':'days')} · ${c.getDate()}/${c.getMonth()+1}</span>
       </div>`;
     }
   }
@@ -4226,6 +4403,6 @@ if(loadLoc()){fetchWeather();fetchTide();}
 renderMainTabs();renderScreen();
 </script>
 
-<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v69 · 58a993b5</div><script>window.LDC_BUILD='ldc-v69 · 58a993b5';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
+<!--LDC-BUILD--><div id="ldcBuild" style="text-align:center;font-size:10px;letter-spacing:.04em;opacity:.32;padding:10px 0 92px">ldc-v70 · ea9a59b8</div><script>window.LDC_BUILD='ldc-v70 · ea9a59b8';console.log("Lich Da Chieu build:",window.LDC_BUILD)</script><!--/LDC-BUILD-->
 </body>
 </html>

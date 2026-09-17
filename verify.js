@@ -186,7 +186,9 @@ function serve(root) {
     ['VI hết tên năm kèm "(dương/âm)"',   !/\((dương|âm)\)/i.test(vi)],
     ['EN có "Brightness", hết "Illumination"', en.includes('Brightness') && !en.includes('Illumination')],
     ['Footer không in HTML thô ra màn', !vi.includes('<span') && !en.includes('<span')],
-    ['EN không có "1 days" sai số ít', !/\b1 days\b/.test(en)],
+    // \b1 khop ca "6.1 days" (tuoi trang) -> bao do oan vao dung nhung ngay
+    // tuoi trang le .1. Chi bat so 1 dung nghia: truoc no khong phai chu so/dau cham.
+    ['EN không có "1 days" sai số ít', !/(?<![\d.])1 days\b/.test(en)],
     // iOS ve nhung ky tu nay thanh emoji MAU -> lech han voi phan con lai cua giao dien.
     // Da thay bang icon SVG mot net; bay nay chan ban build sau dua emoji quay lai.
     ['Không còn emoji màu trên giao diện', !/[\u{1F300}-\u{1FAFF}\u{2600}\u{2638}\u{26C5}\u{2744}\u{26C8}]/u.test(vi + en)],
@@ -336,8 +338,47 @@ function serve(root) {
     ['sw.js cache luôn favicon', swTxt.includes('favicon.svg')],
   ];
 
+  // ── 12. Ba việc của V5.8: câu mở đầu dễ hiểu · màn đầu gọn · nhắc việc ──
+  // Nhắc việc là thứ giữ người dùng quay lại, nên nó phải được canh như code:
+  // thiếu thẻ, file .ics sai chuẩn hay rỗng đều là hỏng.
+  const v58 = await page.evaluate(() => {
+    const out = { words: '', hero: '', cclbl: '', card: false, btn: '', ics: '', days: 0, err: '' };
+    try {
+      setLang('vi'); MODE = 'day'; goCal(1);
+      out.words = (document.querySelector('.inwords') || {}).innerText || '';
+      MODE = 'month'; setMain(0);
+      out.hero = (document.querySelector('.hero') || {}).innerText || '';
+      out.cclbl = (document.querySelector('.cclbl') || {}).innerText || '';
+      setMain(4);
+      out.card = !!document.querySelector('.rmd2');
+      out.btn = (document.querySelector('.rmgo') || {}).innerText || '';
+      out.days = rmdDays(T[LANG]).length;
+      out.ics = icsBuild();
+    } catch (e) { out.err = e.message; }
+    return out;
+  });
+  const ics = v58.ics || '';
+  const nEv = (ics.match(/BEGIN:VEVENT/g) || []).length;
+  const longLine = ics.split('\r\n').find(l => Buffer.byteLength(l, 'utf8') > 75);
+  const uids = [...ics.matchAll(/UID:(.+)/g)].map(m => m[1]);
+  const v58Specs = [
+    ['Không lỗi khi dựng lịch nhắc', !v58.err, v58.err],
+    ['Trang chi tiết mở đầu bằng một câu thường', /^(Hôm nay|Ngày này)/.test(v58.words.trim())],
+    ['Câu mở đầu không lặp tên ngày âm', !/(mùng Một|rằm)[\s\S]{0,25}\1/i.test(v58.words)],
+    ['Màn đầu hết dòng "Hành · Trực · Sao"', !/Hành .* Trực .* Sao/.test(v58.hero)],
+    ['Bảng can chi có nhãn nói rõ là âm lịch', /Âm lịch/i.test(v58.cclbl), JSON.stringify(v58.cclbl)],
+    ['Màn Sự kiện có thẻ Nhắc tôi + nút tải', v58.card && /Tải lịch nhắc/.test(v58.btn), v58.btn],
+    [`Lịch nhắc có ngày để nhắc (${v58.days})`, v58.days > 20],
+    ['File .ics đủ đầu/cuối chuẩn', ics.startsWith('BEGIN:VCALENDAR') && ics.trim().endsWith('END:VCALENDAR')],
+    [`Số sự kiện khớp số ngày (${nEv}/${v58.days})`, nEv === v58.days && nEv > 0],
+    ['Mỗi sự kiện có một chuông báo', (ics.match(/BEGIN:VALARM/g) || []).length === nEv],
+    ['Mọi dòng .ics xuống dòng CRLF', ics.length > 0 && !/[^\r]\n/.test(ics)],
+    ['Không dòng .ics nào quá 75 octet', !longLine, (longLine || '').slice(0, 46)],
+    ['UID không trùng nhau', uids.length > 0 && new Set(uids).size === uids.length],
+  ];
+
   const okYear = yearName === 'Hỏa Ngựa';
-  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0 && almSpecs.every(([, ok]) => ok) && brandSpecs.every(([, ok]) => ok);
+  const okSpec = specs.every(([, ok]) => ok) && boardSpecs.every(([, ok]) => ok) && sharp.size === 0 && tabs.length === 0 && orphanTap.size === 0 && almSpecs.every(([, ok]) => ok) && brandSpecs.every(([, ok]) => ok) && v58Specs.every(([, ok]) => ok);
   const pass = errors.length === 0 && undefHits.length === 0 && okYear && okSpec && okBuild;
 
   console.log(`Đã quét ${screens} màn hình (2 ngôn ngữ × ${screens / 2} màn).\n`);
@@ -363,6 +404,8 @@ function serve(root) {
   for (const [label, ok, why] of almSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}` + (!ok && why ? ' — ' + why : ''));
   console.log('11. Hệ lịch · nhận diện:');
   for (const [label, ok] of brandSpecs) console.log(`   ${ok ? '✓' : '✗'} ${label}`);
+  console.log('12. Câu mở đầu · màn đầu gọn · nhắc việc:');
+  for (const [label, ok, why] of v58Specs) console.log(`   ${ok ? '✓' : '✗'} ${label}` + (!ok && why ? ' — ' + why : ''));
   console.log('\n' + (pass ? '>>> ĐẠT — deploy được.' : '>>> HỎNG — KHÔNG deploy.'));
 
   await browser.close();
