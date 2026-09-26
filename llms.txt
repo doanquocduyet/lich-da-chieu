@@ -1,0 +1,22 @@
+# Lịch Đa Chiều
+
+> Ứng dụng lịch miễn phí, chạy offline trên trình duyệt: âm lịch Việt Nam & Can Chi, lịch Phật giáo (Phật lịch, ngày vía, ngày chay), lịch Tạng hệ Phugpa (Losar, Düchen), tiết khí và pha Mặt Trăng — cùng một ngày nhìn qua nhiều hệ lịch.
+
+Mọi số liệu trên các trang dưới đây sinh tự động từ cùng một bộ tính với ứng dụng, không nhập tay.
+
+## Trang chính
+- [Ứng dụng](https://duyet.online/): mở một ngày bất kỳ bằng https://duyet.online/?d=YYYY-MM-DD
+- [Lịch âm hôm nay, lịch âm 2026–2027](https://duyet.online/lich-am/): ngày lễ âm lịch, 24 tiết khí, lịch từng tháng
+- [Lịch Phật giáo 2026](https://duyet.online/lich-phat/): Phật lịch 2570, ngày vía, rằm, mùng Một, ngày chay Thập trai
+- [Lịch Tạng 2026–2027](https://duyet.online/lich-tang/): Losar, bốn ngày Düchen, mùng Một từng tháng Tạng, ngày khuyết và ngày trùng
+
+## Tra một ngày
+- Mỗi ngày từ 2025-01-01 đến 2027-12-31 có một trang: https://duyet.online/ngay/YYYY-MM-DD/ — âm lịch, Can Chi ngày/tháng/năm, nạp âm, tiết khí, lễ, ngày chay, Phật lịch, ngày Tạng, pha trăng và độ sáng.
+- Mỗi tháng có một trang: https://duyet.online/thang/YYYY-MM/
+
+## Phương pháp & nguồn
+- Âm lịch & Can Chi: thuật toán Hồ Ngọc Đức, múi giờ UTC+7 (có năm lệch lịch Trung Quốc một ngày).
+- Tiết khí, pha Mặt Trăng: Jean Meeus, Astronomical Algorithms.
+- Lịch Tạng: hệ Phugpa, Svante Janson "Tibetan calendar mathematics", thư viện mở tibetan-date-calculator. Các hệ khác (Tsurphu, Men-Tsee-Khang) đôi khi lệch một ngày.
+- Phật lịch: quy ước tại Việt Nam = năm dương lịch + 544 (Thái Lan, Myanmar: +543).
+- Hoàng đạo, trực, 28 tú: thuật lại cách sách lịch truyền thống xếp ngày, không phải lời khuyên cá nhân.

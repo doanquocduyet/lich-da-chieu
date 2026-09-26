@@ -1650,3 +1650,85 @@ bản tiếng Anh giờ thành "in 1 day".
 
 **Chưa làm (chú chưa chọn)**: trang Giới thiệu & Liên hệ cho khách doanh
 nghiệp, và nhắc sao lưu sau khi người dùng ghi ngày quan trọng thứ hai.
+
+---
+
+## 39. SEO · AEO · GEO — TRANG TĨNH CHO "LỊCH ÂM", "LỊCH PHẬT", "LỊCH TẠNG" (26/9/2026)
+
+### 39.1 Chẩn đoán trước khi làm
+
+- **Trang chủ chỉ có 40 ký tự chữ tĩnh** (`☾ Lịch Đa Chiều VI EN ldc-v70 · …`). Mọi nội dung do JS vẽ.
+  Bot không chạy JS — Bing, và gần như **mọi bot AI** (GPTBot, ClaudeBot, PerplexityBot) — thấy
+  đúng chừng đó. Từ khóa "lịch âm", "lịch tạng", "lịch phật" xuất hiện **0 lần** trong HTML.
+- Không có `canonical`, không JSON-LD, không `robots.txt`, không `sitemap.xml`. Chỉ có **một URL**,
+  nên chỉ tranh được một nhóm truy vấn.
+- **`duyet.online` deploy thẳng từ repo này** — đã xác nhận: commit đầu PR #1 mang trạng thái
+  `context: "Vercel"`. Câu hỏi treo từ tháng 8 (§10) coi như đóng.
+- Cùng trạng thái đó: `"Deployment rate limited — retry in 24 hours"`. Gói Vercel miễn phí có trần số
+  lần deploy/ngày. **Gom thay đổi, đẩy một lần** — mọi thứ trong §39 được thiết kế quanh ràng buộc này.
+
+### 39.2 Đã làm
+
+| Thứ | Ở đâu | Ghi chú |
+|---|---|---|
+| Trang ngày | `ngay/YYYY-MM-DD/` | 1095 trang (năm hiện tại −1…+1). Âm lịch, Can Chi, nạp âm, tiết khí, lễ, ngày chay, Phật lịch, ngày Tạng, pha trăng, hoàng đạo/trực/tú + 3 câu hỏi nhanh |
+| Trang tháng | `thang/YYYY-MM/` | 36 trang, lưới dương/âm, lễ, rằm/mùng Một, tiết khí, ngày chay, ngày Tạng |
+| 3 trang chủ đề | `lich-am/` `lich-phat/` `lich-tang/` | Bảng cả năm + câu hỏi thường gặp tính từ dữ liệu thật (Tết 2027, Vu Lan, Losar…) |
+| Ô "Hôm nay" | `hom-nay.js` + `du-lieu-ngay.js` | HTML tĩnh không được biết hôm nay (xem 39.3) — trình duyệt tự điền |
+| `sitemap.xml` · `robots.txt` · `llms.txt` | gốc site | llms.txt cho công cụ trả lời AI: tóm tắt, phương pháp, nguồn, mẫu URL |
+| Lớp SEO trang chủ | `patch.py` → `seo()` | title có từ khóa, description, canonical, JSON-LD WebSite+WebApplication, 3 link tĩnh nhìn thấy được ở đáy app |
+| Liên kết sâu | `/?d=YYYY-MM-DD` | Mở thẳng trang chi tiết ngày đó trong app. `openDetail()` luôn mở HÔM NAY nên không dùng được |
+
+**Một nguồn số liệu duy nhất.** `seo/extract.js` mở `index.html` trong Chromium và gọi thẳng hàm của
+app (`solarToLunar`, `ccDay`, `tibetan`, `moonPhase`…). Không viết lại thuật toán nào. Đối chiếu độc
+lập với lịch Tạng đã công bố: Losar 18/2/2026, Chötrul 3/3, Saga Dawa 31/5, Lhabab 1/11 — khớp.
+
+### 39.3 Luật của hệ này — giữ nguyên khi sửa
+
+1. **Đầu ra xác định.** Không nhúng ngày chạy build vào đâu cả (không `lastmod`, không "cập nhật
+   lúc…", không "hôm nay" trong HTML). Engine không đổi thì dựng lại không đổi một byte → không sinh
+   commit, không tốn lượt deploy. Đã thử: dựng 3 lần, cùng một mã băm.
+2. **Không mũ đen.** Không giấu chữ, không nhồi từ khóa, không trang ảo. Link ở đáy app là link thật,
+   nhìn thấy được. Mỗi trang ngày mang số liệu riêng của ngày đó — cùng mô hình mọi trang lịch lớn ở VN.
+3. **§0 vẫn áp dụng.** Hoàng đạo/trực/tú ghi rõ "sách lịch xưa xếp ngày, thuật lại để tham khảo — không
+   phải lời khuyên cho việc riêng". Lịch Tạng ghi rõ các hệ khác có thể lệch một ngày.
+4. **Mọi thay đổi `index.html` → tăng cache `sw.js`**, kể cả khi chỉ đổi lớp SEO. Không thì máy đã cài
+   giữ bản cũ và liên kết `?d=` mở ra hôm nay.
+
+### 39.4 Chạy tự động
+
+`guard.yml` giờ: vá → **dựng trang tĩnh** → **một** commit nếu có gì đổi → `verify.js` → `patch.py --check`
+→ **`seo/check.js`**. Thêm lịch chạy 8 giờ sáng 1/1 giờ VN để dải năm dời theo năm mới.
+
+`seo/check.js` kiểm: thẻ đầu từng trang (title ≤75, description 50–165, canonical đúng, đúng một `<h1>`,
+JSON-LD hợp lệ), title/description không trùng giữa các trang, **không link nội bộ nào chết**, sitemap phủ
+đủ, robots không chặn site, trang chủ còn lớp SEO, và **số liệu trên trang khớp engine** (53 ngày mẫu).
+Đã thử bằng 5 ca âm tính — sửa Can Chi một trang, xóa một trang, đè bản build không có lớp SEO, mất lễ
+ngày 30, JSON-LD hỏng — cả 5 đều bị bắt.
+
+### 39.5 LỖI THẬT TÌM RA KHI LÀM — APP CHƯA SỬA
+
+**Lễ rơi vào ngày 30 bị mất khi tháng âm thiếu (29 ngày).** Có đúng hai lễ: Vía Địa Tạng 30/7, Vía Dược
+Sư 30/9. App so khớp `e[1]===lun.day` nên:
+
+- **2026: không có Vía Địa Tạng** — 10/9/2026 (29/7 âm) app ghi "không có lễ lớn nào".
+  App Diệu Tướng Am báo đúng ngày này (ảnh anh Duyệt gửi 18/9).
+- **2027: không có Vía Dược Sư** — tháng 9 âm 2027 thiếu.
+
+Bảng ngày chay của app đã lùi 30→29 khi tháng thiếu (`chayDays`), bảng lễ thì chưa. App tra lễ ở **10
+chỗ** (`grep -n "buddhaEv.find\|cult.find" index.html`). Trang tĩnh đã áp đúng quy tắc (`seo/extract.js`,
+hàm `hit`), nên **hiện trang tĩnh và app lệch nhau ở đúng những ngày này — app sai**. Sửa trong app
+nên đi qua `patch.py` (bản build ngoài sẽ đè), và thêm một chốt vào `verify.js`.
+
+### 39.6 Việc chỉ chủ site làm được
+
+Code không làm được mấy việc này, mà thiếu chúng thì trang tốt đến đâu cũng chậm lên hạng:
+
+1. **Google Search Console**: thêm `duyet.online`, xác minh qua DNS, gửi `https://duyet.online/sitemap.xml`.
+2. **Bing Webmaster Tools**: nhập từ Search Console một chạm. Bing cũng là nguồn của ChatGPT tìm kiếm và Copilot.
+3. **Nâng gói Vercel hoặc giảm tần suất đẩy**: trần deploy đã chặn một lần. SEO cần trang lên đều.
+4. **Liên kết thật từ nơi khác**: chùa, nhóm Phật tử, trung tâm Tạng truyền, fanpage — một link từ nơi
+   người ta tin giá trị hơn trăm link mua. Đừng mua link: bị phạt cả tên miền.
+5. **Đo**: sau 4–8 tuần xem Search Console. "lịch tạng" ít cạnh tranh, nhiều khả năng lên sớm; "lịch âm"
+   là một trong những từ khóa cạnh tranh nhất tiếng Việt — đường vào là các truy vấn dài theo ngày
+   ("âm lịch 26/9/2026", "vía địa tạng 2026"), không phải đầu từ khóa ngay.

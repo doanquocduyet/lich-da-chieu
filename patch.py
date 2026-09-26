@@ -170,6 +170,54 @@ def stamp(s, cache):
     return body.replace("</body>", tag + "\n</body>"), sig
 
 
+# ── Lớp SEO cho trang chủ ─────────────────────────────────────────────────
+# Bản build từ nguồn ngoài không có lớp này, nên phải chèn lại mỗi lần — cùng
+# cơ chế với 7 chỗ vá và dấu build. Chèn theo khối có đánh dấu, gỡ khối cũ trước
+# rồi mới chèn: chạy lại bao nhiêu lần cũng ra một kết quả.
+#
+# Vì sao: trang chủ vẽ mọi thứ bằng JavaScript. Bot không chạy JS (Bing, bot AI)
+# đọc được đúng 40 ký tự. Khối dưới cho chúng tiêu đề đúng từ khóa, mô tả, địa
+# chỉ chính tắc, dữ liệu cấu trúc, và đường dẫn tới các trang tĩnh ở seo/build.js.
+SEO_TITLE = "Lịch âm hôm nay · Lịch Phật · Lịch Tạng — Lịch Đa Chiều"
+SEO_DESC = ("Lịch âm hôm nay, âm lịch – Can Chi, lịch Phật giáo (ngày vía, ngày chay) "
+            "và lịch Tạng Phugpa (Losar, Düchen) trong một app miễn phí, chạy cả khi không có mạng.")
+SEO_LD = ('{"@context":"https://schema.org","@graph":['
+          '{"@type":"WebSite","@id":"https://duyet.online/#site","name":"Lịch Đa Chiều","url":"https://duyet.online/","inLanguage":"vi"},'
+          '{"@type":"WebApplication","name":"Lịch Đa Chiều","url":"https://duyet.online/","isPartOf":{"@id":"https://duyet.online/#site"},'
+          '"applicationCategory":"LifestyleApplication","operatingSystem":"Any","inLanguage":["vi","en"],'
+          '"offers":{"@type":"Offer","price":"0","priceCurrency":"VND"},'
+          '"description":"Lịch âm – Can Chi, lịch Phật giáo, lịch Tạng hệ Phugpa, tiết khí và pha Mặt Trăng: một ngày nhìn qua nhiều hệ lịch."}]}')
+SEO_HEAD = ('<!--LDC-SEO-HEAD--><link rel="canonical" href="https://duyet.online/">'
+            '<meta name="robots" content="index,follow,max-image-preview:large">'
+            '<script type="application/ld+json">' + SEO_LD + '</script><!--/LDC-SEO-HEAD-->')
+# Đường dẫn THẬT, nhìn thấy được (không giấu chữ — giấu là mũ đen, bị phạt), và
+# liên kết sâu ?d=YYYY-MM-DD để trang ngày tĩnh mở đúng ngày đó trong app.
+# openDetail() của app luôn mở HÔM NAY nên không dùng được; đoạn dưới làm đúng các
+# bước của nó nhưng giữ ngày. Ngày sai (2026-02-30, "abc") thì bỏ qua, app mở bình thường.
+SEO_BODY = ('<!--LDC-SEO-BODY--><style>#ldcLinks a{color:inherit;text-underline-offset:2px}</style><nav id="ldcLinks" aria-label="Tra lịch" style="text-align:center;'
+            'font-size:12px;line-height:2;opacity:.62;padding:18px 16px 0">'
+            '<a href="lich-am/">Lịch âm</a> · <a href="lich-phat/">Lịch Phật giáo</a> · '
+            '<a href="lich-tang/">Lịch Tạng</a></nav>'
+            '<script>(function(){var m=/[?&]d=(\\d{4})-(\\d{2})-(\\d{2})(?:&|$)/.exec(location.search);if(!m)return;'
+            'var y=+m[1],mo=+m[2]-1,dd=+m[3],d=new Date(y,mo,dd);'
+            'if(d.getFullYear()!==y||d.getMonth()!==mo||d.getDate()!==dd)return;'
+            'try{VIEW=d;syncGYM();DETAIL=true;MAIN=1;renderMainTabs();renderScreen();scrollTo(0,0);}catch(e){}})();</script>'
+            '<!--/LDC-SEO-BODY-->')
+SEO_RE = re.compile(r"\n?<!--LDC-SEO-(HEAD|BODY)-->.*?<!--/LDC-SEO-\1-->\n?", re.S)
+
+
+def seo(s):
+    s = SEO_RE.sub("", s)
+    for tag in ("</head>", "</body>"):
+        if s.count(tag) != 1:
+            raise SystemExit("DỪNG — không chèn được lớp SEO: tìm thấy %d thẻ %s." % (s.count(tag), tag))
+    s = re.sub(r"<title>.*?</title>", lambda _: "<title>%s</title>" % SEO_TITLE, s, count=1, flags=re.S)
+    s = re.sub(r'<meta name="description" content="[^"]*">',
+               lambda _: '<meta name="description" content="%s">' % SEO_DESC, s, count=1)
+    s = s.replace("</head>", "\n" + SEO_HEAD + "\n</head>")
+    return s.replace("</body>", "\n" + SEO_BODY + "\n</body>")
+
+
 def bump_sw(path="sw.js"):
     s = io.open(path, encoding="utf-8").read()
     m = re.search(r"const C='ldc-v(\d+)';", s)
@@ -221,11 +269,20 @@ def main(argv):
     else:
         print("\nKhông có gì để vá — cả %d chỗ đã có sẵn, không bump cache." % len(PATCHES))
 
-    out, sig = stamp(s, read_cache())
+    s = seo(s)
     try:
-        unchanged = io.open(dst, encoding="utf-8").read() == out
+        cur = io.open(dst, encoding="utf-8").read()
     except IOError:
-        unchanged = False
+        cur = None
+    out, sig = stamp(s, read_cache())
+    # index.html đổi mà cache sw.js giữ nguyên thì máy đã cài vẫn chạy bản cũ — và
+    # liên kết ?d= từ trang tĩnh sẽ mở ra hôm nay. Đổi là phải tăng cache, kể cả khi
+    # 7 chỗ vá đã đủ và thứ đổi chỉ là lớp SEO.
+    if out != cur and not todo:
+        old, new = bump_sw()
+        print("index.html đổi (lớp SEO). Cache sw.js: ldc-v%d -> ldc-v%d" % (old, new))
+        out, sig = stamp(s, read_cache())
+    unchanged = out == cur
 
     if unchanged:
         print("%s không đổi một byte nào. Dấu build: %s" % (dst, sig))

@@ -19,6 +19,11 @@ on:
       - 'patch.py'
       - 'verify.js'
       - '.github/workflows/guard.yml'
+      - 'seo/**'
+  # Trang tĩnh phủ năm hiện tại -1..+1 (seo/build.js). Sang năm mới phải dựng lại
+  # để dải năm dời theo — 01:00 UTC ngày 1/1 là 8 giờ sáng giờ Việt Nam.
+  schedule:
+    - cron: '0 1 1 1 *'
   workflow_dispatch:
 
 permissions:
@@ -44,22 +49,40 @@ jobs:
       - name: Vá lại 7 chỗ nếu bản build làm mất
         run: python3 patch.py index.html
 
-      - name: Đẩy bản vá lên nếu có gì đổi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cài Chromium
+        run: |
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund playwright
+          npx playwright install --with-deps chromium
+
+      # Trang tĩnh lấy số liệu từ CHÍNH engine trong index.html, nên phải dựng lại
+      # sau khi vá. Đầu ra xác định: engine không đổi thì không đổi một byte.
+      - name: Dựng lại trang tĩnh (lịch âm / Phật / Tạng, trang ngày, sitemap)
+        run: node seo/build.js
+
+      # MỘT commit cho cả bản vá lẫn trang tĩnh. Vercel gói miễn phí giới hạn số
+      # lần deploy mỗi ngày — đã chạm trần 25/9/2026 — nên không đẩy lắt nhắt.
+      - name: Đẩy lên nếu có gì đổi
         id: fix
         run: |
-          if git diff --quiet; then
-            echo "Không có gì để vá — bản build đã đủ 7 chỗ."
+          OUT="index.html sw.js sitemap.xml robots.txt llms.txt trang.css hom-nay.js du-lieu-ngay.js ngay thang lich-am lich-phat lich-tang"
+          git add -A -- $OUT
+          if git diff --cached --quiet; then
+            echo "Không có gì đổi — bản vá và trang tĩnh đã khớp."
             echo "patched=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          echo "::notice::Bản build thiếu 7 chỗ vá — đã vá lại và bump cache tự động."
+          echo "::notice::Đã tự vá / dựng lại trang tĩnh — xem commit của github-actions[bot]."
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html sw.js
-          git commit -m "Tự động vá lại 7 chỗ spec + bump cache
+          git commit -m "Tự động: vá lại + dựng lại trang tĩnh
 
-          Bản build mới đẩy lên thiếu các chỗ vá bắt buộc. patch.py đã vá lại.
-          Xem §11 trong BANGIAO-LICH-DA-CHIEU.md."
+          patch.py (7 chỗ vá, lớp SEO, dấu build) và seo/build.js. Xem §11
+          và §39 trong BANGIAO-LICH-DA-CHIEU.md."
           git push
           echo "patched=true" >> "$GITHUB_OUTPUT"
 
@@ -75,18 +98,11 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             "${{ github.api_url }}/repos/${{ github.repository }}/pages/builds" || true
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Cài Chromium
-        run: |
-          npm init -y >/dev/null
-          npm i --no-audit --no-fund playwright
-          npx playwright install --with-deps chromium
-
       - name: Kiểm tra thật trên trình duyệt
         run: node verify.js
 
       - name: Kiểm tra lại mã nguồn còn đủ 7 chỗ vá
         run: python3 patch.py index.html --check
+
+      - name: Kiểm tra trang tĩnh (thẻ, link, sitemap, số liệu khớp engine)
+        run: node seo/check.js

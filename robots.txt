@@ -1,0 +1,5 @@
+# Lịch Đa Chiều — mọi công cụ tìm kiếm và công cụ trả lời AI đều được chào đón.
+User-agent: *
+Allow: /
+
+Sitemap: https://duyet.online/sitemap.xml

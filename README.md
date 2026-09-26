@@ -74,3 +74,15 @@ getStats()
 `Deploy → 10–20 người thật dùng → đọc getStats() → mới quyết V3.`
 
 Backlog §7 **chưa làm và không làm trước khi có số liệu người dùng thật**.
+
+## Trang tĩnh cho công cụ tìm kiếm
+
+`ngay/`, `thang/`, `lich-am/`, `lich-phat/`, `lich-tang/`, `sitemap.xml`, `robots.txt`, `llms.txt` do
+`seo/build.js` sinh ra từ chính engine trong `index.html` — **đừng sửa tay**, sửa script rồi dựng lại:
+
+```bash
+node seo/build.js     # dựng lại (đầu ra xác định: engine không đổi thì không đổi byte nào)
+node seo/check.js     # thẻ, link, sitemap, số liệu khớp engine
+```
+
+GitHub Actions tự làm cả hai mỗi khi `index.html` đổi. Chi tiết và việc cần chủ site làm: §39 file spec.
